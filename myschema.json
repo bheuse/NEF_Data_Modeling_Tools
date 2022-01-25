@@ -1,0 +1,10 @@
+{
+    "json.schemas": [
+    {
+        "fileMatch": [
+            "/Nef/NEF_NetworkMap.json"
+            ],
+        "url": "./Nef/NEF_NetworkMap_DataModel_json2/NEF_Instance_schema.json"
+    }
+    ]
+}

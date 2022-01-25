@@ -1,0 +1,2764 @@
+{
+   "$schema": "http://json-schema.org/draft-07/schema",
+   "$id": "https://amdocs.com/schemas/nef/NefConfiguration.json",
+   "type": "object",
+   "title": "Schema for NefConfiguration",
+   "description": "No Description for NefConfiguration",
+   "default": {},
+   "examples": [
+      {
+         "schemaVersion": "1.0.0",
+         "schemaUri": "https://nef.amdocs.com:8080/v1/NefConfiguration/schema"
+      }
+   ],
+   "required": [
+      "schemaVersion",
+      "schemaUri",
+      "NefCommon",
+      "api_profiles",
+      "NefParameters",
+      "nf_profiles"
+   ],
+   "properties": {
+      "schemaVersion": {
+         "$id": "#/properties/schemaVersion",
+         "type": "string",
+         "title": "schemaVersion",
+         "description": "Schema Version",
+         "default": "",
+         "examples": [
+            "schemaVersion",
+            "1.0.0"
+         ],
+         "validationScript": "",
+         "possibleValues": [
+            "1.0.0",
+            "22.03"
+         ],
+         "defaultValue": "1.0.0",
+         "applicableTo": "noApplicableTo",
+         "minCardinality": 1,
+         "maxCardinality": 1,
+         "validFor": "NefConfiguration",
+         "format": "",
+         "markdownDescription": "Schema Version",
+         "valueSpecification": ""
+      },
+      "schemaUri": {
+         "$id": "#/properties/schemaUri",
+         "type": "string",
+         "title": "schemaUri",
+         "description": "Schema Uri",
+         "default": "",
+         "examples": [
+            "schemaUri",
+            ""
+         ],
+         "validationScript": "",
+         "possibleValues": [
+            "https://nef.amdocs.com:8080/v1/NefConfiguration/schema"
+         ],
+         "defaultValue": "https://nef.amdocs.com:8080/v1/NefConfiguration/schema",
+         "applicableTo": "noApplicableTo",
+         "minCardinality": 1,
+         "maxCardinality": 1,
+         "validFor": "NefConfiguration",
+         "format": "uri",
+         "markdownDescription": "Schema Uri",
+         "valueSpecification": "noValueSpecification"
+      },
+      "NefCommon": {
+         "$ref": "#/$defs/NefCommon"
+      },
+      "api_profiles": {
+         "$ref": "#/$defs/api_profiles"
+      },
+      "NefParameters": {
+         "$ref": "#/$defs/NefParameters"
+      },
+      "nf_profiles": {
+         "type": "array",
+         "items": {
+            "$ref": "#/$defs/nf_profiles"
+         }
+      }
+   },
+   "additionalProperties": true,
+   "$defs": {
+      "NefCommon": {
+         "type": "object",
+         "title": "Schema for NefCommon",
+         "description": "No Description for NefCommon",
+         "default": {},
+         "examples": [
+            {}
+         ],
+         "required": [
+            "services",
+            "nfClients",
+            "stages"
+         ],
+         "properties": {
+            "services": {
+               "$ref": "#/$defs/services"
+            },
+            "nfClients": {
+               "$ref": "#/$defs/nfClients"
+            },
+            "stages": {
+               "$ref": "#/$defs/stages"
+            }
+         },
+         "additionalProperties": true
+      },
+      "stages": {
+         "type": "object",
+         "title": "Schema for stages",
+         "description": "No Description for stages",
+         "default": {},
+         "examples": [
+            {}
+         ],
+         "required": [],
+         "properties": {
+            "AuthStage": {
+               "$ref": "#/$defs/AuthStage"
+            },
+            "CreateChfStage": {
+               "$ref": "#/$defs/CreateChfStage"
+            },
+            "DiscoveryBsfStage": {
+               "$ref": "#/$defs/DiscoveryBsfStage"
+            },
+            "WriteEdrStage": {
+               "$ref": "#/$defs/WriteEdrStage"
+            },
+            "PaPcfStage": {
+               "$ref": "#/$defs/PaPcfStage"
+            },
+            "MeSelectLocationServiceStage": {
+               "$ref": "#/$defs/MeSelectLocationServiceStage"
+            },
+            "SessionStorage": {
+               "$ref": "#/$defs/SessionStorage"
+            }
+         },
+         "additionalProperties": true
+      },
+      "NefParameters": {
+         "type": "object",
+         "title": "Schema for NefParameters",
+         "description": "No Description for NefParameters",
+         "default": {},
+         "examples": [
+            {
+               "nrfUri": "https://nef.amdocs.com:8080/v1",
+               "webGuiPort": 8080
+            }
+         ],
+         "required": [
+            "nrfUri",
+            "webGuiPort"
+         ],
+         "properties": {
+            "nrfUri": {
+               "$id": "#/properties/nrfUri",
+               "type": "string",
+               "title": "nrfUri",
+               "description": "NRF Uri",
+               "default": "",
+               "examples": [
+                  "nrfUri",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "https://nef.amdocs.com:8080/v1",
+                  "noDefaultValue"
+               ],
+               "defaultValue": "https://nef.amdocs.com:8080/v1",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "uri",
+               "markdownDescription": "NRF Uri",
+               "valueSpecification": "noValueSpecification"
+            },
+            "webGuiPort": {
+               "$id": "#/properties/webGuiPort",
+               "type": "integer",
+               "title": "webGuiPort",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "webGuiPort",
+                  "8080"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  8080,
+                  80
+               ],
+               "defaultValue": 8080,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            }
+         },
+         "additionalProperties": true
+      },
+      "services": {
+         "type": "object",
+         "title": "Schema for services",
+         "description": "No Description for services",
+         "default": {},
+         "examples": [
+            {}
+         ],
+         "required": [
+            "MobileCodes"
+         ],
+         "properties": {
+            "MobileCodes": {
+               "$ref": "#/$defs/MobileCodes"
+            }
+         },
+         "additionalProperties": true
+      },
+      "MobileCodes": {
+         "type": "object",
+         "title": "Schema for MobileCodes",
+         "description": "No Description for MobileCodes",
+         "default": {},
+         "examples": [
+            {
+               "mcc": 350,
+               "mnc": 150
+            }
+         ],
+         "required": [
+            "mcc",
+            "mnc"
+         ],
+         "properties": {
+            "mcc": {
+               "$id": "#/properties/mcc",
+               "type": "integer",
+               "title": "mcc",
+               "description": "Mobile Country Code",
+               "default": "",
+               "examples": [
+                  150,
+                  350
+               ],
+               "validationScript": "",
+               "possibleValues": [],
+               "defaultValue": 350,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Mobile Country Code",
+               "valueSpecification": "mcc"
+            },
+            "mnc": {
+               "$id": "#/properties/mnc",
+               "type": "integer",
+               "title": "mnc",
+               "description": "Mobile Number Code",
+               "default": "",
+               "examples": [
+                  150,
+                  350
+               ],
+               "validationScript": "",
+               "possibleValues": [],
+               "defaultValue": 150,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Mobile Number Code",
+               "valueSpecification": "mcc"
+            }
+         },
+         "additionalProperties": true
+      },
+      "nfClients": {
+         "type": "object",
+         "title": "Schema for nfClients",
+         "description": "No Description for nfClients",
+         "default": {},
+         "examples": [
+            {}
+         ],
+         "required": [],
+         "properties": {
+            "AmfEventExposureService": {
+               "$ref": "#/$defs/AmfEventExposureService"
+            },
+            "BindingSupportManagementService": {
+               "$ref": "#/$defs/BindingSupportManagementService"
+            },
+            "CHFService": {
+               "$ref": "#/$defs/CHFService"
+            },
+            "GmlcLocationService": {
+               "$ref": "#/$defs/GmlcLocationService"
+            },
+            "MonitoringEventService": {
+               "$ref": "#/$defs/MonitoringEventService"
+            },
+            "NudsfDr": {
+               "$ref": "#/$defs/NudsfDr"
+            },
+            "PolicyAuthorisationService": {
+               "$ref": "#/$defs/PolicyAuthorisationService"
+            },
+            "SmfEventExposureService": {
+               "$ref": "#/$defs/SmfEventExposureService"
+            },
+            "TrafficInfluenceService": {
+               "$ref": "#/$defs/TrafficInfluenceService"
+            },
+            "UdmSdmService": {
+               "$ref": "#/$defs/UdmSdmService"
+            },
+            "UdmEventExposureService": {
+               "$ref": "#/$defs/UdmEventExposureService"
+            },
+            "UdrDrService": {
+               "$ref": "#/$defs/UdrDrService"
+            }
+         },
+         "additionalProperties": true
+      },
+      "AmfEventExposureService": {
+         "type": "object",
+         "title": "Schema for AmfEventExposureService",
+         "description": "No Description for AmfEventExposureService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "AMF"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "AMF"
+               ],
+               "defaultValue": "AMF",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "Subscriptions": {
+               "$ref": "#/$defs/Subscriptions"
+            }
+         },
+         "additionalProperties": true
+      },
+      "Subscriptions": {
+         "type": "object",
+         "title": "Schema for Subscriptions",
+         "description": "No Description for Subscriptions",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "BindingSupportManagementService": {
+         "type": "object",
+         "title": "Schema for BindingSupportManagementService",
+         "description": "No Description for BindingSupportManagementService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "BSF"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "BSF"
+               ],
+               "defaultValue": "BSF",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "PcfBindings": {
+               "$ref": "#/$defs/PcfBindings"
+            }
+         },
+         "additionalProperties": true
+      },
+      "PcfBindings": {
+         "type": "object",
+         "title": "Schema for PcfBindings",
+         "description": "No Description for PcfBindings",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "CHFService": {
+         "type": "object",
+         "title": "Schema for CHFService",
+         "description": "No Description for CHFService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "CHF"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "CHF"
+               ],
+               "defaultValue": "CHF",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "Chargingdata": {
+               "$ref": "#/$defs/Chargingdata"
+            }
+         },
+         "additionalProperties": true
+      },
+      "Chargingdata": {
+         "type": "object",
+         "title": "Schema for Chargingdata",
+         "description": "No Description for Chargingdata",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "GmlcLocationService": {
+         "type": "object",
+         "title": "Schema for GmlcLocationService",
+         "description": "No Description for GmlcLocationService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "GMLC"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "GMLC"
+               ],
+               "defaultValue": "GMLC",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "CancelLocation": {
+               "$ref": "#/$defs/CancelLocation"
+            },
+            "LocationUpdate": {
+               "$ref": "#/$defs/LocationUpdate"
+            },
+            "ProvideLocation": {
+               "$ref": "#/$defs/ProvideLocation"
+            }
+         },
+         "additionalProperties": true
+      },
+      "CancelLocation": {
+         "type": "object",
+         "title": "Schema for CancelLocation",
+         "description": "No Description for CancelLocation",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "LocationUpdate": {
+         "type": "object",
+         "title": "Schema for LocationUpdate",
+         "description": "No Description for LocationUpdate",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "ProvideLocation": {
+         "type": "object",
+         "title": "Schema for ProvideLocation",
+         "description": "No Description for ProvideLocation",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "MonitoringEventService": {
+         "type": "object",
+         "title": "Schema for MonitoringEventService",
+         "description": "No Description for MonitoringEventService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "noDefaultalue"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultalue"
+               ],
+               "defaultValue": "noDefaultalue",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "novalidFor",
+               "format": "noFormat",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "meCreatesubscriptionCallback": {
+               "$ref": "#/$defs/meCreatesubscriptionCallback"
+            },
+            "MonitoringEventServiceParameter": {
+               "$ref": "#/$defs/MonitoringEventServiceParameter"
+            }
+         },
+         "additionalProperties": true
+      },
+      "meCreatesubscriptionCallback": {
+         "type": "object",
+         "title": "Schema for meCreatesubscriptionCallback",
+         "description": "No Description for meCreatesubscriptionCallback",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "NudsfDr": {
+         "type": "object",
+         "title": "Schema for NudsfDr",
+         "description": "No Description for NudsfDr",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "UDSF"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "UDSF"
+               ],
+               "defaultValue": "UDSF",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "NudsfDrRoot": {
+               "$ref": "#/$defs/NudsfDrRoot"
+            }
+         },
+         "additionalProperties": true
+      },
+      "NudsfDrRoot": {
+         "type": "object",
+         "title": "Schema for NudsfDrRoot",
+         "description": "No Description for NudsfDrRoot",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "PolicyAuthorisationService": {
+         "type": "object",
+         "title": "Schema for PolicyAuthorisationService",
+         "description": "No Description for PolicyAuthorisationService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "PCF"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "PCF"
+               ],
+               "defaultValue": "PCF",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "AppSessions": {
+               "$ref": "#/$defs/AppSessions"
+            }
+         },
+         "additionalProperties": true
+      },
+      "AppSessions": {
+         "type": "object",
+         "title": "Schema for AppSessions",
+         "description": "No Description for AppSessions",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "SmfEventExposureService": {
+         "type": "object",
+         "title": "Schema for SmfEventExposureService",
+         "description": "No Description for SmfEventExposureService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "SMF"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "SMF"
+               ],
+               "defaultValue": "SMF",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "CreateindividualsubcriptionCallback": {
+               "$ref": "#/$defs/CreateindividualsubcriptionCallback"
+            }
+         },
+         "additionalProperties": true
+      },
+      "CreateindividualsubcriptionCallback": {
+         "type": "object",
+         "title": "Schema for CreateindividualsubcriptionCallback",
+         "description": "No Description for CreateindividualsubcriptionCallback",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "TrafficInfluenceService": {
+         "type": "object",
+         "title": "Schema for TrafficInfluenceService",
+         "description": "No Description for TrafficInfluenceService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "PCF"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "PCF"
+               ],
+               "defaultValue": "PCF",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "tiCreatesubscriptionCallback": {
+               "$ref": "#/$defs/tiCreatesubscriptionCallback"
+            }
+         },
+         "additionalProperties": true
+      },
+      "tiCreatesubscriptionCallback": {
+         "type": "object",
+         "title": "Schema for tiCreatesubscriptionCallback",
+         "description": "No Description for tiCreatesubscriptionCallback",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "UdmSdmService": {
+         "type": "object",
+         "title": "Schema for UdmSdmService",
+         "description": "No Description for UdmSdmService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "UDM"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "UDM"
+               ],
+               "defaultValue": "UDM",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "GroupData": {
+               "$ref": "#/$defs/GroupData"
+            },
+            "UdmSdmServiceRoot": {
+               "$ref": "#/$defs/UdmSdmServiceRoot"
+            }
+         },
+         "additionalProperties": true
+      },
+      "GroupData": {
+         "type": "object",
+         "title": "Schema for GroupData",
+         "description": "No Description for GroupData",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "UdmSdmServiceRoot": {
+         "type": "object",
+         "title": "Schema for UdmSdmServiceRoot",
+         "description": "No Description for UdmSdmServiceRoot",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "UdmEventExposureService": {
+         "type": "object",
+         "title": "Schema for UdmEventExposureService",
+         "description": "No Description for UdmEventExposureService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "UDM"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "UDM"
+               ],
+               "defaultValue": "UDM",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "UdmEventExposureServiceRoot": {
+               "$ref": "#/$defs/UdmEventExposureServiceRoot"
+            }
+         },
+         "additionalProperties": true
+      },
+      "UdmEventExposureServiceRoot": {
+         "type": "object",
+         "title": "Schema for UdmEventExposureServiceRoot",
+         "description": "No Description for UdmEventExposureServiceRoot",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "UdrDrService": {
+         "type": "object",
+         "title": "Schema for UdrDrService",
+         "description": "No Description for UdrDrService",
+         "default": {},
+         "examples": [
+            {
+               "nfType": "UDR"
+            }
+         ],
+         "required": [
+            "nfType"
+         ],
+         "properties": {
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "UDR"
+               ],
+               "defaultValue": "UDR",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "ApplicationData": {
+               "$ref": "#/$defs/ApplicationData"
+            }
+         },
+         "additionalProperties": true
+      },
+      "ApplicationData": {
+         "type": "object",
+         "title": "Schema for ApplicationData",
+         "description": "No Description for ApplicationData",
+         "default": {},
+         "examples": [
+            {
+               "timeout": 2000
+            }
+         ],
+         "required": [
+            "timeout"
+         ],
+         "properties": {
+            "timeout": {
+               "$id": "#/properties/timeout",
+               "type": "integer",
+               "title": "timeout",
+               "description": "Timeout for NF Answer for this Operation",
+               "default": "",
+               "examples": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  200,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "integer",
+               "markdownDescription": "Timeout for NF Answer for this Operation",
+               "valueSpecification": "nFtimeout"
+            }
+         },
+         "additionalProperties": true
+      },
+      "AuthStage": {
+         "type": "object",
+         "title": "Schema for AuthStage",
+         "description": "No Description for AuthStage",
+         "default": {},
+         "examples": [
+            {
+               "enabled": true,
+               "keycloakPublicKey": "noDefaultValue"
+            }
+         ],
+         "required": [
+            "enabled",
+            "keycloakPublicKey"
+         ],
+         "properties": {
+            "enabled": {
+               "$id": "#/properties/enabled",
+               "type": "boolean",
+               "title": "enabled",
+               "description": "Enable Stage",
+               "default": "",
+               "examples": [
+                  "enabled",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  true,
+                  false
+               ],
+               "defaultValue": true,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "Enable Stage",
+               "valueSpecification": "enableStage"
+            },
+            "keycloakPublicKey": {
+               "$id": "#/properties/keycloakPublicKey",
+               "type": "string",
+               "title": "keycloakPublicKey",
+               "description": "Keycloak Public Key",
+               "default": "",
+               "examples": [
+                  "keycloakPublicKey",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [],
+               "defaultValue": "noDefaultValue",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "Keycloak Public Key",
+               "valueSpecification": "PublicKey"
+            }
+         },
+         "additionalProperties": true
+      },
+      "CreateChfStage": {
+         "type": "object",
+         "title": "Schema for CreateChfStage",
+         "description": "No Description for CreateChfStage",
+         "default": {},
+         "examples": [
+            {
+               "enabled": true
+            }
+         ],
+         "required": [
+            "enabled"
+         ],
+         "properties": {
+            "enabled": {
+               "$id": "#/properties/enabled",
+               "type": "boolean",
+               "title": "enabled",
+               "description": "Enable Stage",
+               "default": "",
+               "examples": [
+                  "enabled",
+                  "true"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  true,
+                  false
+               ],
+               "defaultValue": true,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "Enable Stage",
+               "valueSpecification": "enableStage"
+            }
+         },
+         "additionalProperties": true
+      },
+      "DiscoveryBsfStage": {
+         "type": "object",
+         "title": "Schema for DiscoveryBsfStage",
+         "description": "No Description for DiscoveryBsfStage",
+         "default": {},
+         "examples": [
+            {
+               "enabled": true
+            }
+         ],
+         "required": [
+            "enabled"
+         ],
+         "properties": {
+            "enabled": {
+               "$id": "#/properties/enabled",
+               "type": "boolean",
+               "title": "enabled",
+               "description": "Enable Stage",
+               "default": "",
+               "examples": [
+                  "enabled",
+                  "true"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  true,
+                  false
+               ],
+               "defaultValue": true,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "Enable Stage",
+               "valueSpecification": "enableStage"
+            }
+         },
+         "additionalProperties": true
+      },
+      "WriteEdrStage": {
+         "type": "object",
+         "title": "Schema for WriteEdrStage",
+         "description": "No Description for WriteEdrStage",
+         "default": {},
+         "examples": [
+            {
+               "enabled": true
+            }
+         ],
+         "required": [
+            "enabled"
+         ],
+         "properties": {
+            "enabled": {
+               "$id": "#/properties/enabled",
+               "type": "boolean",
+               "title": "enabled",
+               "description": "Enable Stage",
+               "default": "",
+               "examples": [
+                  "enabled",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  true,
+                  false
+               ],
+               "defaultValue": true,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "Enable Stage",
+               "valueSpecification": "enableStage"
+            }
+         },
+         "additionalProperties": true
+      },
+      "PaPcfStage": {
+         "type": "object",
+         "title": "Schema for PaPcfStage",
+         "description": "No Description for PaPcfStage",
+         "default": {},
+         "examples": [
+            {
+               "pcfSuppFeat": 4018002
+            }
+         ],
+         "required": [
+            "pcfSuppFeat"
+         ],
+         "properties": {
+            "pcfSuppFeat": {
+               "$id": "#/properties/pcfSuppFeat",
+               "type": "string",
+               "title": "pcfSuppFeat",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "pcfSuppFeat",
+                  "4018002"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  4018002,
+                  4018003
+               ],
+               "defaultValue": 4018002,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            }
+         },
+         "additionalProperties": true
+      },
+      "MeSelectLocationServiceStage": {
+         "type": "object",
+         "title": "Schema for MeSelectLocationServiceStage",
+         "description": "No Description for MeSelectLocationServiceStage",
+         "default": {},
+         "examples": [
+            {
+               "locationService": "UDM"
+            }
+         ],
+         "required": [
+            "locationService"
+         ],
+         "properties": {
+            "locationService": {
+               "$id": "#/properties/locationService",
+               "type": "string",
+               "title": "locationService",
+               "description": "Location Service",
+               "default": "",
+               "examples": [
+                  "locationService",
+                  "UDM"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "UDM",
+                  "GLMC"
+               ],
+               "defaultValue": "UDM",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            }
+         },
+         "additionalProperties": true
+      },
+      "SessionStorage": {
+         "type": "object",
+         "title": "Schema for SessionStorage",
+         "description": "No Description for SessionStorage",
+         "default": {},
+         "examples": [
+            {
+               "realm": "noDefaultValue",
+               "storageId": "nef-common",
+               "idleTimer": 86400,
+               "externalProtocolSchemeOverride": "NA"
+            }
+         ],
+         "required": [
+            "realm",
+            "storageId",
+            "idleTimer",
+            "externalProtocolSchemeOverride"
+         ],
+         "properties": {
+            "realm": {
+               "$id": "#/properties/realm",
+               "type": "string",
+               "title": "realm",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "realm",
+                  "openet"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": "noDefaultValue",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "storageId": {
+               "$id": "#/properties/storageId",
+               "type": "string",
+               "title": "storageId",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "storageId",
+                  "nef-common"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "nef-common",
+                  "nef-common2"
+               ],
+               "defaultValue": "nef-common",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "idleTimer": {
+               "$id": "#/properties/idleTimer",
+               "type": "integer",
+               "title": "idleTimer",
+               "description": "Session Idle Timer",
+               "default": "",
+               "examples": [
+                  86400,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  86400,
+                  500,
+                  1000,
+                  2000,
+                  5000
+               ],
+               "defaultValue": 86400,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "Session Idle Timer",
+               "valueSpecification": "sessionIdleTimer"
+            },
+            "externalProtocolSchemeOverride": {
+               "$id": "#/properties/externalProtocolSchemeOverride",
+               "type": "string",
+               "title": "externalProtocolSchemeOverride",
+               "description": "External Protocol Scheme Override",
+               "default": "",
+               "examples": [
+                  "externalProtocolSchemeOverride",
+                  "NA"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "NA",
+                  "Yes"
+               ],
+               "defaultValue": "NA",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "External Protocol Scheme Override",
+               "valueSpecification": "noValueSpecification"
+            }
+         },
+         "additionalProperties": true
+      },
+      "api_profiles": {
+         "type": "object",
+         "title": "Schema for api_profiles",
+         "description": "No Description for api_profiles",
+         "default": {},
+         "examples": [
+            {}
+         ],
+         "required": [
+            "as-session-with-qos",
+            "chargeable-party",
+            "monitoring-event",
+            "traffic-influence"
+         ],
+         "properties": {
+            "as-session-with-qos": {
+               "$ref": "#/$defs/as-session-with-qos"
+            },
+            "chargeable-party": {
+               "$ref": "#/$defs/chargeable-party"
+            },
+            "monitoring-event": {
+               "$ref": "#/$defs/monitoring-event"
+            },
+            "traffic-influence": {
+               "$ref": "#/$defs/traffic-influence"
+            }
+         },
+         "additionalProperties": true
+      },
+      "as-session-with-qos": {
+         "type": "object",
+         "title": "Schema for as-session-with-qos",
+         "description": "No Description for as-session-with-qos",
+         "default": {},
+         "examples": [
+            {
+               "openAPIyaml": "noDefaultalue"
+            }
+         ],
+         "required": [
+            "openAPIyaml",
+            "stages",
+            "services",
+            "nfClients"
+         ],
+         "properties": {
+            "openAPIyaml": {
+               "$id": "#/properties/openAPIyaml",
+               "type": "string",
+               "title": "openAPIyaml",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "openAPIyaml",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultalue"
+               ],
+               "defaultValue": "noDefaultalue",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "novalidFor",
+               "format": "noFormat",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "stages": {
+               "$ref": "#/$defs/stages"
+            },
+            "services": {
+               "$ref": "#/$defs/services"
+            },
+            "nfClients": {
+               "$ref": "#/$defs/nfClients"
+            }
+         },
+         "additionalProperties": true
+      },
+      "chargeable-party": {
+         "type": "object",
+         "title": "Schema for chargeable-party",
+         "description": "No Description for chargeable-party",
+         "default": {},
+         "examples": [
+            {
+               "openAPIyaml": "noDefaultalue"
+            }
+         ],
+         "required": [
+            "openAPIyaml",
+            "stages",
+            "services",
+            "nfClients"
+         ],
+         "properties": {
+            "openAPIyaml": {
+               "$id": "#/properties/openAPIyaml",
+               "type": "string",
+               "title": "openAPIyaml",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "openAPIyaml",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultalue"
+               ],
+               "defaultValue": "noDefaultalue",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "novalidFor",
+               "format": "noFormat",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "stages": {
+               "$ref": "#/$defs/stages"
+            },
+            "services": {
+               "$ref": "#/$defs/services"
+            },
+            "nfClients": {
+               "$ref": "#/$defs/nfClients"
+            }
+         },
+         "additionalProperties": true
+      },
+      "monitoring-event": {
+         "type": "object",
+         "title": "Schema for monitoring-event",
+         "description": "No Description for monitoring-event",
+         "default": {},
+         "examples": [
+            {
+               "openAPIyaml": "noDefaultalue"
+            }
+         ],
+         "required": [
+            "openAPIyaml",
+            "stages",
+            "services",
+            "nfClients"
+         ],
+         "properties": {
+            "openAPIyaml": {
+               "$id": "#/properties/openAPIyaml",
+               "type": "string",
+               "title": "openAPIyaml",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "openAPIyaml",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultalue"
+               ],
+               "defaultValue": "noDefaultalue",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "novalidFor",
+               "format": "noFormat",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "stages": {
+               "$ref": "#/$defs/stages"
+            },
+            "services": {
+               "$ref": "#/$defs/services"
+            },
+            "nfClients": {
+               "$ref": "#/$defs/nfClients"
+            }
+         },
+         "additionalProperties": true
+      },
+      "traffic-influence": {
+         "type": "object",
+         "title": "Schema for traffic-influence",
+         "description": "No Description for traffic-influence",
+         "default": {},
+         "examples": [
+            {
+               "openAPIyaml": "noDefaultalue"
+            }
+         ],
+         "required": [
+            "openAPIyaml",
+            "stages",
+            "services",
+            "nfClients"
+         ],
+         "properties": {
+            "openAPIyaml": {
+               "$id": "#/properties/openAPIyaml",
+               "type": "string",
+               "title": "openAPIyaml",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "openAPIyaml",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultalue"
+               ],
+               "defaultValue": "noDefaultalue",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "novalidFor",
+               "format": "noFormat",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "stages": {
+               "$ref": "#/$defs/stages"
+            },
+            "services": {
+               "$ref": "#/$defs/services"
+            },
+            "nfClients": {
+               "$ref": "#/$defs/nfClients"
+            }
+         },
+         "additionalProperties": true
+      },
+      "nf_profiles": {
+         "type": "object",
+         "title": "Schema for nf_profiles",
+         "description": "No Description for nf_profiles",
+         "default": {},
+         "examples": [
+            {}
+         ],
+         "required": [
+            "nf_identification"
+         ],
+         "properties": {
+            "nf_identification": {
+               "$ref": "#/$defs/nf_identification"
+            },
+            "nfClients": {
+               "$ref": "#/$defs/nfClients"
+            },
+            "stages": {
+               "$ref": "#/$defs/stages"
+            },
+            "services": {
+               "$ref": "#/$defs/services"
+            }
+         },
+         "additionalProperties": true
+      },
+      "nf_identification": {
+         "type": "object",
+         "title": "Schema for nf_identification",
+         "description": "No Description for nf_identification",
+         "default": {},
+         "examples": [
+            {
+               "vendorId": "Amdocs",
+               "nfType": "NRF"
+            }
+         ],
+         "required": [
+            "vendorId",
+            "nfType",
+            "features"
+         ],
+         "properties": {
+            "vendorId": {
+               "$id": "#/properties/vendorId",
+               "type": "string",
+               "title": "vendorId",
+               "description": "NF Vendor Id",
+               "default": "",
+               "examples": [
+                  "vendorId",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "Amdocs",
+                  "HP",
+                  "Ericsson",
+                  "Samsung"
+               ],
+               "defaultValue": "Amdocs",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Vendor Id",
+               "valueSpecification": "NF Vendor Id"
+            },
+            "nfType": {
+               "$id": "#/properties/nfType",
+               "type": "string",
+               "title": "nfType",
+               "description": "NF Type",
+               "default": "",
+               "examples": [
+                  "nfType",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "NRF",
+                  "AMF",
+                  "UDM",
+                  "SMF"
+               ],
+               "defaultValue": "NRF",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "NF Type",
+               "valueSpecification": "nfType"
+            },
+            "features": {
+               "type": "array",
+               "items": {
+                  "$ref": "#/$defs/features"
+               }
+            }
+         },
+         "additionalProperties": true
+      },
+      "features": {
+         "type": "object",
+         "title": "Schema for features",
+         "description": "No Description for features",
+         "default": {},
+         "examples": [
+            {
+               "featureName": "featureName1",
+               "featureVersion": "featureVersion1"
+            }
+         ],
+         "required": [
+            "featureVersion"
+         ],
+         "properties": {
+            "featureName": {
+               "$id": "#/properties/featureName",
+               "type": "string",
+               "title": "featureName",
+               "description": "Feature Name",
+               "default": "",
+               "examples": [
+                  "featureName",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "featureName1",
+                  "featureName2"
+               ],
+               "defaultValue": "featureName1",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "Feature Name",
+               "valueSpecification": "noValueSpecification"
+            },
+            "featureVersion": {
+               "$id": "#/properties/featureVersion",
+               "type": "string",
+               "title": "featureVersion",
+               "description": "Feature Version",
+               "default": "",
+               "examples": [
+                  "featureVersion",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "featureVersion1",
+                  "featureVersion2"
+               ],
+               "defaultValue": "featureVersion1",
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "Feature Version",
+               "valueSpecification": "noValueSpecification"
+            }
+         },
+         "additionalProperties": true
+      },
+      "MonitoringEventServiceParameter": {
+         "type": "object",
+         "title": "Schema for MonitoringEventServiceParameter",
+         "description": "No Description for MonitoringEventServiceParameter",
+         "default": {},
+         "examples": [
+            {
+               "retry": 2000,
+               "delay": 2000,
+               "retryOnTtlInPast": 2000,
+               "delayOnTtlInPast": 2000,
+               "maximumNumberOfReportsMin": 2000,
+               "maximumNumberOfReportsMax": 2000,
+               "maximumResponseTimeMax": 2000,
+               "monitorExpireTimePeriodMs": 2000,
+               "maximumLatencyMin": 2000,
+               "maximumLatencyMax": 2000,
+               "maximumResponseTimeMin": 2000,
+               "suggestedNumberOfDlPacketsMin": 2000,
+               "suggestedNumberOfDlPacketsMax": 2000,
+               "sendRoamingNewServingPlmnIdToAf": true
+            }
+         ],
+         "required": [
+            "retry",
+            "delay",
+            "retryOnTtlInPast",
+            "delayOnTtlInPast",
+            "maximumNumberOfReportsMin",
+            "maximumNumberOfReportsMax",
+            "maximumResponseTimeMax",
+            "monitorExpireTimePeriodMs",
+            "maximumLatencyMin",
+            "maximumLatencyMax",
+            "maximumResponseTimeMin",
+            "suggestedNumberOfDlPacketsMin",
+            "suggestedNumberOfDlPacketsMax",
+            "sendRoamingNewServingPlmnIdToAf"
+         ],
+         "properties": {
+            "retry": {
+               "$id": "#/properties/retry",
+               "type": "integer",
+               "title": "retry",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "retry",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "delay": {
+               "$id": "#/properties/delay",
+               "type": "integer",
+               "title": "delay",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "delay",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "retryOnTtlInPast": {
+               "$id": "#/properties/retryOnTtlInPast",
+               "type": "integer",
+               "title": "retryOnTtlInPast",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "retryOnTtlInPast",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "delayOnTtlInPast": {
+               "$id": "#/properties/delayOnTtlInPast",
+               "type": "integer",
+               "title": "delayOnTtlInPast",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "delayOnTtlInPast",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "maximumNumberOfReportsMin": {
+               "$id": "#/properties/maximumNumberOfReportsMin",
+               "type": "integer",
+               "title": "maximumNumberOfReportsMin",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "maximumNumberOfReportsMin",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "maximumNumberOfReportsMax": {
+               "$id": "#/properties/maximumNumberOfReportsMax",
+               "type": "integer",
+               "title": "maximumNumberOfReportsMax",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "maximumNumberOfReportsMax",
+                  "100"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "maximumResponseTimeMax": {
+               "$id": "#/properties/maximumResponseTimeMax",
+               "type": "integer",
+               "title": "maximumResponseTimeMax",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "maximumResponseTimeMax",
+                  "100"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "monitorExpireTimePeriodMs": {
+               "$id": "#/properties/monitorExpireTimePeriodMs",
+               "type": "integer",
+               "title": "monitorExpireTimePeriodMs",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "monitorExpireTimePeriodMs",
+                  "86400000"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "maximumLatencyMin": {
+               "$id": "#/properties/maximumLatencyMin",
+               "type": "integer",
+               "title": "maximumLatencyMin",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "maximumLatencyMin",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "maximumLatencyMax": {
+               "$id": "#/properties/maximumLatencyMax",
+               "type": "integer",
+               "title": "maximumLatencyMax",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "maximumLatencyMax",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "maximumResponseTimeMin": {
+               "$id": "#/properties/maximumResponseTimeMin",
+               "type": "integer",
+               "title": "maximumResponseTimeMin",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "maximumResponseTimeMin",
+                  ""
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "suggestedNumberOfDlPacketsMin": {
+               "$id": "#/properties/suggestedNumberOfDlPacketsMin",
+               "type": "integer",
+               "title": "suggestedNumberOfDlPacketsMin",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "suggestedNumberOfDlPacketsMin",
+                  "10"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "suggestedNumberOfDlPacketsMax": {
+               "$id": "#/properties/suggestedNumberOfDlPacketsMax",
+               "type": "integer",
+               "title": "suggestedNumberOfDlPacketsMax",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "suggestedNumberOfDlPacketsMax",
+                  "100"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  "noExampleValue",
+                  "noDefaultValue"
+               ],
+               "defaultValue": 2000,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            },
+            "sendRoamingNewServingPlmnIdToAf": {
+               "$id": "#/properties/sendRoamingNewServingPlmnIdToAf",
+               "type": "boolean",
+               "title": "sendRoamingNewServingPlmnIdToAf",
+               "description": "noDescription",
+               "default": "",
+               "examples": [
+                  "sendRoamingNewServingPlmnIdToAf",
+                  "true"
+               ],
+               "validationScript": "",
+               "possibleValues": [
+                  true,
+                  false
+               ],
+               "defaultValue": true,
+               "applicableTo": "noApplicableTo",
+               "minCardinality": 1,
+               "maxCardinality": 1,
+               "validFor": "noValidFor",
+               "format": "",
+               "markdownDescription": "noMarkdownDescription",
+               "valueSpecification": "noValueSpecification"
+            }
+         },
+         "additionalProperties": true
+      }
+   }
+}

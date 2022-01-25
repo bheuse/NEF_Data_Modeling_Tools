@@ -1,0 +1,12 @@
+unidecode
+xmltodict
+pyyaml
+dicttoxml
+jsonschema
+markdown
+termcolor
+jsonpath_ng
+expiringdict
+requests
+requests_file
+mako

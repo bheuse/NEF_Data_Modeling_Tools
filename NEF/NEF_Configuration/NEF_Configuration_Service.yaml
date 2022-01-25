@@ -1,0 +1,4846 @@
+openapi: 3.0.2
+info:
+  title: NEF Configuration Service
+  version: 1.0.0
+  description: NEF Configuration Service. This is generated, modify source architect
+    data model instead.
+  contact:
+    name: Bernard Heuse
+    url: https://www.amdocs.com/
+    email: bheuse@amdocs.com
+  license:
+    name: Amdocs 2.0
+    url: https://www.amodocs.com/licenses/AMDOCS-LICENSE-2.0
+servers:
+- url: '{apiRoot}/nef-configuration-service/22-03'
+  description: Amdocs NEF Release 22-03
+  variables:
+    apiRoot:
+      default: https://nef.amdocs.com
+      description: The Amdocs NEF URL
+security:
+- {}
+- oAuth2ClientCredentials: []
+paths:
+  /datastore/APIs:
+    summary: Path used to manage the list of apis.
+    description: The REST endpoint/path used to list and create zero or more `API`.  This
+      path contains a `GET` and `POST` operation to perform the list and create tasks,
+      respectively.
+    get:
+      operationId: getAPIs
+      summary: List All APIs
+      description: Gets a list of all `API` entities.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns an array of `API` entities.
+    post:
+      operationId: createAPI
+      summary: Create a API
+      description: Creates a new instance of a `API`.
+      requestBody:
+        description: A new `API` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API'
+  /datastore/APIs/{APIId}:
+    summary: Path used to manage a single API.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `API`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    parameters:
+    - name: APIId
+      description: A unique identifier for a `API`.
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      operationId: getAPI
+      summary: Get a API
+      description: Gets the details of a single instance of a `API`.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns a single `API`.
+    put:
+      operationId: updateAPI
+      summary: Update a API
+      description: Updates an existing `API`.
+      requestBody:
+        description: Updated `API` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+    delete:
+      operationId: deleteAPI
+      summary: Delete a API
+      description: Deletes an existing `API`.
+      responses:
+        '204':
+          description: Successful response.
+  /datastore/API_Bundles:
+    summary: Path used to manage the list of api_bundles.
+    description: The REST endpoint/path used to list and create zero or more `API_Bundle`.  This
+      path contains a `GET` and `POST` operation to perform the list and create tasks,
+      respectively.
+    get:
+      operationId: getAPI_Bundles
+      summary: List All API_Bundles
+      description: Gets a list of all `API_Bundle` entities.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns an array of `API_Bundle` entities.
+  /datastore/API_Bundles/{API_BundleId}:
+    summary: Path used to manage a single API_Bundle.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `API_Bundle`.  This path contains `GET`, `PUT`, and `DELETE` operations
+      used to perform the get, update, and delete tasks, respectively.
+    parameters:
+    - name: API_BundleId
+      description: A unique identifier for a `API_Bundle`.
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      operationId: getAPI_Bundle
+      summary: Get a API_Bundle
+      description: Gets the details of a single instance of a `API_Bundle`.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns a single `API_Bundle`.
+  /datastore/categorys:
+    summary: Path used to manage the list of api_categorys.
+    description: The REST endpoint/path used to list and create zero or more `API_Category`.  This
+      path contains a `GET` and `POST` operation to perform the list and create tasks,
+      respectively.
+    get:
+      operationId: getAPI_Categorys
+      summary: List All API_Categorys
+      description: Gets a list of all `API_Category` entities.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns an array of `API_Category` entities.
+    post:
+      operationId: createAPI_Category
+      summary: Create a API_Category
+      description: Creates a new instance of a `API_Category`.
+      requestBody:
+        description: A new `API_Category` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_Category'
+  /datastore/categorys/{categoryId}:
+    summary: Path used to manage a single API_Category.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `API_Category`.  This path contains `GET`, `PUT`, and `DELETE` operations
+      used to perform the get, update, and delete tasks, respectively.
+    parameters:
+    - name: categoryId
+      description: A unique identifier for a `API_Category`.
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      operationId: getAPI_Category
+      summary: Get a API_Category
+      description: Gets the details of a single instance of a `API_Category`.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns a single `API_Category`.
+    put:
+      operationId: updateAPI_Category
+      summary: Update a API_Category
+      description: Updates an existing `API_Category`.
+      requestBody:
+        description: Updated `API_Category` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API_Category'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+    delete:
+      operationId: deleteAPI_Category
+      summary: Delete a API_Category
+      description: Deletes an existing `API_Category`.
+      responses:
+        '204':
+          description: Successful response.
+  /datastore/collections:
+    summary: Path used to manage the list of api_collections.
+    description: The REST endpoint/path used to list and create zero or more `API_Collection`.  This
+      path contains a `GET` and `POST` operation to perform the list and create tasks,
+      respectively.
+    get:
+      operationId: getAPI_Collections
+      summary: List All API_Collections
+      description: Gets a list of all `API_Collection` entities.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns an array of `API_Collection`
+            entities.
+    post:
+      operationId: createAPI_Collection
+      summary: Create a API_Collection
+      description: Creates a new instance of a `API_Collection`.
+      requestBody:
+        description: A new `API_Collection` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_Collection'
+  /datastore/collections/{collectionId}:
+    summary: Path used to manage a single API_Collection.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `API_Collection`.  This path contains `GET`, `PUT`, and `DELETE` operations
+      used to perform the get, update, and delete tasks, respectively.
+    parameters:
+    - name: collectionId
+      description: A unique identifier for a `API_Collection`.
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      operationId: getAPI_Collection
+      summary: Get a API_Collection
+      description: Gets the details of a single instance of a `API_Collection`.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns a single `API_Collection`.
+    put:
+      operationId: updateAPI_Collection
+      summary: Update a API_Collection
+      description: Updates an existing `API_Collection`.
+      requestBody:
+        description: Updated `API_Collection` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API_Collection'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+    delete:
+      operationId: deleteAPI_Collection
+      summary: Delete a API_Collection
+      description: Deletes an existing `API_Collection`.
+      responses:
+        '204':
+          description: Successful response.
+  /datastore/providers:
+    summary: Path used to manage the list of api_providers.
+    description: The REST endpoint/path used to list and create zero or more `API_Provider`.  This
+      path contains a `GET` and `POST` operation to perform the list and create tasks,
+      respectively.
+    get:
+      operationId: getAPI_Providers
+      summary: List All API_Providers
+      description: Gets a list of all `API_Provider` entities.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns an array of `API_Provider` entities.
+    post:
+      operationId: createAPI_Provider
+      summary: Create a API_Provider
+      description: Creates a new instance of a `API_Provider`.
+      requestBody:
+        description: A new `API_Provider` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_Provider'
+  /datastore/providers/{providerId}:
+    summary: Path used to manage a single API_Provider.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `API_Provider`.  This path contains `GET`, `PUT`, and `DELETE` operations
+      used to perform the get, update, and delete tasks, respectively.
+    parameters:
+    - name: providerId
+      description: A unique identifier for a `API_Provider`.
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      operationId: getAPI_Provider
+      summary: Get a API_Provider
+      description: Gets the details of a single instance of a `API_Provider`.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns a single `API_Provider`.
+    put:
+      operationId: updateAPI_Provider
+      summary: Update a API_Provider
+      description: Updates an existing `API_Provider`.
+      requestBody:
+        description: Updated `API_Provider` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API_Provider'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+    delete:
+      operationId: deleteAPI_Provider
+      summary: Delete a API_Provider
+      description: Deletes an existing `API_Provider`.
+      responses:
+        '204':
+          description: Successful response.
+  /datastore/articles:
+    summary: Path used to manage the list of api_articles.
+    description: The REST endpoint/path used to list and create zero or more `API_Article`.  This
+      path contains a `GET` and `POST` operation to perform the list and create tasks,
+      respectively.
+    get:
+      operationId: getAPI_Articles
+      summary: List All API_Articles
+      description: Gets a list of all `API_Article` entities.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns an array of `API_Article` entities.
+    post:
+      operationId: createAPI_Article
+      summary: Create a API_Article
+      description: Creates a new instance of a `API_Article`.
+      requestBody:
+        description: A new `API_Article` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API_Article'
+  /datastore/articles/{articleId}:
+    summary: Path used to manage a single API_Article.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `API_Article`.  This path contains `GET`, `PUT`, and `DELETE` operations
+      used to perform the get, update, and delete tasks, respectively.
+    parameters:
+    - name: articleId
+      description: A unique identifier for a `API_Article`.
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      operationId: getAPI_Article
+      summary: Get a API_Article
+      description: Gets the details of a single instance of a `API_Article`.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns a single `API_Article`.
+    put:
+      operationId: updateAPI_Article
+      summary: Update a API_Article
+      description: Updates an existing `API_Article`.
+      requestBody:
+        description: Updated `API_Article` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/API_Article'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+    delete:
+      operationId: deleteAPI_Article
+      summary: Delete a API_Article
+      description: Deletes an existing `API_Article`.
+      responses:
+        '204':
+          description: Successful response.
+  /nef/configurations:
+    summary: Path used to manage the list of productconfigurations.
+    description: The REST endpoint/path used to list and create zero or more `ProductConfiguration`.  This
+      path contains a `GET` and `POST` operation to perform the list and create tasks,
+      respectively.
+    get:
+      operationId: getProductConfigurations
+      summary: List All ProductConfigurations
+      description: Gets a list of all `ProductConfiguration` entities.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns an array of `ProductConfiguration`
+            entities.
+  /nef/configurations/{configurationId}:
+    summary: Path used to manage a single ProductConfiguration.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `ProductConfiguration`.  This path contains `GET`, `PUT`, and `DELETE`
+      operations used to perform the get, update, and delete tasks, respectively.
+    parameters:
+    - name: configurationId
+      description: A unique identifier for a `ProductConfiguration`.
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      operationId: getProductConfiguration
+      summary: Get a ProductConfiguration
+      description: Gets the details of a single instance of a `ProductConfiguration`.
+      parameters:
+      - in: query
+        name: schema
+        required: false
+        description: Return the Configuration Schema.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns a single `ProductConfiguration`.
+  /nef/configurations/{configurationID}/versions:
+    summary: Path used to manage the list of configurationversions.
+    description: The REST endpoint/path used to list and create zero or more `ConfigurationVersion`.  This
+      path contains a `GET` and `POST` operation to perform the list and create tasks,
+      respectively.
+    get:
+      operationId: getConfigurationVersions
+      summary: List All ConfigurationVersions
+      description: Gets a list of all `ConfigurationVersion` entities.
+      parameters:
+      - $ref: '#/components/parameters/StatusFilterParam'
+      - $ref: '#/components/parameters/TagParam'
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns an array of `ConfigurationVersion`
+            entities.
+    post:
+      operationId: createConfigurationVersion
+      summary: Create a ConfigurationVersion
+      description: Creates a new instance of a `ConfigurationVersion`.
+      parameters:
+      - $ref: '#/components/parameters/TagParam'
+      - $ref: '#/components/parameters/CommentParam'
+      - $ref: '#/components/parameters/ParentParam'
+      - $ref: '#/components/parameters/AuthorParam'
+      requestBody:
+        description: A new `ConfigurationVersion` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationVersion'
+    parameters:
+    - in: path
+      name: configurationID
+      required: true
+      description: A unique identifier for a Configuration.
+      schema:
+        type: string
+  /nef/configurations/{configurationID}/versions/{versionId}:
+    summary: Path used to manage a single ConfigurationVersion.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `ConfigurationVersion`.  This path contains `GET`, `PUT`, and `DELETE`
+      operations used to perform the get, update, and delete tasks, respectively.
+    parameters:
+    - name: versionId
+      description: A unique identifier for a `ConfigurationVersion`.
+      schema:
+        type: string
+      in: path
+      required: true
+    - in: path
+      name: configurationID
+      required: true
+      description: A unique identifier for a Configuration.
+      schema:
+        type: string
+    get:
+      operationId: getConfigurationVersion
+      summary: Get a ConfigurationVersion
+      description: Gets the details of a single instance of a `ConfigurationVersion`.
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: Successful response - returns a single `ConfigurationVersion`.
+    put:
+      operationId: updateConfigurationVersion
+      summary: Update a ConfigurationVersion
+      description: Updates an existing `ConfigurationVersion`.
+      requestBody:
+        description: Updated `ConfigurationVersion` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationVersion'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+    delete:
+      operationId: deleteConfigurationVersion
+      summary: Delete a ConfigurationVersion
+      description: Deletes an existing `ConfigurationVersion`.
+      responses:
+        '204':
+          description: Successful response.
+components:
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: '{tokenUrl}'
+          scopes: {}
+  schemas:
+    API:
+      type: object
+      description: 'API : A Set of related API Methods (YAML)'
+      example: API
+      properties:
+        API_Name:
+          description: No Description for API_Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Name
+          pattern: ''
+          type: string
+          format: ''
+        API_Description:
+          description: No Description for API Description
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API Description
+          pattern: ''
+          type: string
+          format: ''
+        API_Provider_Name:
+          description: No Description for API_Provider_Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Provider_Name
+          pattern: ''
+          type: string
+          format: ''
+        YAML:
+          description: API YAML - EndPoints
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: YAML
+          pattern: ''
+          type: string
+          format: ''
+        Usage_Policies:
+          description: "Usage Policies that can be applied on this API\nAPI : Usage\
+            \ Policy Profile \xE2\u20AC\u201C Restrict access to APIs for API Consumers:\n\
+            Check / enforce data values in requests / event subscriptions\nRemove\
+            \ data for responses / event notifications\nLimit Usage (Rate, Time-Period,\
+            \ Volume, Geo-Area)\nApplicable UE (see UE Database)\nAssign UE priorities\
+            \ \nEmergency filter (for invocations, notifications)"
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Usage_Policies_
+          pattern: ''
+          type: string
+          format: date-time
+        Charging_Policies:
+          description: "Charging Policies that can be applied on this API.API : Charging\
+            \ Policy Profile \xE2\u20AC\u201C Charge access to APIs for API Consumers:\n\
+            Monthly fee\nPay per use\nFree \xE2\u20AC\xA6"
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Charging_Policies_
+          pattern: ''
+          type: string
+          format: ''
+        API_Documentation:
+          description: 'No Description for API Documentation '
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Documentation_
+          pattern: ''
+          type: string
+          format: ''
+        API_Use_Cases:
+          description: 'No Description for API Use Cases '
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Use_Cases_
+          pattern: ''
+          type: string
+          format: ''
+        Categories:
+          description: No Description for Categories
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Categories
+          pattern: ''
+          type: string
+          format: ''
+        Version:
+          description: No Description for Version
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Version
+          pattern: ''
+          type: string
+          format: ''
+        Name:
+          description: No Description for Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Name
+          pattern: ''
+          type: string
+          format: ''
+        UsagePolicy:
+          description: include_API_UsagePolicy
+          $ref: '#/components/schemas/UsagePolicy'
+        API_Details:
+          description: API_API_Details
+          $ref: '#/components/schemas/API_Details'
+        API_Category:
+          description: API_API_Category
+          $ref: '#/components/schemas/API_Category'
+        API_Collection:
+          description: API_API_Collection
+          $ref: '#/components/schemas/API_Collection'
+        API_Provider:
+          description: 'Provides '
+          $ref: '#/components/schemas/API_Provider'
+        API_Article:
+          description: API_API_Article
+          $ref: '#/components/schemas/API_Article'
+        services:
+          description: NefCommon_services
+          $ref: '#/components/schemas/services'
+        nfClients:
+          description: NefCommon_nfClients
+          $ref: '#/components/schemas/nfClients'
+        stages:
+          description: NefCommon_stage
+          $ref: '#/components/schemas/stages'
+        GmlcLocationService:
+          description: 'has_active '
+          $ref: '#/components/schemas/GmlcLocationService'
+      required:
+      - API_Name
+      - API_Description
+      - API_Provider_Name
+      - YAML
+      - Usage_Policies
+      - Charging_Policies
+      - API_Documentation
+      - API_Use_Cases
+      - Categories
+      - Version
+      - Name
+    API_Bundle:
+      type: object
+      description: "Set of Related APIs, defined in the Catalog, for industry specific\
+        \ usage\\u000b(HealthCare, Telecom, Manufacturing, Finance, \xE2\u20AC\xA6\
+        )"
+      example: API Bundle
+      properties:
+        Name:
+          description: No Description for Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Name
+          pattern: ''
+          type: string
+          format: ''
+        Industry:
+          description: No Description for Industry
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Industry
+          pattern: ''
+          type: string
+          format: ''
+        Use_Case:
+          description: No Description for Use Case
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Use_Case
+          pattern: ''
+          type: string
+          format: ''
+        API:
+          description: 'Includes '
+          $ref: '#/components/schemas/API'
+      required:
+      - Name
+      - Industry
+      - Use_Case
+    API_Catalogue:
+      type: object
+      description: No Description for API Catalogue
+      example: API_Catalogue
+      properties:
+        Name:
+          description: No Description for Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: Name
+          pattern: ''
+          type: string
+          format: ''
+        API_Bundle:
+          description: Proposes Bundles
+          $ref: '#/components/schemas/API_Bundle'
+        API:
+          description: 'Offers '
+          $ref: '#/components/schemas/API'
+        API_Provider:
+          description: API_Catalogue_API__Provider_
+          $ref: '#/components/schemas/API_Provider'
+        UsagePolicy:
+          description: AmfEventExposureService_Subscriptions
+          $ref: '#/components/schemas/UsagePolicy'
+      required:
+      - Name
+    UsagePolicy:
+      type: object
+      description: No Description for UsagePolicy
+      example: UsagePolicy
+      properties:
+        VariableName:
+          description: No Description for VariableName
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: VariableName
+          pattern: ''
+          type: string
+          format: ''
+        VariableSemantic:
+          description: No Description for VariableSemantic
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: VariableSemantic
+          pattern: ''
+          type: string
+          format: ''
+        VariableType:
+          description: No Description for VariableType
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: VariableType
+          pattern: ''
+          type: string
+          format: ''
+        API_Name:
+          description: No Description for API_Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Name
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - VariableName
+      - VariableSemantic
+      - VariableType
+      - API_Name
+    API_Details:
+      type: object
+      description: No Description for API Details
+      example: API Details
+      properties:
+        API_Name:
+          description: No Description for API_Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Name
+          pattern: ''
+          type: string
+          format: ''
+        PublicAPI:
+          description: Public API or Private API is False.
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: PublicAPI
+          pattern: ''
+          type: boolean
+          format: ''
+        Verified:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: Verified
+          pattern: ''
+          type: boolean
+          format: ''
+        Official:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: Official
+          pattern: ''
+          type: boolean
+          format: ''
+        Popularity:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: Popularity
+          pattern: ''
+          type: integer
+          format: ''
+        Latency:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: Latency
+          pattern: ''
+          type: string
+          format: ''
+        ServiceLevel:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: ServiceLevel
+          pattern: ''
+          type: string
+          format: ''
+        LastUpdate:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: LastUpdate
+          pattern: ''
+          type: string
+          format: ''
+        Free:
+          description: Free / Paid
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: Free
+          pattern: ''
+          type: boolean
+          format: ''
+        ReadMe:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: ReadMe
+          pattern: ''
+          type: string
+          format: ''
+        Logo:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: Logo
+          pattern: ''
+          type: string
+          format: ''
+        Summary:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: Summary
+          pattern: ''
+          type: string
+          format: ''
+        OverviewPage:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: OverviewPage
+          pattern: ''
+          type: string
+          format: ''
+        FeaturesPage:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: FeaturesPage
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - API_Name
+      - PublicAPI
+      - Verified
+      - Official
+      - Popularity
+      - Latency
+      - ServiceLevel
+      - LastUpdate
+      - Free
+      - ReadMe
+      - Logo
+      - Summary
+      - OverviewPage
+      - FeaturesPage
+    API_Category:
+      type: object
+      description: No Description for API_Category
+      example: API_Category
+      properties:
+        CategoryName:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: CategoryName
+          pattern: ''
+          type: string
+          format: ''
+        CategoryDescription:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: CategoryDescription
+          pattern: ''
+          type: string
+          format: ''
+        CategoryLogo:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: CategoryLogo
+          pattern: ''
+          type: string
+          format: ''
+        API_Name:
+          description: No Description for API_Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Name
+          pattern: ''
+          type: string
+          format: ''
+        NudsfDrRoot:
+          description: NudsfDr_NudsfDrRoot
+          $ref: '#/components/schemas/NudsfDrRoot'
+      required:
+      - CategoryName
+      - CategoryDescription
+      - CategoryLogo
+      - API_Name
+    API_Collection:
+      type: object
+      description: No Description for API Collection
+      example: API Collection
+      properties:
+        CollectionName:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: CollectionName
+          pattern: ''
+          type: string
+          format: ''
+        CollectionDescription:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: CollectionDescription
+          pattern: ''
+          type: string
+          format: ''
+        CollectionLogo:
+          description: Collection Logo
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: CollectionLogo
+          pattern: ''
+          type: string
+          format: ''
+        API_Name:
+          description: No Description for API_Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Name
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - CollectionName
+      - CollectionDescription
+      - CollectionLogo
+      - API_Name
+    API_Provider:
+      type: object
+      description: 'No Description for API Provider '
+      example: 'API Provider '
+      properties:
+        ProviderName:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: ProviderName
+          pattern: ''
+          type: string
+          format: ''
+        ProviderDescription:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: ProviderDescription
+          pattern: ''
+          type: string
+          format: ''
+        PoviderIcon:
+          description: Collection Logo
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: PoviderIcon
+          pattern: ''
+          type: string
+          format: ''
+        ProviderBigLogo:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: ProviderBigLogo
+          pattern: ''
+          type: string
+          format: ''
+        Contact:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: Contact
+          pattern: ''
+          type: string
+          format: ''
+        WebSite:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: WebSite
+          pattern: ''
+          type: string
+          format: ''
+        API_Name:
+          description: No Description for API_Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Name
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - ProviderName
+      - ProviderDescription
+      - PoviderIcon
+      - ProviderBigLogo
+      - Contact
+      - WebSite
+      - API_Name
+    API_Article:
+      type: object
+      description: No Description for API Article
+      example: API Article
+      properties:
+        API_Name:
+          description: No Description for API_Name
+          Schema:
+            validationScript: ''
+            possibleValues:
+            - default_value
+            - value1
+            - value2
+            defaultValue: default_value
+            applicableTo: ''
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ''
+            format: ''
+            example: ''
+            description: No Description
+            markdownDescription: No Description
+            valueSpecification: ''
+          example: API_Name
+          pattern: ''
+          type: string
+          format: ''
+        ArticleDescription:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: ArticleDescription
+          pattern: ''
+          type: string
+          format: ''
+        ArticleLogo:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: ArticleLogo
+          pattern: ''
+          type: string
+          format: ''
+        ArticlePage:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: ArticlePage
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - API_Name
+      - ArticleDescription
+      - ArticleLogo
+      - ArticlePage
+    NefCommon:
+      type: object
+      description: No Description for NefCommon
+      example: NefCommon
+      properties:
+        nfServices:
+          description: NF Type
+          Schema:
+            name: nfServices
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - GMLC
+            defaultValue: GMLC
+            example: GMLC
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 12
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfServices
+          example: nfServices
+          pattern: ''
+          type: array
+          format: ''
+          items:
+            type: string
+            format: ''
+          minItems: 1
+          maxItems: 12
+    stages:
+      type: object
+      description: No Description for stages
+      example: stages
+      properties:
+        AuthStage:
+          description: stage_AuthStage
+          $ref: '#/components/schemas/AuthStage'
+        CreateChfStage:
+          description: stage_CreateChfStage
+          $ref: '#/components/schemas/CreateChfStage'
+        DiscoveryBsfStage:
+          description: stage_DiscoveryBsfStage
+          $ref: '#/components/schemas/DiscoveryBsfStage'
+        WriteEdrStage:
+          description: stage_WriteEdrStage
+          $ref: '#/components/schemas/WriteEdrStage'
+        PaPcfStage:
+          description: stage_PaPcfStage
+          $ref: '#/components/schemas/PaPcfStage'
+        MeSelectLocationServiceStage:
+          description: stage_MeSelectLocationServiceStage
+          $ref: '#/components/schemas/MeSelectLocationServiceStage'
+        SessionStorage:
+          description: stage_SessionStorage
+          $ref: '#/components/schemas/SessionStorage'
+    NefConfiguration:
+      type: object
+      description: No Description for NefConfiguration
+      example: NefConfiguration
+      properties:
+        schemaVersion:
+          description: Schema Version
+          Schema:
+            name: schemaVersion
+            description: Schema Version
+            tooltip: Schema Version
+            type: string
+            format: ''
+            possibleValues:
+            - 1.0.0
+            - '22.03'
+            defaultValue: 1.0.0
+            example: 1.0.0
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: NefConfiguration
+            markdownDescription: Schema Version
+            valueSpecification: ''
+          example: schemaVersion
+          pattern: 1.0.0
+          type: string
+          format: ''
+        schemaUri:
+          description: Schema Uri
+          Schema:
+            name: schemaUri
+            description: Schema Uri
+            tooltip: Schema Uri
+            type: string
+            format: uri
+            possibleValues:
+            - https://nef.amdocs.com:8080/v1/NefConfiguration/schema
+            defaultValue: https://nef.amdocs.com:8080/v1/NefConfiguration/schema
+            example: https://nef.amdocs.com:8080/v1/NefConfiguration/schema
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: NefConfiguration
+            markdownDescription: Schema Uri
+            valueSpecification: noValueSpecification
+          example: schemaUri
+          pattern: ''
+          type: string
+          format: ''
+        API:
+          description: NefConfiguration_NefCommon
+          $ref: '#/components/schemas/API'
+        api_profiles:
+          description: NefConfiguration_api_profiles
+          $ref: '#/components/schemas/api_profiles'
+        NefParameters:
+          description: NefConfiguration_NefParameters
+          $ref: '#/components/schemas/NefParameters'
+        nf_profiles:
+          description: NefConfiguration_nf_profile1
+          type: array
+          items:
+            $ref: '#/components/schemas/nf_profiles'
+      required:
+      - schemaVersion
+      - schemaUri
+    NefParameters:
+      type: object
+      description: No Description for NefParameters
+      example: NefParameters
+      properties:
+        nrfUri:
+          description: NRF Uri
+          Schema:
+            name: nrfUri
+            description: NRF Uri
+            tooltip: NRF Uri
+            type: string
+            format: uri
+            possibleValues:
+            - https://nef.amdocs.com:8080/v1
+            - noDefaultValue
+            defaultValue: https://nef.amdocs.com:8080/v1
+            example: https://nef.amdocs.com:8080/v1
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NRF Uri
+            valueSpecification: noValueSpecification
+          example: nrfUri
+          pattern: ''
+          type: string
+          format: ''
+        webGuiPort:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - 8080
+            - 80
+            defaultValue: 8080
+            example: 8080
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: webGuiPort
+          pattern: '8080'
+          type: integer
+          format: ''
+      required:
+      - nrfUri
+      - webGuiPort
+    services:
+      type: object
+      description: No Description for services
+      example: services
+      properties:
+        MobileCodes:
+          description: services_MobileCodes
+          $ref: '#/components/schemas/MobileCodes'
+    MobileCodes:
+      type: object
+      description: No Description for MobileCodes
+      example: MobileCodes
+      properties:
+        mcc:
+          description: Mobile Country Code
+          Schema:
+            name: mcc
+            description: Mobile Country Code
+            tooltip: Mobile Country Code
+            type: integer
+            format: integer
+            possibleValues: []
+            defaultValue: 350
+            examples:
+            - 150
+            - 350
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Mobile Country Code
+            valueSpecification: mcc
+            example: ''
+          example: mcc
+          pattern: '350'
+          type: integer
+          format: ''
+        mnc:
+          description: Mobile Number Code
+          Schema:
+            name: mcc
+            description: Mobile Number Code
+            tooltip: Mobile Number Code
+            type: integer
+            format: integer
+            possibleValues: []
+            defaultValue: 150
+            examples:
+            - 150
+            - 350
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Mobile Number Code
+            valueSpecification: mcc
+            example: ''
+          example: mnc
+          pattern: '150'
+          type: integer
+          format: ''
+      required:
+      - mcc
+      - mnc
+    nfClients:
+      type: object
+      description: No Description for nfClients
+      example: nfClients
+      properties:
+        API_Catalogue:
+          description: nfClients_AmfEventExposureService
+          $ref: '#/components/schemas/API_Catalogue'
+        BindingSupportManagementService:
+          description: nfClients_BindingSupportManagementService
+          $ref: '#/components/schemas/BindingSupportManagementService'
+        CHFService:
+          description: nfClients_CHFService
+          $ref: '#/components/schemas/CHFService'
+        GmlcLocationService:
+          description: nfClients_GmlcLocationService
+          $ref: '#/components/schemas/GmlcLocationService'
+        MonitoringEventService:
+          description: nfClients_MonitoringEventService
+          $ref: '#/components/schemas/MonitoringEventService'
+        API_Category:
+          description: nfClients_NudsfDr1
+          $ref: '#/components/schemas/API_Category'
+        PolicyAuthorisationService:
+          description: nfClients_PolicyAuthorisationService
+          $ref: '#/components/schemas/PolicyAuthorisationService'
+        SmfEventExposureService:
+          description: nfClients_SmfEventExposureService
+          $ref: '#/components/schemas/SmfEventExposureService'
+        TrafficInfluenceService:
+          description: nfClients_TrafficInfluenceService
+          $ref: '#/components/schemas/TrafficInfluenceService'
+        UdmSdmService:
+          description: nfClients_UdmSdmService
+          $ref: '#/components/schemas/UdmSdmService'
+        UdmEventExposureService:
+          description: nfClients_UdmEventExposureService
+          $ref: '#/components/schemas/UdmEventExposureService'
+        UdrDrService:
+          description: nfClients_UdrDrService
+          $ref: '#/components/schemas/UdrDrService'
+    AmfEventExposureService:
+      type: object
+      description: No Description for AmfEventExposureService
+      example: AmfEventExposureService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - AMF
+            defaultValue: AMF
+            example: AMF
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - nfType
+    Subscriptions:
+      type: object
+      description: No Description for Subscriptions
+      example: Subscriptions
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    BindingSupportManagementService:
+      type: object
+      description: No Description for BindingSupportManagementService
+      example: BindingSupportManagementService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - BSF
+            defaultValue: BSF
+            example: BSF
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        PcfBindings:
+          description: BindingSupportManagementService_PcfBindings
+          $ref: '#/components/schemas/PcfBindings'
+      required:
+      - nfType
+    PcfBindings:
+      type: object
+      description: No Description for PcfBindings
+      example: PcfBindings
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    CHFService:
+      type: object
+      description: No Description for CHFService
+      example: CHFService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - CHF
+            defaultValue: CHF
+            example: CHF
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        Chargingdata:
+          description: CHFService_Chargingdata
+          $ref: '#/components/schemas/Chargingdata'
+      required:
+      - nfType
+    Chargingdata:
+      type: object
+      description: No Description for Chargingdata
+      example: Chargingdata
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    GmlcLocationService:
+      type: object
+      description: No Description for GmlcLocationService
+      example: GmlcLocationService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - GMLC
+            defaultValue: GMLC
+            example: GMLC
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        CancelLocation:
+          description: GmlcLocationService_CancelLocation
+          $ref: '#/components/schemas/CancelLocation'
+        LocationUpdate:
+          description: GmlcLocationService_LocationUpdate
+          $ref: '#/components/schemas/LocationUpdate'
+        ProvideLocation:
+          description: GmlcLocationService_ProvideLocation
+          $ref: '#/components/schemas/ProvideLocation'
+      required:
+      - nfType
+    CancelLocation:
+      type: object
+      description: No Description for CancelLocation
+      example: CancelLocation
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    LocationUpdate:
+      type: object
+      description: No Description for LocationUpdate
+      example: LocationUpdate
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    ProvideLocation:
+      type: object
+      description: No Description for ProvideLocation
+      example: ProvideLocation
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    MonitoringEventService:
+      type: object
+      description: No Description for MonitoringEventService
+      example: MonitoringEventService
+      properties:
+        nfType:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        meCreatesubscriptionCallback:
+          description: MonitoringEventService_CreatesubscriptionCallback
+          $ref: '#/components/schemas/meCreatesubscriptionCallback'
+        MonitoringEventServiceParameter:
+          description: MonitoringEventService_MonitoringEventServiceParameter
+          $ref: '#/components/schemas/MonitoringEventServiceParameter'
+      required:
+      - nfType
+    meCreatesubscriptionCallback:
+      type: object
+      description: No Description for meCreatesubscriptionCallback
+      example: meCreatesubscriptionCallback
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    NudsfDr:
+      type: object
+      description: No Description for NudsfDr
+      example: NudsfDr
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - UDSF
+            defaultValue: UDSF
+            example: UDSF
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - nfType
+    NudsfDrRoot:
+      type: object
+      description: No Description for NudsfDrRoot
+      example: NudsfDrRoot
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    PolicyAuthorisationService:
+      type: object
+      description: No Description for PolicyAuthorisationService
+      example: PolicyAuthorisationService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - PCF
+            defaultValue: PCF
+            example: PCF
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        AppSessions:
+          description: PolicyAuthorisationService_AppSessions
+          $ref: '#/components/schemas/AppSessions'
+      required:
+      - nfType
+    AppSessions:
+      type: object
+      description: No Description for AppSessions
+      example: AppSessions
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    SmfEventExposureService:
+      type: object
+      description: No Description for SmfEventExposureService
+      example: SmfEventExposureService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - SMF
+            defaultValue: SMF
+            example: SMF
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        CreateindividualsubcriptionCallback:
+          description: SmfEventExposureService_CreateindividualsubcriptionCallback
+          $ref: '#/components/schemas/CreateindividualsubcriptionCallback'
+      required:
+      - nfType
+    CreateindividualsubcriptionCallback:
+      type: object
+      description: No Description for CreateindividualsubcriptionCallback
+      example: CreateindividualsubcriptionCallback
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    TrafficInfluenceService:
+      type: object
+      description: No Description for TrafficInfluenceService
+      example: TrafficInfluenceService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - PCF
+            defaultValue: PCF
+            example: PCF
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        tiCreatesubscriptionCallback:
+          description: TrafficInfluenceService_CreatesubscriptionCallback
+          $ref: '#/components/schemas/tiCreatesubscriptionCallback'
+      required:
+      - nfType
+    tiCreatesubscriptionCallback:
+      type: object
+      description: No Description for tiCreatesubscriptionCallback
+      example: tiCreatesubscriptionCallback
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    UdmSdmService:
+      type: object
+      description: No Description for UdmSdmService
+      example: UdmSdmService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - UDM
+            defaultValue: UDM
+            example: UDM
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        API_Article:
+          description: UdmSdmService_GroupData
+          $ref: '#/components/schemas/API_Article'
+        UdmSdmServiceRoot:
+          description: UdmSdmService_UdmSdmServiceRoot
+          $ref: '#/components/schemas/UdmSdmServiceRoot'
+      required:
+      - nfType
+    GroupData:
+      type: object
+      description: No Description for GroupData
+      example: GroupData
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    UdmSdmServiceRoot:
+      type: object
+      description: No Description for UdmSdmServiceRoot
+      example: UdmSdmServiceRoot
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    UdmEventExposureService:
+      type: object
+      description: No Description for UdmEventExposureService
+      example: UdmEventExposureService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - UDM
+            defaultValue: UDM
+            example: UDM
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        UdmEventExposureServiceRoot:
+          description: UdmEventExposureService_UdmEventExposureServiceRoot
+          $ref: '#/components/schemas/UdmEventExposureServiceRoot'
+      required:
+      - nfType
+    UdmEventExposureServiceRoot:
+      type: object
+      description: No Description for UdmEventExposureServiceRoot
+      example: UdmEventExposureServiceRoot
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    UdrDrService:
+      type: object
+      description: No Description for UdrDrService
+      example: UdrDrService
+      properties:
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - UDR
+            defaultValue: UDR
+            example: UDR
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        ApplicationData:
+          description: UdrDrService_ApplicationData
+          $ref: '#/components/schemas/ApplicationData'
+      required:
+      - nfType
+    ApplicationData:
+      type: object
+      description: No Description for ApplicationData
+      example: ApplicationData
+      properties:
+        timeout:
+          description: Timeout for NF Answer for this Operation
+          Schema:
+            name: noName
+            description: Timeout for NF Answer for this Operation
+            tooltip: noTooltip
+            type: integer
+            format: integer
+            possibleValues:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 2000
+            examples:
+            - 200
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Timeout for NF Answer for this Operation
+            valueSpecification: nFtimeout
+            example: ''
+          example: timeout
+          pattern: '2000'
+          type: integer
+          format: ''
+      required:
+      - timeout
+    AuthStage:
+      type: object
+      description: No Description for AuthStage
+      example: AuthStage
+      properties:
+        enabled:
+          description: Enable Stage
+          Schema:
+            name: enabled
+            description: Enable Stage
+            tooltip: Enable Stage
+            type: boolean
+            format: ''
+            possibleValues:
+            - true
+            - false
+            defaultValue: true
+            example: true
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Enable Stage
+            valueSpecification: enableStage
+          example: enabled
+          pattern: ''
+          type: boolean
+          format: ''
+        keycloakPublicKey:
+          description: Keycloak Public Key
+          Schema:
+            name: keycloakPublicKey
+            description: Keycloak Public Key
+            tooltip: Keycloak Public Key
+            type: string
+            format: ''
+            possibleValues: []
+            defaultValue: noDefaultValue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Keycloak Public Key
+            valueSpecification: PublicKey
+          example: keycloakPublicKey
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - enabled
+      - keycloakPublicKey
+    CreateChfStage:
+      type: object
+      description: No Description for CreateChfStage
+      example: CreateChfStage
+      properties:
+        enabled:
+          description: Enable Stage
+          Schema:
+            name: enabled
+            description: Enable Stage
+            tooltip: Enable Stage
+            type: boolean
+            format: ''
+            possibleValues:
+            - true
+            - false
+            defaultValue: true
+            example: true
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Enable Stage
+            valueSpecification: enableStage
+          example: enabled
+          pattern: 'true'
+          type: boolean
+          format: ''
+      required:
+      - enabled
+    DiscoveryBsfStage:
+      type: object
+      description: No Description for DiscoveryBsfStage
+      example: DiscoveryBsfStage
+      properties:
+        enabled:
+          description: Enable Stage
+          Schema:
+            name: enabled
+            description: Enable Stage
+            tooltip: Enable Stage
+            type: boolean
+            format: ''
+            possibleValues:
+            - true
+            - false
+            defaultValue: true
+            example: true
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Enable Stage
+            valueSpecification: enableStage
+          example: enabled
+          pattern: 'true'
+          type: boolean
+          format: ''
+      required:
+      - enabled
+    WriteEdrStage:
+      type: object
+      description: No Description for WriteEdrStage
+      example: WriteEdrStage
+      properties:
+        enabled:
+          description: Enable Stage
+          Schema:
+            name: enabled
+            description: Enable Stage
+            tooltip: Enable Stage
+            type: boolean
+            format: ''
+            possibleValues:
+            - true
+            - false
+            defaultValue: true
+            example: true
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Enable Stage
+            valueSpecification: enableStage
+          example: enabled
+          pattern: ''
+          type: boolean
+          format: ''
+      required:
+      - enabled
+    PaPcfStage:
+      type: object
+      description: No Description for PaPcfStage
+      example: PaPcfStage
+      properties:
+        pcfSuppFeat:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - 4018002
+            - 4018003
+            defaultValue: 4018002
+            example: 4018002
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: pcfSuppFeat
+          pattern: '4018002'
+          type: string
+          format: ''
+      required:
+      - pcfSuppFeat
+    MeSelectLocationServiceStage:
+      type: object
+      description: No Description for MeSelectLocationServiceStage
+      example: MeSelectLocationServiceStage
+      properties:
+        locationService:
+          description: Location Service
+          Schema:
+            name: locationService
+            description: Location Service
+            tooltip: noTooltip
+            type: string
+            format: ''
+            possibleValues:
+            - UDM
+            - GLMC
+            defaultValue: UDM
+            example: UDM
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: locationService
+          pattern: UDM
+          type: string
+          format: ''
+      required:
+      - locationService
+    SessionStorage:
+      type: object
+      description: No Description for SessionStorage
+      example: SessionStorage
+      properties:
+        realm:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: noDefaultValue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: realm
+          pattern: openet
+          type: string
+          format: ''
+        storageId:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: ''
+            possibleValues:
+            - nef-common
+            - nef-common2
+            defaultValue: nef-common
+            example: nef-common
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: storageId
+          pattern: nef-common
+          type: string
+          format: ''
+        idleTimer:
+          description: Session Idle Timer
+          Schema:
+            name: idleTimer
+            description: Session Idle Timer
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - 86400
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            defaultValue: 86400
+            examples:
+            - 86400
+            - 500
+            - 1000
+            - 2000
+            - 5000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Session Idle Timer
+            valueSpecification: sessionIdleTimer
+            example: ''
+          example: idleTimer
+          pattern: '86400'
+          type: integer
+          format: ''
+        externalProtocolSchemeOverride:
+          description: External Protocol Scheme Override
+          Schema:
+            name: externalProtocolSchemeOverride
+            description: External Protocol Scheme Override
+            tooltip: noTooltip
+            type: ''
+            format: ''
+            possibleValues:
+            - NA
+            - 'Yes'
+            defaultValue: NA
+            example: NA
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: External Protocol Scheme Override
+            valueSpecification: noValueSpecification
+          example: externalProtocolSchemeOverride
+          pattern: NA
+          type: string
+          format: ''
+      required:
+      - realm
+      - storageId
+      - idleTimer
+      - externalProtocolSchemeOverride
+    api_profiles:
+      type: object
+      description: No Description for api_profiles
+      example: api_profiles
+      properties:
+        as-session-with-qos:
+          description: api_profiles_as-session-with-qos
+          $ref: '#/components/schemas/as-session-with-qos'
+        chargeable-party:
+          description: api_profiles_chargeable-party
+          $ref: '#/components/schemas/chargeable-party'
+        monitoring-event:
+          description: api_profiles_monitoring-event
+          $ref: '#/components/schemas/monitoring-event'
+        traffic-influence:
+          description: api_profiles_traffic-influence
+          $ref: '#/components/schemas/traffic-influence'
+    as-session-with-qos:
+      type: object
+      description: No Description for as-session-with-qos
+      example: as-session-with-qos
+      properties:
+        nfServices:
+          description: NF Type
+          Schema:
+            name: nfServices
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - GMLC
+            defaultValue: GMLC
+            example: GMLC
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 12
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfServices
+          example: nfServices
+          pattern: ''
+          type: array
+          format: ''
+          items:
+            type: string
+            format: ''
+          minItems: 1
+          maxItems: 12
+        openAPIyaml:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: openAPIyaml
+          pattern: ''
+          type: string
+          format: ''
+        stages:
+          description: as-session-with-qos_stage
+          $ref: '#/components/schemas/stages'
+        services:
+          description: as-session-with-qos_services
+          $ref: '#/components/schemas/services'
+        nfClients:
+          description: as-session-with-qos_nfClients
+          $ref: '#/components/schemas/nfClients'
+      required:
+      - openAPIyaml
+    chargeable-party:
+      type: object
+      description: No Description for chargeable-party
+      example: chargeable-party
+      properties:
+        nfServices:
+          description: NF Type
+          Schema:
+            name: nfServices
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - GMLC
+            defaultValue: GMLC
+            example: GMLC
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 12
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfServices
+          example: nfServices
+          pattern: ''
+          type: array
+          format: ''
+          items:
+            type: string
+            format: ''
+          minItems: 1
+          maxItems: 12
+        openAPIyaml:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: openAPIyaml
+          pattern: ''
+          type: string
+          format: ''
+        stages:
+          description: chargeable-party_stage
+          $ref: '#/components/schemas/stages'
+        services:
+          description: chargeable-party_services
+          $ref: '#/components/schemas/services'
+        nfClients:
+          description: chargeable-party_nfClients
+          $ref: '#/components/schemas/nfClients'
+      required:
+      - openAPIyaml
+    monitoring-event:
+      type: object
+      description: No Description for monitoring-event
+      example: monitoring-event
+      properties:
+        nfServices:
+          description: NF Type
+          Schema:
+            name: nfServices
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - GMLC
+            defaultValue: GMLC
+            example: GMLC
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 12
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfServices
+          example: nfServices
+          pattern: ''
+          type: array
+          format: ''
+          items:
+            type: string
+            format: ''
+          minItems: 1
+          maxItems: 12
+        openAPIyaml:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: openAPIyaml
+          pattern: ''
+          type: string
+          format: ''
+        stages:
+          description: monitoring-event_stage
+          $ref: '#/components/schemas/stages'
+        services:
+          description: monitoring-event_services
+          $ref: '#/components/schemas/services'
+        nfClients:
+          description: monitoring-event_nfClients
+          $ref: '#/components/schemas/nfClients'
+      required:
+      - openAPIyaml
+    traffic-influence:
+      type: object
+      description: No Description for traffic-influence
+      example: traffic-influence
+      properties:
+        nfServices:
+          description: NF Type
+          Schema:
+            name: nfServices
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - GMLC
+            defaultValue: GMLC
+            example: GMLC
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 12
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfServices
+          example: nfServices
+          pattern: ''
+          type: array
+          format: ''
+          items:
+            type: string
+            format: ''
+          minItems: 1
+          maxItems: 12
+        openAPIyaml:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: string
+            format: noFormat
+            possibleValues:
+            - noExampleValue
+            - noDefaultalue
+            defaultValue: noDefaultalue
+            example: noExampleValue
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: novalidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: openAPIyaml
+          pattern: ''
+          type: string
+          format: ''
+        stages:
+          description: traffic-influence_stage
+          $ref: '#/components/schemas/stages'
+        services:
+          description: traffic-influence_services
+          $ref: '#/components/schemas/services'
+        nfClients:
+          description: traffic-influence_nfClients
+          $ref: '#/components/schemas/nfClients'
+      required:
+      - openAPIyaml
+    nf_profiles:
+      type: object
+      description: No Description for nf_profiles
+      example: nf_profiles
+      properties:
+        nf_identification:
+          description: nf_profiles_nf_identification
+          $ref: '#/components/schemas/nf_identification'
+        nfClients:
+          description: nf_profiles_nfClients
+          $ref: '#/components/schemas/nfClients'
+        stages:
+          description: nf_profiles_stage
+          $ref: '#/components/schemas/stages'
+        services:
+          description: nf_profiles_services
+          $ref: '#/components/schemas/services'
+    nf_identification:
+      type: object
+      description: No Description for nf_identification
+      example: nf_identification
+      properties:
+        vendorId:
+          description: NF Vendor Id
+          Schema:
+            name: vendorId
+            description: NF Vendor Id
+            tooltip: NF Vendor Id
+            type: string
+            format: ''
+            possibleValues:
+            - Amdocs
+            - HP
+            - Ericsson
+            - Samsung
+            defaultValue: Amdocs
+            example: Amdocs
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Vendor Id
+            valueSpecification: NF Vendor Id
+          example: vendorId
+          pattern: ''
+          type: string
+          format: ''
+        nfType:
+          description: NF Type
+          Schema:
+            name: nfType
+            description: NF Type
+            tooltip: NF Type
+            type: string
+            format: ''
+            possibleValues:
+            - NRF
+            - AMF
+            - UDM
+            - SMF
+            defaultValue: NRF
+            example: NRF
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: NF Type
+            valueSpecification: nfType
+          example: nfType
+          pattern: ''
+          type: string
+          format: ''
+        features:
+          description: nf_identification_feature
+          type: array
+          items:
+            $ref: '#/components/schemas/features'
+      required:
+      - vendorId
+      - nfType
+    features:
+      type: object
+      description: No Description for features
+      example: features
+      properties:
+        featureName:
+          description: Feature Name
+          Schema:
+            name: featureName
+            description: Feature Name
+            tooltip: noTooltip
+            type: string
+            format: ''
+            possibleValues:
+            - featureName1
+            - featureName2
+            defaultValue: featureName1
+            example: featureName1
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Feature Name
+            valueSpecification: noValueSpecification
+          example: featureName
+          pattern: ''
+          type: string
+          format: ''
+        featureVersion:
+          description: Feature Version
+          Schema:
+            name: featureVersion
+            description: Feature Version
+            tooltip: noTooltip
+            type: string
+            format: ''
+            possibleValues:
+            - featureVersion1
+            - featureVersion2
+            defaultValue: featureVersion1
+            example: featureVersion1
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: Feature Version
+            valueSpecification: noValueSpecification
+          example: featureVersion
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - featureVersion
+    MonitoringEventServiceParameter:
+      type: object
+      description: No Description for MonitoringEventServiceParameter
+      example: MonitoringEventServiceParameter
+      properties:
+        retry:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: retry
+          pattern: ''
+          type: integer
+          format: ''
+        delay:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: delay
+          pattern: ''
+          type: integer
+          format: ''
+        retryOnTtlInPast:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: retryOnTtlInPast
+          pattern: ''
+          type: integer
+          format: ''
+        delayOnTtlInPast:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: delayOnTtlInPast
+          pattern: ''
+          type: integer
+          format: ''
+        maximumNumberOfReportsMin:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: maximumNumberOfReportsMin
+          pattern: ''
+          type: integer
+          format: ''
+        maximumNumberOfReportsMax:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: maximumNumberOfReportsMax
+          pattern: '100'
+          type: integer
+          format: ''
+        maximumResponseTimeMax:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: maximumResponseTimeMax
+          pattern: '100'
+          type: integer
+          format: ''
+        monitorExpireTimePeriodMs:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: monitorExpireTimePeriodMs
+          pattern: '86400000'
+          type: integer
+          format: ''
+        maximumLatencyMin:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: maximumLatencyMin
+          pattern: ''
+          type: integer
+          format: ''
+        maximumLatencyMax:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: maximumLatencyMax
+          pattern: ''
+          type: integer
+          format: ''
+        maximumResponseTimeMin:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: maximumResponseTimeMin
+          pattern: ''
+          type: integer
+          format: ''
+        suggestedNumberOfDlPacketsMin:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: suggestedNumberOfDlPacketsMin
+          pattern: '10'
+          type: integer
+          format: ''
+        suggestedNumberOfDlPacketsMax:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: integer
+            format: ''
+            possibleValues:
+            - noExampleValue
+            - noDefaultValue
+            defaultValue: 2000
+            example: 2000
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: suggestedNumberOfDlPacketsMax
+          pattern: '100'
+          type: integer
+          format: ''
+        sendRoamingNewServingPlmnIdToAf:
+          description: Enter Description Here
+          Schema:
+            name: noName
+            description: noDescription
+            tooltip: noTooltip
+            type: boolean
+            format: ''
+            possibleValues:
+            - true
+            - false
+            defaultValue: true
+            example: true
+            validationScript: ''
+            applicableTo: noApplicableTo
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: noValidFor
+            markdownDescription: noMarkdownDescription
+            valueSpecification: noValueSpecification
+          example: sendRoamingNewServingPlmnIdToAf
+          pattern: 'true'
+          type: boolean
+          format: ''
+      required:
+      - retry
+      - delay
+      - retryOnTtlInPast
+      - delayOnTtlInPast
+      - maximumNumberOfReportsMin
+      - maximumNumberOfReportsMax
+      - maximumResponseTimeMax
+      - monitorExpireTimePeriodMs
+      - maximumLatencyMin
+      - maximumLatencyMax
+      - maximumResponseTimeMin
+      - suggestedNumberOfDlPacketsMin
+      - suggestedNumberOfDlPacketsMax
+      - sendRoamingNewServingPlmnIdToAf
+    ProductConfiguration:
+      type: object
+      description: No Description for ProductConfiguration
+      example: ProductConfiguration
+      properties:
+        ConfigurationId:
+          description: This is the name of the configuation. It represent the domain
+            or product to which this configuration applies.
+          Schema:
+            name: ConfigurationId
+            description: ''
+            tooltip: Configuation Domain
+            type: string
+            format: free
+            possibleValues:
+            - NefConfiguration
+            - NefCatalog
+            defaultValue: NefConfiguration
+            example:
+            - NefConfiguration
+            - NefCatalog
+            validationScript: ''
+            applicableTo: NEF_Instance
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ConfigurationService
+            markdownDescription: ''
+            valueSpecification: ''
+          example: ConfigurationId
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - ConfigurationId
+    ConfigurationVersion:
+      type: object
+      description: No Description for ConfigurationVersion
+      example: ConfigurationVersion
+      properties:
+        VersionId:
+          description: 'The versionId for a configuration.
+
+            A VersionID is the concatenation of a TimeStamp and Tag.'
+          Schema:
+            name: VersionId
+            description: The version of the configuration
+            tooltip: version of the configuration
+            type: string
+            format: <TimeStamp>-<Tag>
+            possibleValues: []
+            defaultValue: 20220301:102030:234-FactorySetting
+            example: 20220321:222030:452-IoTCompleted
+            validationScript: ''
+            applicableTo: ConfigurationService
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: Configuration
+            markdownDescription: ''
+            valueSpecification: ConfigurationVersion
+          example: VersionId
+          pattern: ''
+          type: string
+          format: ''
+        Tag:
+          description: A Tag is associating a serie of configuration versions to a
+            theme.
+          Schema:
+            name: Tag
+            description: Tag for a version, associating a theme
+            tooltip: Tag for this version
+            type: string
+            format: free
+            possibleValues: []
+            defaultValue: FactorySettings
+            example:
+            - FactorySettings
+            - InitialConfiguration
+            validationScript: ''
+            applicableTo: Configuration
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: Configuration
+            markdownDescription: Tag for a version, associating a theme
+            valueSpecification: ''
+          example: Tag
+          pattern: ''
+          type: string
+          format: ''
+        Timestamp:
+          description: Timestamp this version was last deactivated. Otherwise empty.
+          Schema:
+            name: ActivationTimestamp
+            description: Timestamp this version was last activated.
+            tooltip: Activation date
+            type: string
+            format: free
+            possibleValues: []
+            defaultValue: ''
+            example: 20210832:234512:345
+            validationScript: ''
+            applicableTo: ConfigurationVersion
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ConfigurationVersion
+            markdownDescription: Timestamp this version was last activated.
+            valueSpecification: timestamp
+          example: Timestamp
+          pattern: ''
+          type: integer
+          format: ''
+        ActivationAuthor:
+          description: "The identification of the person or process that last activated\
+            \ this version. \nOtherwise empty."
+          Schema:
+            name: ActivationAuthor
+            description: The identification of the person or process that last activated
+              this version.
+            tooltip: Activation Author
+            type: string
+            format: free
+            possibleValues: []
+            defaultValue: FactorySettings
+            example: Helm Builder
+            validationScript: ''
+            applicableTo: ConfigurationVersion
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ConfigurationVersion
+            markdownDescription: The identification of the person or process that
+              last activated this version.
+            valueSpecification: timestamp
+          example: ActivationAuthor
+          pattern: ''
+          type: string
+          format: ''
+        ActivationTimestamp:
+          description: Timestamp this version was last activated. Otherwise empty.
+          Schema:
+            name: ActivationDate
+            description: Timestamp this version was last activated.
+            tooltip: Activation Date
+            type: string
+            format: free
+            possibleValues: []
+            defaultValue: ''
+            example: 20210832:234512:345
+            validationScript: ''
+            applicableTo: ConfigurationVersion
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ConfigurationVersion
+            markdownDescription: Timestamp this version was last activated.
+            valueSpecification: timestamp
+          example: ActivationTimestamp
+          pattern: ''
+          type: integer
+          format: ''
+        ParentVersion:
+          description: Enter Description Here
+          Schema:
+            name: NEF_Name
+            description: Nef Instance Name
+            tooltip: Nef Instance Name
+            type: string
+            format: free
+            possibleValues:
+            - samsungNef
+            - vdfNEF
+            defaultValue: myAmazingNef
+            example: Parameter Example Value
+            validationScript: NEF_Name.startsWith("my")
+            applicableTo: NEF_Instance
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: TimePeriod
+            markdownDescription: NEF Instance Name
+            valueSpecification: value Specification
+          example: ParentVersion
+          pattern: ''
+          type: string
+          format: ''
+        PreviouslyActiveVersion:
+          description: Enter Description Here
+          Schema:
+            name: NEF_Name
+            description: Nef Instance Name
+            tooltip: Nef Instance Name
+            type: string
+            format: free
+            possibleValues:
+            - samsungNef
+            - vdfNEF
+            defaultValue: myAmazingNef
+            example: Parameter Example Value
+            validationScript: NEF_Name.startsWith("my")
+            applicableTo: NEF_Instance
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: TimePeriod
+            markdownDescription: NEF Instance Name
+            valueSpecification: value Specification
+          example: PreviouslyActiveVersion
+          pattern: ''
+          type: string
+          format: ''
+        ModificationAuthor:
+          description: Enter Description Here
+          Schema:
+            name: NEF_Name
+            description: Nef Instance Name
+            tooltip: Nef Instance Name
+            type: string
+            format: free
+            possibleValues:
+            - samsungNef
+            - vdfNEF
+            defaultValue: myAmazingNef
+            example: Parameter Example Value
+            validationScript: NEF_Name.startsWith("my")
+            applicableTo: NEF_Instance
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: TimePeriod
+            markdownDescription: NEF Instance Name
+            valueSpecification: value Specification
+          example: ModificationAuthor
+          pattern: ''
+          type: string
+          format: ''
+        ModificationTimestamp:
+          description: Enter Description Here
+          Schema:
+            name: NEF_Name
+            description: Nef Instance Name
+            tooltip: Nef Instance Name
+            type: string
+            format: free
+            possibleValues:
+            - samsungNef
+            - vdfNEF
+            defaultValue: myAmazingNef
+            example: Parameter Example Value
+            validationScript: NEF_Name.startsWith("my")
+            applicableTo: NEF_Instance
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: TimePeriod
+            markdownDescription: NEF Instance Name
+            valueSpecification: value Specification
+          example: ModificationTimestamp
+          pattern: ''
+          type: integer
+          format: ''
+        DeactivationAuthor:
+          description: "The identification of the person or process that last deactivated\
+            \ this version. \nOtherwise empty."
+          Schema:
+            name: DeactivationAuthor
+            description: The identification of the person or process that last deactivated
+              this version.
+            tooltip: Deactivation Author
+            type: string
+            format: free
+            possibleValues: []
+            defaultValue: FactorySettings
+            example: JamesDean
+            validationScript: ''
+            applicableTo: ConfigurationVersion
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ConfigurationVersion
+            markdownDescription: The identification of the person or process that
+              last deactivated this version.
+            valueSpecification: timestamp
+          example: DeactivationAuthor
+          pattern: ''
+          type: string
+          format: ''
+        DeactivationTimestamp:
+          description: Timestamp this version was last deactivated. Otherwise empty.
+          Schema:
+            name: DeactivationTimestamp
+            description: Timestamp this version was last deactivated.
+            tooltip: Deactivation date
+            type: string
+            format: free
+            possibleValues: []
+            defaultValue: ''
+            example: 20210832:234512:345
+            validationScript: ''
+            applicableTo: ConfigurationVersion
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ConfigurationVersion
+            markdownDescription: Timestamp this version was last deactivated.
+            valueSpecification: timestamp
+          example: DeactivationTimestamp
+          pattern: ''
+          type: integer
+          format: ''
+        Status:
+          description: The status of the configuration version.
+          Schema:
+            name: Status
+            description: Status of the configuration version.
+            tooltip: Status
+            type: string
+            format: free
+            possibleValues: &id001
+            - Active
+            - Inactive
+            - Invalid
+            - Archived
+            - Deleted
+            defaultValue: Inactive
+            example: Inactive
+            validationScript: ''
+            applicableTo: ConfigurationVersion
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: TimePeriod
+            markdownDescription: ConfigurationVersion
+            valueSpecification: value Specification
+            asParameter: query required
+          example: Status
+          pattern: ''
+          type: string
+          format: ''
+        Comment:
+          description: Comment for this version.
+          Schema:
+            name: Comment
+            description: Comment for this version.
+            tooltip: Comment
+            type: string
+            format: free
+            possibleValues: []
+            defaultValue: ''
+            example: ''
+            validationScript: ''
+            applicableTo: ConfigurationVersion
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ConfigurationVersion
+            markdownDescription: Comment for this version.
+            valueSpecification: ''
+            asParameter: query required
+          example: Comment
+          pattern: ''
+          type: string
+          format: ''
+        ConfigurationId:
+          description: Enter Description Here
+          Schema:
+            name: NEF_Name
+            description: Nef Instance Name
+            tooltip: Nef Instance Name
+            type: string
+            format: free
+            possibleValues:
+            - samsungNef
+            - vdfNEF
+            defaultValue: myAmazingNef
+            example: Parameter Example Value
+            validationScript: NEF_Name.startsWith("my")
+            applicableTo: NEF_Instance
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: TimePeriod
+            markdownDescription: NEF Instance Name
+            valueSpecification: value Specification
+          example: ConfigurationId
+          pattern: ''
+          type: string
+          format: ''
+        GmlcLocationService:
+          description: ConfigurationVersion_Confguration
+          $ref: '#/components/schemas/GmlcLocationService'
+      required:
+      - VersionId
+      - Tag
+      - Timestamp
+      - ActivationAuthor
+      - ActivationTimestamp
+      - ParentVersion
+      - PreviouslyActiveVersion
+      - ModificationAuthor
+      - ModificationTimestamp
+      - DeactivationAuthor
+      - DeactivationTimestamp
+      - Status
+      - Comment
+      - ConfigurationId
+    ConfigurationSchema:
+      type: object
+      description: No Description for ConfigurationSchema
+      example: ConfigurationSchema
+      properties:
+        Schema:
+          description: Enter Description Here
+          Schema:
+            name: NEF_Name
+            description: Nef Instance Name
+            tooltip: Nef Instance Name
+            type: string
+            format: free
+            possibleValues:
+            - samsungNef
+            - vdfNEF
+            defaultValue: myAmazingNef
+            example: Parameter Example Value
+            validationScript: NEF_Name.startsWith("my")
+            applicableTo: NEF_Instance
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: TimePeriod
+            markdownDescription: NEF Instance Name
+            valueSpecification: value Specification
+          example: Schema
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - Schema
+    Configuration:
+      type: object
+      description: No Description for Configuration
+      example: Configuration
+      properties:
+        Configuration:
+          description: This is the configuration JSON Document.
+          Schema:
+            name: Configuration
+            description: This is the configuration JSON Document.
+            tooltip: Configuration JSON Document
+            type: string
+            format: json
+            possibleValues: []
+            defaultValue: '{}'
+            example: '{}'
+            validationScript: ''
+            applicableTo: ConfigurationService
+            minCardinality: 1
+            maxCardinality: 1
+            validFor: ConfigurationService
+            markdownDescription: This is the configuration JSON Document.
+            valueSpecification: JSON
+          example: Configuration
+          pattern: ''
+          type: string
+          format: ''
+      required:
+      - Configuration
+  parameters:
+    AuthorParam:
+      in: query
+      name: Author
+      required: true
+      description: The author of this update.
+      schema:
+        type: string
+    TagParam:
+      in: query
+      name: Tag
+      required: false
+      description: The tag filter.
+      schema:
+        type: string
+    ParentParam:
+      in: query
+      name: ParentVersion
+      required: true
+      description: The parent version.
+      schema:
+        type: string
+    StatusFilterParam:
+      in: query
+      name: Status
+      required: false
+      description: The status filter.
+      schema:
+        type: string
+        enum:
+        - Active
+        - Inactive
+        - Invalid
+        - Archived
+        - Deleted
+    StatusParam:
+      name: Status
+      in: query
+      description: The status of the configuration version.
+      required: true
+      schema:
+        type: string
+        default: Inactive
+        enum: *id001
+    CommentParam:
+      name: Comment
+      in: query
+      description: Comment for this version.
+      required: true
+      schema:
+        type: string
+        default: ''

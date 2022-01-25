@@ -1,0 +1,1078 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.9">
+ <project-name>NEF_Configuration_Service_DataModel</project-name>
+ <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="PlayPen Database" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB1" populated="true" UUID="3b71dfe8-4dcd-4450-a8b7-2250ba1a24c4" name="ProductConfiguration" objectType="TABLE" physicalName="ProductConfiguration" >
+   <remarks></remarks>
+   <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL2" populated="true" UUID="6a197cf8-3d5d-4d7f-a1fc-2cd55c71acbf" autoIncrement="false" autoIncrementSequenceName="ProductConfiguration_ConfigurationId_seq" defaultValue="" name="ConfigurationId" nullable="0" physicalName="ConfigurationId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>This is the name of the configuation. It represent the domain or product to which this configuration applies.
+ 
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;ConfigurationId&quot;,
+   &quot;description&quot;: &quot;&quot;,
+   &quot;tooltip&quot;: &quot;Configuation Domain&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;NefConfiguration&quot;, &quot;NefCatalog&quot; ] ,
+   &quot;defaultValue&quot;: &quot;NefConfiguration&quot;,
+   &quot;example&quot;: [ &quot;NefConfiguration&quot;, &quot;NefCatalog&quot; ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;ConfigurationService&quot;,
+   &quot;markdownDescription&quot;: &quot;&quot;,
+   &quot;valueSpecification&quot;: &quot;&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL3" populated="true" UUID="9f0f2de3-cea3-450b-8496-80098d95f6d3" autoIncrement="false" autoIncrementSequenceName="ProductConfiguration__ROOT_seq" defaultValue="" name="_ROOT" nullable="1" physicalName="_ROOT" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>This indicates a Root Entry for a JSON Schema.
+Entities linked by a relation will be property sub-objects, or array of sub-objects of this entity.
+If a relation countains ignore in its fk name, a sub-object property will not be created.
+
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL4" populated="true" UUID="b465bfaf-fcf7-477f-96b9-f4fecccf31db" autoIncrement="false" autoIncrementSequenceName="ProductConfiguration_configuration_seq" defaultValue="/nef" name="_PATH" nullable="0" physicalName="configuration" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Default Value is the PATH Prefix
+Physical Name is the PATH Suffix
+
+list-read-only
+
+&lt;parameters&gt;
+&lt;get_parameters&gt;
+{ &quot;in&quot;       : &quot;query&quot; ,
+  &quot;name&quot;     : &quot;schema&quot; , 
+  &quot;required&quot; : false,
+  &quot;description&quot;: &quot;Return the Configuration Schema.&quot;,
+  &quot;schema&quot;: {
+    &quot;type&quot;: &quot;boolean&quot;
+  }
+}
+&lt;/get_parameters&gt;
+&lt;/parameters&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX5" populated="true" UUID="4342b545-8c25-4487-828c-cc1d173310a1" clustered="false" name="ProductConfiguration_pk" physicalName="Configuration_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB6" populated="true" UUID="6fe4cbbe-eb6a-4fc3-a455-15504d2caaca" name="ConfigurationParameter" objectType="TABLE" physicalName="ignore_ConfigurationParameter" >
+   <remarks></remarks>
+   <folder id="FOLTAB61" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL7" populated="true" UUID="c3efd2b9-4e9c-47c4-b6ea-955382cb62c1" autoIncrement="false" autoIncrementSequenceName="ignore_ConfigurationParameter_ConfigurationID_seq" defaultValue="" name="ConfigurationID" nullable="0" physicalName="ConfigurationID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL8" populated="true" UUID="5e2445b1-949d-4e70-8a50-649042d9a669" autoIncrement="false" autoIncrementSequenceName="ignore_ConfigurationParameter_Value_seq" defaultValue="" name="Value" nullable="0" physicalName="Value" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB63" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB62" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB64" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX9" populated="true" UUID="bfff5da8-3f71-4209-829a-552e2c854531" clustered="false" name="ConfigurationParameter_pk" physicalName="ConfigurationParameter_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB10" populated="true" UUID="15fcb297-ba71-4255-98bb-841aae2019c9" name="ConfigurationVersion" objectType="TABLE" physicalName="ConfigurationVersion" >
+   <remarks></remarks>
+   <folder id="FOLTAB101" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL11" populated="true" UUID="0ac8a33a-7f2c-4a64-8dc6-f83e0df66f0f" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_VersionId_seq" defaultValue="" name="VersionId" nullable="0" physicalName="VersionId" precision="200" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>The versionId for a configuration.
+A VersionID is the concatenation of a TimeStamp and Tag.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;VersionId&quot;,
+   &quot;description&quot;: &quot;The version of the configuration&quot;,
+   &quot;tooltip&quot;: &quot;version of the configuration&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&lt;TimeStamp&gt;-&lt;Tag&gt;&quot;,
+   &quot;possibleValues&quot;: [ ] ,
+   &quot;defaultValue&quot;: &quot;20220301:102030:234-FactorySetting&quot;,
+   &quot;example&quot;: &quot;20220321:222030:452-IoTCompleted&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationService&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;Configuration&quot;,
+   &quot;markdownDescription&quot;: &quot;&quot;,
+   &quot;valueSpecification&quot;: &quot;ConfigurationVersion&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL12" populated="true" UUID="f2c6f029-1144-4adb-8b5a-61815157effb" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_Tag_seq" defaultValue="" name="Tag" nullable="0" physicalName="Tag" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>A Tag is associating a serie of configuration versions to a theme.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;Tag&quot;,
+   &quot;description&quot;: &quot;Tag for a version, associating a theme&quot;,
+   &quot;tooltip&quot;: &quot;Tag for this version&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [  ] ,
+   &quot;defaultValue&quot;: &quot;FactorySettings&quot;,
+   &quot;example&quot;: [ &quot;FactorySettings&quot;, &quot;InitialConfiguration&quot; ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;Configuration&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;Configuration&quot;,
+   &quot;markdownDescription&quot;: &quot;Tag for a version, associating a theme&quot;,
+   &quot;valueSpecification&quot;: &quot;&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL13" populated="true" UUID="1176b4f3-45f1-4765-92e1-7258cce0bdee" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_Timestamp_seq" defaultValue="" name="Timestamp" nullable="0" physicalName="Timestamp" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timestamp this version was last deactivated. Otherwise empty.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;ActivationTimestamp&quot;,
+   &quot;description&quot;: &quot;Timestamp this version was last activated.&quot;,
+   &quot;tooltip&quot;: &quot;Activation date&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [] ,
+   &quot;defaultValue&quot;: &quot;&quot;,
+   &quot;example&quot;: &quot;20210832:234512:345&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;markdownDescription&quot;: &quot;Timestamp this version was last activated.&quot;,
+   &quot;valueSpecification&quot;: &quot;timestamp&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL14" populated="true" UUID="5e3454b8-2593-44f2-9776-2777bf4cc0f5" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_ActivationAuthor_seq" defaultValue="" name="ActivationAuthor" nullable="0" physicalName="ActivationAuthor" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>The identification of the person or process that last activated this version. 
+Otherwise empty.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;ActivationAuthor&quot;,
+   &quot;description&quot;: &quot;The identification of the person or process that last activated this version.&quot;,
+   &quot;tooltip&quot;: &quot;Activation Author&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [] ,
+   &quot;defaultValue&quot;: &quot;FactorySettings&quot;,
+   &quot;example&quot;: &quot;Helm Builder&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;markdownDescription&quot;: &quot;The identification of the person or process that last activated this version.&quot;,
+   &quot;valueSpecification&quot;: &quot;timestamp&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL15" populated="true" UUID="18cac0c4-e659-4f1c-91a3-cc491758f6b8" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_ActivationTimestamp_seq" defaultValue="" name="ActivationTimestamp" nullable="0" physicalName="ActivationTimestamp" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timestamp this version was last activated. Otherwise empty.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;ActivationDate&quot;,
+   &quot;description&quot;: &quot;Timestamp this version was last activated.&quot;,
+   &quot;tooltip&quot;: &quot;Activation Date&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [] ,
+   &quot;defaultValue&quot;: &quot;&quot;,
+   &quot;example&quot;: &quot;20210832:234512:345&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;markdownDescription&quot;: &quot;Timestamp this version was last activated.&quot;,
+   &quot;valueSpecification&quot;: &quot;timestamp&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL16" populated="true" UUID="050a1d56-788d-4725-aaa0-31633d29aa07" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_ParentVersion_seq" defaultValue="" name="ParentVersion" nullable="0" physicalName="ParentVersion" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL17" populated="true" UUID="0da3ca51-8fae-463f-b6e2-0074b762ff93" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_PreviouslyActiveVersion_seq" defaultValue="" name="PreviouslyActiveVersion" nullable="0" physicalName="PreviouslyActiveVersion" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL18" populated="true" UUID="fc63493f-731e-4687-95fa-a83b88d7e6ce" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_ModificationAuthor_seq" defaultValue="" name="ModificationAuthor" nullable="0" physicalName="ModificationAuthor" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL19" populated="true" UUID="9eb0247c-972d-4fa7-a4c0-ed9d6d3e8139" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_ModificationTimestamp_seq" defaultValue="" name="ModificationTimestamp" nullable="0" physicalName="ModificationTimestamp" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL20" populated="true" UUID="49c362cd-e728-4dc0-8b36-afd501eccd9d" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_DeactivationAuthor_seq" defaultValue="" name="DeactivationAuthor" nullable="0" physicalName="DeactivationAuthor" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>The identification of the person or process that last deactivated this version. 
+Otherwise empty.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;DeactivationAuthor&quot;,
+   &quot;description&quot;: &quot;The identification of the person or process that last deactivated this version.&quot;,
+   &quot;tooltip&quot;: &quot;Deactivation Author&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [] ,
+   &quot;defaultValue&quot;: &quot;FactorySettings&quot;,
+   &quot;example&quot;: &quot;JamesDean&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;markdownDescription&quot;: &quot;The identification of the person or process that last deactivated this version.&quot;,
+   &quot;valueSpecification&quot;: &quot;timestamp&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL21" populated="true" UUID="4c53e2d3-fd23-4fe8-bab9-f2d7d0fdd77c" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_DeactivationTimestamp_seq" defaultValue="" name="DeactivationTimestamp" nullable="0" physicalName="DeactivationTimestamp" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timestamp this version was last deactivated. Otherwise empty.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;DeactivationTimestamp&quot;,
+   &quot;description&quot;: &quot;Timestamp this version was last deactivated.&quot;,
+   &quot;tooltip&quot;: &quot;Deactivation date&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [] ,
+   &quot;defaultValue&quot;: &quot;&quot;,
+   &quot;example&quot;: &quot;20210832:234512:345&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;markdownDescription&quot;: &quot;Timestamp this version was last deactivated.&quot;,
+   &quot;valueSpecification&quot;: &quot;timestamp&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL22" populated="true" UUID="9af3e7c6-e6b0-47e3-b34c-ec63a9bc7218" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_Status_seq" defaultValue="" name="Status" nullable="0" physicalName="Status" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>The status of the configuration version.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;Status&quot;,
+   &quot;description&quot;: &quot;Status of the configuration version.&quot;,
+   &quot;tooltip&quot;: &quot;Status&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;Active&quot;, &quot;Inactive&quot;, &quot;Invalid&quot;, &quot;Archived&quot;, &quot;Deleted&quot; ] ,
+   &quot;defaultValue&quot;: &quot;Inactive&quot;,
+   &quot;example&quot;: &quot;Inactive&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;,
+   &quot;asParameter&quot;: &quot;query required&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL23" populated="true" UUID="124f3c33-d06c-4692-92c1-6f87a2e81fc2" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_Comment_seq" defaultValue="" name="Comment" nullable="0" physicalName="Comment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Comment for this version.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;Comment&quot;,
+   &quot;description&quot;: &quot;Comment for this version.&quot;,
+   &quot;tooltip&quot;: &quot;Comment&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ ] ,
+   &quot;defaultValue&quot;: &quot;&quot;,
+   &quot;example&quot;: &quot;&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;ConfigurationVersion&quot;,
+   &quot;markdownDescription&quot;: &quot;Comment for this version.&quot;,
+   &quot;valueSpecification&quot;: &quot;&quot;,
+   &quot;asParameter&quot;: &quot;query required&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL24" populated="true" UUID="bed9d7f3-48e1-413b-a905-2a5bbbf6bdff" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_ConfigurationId_seq" defaultValue="" name="ConfigurationId" nullable="0" physicalName="ConfigurationId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL25" populated="true" UUID="568abd13-65be-41c6-b581-f4197e4f759d" autoIncrement="false" autoIncrementSequenceName="ConfigurationVersion_version_seq" defaultValue="/nef/configurations/{configurationID}" name="_PATH" nullable="0" physicalName="version" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>list-create-patch
+&lt;parameters&gt;
+&lt;path_parameters&gt;
+{ &quot;in&quot;       : &quot;path&quot; ,
+  &quot;name&quot;     : &quot;configurationID&quot; , 
+  &quot;required&quot; : true,
+  &quot;description&quot;: &quot;A unique identifier for a Configuration.&quot;,
+  &quot;schema&quot;: {
+    &quot;type&quot;: &quot;string&quot;
+  }
+}
+&lt;/path_parameters&gt;
+&lt;schema_parameters&gt;
+{ &quot;AuthorParam&quot; : 
+	{ &quot;in&quot;       : &quot;query&quot; ,
+	  &quot;name&quot;     : &quot;Author&quot; , 
+	  &quot;required&quot; : true,
+	  &quot;description&quot;: &quot;The author of this update.&quot;,
+	  &quot;schema&quot;: {
+	    &quot;type&quot;: &quot;string&quot;
+	  }
+	},
+  &quot;TagParam&quot; :
+	{ &quot;in&quot;       : &quot;query&quot; ,
+	  &quot;name&quot;     : &quot;Tag&quot; , 
+	  &quot;required&quot; : false,
+	  &quot;description&quot;: &quot;The tag filter.&quot;,
+	  &quot;schema&quot;: {
+	    &quot;type&quot;: &quot;string&quot;
+	  }
+	},
+  &quot;ParentParam&quot; :
+	{ &quot;in&quot;       : &quot;query&quot; ,
+	  &quot;name&quot;     : &quot;ParentVersion&quot; , 
+	  &quot;required&quot; : true,
+	  &quot;description&quot;: &quot;The parent version.&quot;,
+	  &quot;schema&quot;: {
+	    &quot;type&quot;: &quot;string&quot;
+	  }
+	},
+  &quot;StatusFilterParam&quot; :
+	{ &quot;in&quot;       : &quot;query&quot; ,
+	  &quot;name&quot;     : &quot;Status&quot; , 
+	  &quot;required&quot; : false,
+	  &quot;description&quot;: &quot;The status filter.&quot;,
+	  &quot;schema&quot;: {
+	    &quot;type&quot;: &quot;string&quot;,
+	    &quot;enum&quot;: [ &quot;Active&quot;, &quot;Inactive&quot;, &quot;Invalid&quot;, &quot;Archived&quot;, &quot;Deleted&quot; ] 
+	  }
+	}
+}
+&lt;/schema_parameters&gt;
+&lt;patch_parameters&gt;
+{ &quot;$ref&quot; : &quot;#/components/parameters/StatusParam&quot; },
+{ &quot;$ref&quot; : &quot;#/components/parameters/CommentParam&quot; },
+{ &quot;$ref&quot; : &quot;#/components/parameters/AuthorParam&quot; }
+&lt;/patch_parameters&gt;
+&lt;post_parameters&gt;
+{ &quot;$ref&quot; : &quot;#/components/parameters/TagParam&quot; },
+{ &quot;$ref&quot; : &quot;#/components/parameters/CommentParam&quot; },
+{ &quot;$ref&quot; : &quot;#/components/parameters/ParentParam&quot; },
+{ &quot;$ref&quot; : &quot;#/components/parameters/AuthorParam&quot; }
+&lt;/post_parameters&gt;
+&lt;list_parameters&gt;
+{ &quot;$ref&quot; : &quot;#/components/parameters/StatusFilterParam&quot; },
+{ &quot;$ref&quot; : &quot;#/components/parameters/TagParam&quot; }
+&lt;/list_parameters&gt;
+&lt;/parameters&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB103" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB102" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB104" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX26" populated="true" UUID="83822342-96a8-4fe0-9827-86767b707781" clustered="false" name="ConfigurationVersion_pk" physicalName="ConfigurationVersion_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB27" populated="true" UUID="0f2544dd-7d39-4864-9043-6fcfd2ddc725" name="ConfigurationSchema" objectType="TABLE" physicalName="ConfigurationSchema" >
+   <remarks></remarks>
+   <folder id="FOLTAB271" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL28" populated="true" UUID="b3fda129-1a6b-4a41-8214-99de4fb567b3" autoIncrement="false" autoIncrementSequenceName="ConfigurationSchema_Schema_seq" defaultValue="" name="Schema" nullable="0" physicalName="Schema" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB273" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB272" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB274" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX29" populated="true" UUID="f077534d-c468-4092-ad4b-2cdd9c54fccb" clustered="false" name="ConfigurationSchema_pk" physicalName="ConfigurationSchema_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB30" populated="true" UUID="0a57b4e1-8ff1-490c-b8bc-8d39a3358a18" name="OpenAPI" objectType="TABLE" physicalName="OpenAPI" >
+   <remarks>OpenAPI Business Model. This is generated, modify source architect data model instead.</remarks>
+   <folder id="FOLTAB301" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL31" populated="true" UUID="2f5b52bb-a34f-4cd2-93da-cf4ef4562a8e" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Configuration Service_seq" defaultValue="" name="title" nullable="0" physicalName="NEF Configuration Service" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL32" populated="true" UUID="febff581-d47f-4e6e-8056-f0a05d785b3c" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_Remarks_seq" defaultValue="See Remarks - JSON Format" name="contact" nullable="0" physicalName="Remarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{ 
+  &quot;name&quot;: &quot;Bernard Heuse&quot;,
+  &quot;url&quot;: &quot;https://www.amdocs.com/&quot;,
+  &quot;email&quot;: &quot;bheuse@amdocs.com&quot; 
+}</remarks>
+    </column>
+    <column id="COL33" populated="true" UUID="41e4ca56-931d-4a13-8e0b-3f104807bd7c" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_license_seq" defaultValue="See Remarks - JSON Format" name="license" nullable="0" physicalName="license" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{
+ &quot;name&quot;: &quot;Amdocs 2.0&quot;,
+ &quot;url&quot;: &quot;https://www.amodocs.com/licenses/AMDOCS-LICENSE-2.0&quot;
+}</remarks>
+    </column>
+    <column id="COL34" populated="true" UUID="3fe05198-57fe-49e5-aff5-0c8d30cc8ab6" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_tags_seq" defaultValue="See Remarks - JSON Format" name="tags" nullable="0" physicalName="tags" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+   {
+      &quot;name&quot;: &quot;NEF&quot;,
+      &quot;description&quot;: &quot;Amdocs NEF Business Data Model&quot;
+   }
+]</remarks>
+    </column>
+    <column id="COL35" populated="true" UUID="16d4e46b-2302-4a8d-bcde-5104ecb7ccdf" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_securitySchemes_seq" defaultValue="" name="securitySchemes" nullable="0" physicalName="securitySchemes" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{
+	&quot;oAuth2ClientCredentials&quot; : {
+		&quot;type&quot;: &quot;oauth2&quot;,
+		&quot;flows&quot;: {
+			&quot;clientCredentials&quot;: {
+				&quot;tokenUrl&quot;: &quot;{tokenUrl}&quot;,
+				&quot;scopes&quot;: {}
+				}
+			}
+		}
+}</remarks>
+    </column>
+    <column id="COL36" populated="true" UUID="07cc0512-9462-459f-ba6d-14dedaeccb3a" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_servers_seq" defaultValue="See Remarks - JSON Format" name="servers" nullable="0" physicalName="servers" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+      {
+         &quot;url&quot;: &quot;{apiRoot}/nef-configuration-service/22-03&quot;,
+         &quot;description&quot;: &quot;Amdocs NEF Release 22-03&quot;,
+         &quot;variables&quot;: {
+            &quot;apiRoot&quot;: {
+               &quot;default&quot;: &quot;https://nef.amdocs.com&quot;,
+               &quot;description&quot;: &quot;The Amdocs NEF URL&quot;
+            }
+         }
+      }
+]</remarks>
+    </column>
+    <column id="COL37" populated="true" UUID="63faad68-81f6-4576-bf7c-9a7eb6a14afa" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_1.0.0_seq" defaultValue="" name="version" nullable="0" physicalName="1.0.0" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL38" populated="true" UUID="0466a3c4-d9e1-4ba1-b37b-3aa486810d5d" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_security_seq" defaultValue="See Remarks - JSON Format" name="security" nullable="0" physicalName="security" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+  { },
+  {
+    &quot;oAuth2ClientCredentials&quot;: [
+    
+         ]
+  }
+]</remarks>
+    </column>
+    <column id="COL39" populated="true" UUID="dc2d07fa-8e60-45ad-9433-3b99f635d871" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Configuration Service._seq" defaultValue="" name="description" nullable="0" physicalName="NEF Configuration Service." precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>This is generated, modify source architect data model instead.</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB303" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB302" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB304" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX40" populated="true" UUID="d3a4e5c3-a6be-42f0-a7ab-1c5d87b7d7d5" clustered="false" name="NEF Business Model_pk" physicalName="NEF Business Model_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB41" populated="true" UUID="739e6daf-5d11-48da-aacb-1813a90f4db3" name="Configuration" objectType="TABLE" physicalName="Configuration" >
+   <remarks></remarks>
+   <folder id="FOLTAB411" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL42" populated="true" UUID="08bebfaf-d61c-4105-b690-e0596a201337" autoIncrement="false" autoIncrementSequenceName="Configuration_Configuration_seq" defaultValue="" name="Configuration" nullable="0" physicalName="Configuration" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>This is the configuration JSON Document.
+
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;Configuration&quot;,
+   &quot;description&quot;: &quot;This is the configuration JSON Document.&quot;,
+   &quot;tooltip&quot;: &quot;Configuration JSON Document&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;json&quot;,
+   &quot;possibleValues&quot;: [ ] ,
+   &quot;defaultValue&quot;: &quot;{}&quot;,
+   &quot;example&quot;: &quot;{}&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;ConfigurationService&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;ConfigurationService&quot;,
+   &quot;markdownDescription&quot;: &quot;This is the configuration JSON Document.&quot;,
+   &quot;valueSpecification&quot;: &quot;JSON&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB413" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB412" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB414" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX43" populated="true" UUID="7cf7f9af-8f50-46d0-8372-993414b5b4af" clustered="false" name="Configuration_pk" physicalName="Configuration_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB44" populated="true" UUID="78bd199f-5426-41c4-97ae-95e8097708ac" name="ConfigurationService" objectType="TABLE" physicalName="ignore_ConfigurationService" >
+   <remarks>This object will not be generated.</remarks>
+   <folder id="FOLTAB441" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX45" populated="true" UUID="499431ff-ceb1-4e9f-81f8-3cd4bf68d824" clustered="false" name="ConfigurationService_pk" physicalName="ConfigurationService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB46" populated="true" UUID="c5ac2e78-6227-44a5-892f-4b80d3119f39" name="ParameterDescriptor" objectType="TABLE" physicalName="ignore_ParameterDescriptor" >
+   <remarks></remarks>
+   <folder id="FOLTAB461" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL47" populated="true" UUID="672fc521-e23d-42c2-b057-ed8317bb8ae3" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_type_seq" defaultValue="" name="type" nullable="0" physicalName="type" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;NEF_Name&quot;,
+   &quot;description&quot;: &quot;Nef Instance Name&quot;,
+   &quot;tooltip&quot;: &quot;Nef Instance Name&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;free&quot;,
+   &quot;possibleValues&quot;: [ &quot;samsungNef&quot;, &quot;vdfNEF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;myAmazingNef&quot;,
+   &quot;example&quot;: &quot;Parameter Example Value&quot;,
+   &quot;validationScript&quot;: &quot;NEF_Name.startsWith(\&quot;my\&quot;)&quot;,
+   &quot;applicableTo&quot;: &quot;NEF_Instance&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;TimePeriod&quot;,
+   &quot;markdownDescription&quot;: &quot;NEF Instance Name&quot;,
+   &quot;valueSpecification&quot;: &quot;value Specification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL48" populated="true" UUID="a374ed41-923e-4e0e-8fa2-6760b000a805" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_markdownDescription_seq" defaultValue="" name="markdownDescription" nullable="0" physicalName="markdownDescription" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL49" populated="true" UUID="67e5a018-f2b0-472b-bf69-a194c1f95b59" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_defaultValue_seq" defaultValue="" name="defaultValue" nullable="0" physicalName="defaultValue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL50" populated="true" UUID="7f23d766-22a0-4703-bd30-ae14c82ea2a7" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_format_seq" defaultValue="" name="format" nullable="0" physicalName="format" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL51" populated="true" UUID="ba90abe4-6e27-488d-b958-4eeede7007ba" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_validationScript_seq" defaultValue="" name="validationScript" nullable="0" physicalName="validationScript" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL52" populated="true" UUID="4d7bf000-ef32-4605-a2da-b3b7ec926640" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_maxCardinality_seq" defaultValue="" name="maxCardinality" nullable="0" physicalName="maxCardinality" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL53" populated="true" UUID="88959825-1142-4bf2-8030-a44c44555c36" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_validFor_seq" defaultValue="" name="validFor" nullable="0" physicalName="validFor" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL54" populated="true" UUID="9c3e991c-76ca-446a-a63a-2ec61793a60c" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_minCardinality_seq" defaultValue="" name="minCardinality" nullable="0" physicalName="minCardinality" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL55" populated="true" UUID="b7ca2940-7390-4755-ae0e-85f262a28a7f" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_applicableTo_seq" defaultValue="" name="applicableTo" nullable="0" physicalName="applicableTo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL56" populated="true" UUID="10b66ffd-aefa-472e-84bb-99440e19b508" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_name_seq" defaultValue="" name="name" nullable="0" physicalName="name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL57" populated="true" UUID="d196ee05-55cf-46a2-8a21-fe4d053a425b" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_example_seq" defaultValue="" name="example" nullable="0" physicalName="example" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL58" populated="true" UUID="18d61157-b5da-409c-aae7-6328a6268e05" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_possibleValues_seq" defaultValue="" name="possibleValues" nullable="0" physicalName="possibleValues" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL59" populated="true" UUID="686f6e98-7696-4b1c-a6fa-548722349d1f" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_description_seq" defaultValue="" name="description" nullable="0" physicalName="description" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL60" populated="true" UUID="8301da87-9658-4e04-9ea9-47ba1d323d27" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_tooltip_seq" defaultValue="" name="tooltip" nullable="0" physicalName="tooltip" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL61" populated="true" UUID="8197174a-7f7f-494d-ae0c-61b39f3546d5" autoIncrement="false" autoIncrementSequenceName="ignore_ParameterDescriptor_PropertyName_seq" defaultValue="" name="PropertyName" nullable="0" physicalName="PropertyName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB463" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB462" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB464" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX62" populated="true" UUID="86235ede-e11c-4e3a-9b26-2e02adb4200e" clustered="false" name="ParameterDescriptor_pk" physicalName="ParameterDescriptor_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB63" populated="true" UUID="d379076e-c56f-462e-84a3-99a2917849e9" name="ValueSpecification" objectType="TABLE" physicalName="ignore_ValueSpecification" >
+   <remarks></remarks>
+   <folder id="FOLTAB631" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX64" populated="true" UUID="e69a0686-ea86-4346-88f4-d71b8b8fa01c" clustered="false" name="ignore_ValueSpecification_pk" physicalName="ignore_ValueSpecification_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL65" populated="true" UUID="ee992f43-bffc-4e8d-8a0d-daf360f83e55" deferrability="7" deleteRule="3" fk-table-ref="TAB10" fkCardinality="7" identifying="true" name="ignore_Configuration_ConfigurationVersion_fk" physicalName="ignore_Configuration_ConfigurationVersion_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL66" populated="true" UUID="808b6c3b-add8-494e-a7c9-aed21d8d188a" deferrability="7" deleteRule="3" fk-table-ref="TAB27" fkCardinality="3" identifying="true" name="ignore_Configuration_ConfiguationSchema_fk" physicalName="ignore_Configuration_ConfiguationSchema_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL67" populated="true" UUID="a90644bd-e68a-4ffd-b37d-16a4e23b1479" deferrability="7" deleteRule="3" fk-table-ref="TAB41" fkCardinality="3" identifying="true" name="ProductConfiguration_Configuration_fk" physicalName="ProductConfiguration_Configuration_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL68" populated="true" UUID="87d6f949-17d2-4848-88c5-9e0434b309e6" deferrability="7" deleteRule="3" fk-table-ref="TAB41" fkCardinality="3" identifying="false" name="ConfigurationVersion_Confguration_fk" physicalName="ConfigurationVersion_Confguration_fk" pk-table-ref="TAB10" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL69" populated="true" UUID="868d5096-2a91-445d-8cbf-7219087c8abd" deferrability="7" deleteRule="3" fk-table-ref="TAB46" fkCardinality="7" identifying="false" name="ConfigurationSchema_ParameterDescriptor_fk" physicalName="ConfigurationSchema_ParameterDescriptor_fk" pk-table-ref="TAB27" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL70" populated="true" UUID="2446fda2-3191-475f-b097-0659939bbfb7" deferrability="7" deleteRule="3" fk-table-ref="TAB6" fkCardinality="7" identifying="false" name="ignore_Confguration_ConfigurationParameter_fk" physicalName="ignore_Confguration_ConfigurationParameter_fk" pk-table-ref="TAB41" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL71" populated="true" UUID="16f6bcbc-6a7d-4def-8291-ab91ffdba243" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="ConfigurationService_ignore_ProductConfiguration_fk" physicalName="ConfigurationService_ignore_ProductConfiguration_fk" pk-table-ref="TAB44" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL72" populated="true" UUID="dd2ca8f0-1751-4155-a9c4-735cacaee361" deferrability="7" deleteRule="3" fk-table-ref="TAB6" fkCardinality="3" identifying="false" name="ignore_ParameterDescriptor_ConfigurationParameter_fk" physicalName="ignore_ParameterDescriptor_ConfigurationParameter_fk" pk-table-ref="TAB46" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL73" populated="true" UUID="70b20458-cc79-4342-a92a-8068bf766dc4" deferrability="7" deleteRule="3" fk-table-ref="TAB63" fkCardinality="7" identifying="false" name="ignore_ParameterDescriptor_ValueSpecification_fk" physicalName="ignore_ParameterDescriptor_ValueSpecification_fk" pk-table-ref="TAB46" pkCardinality="7" updateRule="3" >
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB1" x="580" y="231" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB6" x="555" y="611" bgColor="0xbfd6ff" fgColor="0x000000" rounded="true" dashed="true"/>
+  <table-pane table-ref="TAB10" x="934" y="411" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB27" x="237" y="408" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB30" x="51" y="33" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB41" x="580" y="411" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB44" x="580" y="113" bgColor="0xbfd6ff" fgColor="0x000000" rounded="true" dashed="true"/>
+  <table-pane table-ref="TAB46" x="200" y="607" bgColor="0xbfd6ff" fgColor="0x000000" rounded="true" dashed="true"/>
+  <table-pane table-ref="TAB63" x="592" y="777" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="true"/>
+  <table-link relationship-ref="REL65" pkConnection="0.8809523809523809" fkConnection="0.27884615384615385" rLineColor="0x000000" pkLabelText="has history of" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL66" pkConnection="0.06806282722513089" fkConnection="0.28104575163398693" rLineColor="0x000000" pkLabelText="is structured by" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL68" pkConnection="0.4811715481171548" fkConnection="0.5172413793103449" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL70" pkConnection="0.430939226519337" fkConnection="0.53125" rLineColor="0x000000" pkLabelText="has" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL67" pkConnection="0.225130890052356" fkConnection="0.8059701492537313" rLineColor="0x000000" pkLabelText="has active" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL71" pkConnection="0.49038461538461536" fkConnection="0.4973821989528796" rLineColor="0x000000" pkLabelText="manages" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL69" pkConnection="0.49019607843137253" fkConnection="0.5048543689320388" rLineColor="0x000000" pkLabelText="has a set of" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL72" pkConnection="0.11297071129707113" fkConnection="0.47368421052631576" rLineColor="0x000000" pkLabelText="specifies" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL73" pkConnection="0.7656903765690377" fkConnection="0.41379310344827586" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>

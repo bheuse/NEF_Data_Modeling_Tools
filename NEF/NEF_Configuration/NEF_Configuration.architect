@@ -1,0 +1,2407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.9">
+ <project-name>NEF_Configuration</project-name>
+ <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="PlayPen Database" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB1" populated="true" UUID="30bf726f-544a-485d-a1af-784e643bffb1" name="NefCommon" objectType="TABLE" physicalName="NefCommon" >
+   <remarks></remarks>
+   <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL2" populated="true" UUID="10aa208c-c611-4c7d-8e32-a0a105c2217b" autoIncrement="false" autoIncrementSequenceName="NefCommon_nfServices_seq" defaultValue="" name="nfServices" nullable="1" physicalName="nfServices" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfServices&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;GMLC&quot; ] ,
+   &quot;defaultValue&quot;: &quot;GMLC&quot;,
+   &quot;example&quot;: &quot;GMLC&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 12,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfServices&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX3" populated="true" UUID="9df5d165-6189-4962-9921-1a9444e8a7e4" clustered="false" name="NefCommon_pk" physicalName="NefCommon_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB4" populated="true" UUID="fdf01644-f5fe-4f05-98f0-6591b8a381d7" name="stages" objectType="TABLE" physicalName="stages" >
+   <remarks></remarks>
+   <folder id="FOLTAB41" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX5" populated="true" UUID="4e4df48e-95f8-4db8-9b6c-d8081ab3c9c4" clustered="false" name="stages_pk" physicalName="stages_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB6" populated="true" UUID="ba0cae28-7118-4eb4-ac88-ce905324a40b" name="NefConfiguration" objectType="TABLE" physicalName="NefConfiguration" >
+   <remarks></remarks>
+   <folder id="FOLTAB61" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL7" populated="true" UUID="addb7cb8-3389-4c42-8149-685072396cbe" autoIncrement="false" autoIncrementSequenceName="NefConfiguration_schemaVersion_seq" defaultValue="1.0.0" name="schemaVersion" nullable="0" physicalName="schemaVersion" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Schema Version
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;schemaVersion&quot;,
+   &quot;description&quot;: &quot;Schema Version&quot;,
+   &quot;tooltip&quot;: &quot;Schema Version&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;1.0.0&quot;, &quot;22.03&quot; ] ,
+   &quot;defaultValue&quot;: &quot;1.0.0&quot;,
+   &quot;example&quot;: &quot;1.0.0&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;NefConfiguration&quot;,
+   &quot;markdownDescription&quot;: &quot;Schema Version&quot;,
+   &quot;valueSpecification&quot;: &quot;&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL8" populated="true" UUID="01ced5ad-6034-403c-9c66-5272ee07f579" autoIncrement="false" autoIncrementSequenceName="NefConfiguration_schemaUri_seq" defaultValue="" name="schemaUri" nullable="0" physicalName="schemaUri" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Schema Uri
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;schemaUri&quot;,
+   &quot;description&quot;: &quot;Schema Uri&quot;,
+   &quot;tooltip&quot;: &quot;Schema Uri&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;uri&quot;,
+   &quot;possibleValues&quot;: [ &quot;https://nef.amdocs.com:8080/v1/NefConfiguration/schema&quot; ] ,
+   &quot;defaultValue&quot;: &quot;https://nef.amdocs.com:8080/v1/NefConfiguration/schema&quot;,
+   &quot;example&quot;: &quot;https://nef.amdocs.com:8080/v1/NefConfiguration/schema&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;NefConfiguration&quot;,
+   &quot;markdownDescription&quot;: &quot;Schema Uri&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL9" populated="true" UUID="fa44cf3b-1707-4b66-adda-6f78287cc0d6" autoIncrement="false" autoIncrementSequenceName="NefConfiguration__ROOT_seq" defaultValue="" name="_ROOT" nullable="1" physicalName="_ROOT" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultValue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 0,
+   &quot;maxCardinality&quot;: 0,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB63" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB62" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB64" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX10" populated="true" UUID="1f8de5b1-b2bc-4ccb-9fdf-4402a3c7d0bf" clustered="false" name="NefConfiguration_pk" physicalName="NefConfiguration_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB11" populated="true" UUID="332a0902-5d0f-48a0-aaa9-82489f06d69d" name="NefParameters" objectType="TABLE" physicalName="NefParameters" >
+   <remarks></remarks>
+   <folder id="FOLTAB111" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL12" populated="true" UUID="1c15e577-feff-4986-87eb-272b1b11dba7" autoIncrement="false" autoIncrementSequenceName="NefParameters_nrfUri_seq" defaultValue="" name="nrfUri" nullable="0" physicalName="nrfUri" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NRF Uri
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nrfUri&quot;,
+   &quot;description&quot;: &quot;NRF Uri&quot;,
+   &quot;tooltip&quot;: &quot;NRF Uri&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;uri&quot;,
+   &quot;possibleValues&quot;: [ &quot;https://nef.amdocs.com:8080/v1&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;https://nef.amdocs.com:8080/v1&quot;,
+   &quot;example&quot;: &quot;https://nef.amdocs.com:8080/v1&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NRF Uri&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL13" populated="true" UUID="97601ef5-b4f2-42dc-b5a6-8ae2c5317227" autoIncrement="false" autoIncrementSequenceName="NefParameters_webGuiPort_seq" defaultValue="8080" name="webGuiPort" nullable="0" physicalName="webGuiPort" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ 8080, 80 ] ,
+   &quot;defaultValue&quot;: 8080,
+   &quot;example&quot;: 8080,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB113" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB112" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB114" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX14" populated="true" UUID="a08b2264-ad61-447c-91aa-a36b138878c7" clustered="false" name="NefParameters_pk" physicalName="NefParameters_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB15" populated="true" UUID="94d062ae-bff3-4c3c-9b78-fe5b91daed0d" name="services" objectType="TABLE" physicalName="services" >
+   <remarks></remarks>
+   <folder id="FOLTAB151" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX16" populated="true" UUID="25adbf85-7b20-49dd-8b5d-2b7cd81d8286" clustered="false" name="services_pk" physicalName="services_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB17" populated="true" UUID="d7087472-5ec1-4729-99cf-dea02a4948c8" name="MobileCodes" objectType="TABLE" physicalName="MobileCodes" >
+   <remarks></remarks>
+   <folder id="FOLTAB171" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL18" populated="true" UUID="995d4a5d-8fa3-4caa-b114-c9a0a7d448cf" autoIncrement="false" autoIncrementSequenceName="MobileCodes_mcc_seq" defaultValue="350" name="mcc" nullable="0" physicalName="mcc" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Mobile Country Code
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;mcc&quot;,
+   &quot;description&quot;: &quot;Mobile Country Code&quot;,
+   &quot;tooltip&quot;: &quot;Mobile Country Code&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ ] ,
+   &quot;defaultValue&quot;: 350,
+   &quot;examples&quot;: [ 150, 350 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Mobile Country Code&quot;,
+   &quot;valueSpecification&quot;: &quot;mcc&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL19" populated="true" UUID="997a2f4f-b956-4f1f-ad8e-e917ccbf0ca9" autoIncrement="false" autoIncrementSequenceName="MobileCodes_mnc_seq" defaultValue="150" name="mnc" nullable="0" physicalName="mnc" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Mobile Number Code
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;mcc&quot;,
+   &quot;description&quot;: &quot;Mobile Number Code&quot;,
+   &quot;tooltip&quot;: &quot;Mobile Number Code&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ ] ,
+   &quot;defaultValue&quot;: 150,
+   &quot;examples&quot;: [ 150, 350 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Mobile Number Code&quot;,
+   &quot;valueSpecification&quot;: &quot;mcc&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB173" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB172" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB174" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX20" populated="true" UUID="9209bc4d-d939-4aa3-98c5-7c13639693ba" clustered="false" name="MobileCodes_pk" physicalName="MobileCodes_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB21" populated="true" UUID="cb4e62b5-3343-483a-a0c1-246e51fae1b9" name="nfClients" objectType="TABLE" physicalName="nfClients" >
+   <remarks></remarks>
+   <folder id="FOLTAB211" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX22" populated="true" UUID="16ce0467-bea9-495c-82be-66c663cb2780" clustered="false" name="nfClients_pk" physicalName="nfClients_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB23" populated="true" UUID="d6fe524d-b0fd-4af5-af46-3eed7d2068c0" name="AmfEventExposureService" objectType="TABLE" physicalName="AmfEventExposureService" >
+   <remarks></remarks>
+   <folder id="FOLTAB231" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL24" populated="true" UUID="83d68749-89ae-4097-9f88-d4d454431987" autoIncrement="false" autoIncrementSequenceName="AmfEventExposureService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;AMF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;AMF&quot;,
+   &quot;example&quot;: &quot;AMF&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB233" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB232" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB234" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX25" populated="true" UUID="e3eae3be-0479-44a5-9408-38e4ba66cd3e" clustered="false" name="AmfEventExposureService_pk" physicalName="AmfEventExposureService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB26" populated="true" UUID="0b8437d8-7cb3-405c-be94-cc4961297eb1" name="Subscriptions" objectType="TABLE" physicalName="Subscriptions" >
+   <remarks></remarks>
+   <folder id="FOLTAB261" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL27" populated="true" UUID="374e584e-8d8f-4d9c-958c-5a49d93fa41b" autoIncrement="false" autoIncrementSequenceName="Subscriptions_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB263" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB262" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB264" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX28" populated="true" UUID="bdd6284c-5967-4087-a806-1fb9d0a5ffea" clustered="false" name="Subscriptions_pk" physicalName="Subscriptions_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB29" populated="true" UUID="34412f5d-847a-48b2-a9c9-6f1ffff9a0b1" name="BindingSupportManagementService" objectType="TABLE" physicalName="BindingSupportManagementService" >
+   <remarks></remarks>
+   <folder id="FOLTAB291" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL30" populated="true" UUID="f71cd42e-8256-4431-a19f-e13090e2ff0c" autoIncrement="false" autoIncrementSequenceName="BindingSupportManagementService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;BSF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;BSF&quot;,
+   &quot;example&quot;: &quot;BSF&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB293" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB292" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB294" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX31" populated="true" UUID="1cbe961c-50a9-4699-b81a-d3fa53c76f2a" clustered="false" name="BindingSupportManagementService_pk" physicalName="BindingSupportManagementService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB32" populated="true" UUID="e70bc4ff-014d-44fe-a103-d9795da31899" name="PcfBindings" objectType="TABLE" physicalName="PcfBindings" >
+   <remarks></remarks>
+   <folder id="FOLTAB321" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL33" populated="true" UUID="3b1849e1-f4f1-4b9d-8598-f861c5cc5fff" autoIncrement="false" autoIncrementSequenceName="PcfBindings_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB323" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB322" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB324" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX34" populated="true" UUID="32b49a07-1250-4d1a-ae7a-604f239e67aa" clustered="false" name="PcfBindings_pk" physicalName="PcfBindings_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB35" populated="true" UUID="b31c9bc9-f690-4af0-bde4-d9c84b1e8d51" name="CHFService" objectType="TABLE" physicalName="CHFService" >
+   <remarks></remarks>
+   <folder id="FOLTAB351" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL36" populated="true" UUID="c00e590f-9da1-44c0-968b-44d3d3c0f8e5" autoIncrement="false" autoIncrementSequenceName="CHFService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;CHF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;CHF&quot;,
+   &quot;example&quot;: &quot;CHF&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB353" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB352" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB354" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX37" populated="true" UUID="76bfcb76-3ec0-4dc7-97e9-f1d143eef61e" clustered="false" name="CHFService_pk" physicalName="CHFService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB38" populated="true" UUID="e97ba862-b802-4660-9e9d-f72d16903352" name="Chargingdata" objectType="TABLE" physicalName="Chargingdata" >
+   <remarks></remarks>
+   <folder id="FOLTAB381" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL39" populated="true" UUID="78f530a8-7b03-4e13-9ecf-701b43661140" autoIncrement="false" autoIncrementSequenceName="Chargingdata_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB383" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB382" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB384" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX40" populated="true" UUID="8ea51d0c-8602-4ac7-9ad7-11a2a97eb33f" clustered="false" name="Chargingdata_pk" physicalName="Chargingdata_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB41" populated="true" UUID="cf76b433-9212-4804-bdb4-b9b867153cbd" name="GmlcLocationService" objectType="TABLE" physicalName="GmlcLocationService" >
+   <remarks></remarks>
+   <folder id="FOLTAB411" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL42" populated="true" UUID="33398454-f736-4b60-b31c-5148d0f69e4a" autoIncrement="false" autoIncrementSequenceName="GmlcLocationService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;GMLC&quot; ] ,
+   &quot;defaultValue&quot;: &quot;GMLC&quot;,
+   &quot;example&quot;: &quot;GMLC&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB413" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB412" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB414" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX43" populated="true" UUID="ec3c9d6e-5a01-4804-a251-27755a905b1d" clustered="false" name="GmlcLocationService_pk" physicalName="GmlcLocationService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB44" populated="true" UUID="6d9d17cd-b19a-454b-98a1-f5e07ac0a2d3" name="CancelLocation" objectType="TABLE" physicalName="CancelLocation" >
+   <remarks></remarks>
+   <folder id="FOLTAB441" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL45" populated="true" UUID="509102d4-8b11-428b-a850-885b0cd793bc" autoIncrement="false" autoIncrementSequenceName="CancelLocation_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB443" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB442" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB444" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX46" populated="true" UUID="85189206-8420-4603-9ee6-8d01d9642c91" clustered="false" name="CancelLocation_pk" physicalName="CancelLocation_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB47" populated="true" UUID="80b2dfb1-85af-430d-acf2-eb24dfee432f" name="LocationUpdate" objectType="TABLE" physicalName="LocationUpdate" >
+   <remarks></remarks>
+   <folder id="FOLTAB471" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL48" populated="true" UUID="3a9d95f8-38b5-4855-8837-ac0ca095dece" autoIncrement="false" autoIncrementSequenceName="LocationUpdate_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB473" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB472" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB474" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX49" populated="true" UUID="48d4be1d-ec3d-4c1a-96ac-5e665e9f6a2c" clustered="false" name="LocationUpdate_pk" physicalName="LocationUpdate_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB50" populated="true" UUID="9e2d28b6-9a8f-423a-8f79-cae4a7c55533" name="ProvideLocation" objectType="TABLE" physicalName="ProvideLocation" >
+   <remarks></remarks>
+   <folder id="FOLTAB501" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL51" populated="true" UUID="bfd97e89-7a45-44a4-bbbd-6ab84447cd71" autoIncrement="false" autoIncrementSequenceName="ProvideLocation_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB503" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB502" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB504" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX52" populated="true" UUID="61d683ac-465f-4967-aebb-bd1a3d426305" clustered="false" name="ProvideLocation_pk" physicalName="ProvideLocation_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB53" populated="true" UUID="b57682f2-c525-45e9-aa97-51f4732910fc" name="MonitoringEventService" objectType="TABLE" physicalName="MonitoringEventService" >
+   <remarks></remarks>
+   <folder id="FOLTAB531" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL54" populated="true" UUID="f30c7f00-d6df-4801-bca5-6ccf92a7663b" autoIncrement="false" autoIncrementSequenceName="MonitoringEventService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB533" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB532" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB534" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX55" populated="true" UUID="8fc276f4-ff73-43ee-9889-abffe521cda1" clustered="false" name="MonitoringEventService_pk" physicalName="MonitoringEventService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB56" populated="true" UUID="d3ed6739-b41a-4884-aeea-1349f4c575ac" name="meCreatesubscriptionCallback" objectType="TABLE" physicalName="meCreatesubscriptionCallback" >
+   <remarks></remarks>
+   <folder id="FOLTAB561" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL57" populated="true" UUID="f40ab975-41d5-4d29-b8bc-afe0ebdd7063" autoIncrement="false" autoIncrementSequenceName="meCreatesubscriptionCallback_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB563" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB562" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB564" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX58" populated="true" UUID="7a4166a7-08b7-4c4d-a4ec-58cd802ab1eb" clustered="false" name="meCreatesubscriptionCallback_pk" physicalName="CreatesubscriptionCallback_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB59" populated="true" UUID="d3cf1480-8cec-4144-b330-43d8fbf1a048" name="NudsfDr" objectType="TABLE" physicalName="NudsfDr" >
+   <remarks></remarks>
+   <folder id="FOLTAB591" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL60" populated="true" UUID="55775503-4dfc-4721-92b8-e862fb3d0355" autoIncrement="false" autoIncrementSequenceName="NudsfDr_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;UDSF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;UDSF&quot;,
+   &quot;example&quot;: &quot;UDSF&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB593" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB592" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB594" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX61" populated="true" UUID="b5f80fb2-2000-49af-a418-529a72410b14" clustered="false" name="NudsfDr_pk" physicalName="NudsfDr_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB62" populated="true" UUID="32816a6b-0dfd-4806-9645-75b54163d0f1" name="NudsfDrRoot" objectType="TABLE" physicalName="NudsfDrRoot" >
+   <remarks></remarks>
+   <folder id="FOLTAB621" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL63" populated="true" UUID="7eaac1da-10b1-4454-bf82-850cda142c3f" autoIncrement="false" autoIncrementSequenceName="NudsfDrRoot_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB623" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB622" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB624" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX64" populated="true" UUID="4dabd75e-e5c6-450d-91ce-865426db9fe6" clustered="false" name="NudsfDrRoot_pk" physicalName="NudsfDrRoot_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB65" populated="true" UUID="4c0f203e-2a63-43c1-9370-20bf30b2b1a4" name="PolicyAuthorisationService" objectType="TABLE" physicalName="PolicyAuthorisationService" >
+   <remarks></remarks>
+   <folder id="FOLTAB651" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL66" populated="true" UUID="96ac879f-e810-4f43-80c0-4e788b19686e" autoIncrement="false" autoIncrementSequenceName="PolicyAuthorisationService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;PCF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;PCF&quot;,
+   &quot;example&quot;: &quot;PCF&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB653" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB652" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB654" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX67" populated="true" UUID="363d7450-f80b-455f-b058-7de1803ea3c1" clustered="false" name="PolicyAuthorisationService_pk" physicalName="PolicyAuthorisationService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB68" populated="true" UUID="03d01480-dfa2-4721-bd4c-fe0ae26b3b44" name="AppSessions" objectType="TABLE" physicalName="AppSessions" >
+   <remarks></remarks>
+   <folder id="FOLTAB681" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL69" populated="true" UUID="16cac12c-be92-4bc2-a8dd-e25a9814a10f" autoIncrement="false" autoIncrementSequenceName="AppSessions_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB683" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB682" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB684" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX70" populated="true" UUID="bfd62b25-db18-4d9b-b7b7-91c55af753c1" clustered="false" name="AppSessions_pk" physicalName="AppSessions_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB71" populated="true" UUID="a6c563f5-bfdc-43bc-9469-3e3f78932426" name="SmfEventExposureService" objectType="TABLE" physicalName="SmfEventExposureService" >
+   <remarks></remarks>
+   <folder id="FOLTAB711" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL72" populated="true" UUID="174e37b9-b640-44c6-88a5-d1bc604c0466" autoIncrement="false" autoIncrementSequenceName="SmfEventExposureService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;SMF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;SMF&quot;,
+   &quot;example&quot;: &quot;SMF&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB713" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB712" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB714" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX73" populated="true" UUID="0bc5c9c8-d8dc-4a24-925f-927bb2ac9c46" clustered="false" name="SmfEventExposureService_pk" physicalName="SmfEventExposureService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB74" populated="true" UUID="6eea068e-34b9-47be-aec5-b0fc6982661b" name="CreateindividualsubcriptionCallback" objectType="TABLE" physicalName="CreateindividualsubcriptionCallback" >
+   <remarks></remarks>
+   <folder id="FOLTAB741" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL75" populated="true" UUID="02bd9df5-7cc2-44bd-9269-1b40b57d3567" autoIncrement="false" autoIncrementSequenceName="CreateindividualsubcriptionCallback_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB743" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB742" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB744" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX76" populated="true" UUID="5867a2ab-d5bd-4545-bdcf-053df0b0c787" clustered="false" name="CreateindividualsubcriptionCallback_pk" physicalName="CreateindividualsubcriptionCallback_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB77" populated="true" UUID="5284a816-cbb0-4522-add0-aa88b81d6a13" name="TrafficInfluenceService" objectType="TABLE" physicalName="TrafficInfluenceService" >
+   <remarks></remarks>
+   <folder id="FOLTAB771" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL78" populated="true" UUID="64448347-b8cd-40dd-8622-5d7b973114f8" autoIncrement="false" autoIncrementSequenceName="TrafficInfluenceService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;PCF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;PCF&quot;,
+   &quot;example&quot;: &quot;PCF&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB773" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB772" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB774" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX79" populated="true" UUID="9455b769-262d-490c-b96a-701b6a52a5b7" clustered="false" name="TrafficInfluenceService_pk" physicalName="TrafficInfluenceService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB80" populated="true" UUID="75dad9a7-bebb-4210-96b7-df4cf73c28b2" name="tiCreatesubscriptionCallback" objectType="TABLE" physicalName="tiCreatesubscriptionCallback" >
+   <remarks></remarks>
+   <folder id="FOLTAB801" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL81" populated="true" UUID="42191e7f-2213-449b-b9d8-f40c66cbeade" autoIncrement="false" autoIncrementSequenceName="tiCreatesubscriptionCallback_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB803" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB802" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB804" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX82" populated="true" UUID="3ad83918-e160-4734-a203-cbcee92fcd9a" clustered="false" name="tiCreatesubscriptionCallback_pk" physicalName="CreatesubscriptionCallback_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB83" populated="true" UUID="732f7842-6d97-42d0-bcff-8de7f7129455" name="UdmSdmService" objectType="TABLE" physicalName="UdmSdmService" >
+   <remarks></remarks>
+   <folder id="FOLTAB831" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL84" populated="true" UUID="f06dc27e-0bdd-41b7-8422-f3eacd0d44d2" autoIncrement="false" autoIncrementSequenceName="UdmSdmService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;UDM&quot; ] ,
+   &quot;defaultValue&quot;: &quot;UDM&quot;,
+   &quot;example&quot;: &quot;UDM&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB833" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB832" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB834" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX85" populated="true" UUID="66505314-a5bb-4b09-883a-8d49b32a59f6" clustered="false" name="UdmSdmService_pk" physicalName="UdmSdmService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB86" populated="true" UUID="a66d2eaf-045a-4b65-b62b-0773aba0c54b" name="GroupData" objectType="TABLE" physicalName="GroupData" >
+   <remarks></remarks>
+   <folder id="FOLTAB861" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL87" populated="true" UUID="3d304207-cdf4-4e0b-bce5-76d545747932" autoIncrement="false" autoIncrementSequenceName="GroupData_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB863" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB862" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB864" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX88" populated="true" UUID="b0e2e517-1af6-45a3-abf2-ef630cd3bcbd" clustered="false" name="GroupData_pk" physicalName="GroupData_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB89" populated="true" UUID="64b51a20-929c-45ef-990e-0cc2699d8d6e" name="UdmSdmServiceRoot" objectType="TABLE" physicalName="UdmSdmServiceRoot" >
+   <remarks></remarks>
+   <folder id="FOLTAB891" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL90" populated="true" UUID="14950473-7e02-4530-826b-20b81a3299c1" autoIncrement="false" autoIncrementSequenceName="UdmSdmServiceRoot_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB893" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB892" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB894" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX91" populated="true" UUID="2249df03-1d2e-4c0b-aa32-2f82205967be" clustered="false" name="UdmSdmServiceRoot_pk" physicalName="UdmSdmServiceRoot_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB92" populated="true" UUID="b95ca94c-bd92-4de1-b2c1-af6090447292" name="UdmEventExposureService" objectType="TABLE" physicalName="UdmEventExposureService" >
+   <remarks></remarks>
+   <folder id="FOLTAB921" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL93" populated="true" UUID="95fae245-9901-489b-8505-3221f9dfda05" autoIncrement="false" autoIncrementSequenceName="UdmEventExposureService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;UDM&quot; ] ,
+   &quot;defaultValue&quot;: &quot;UDM&quot;,
+   &quot;example&quot;: &quot;UDM&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB923" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB922" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB924" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX94" populated="true" UUID="3971e4f5-2a46-4aa2-a205-046badd69069" clustered="false" name="UdmEventExposureService_pk" physicalName="UdmEventExposureService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB95" populated="true" UUID="1e67d143-c5e5-49a6-95d8-44c7a0a46f57" name="UdmEventExposureServiceRoot" objectType="TABLE" physicalName="UdmEventExposureServiceRoot" >
+   <remarks></remarks>
+   <folder id="FOLTAB951" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL96" populated="true" UUID="86c78ddd-0157-48e4-bd40-b72ab21633f7" autoIncrement="false" autoIncrementSequenceName="UdmEventExposureServiceRoot_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB953" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB952" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB954" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX97" populated="true" UUID="177b3452-6e96-4414-85d7-436c049a2540" clustered="false" name="UdmEventExposureServiceRoot_pk" physicalName="UdmEventExposureServiceRoot_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB98" populated="true" UUID="0e3ca2d6-166a-424a-b657-b22d79dc63aa" name="UdrDrService" objectType="TABLE" physicalName="UdrDrService" >
+   <remarks></remarks>
+   <folder id="FOLTAB981" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL99" populated="true" UUID="fe12ec04-49fd-4eef-bafc-7707d41e3ed3" autoIncrement="false" autoIncrementSequenceName="UdrDrService_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;UDR&quot; ] ,
+   &quot;defaultValue&quot;: &quot;UDR&quot;,
+   &quot;example&quot;: &quot;UDR&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB983" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB982" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB984" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX100" populated="true" UUID="c6ee79a7-ab79-43ed-8285-17c3debf918f" clustered="false" name="UdrDrService_pk" physicalName="UdrDrService_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB101" populated="true" UUID="273c6e21-4057-4652-9c98-455e6362bf9d" name="ApplicationData" objectType="TABLE" physicalName="ApplicationData" >
+   <remarks></remarks>
+   <folder id="FOLTAB1011" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL102" populated="true" UUID="9c9d320f-d8e8-4fc5-8b7a-b7dd87da88f4" autoIncrement="false" autoIncrementSequenceName="ApplicationData_timeout_seq" defaultValue="2000" name="timeout" nullable="0" physicalName="timeout" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Timeout for NF Answer for this Operation
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;integer&quot;,
+   &quot;possibleValues&quot;: [ 200, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;examples&quot;: [ 200, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Timeout for NF Answer for this Operation&quot;,
+   &quot;valueSpecification&quot;: &quot;nFtimeout&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1013" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1012" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1014" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX103" populated="true" UUID="6514959e-05da-4735-8991-948dfad08e59" clustered="false" name="ApplicationData_pk" physicalName="ApplicationData_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB104" populated="true" UUID="a9cc16b4-d339-44e7-8129-ae85002394f8" name="AuthStage" objectType="TABLE" physicalName="AuthStage" >
+   <remarks></remarks>
+   <folder id="FOLTAB1041" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL105" populated="true" UUID="3e391765-dc4c-4ec1-b9a0-b0b9302aa971" autoIncrement="false" autoIncrementSequenceName="AuthStage_enabled_seq" defaultValue="" name="enabled" nullable="0" physicalName="enabled" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Enable Stage
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;enabled&quot;,
+   &quot;description&quot;: &quot;Enable Stage&quot;,
+   &quot;tooltip&quot;: &quot;Enable Stage&quot;,
+   &quot;type&quot;: &quot;boolean&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ true, false ] ,
+   &quot;defaultValue&quot;: true,
+   &quot;example&quot;: true,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Enable Stage&quot;,
+   &quot;valueSpecification&quot;: &quot;enableStage&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL106" populated="true" UUID="fbed6c05-fef8-4520-9827-510cd5d89dd7" autoIncrement="false" autoIncrementSequenceName="AuthStage_keycloakPublicKey_seq" defaultValue="" name="keycloakPublicKey" nullable="0" physicalName="keycloakPublicKey" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Keycloak Public Key
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;keycloakPublicKey&quot;,
+   &quot;description&quot;: &quot;Keycloak Public Key&quot;,
+   &quot;tooltip&quot;: &quot;Keycloak Public Key&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [  ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultValue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Keycloak Public Key&quot;,
+   &quot;valueSpecification&quot;: &quot;PublicKey&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1043" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1042" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1044" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX107" populated="true" UUID="bc118d10-fb48-46de-8e80-a0fcda505385" clustered="false" name="AuthStage_pk" physicalName="AuthStage_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB108" populated="true" UUID="15cd446b-7e4d-4dac-bf98-128d7e76f86b" name="CreateChfStage" objectType="TABLE" physicalName="CreateChfStage" >
+   <remarks></remarks>
+   <folder id="FOLTAB1081" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL109" populated="true" UUID="93c61e27-578f-40f6-95f6-5ba371c2ba6d" autoIncrement="false" autoIncrementSequenceName="CreateChfStage_enabled_seq" defaultValue="true" name="enabled" nullable="0" physicalName="enabled" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Enable Stage
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;enabled&quot;,
+   &quot;description&quot;: &quot;Enable Stage&quot;,
+   &quot;tooltip&quot;: &quot;Enable Stage&quot;,
+   &quot;type&quot;: &quot;boolean&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ true, false ] ,
+   &quot;defaultValue&quot;: true,
+   &quot;example&quot;: true,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Enable Stage&quot;,
+   &quot;valueSpecification&quot;: &quot;enableStage&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1083" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1082" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1084" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX110" populated="true" UUID="16697073-4427-4723-ade3-16852bdc57da" clustered="false" name="CreateChfStage_pk" physicalName="CreateChfStage_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB111" populated="true" UUID="f2851de3-b3a6-4bc8-a645-35079fd558c3" name="DiscoveryBsfStage" objectType="TABLE" physicalName="DiscoveryBsfStage" >
+   <remarks></remarks>
+   <folder id="FOLTAB1111" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL112" populated="true" UUID="28298da7-2401-4959-ade0-582d1b73bd6d" autoIncrement="false" autoIncrementSequenceName="DiscoveryBsfStage_enabled_seq" defaultValue="true" name="enabled" nullable="0" physicalName="enabled" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Enable Stage
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;enabled&quot;,
+   &quot;description&quot;: &quot;Enable Stage&quot;,
+   &quot;tooltip&quot;: &quot;Enable Stage&quot;,
+   &quot;type&quot;: &quot;boolean&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ true, false ] ,
+   &quot;defaultValue&quot;: true,
+   &quot;example&quot;: true,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Enable Stage&quot;,
+   &quot;valueSpecification&quot;: &quot;enableStage&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1113" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1112" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1114" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX113" populated="true" UUID="b560284a-a8d7-43ec-b89e-4b4df7a11054" clustered="false" name="DiscoveryBsfStage_pk" physicalName="DiscoveryBsfStage_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB114" populated="true" UUID="cbfacea2-f450-496c-9b65-596b5fb14531" name="WriteEdrStage" objectType="TABLE" physicalName="WriteEdrStage" >
+   <remarks></remarks>
+   <folder id="FOLTAB1141" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL115" populated="true" UUID="edd207e4-e257-402e-804b-64e4a2e941e6" autoIncrement="false" autoIncrementSequenceName="WriteEdrStage_enabled_seq" defaultValue="" name="enabled" nullable="0" physicalName="enabled" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Enable Stage
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;enabled&quot;,
+   &quot;description&quot;: &quot;Enable Stage&quot;,
+   &quot;tooltip&quot;: &quot;Enable Stage&quot;,
+   &quot;type&quot;: &quot;boolean&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ true, false ] ,
+   &quot;defaultValue&quot;: true,
+   &quot;example&quot;: true,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Enable Stage&quot;,
+   &quot;valueSpecification&quot;: &quot;enableStage&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1143" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1142" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1144" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX116" populated="true" UUID="c7511de2-f630-4ca5-8bb9-c42d8c38cb5c" clustered="false" name="WriteEdrStage_pk" physicalName="WriteEdrStage_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB117" populated="true" UUID="57569a13-2aff-4d9a-811b-3e3d39356cfb" name="PaPcfStage" objectType="TABLE" physicalName="PaPcfStage" >
+   <remarks></remarks>
+   <folder id="FOLTAB1171" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL118" populated="true" UUID="00cbaa0c-5b31-404c-9976-fbc0e7d83fbb" autoIncrement="false" autoIncrementSequenceName="PaPcfStage_pcfSuppFeat_seq" defaultValue="4018002" name="pcfSuppFeat" nullable="0" physicalName="pcfSuppFeat" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ 4018002, 4018003 ] ,
+   &quot;defaultValue&quot;: 4018002,
+   &quot;example&quot;: 4018002,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1173" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1172" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1174" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX119" populated="true" UUID="020c375d-65bd-4336-8784-2ad2676be004" clustered="false" name="PaPcfStage_pk" physicalName="PaPcfStage_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB120" populated="true" UUID="e66787ef-9cb2-4ef3-805d-916eed44915c" name="MeSelectLocationServiceStage" objectType="TABLE" physicalName="MeSelectLocationServiceStage" >
+   <remarks></remarks>
+   <folder id="FOLTAB1201" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL121" populated="true" UUID="8614905c-444f-47a1-85e2-4de42979bb8a" autoIncrement="false" autoIncrementSequenceName="MeSelectLocationServiceStage_locationService_seq" defaultValue="UDM" name="locationService" nullable="0" physicalName="locationService" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Location Service
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;locationService&quot;,
+   &quot;description&quot;: &quot;Location Service&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;UDM&quot;, &quot;GLMC&quot; ] ,
+   &quot;defaultValue&quot;: &quot;UDM&quot;,
+   &quot;example&quot;: &quot;UDM&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1203" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1202" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1204" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX122" populated="true" UUID="9e8737cc-9892-42ce-a7bf-b87a576c2158" clustered="false" name="MeSelectLocationServiceStage_pk" physicalName="MeSelectLocationServiceStage_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB123" populated="true" UUID="b0542a3f-d636-4bbd-b220-5c6dd23e4403" name="SessionStorage" objectType="TABLE" physicalName="SessionStorage" >
+   <remarks></remarks>
+   <folder id="FOLTAB1231" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL124" populated="true" UUID="f16585b0-f2a9-4967-8a32-50e3d84d046b" autoIncrement="false" autoIncrementSequenceName="SessionStorage_realm_seq" defaultValue="openet" name="realm" nullable="0" physicalName="realm" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultValue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL125" populated="true" UUID="e481bb79-aa6f-431d-939e-c77f6459d5d2" autoIncrement="false" autoIncrementSequenceName="SessionStorage_storageId_seq" defaultValue="nef-common" name="storageId" nullable="0" physicalName="storageId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;nef-common&quot;, &quot;nef-common2&quot; ] ,
+   &quot;defaultValue&quot;: &quot;nef-common&quot;,
+   &quot;example&quot;: &quot;nef-common&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL126" populated="true" UUID="73a679a8-8629-4389-8b9a-c24bb43b5ae9" autoIncrement="false" autoIncrementSequenceName="SessionStorage_idleTimer_seq" defaultValue="86400" name="idleTimer" nullable="0" physicalName="idleTimer" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Session Idle Timer
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;idleTimer&quot;,
+   &quot;description&quot;: &quot;Session Idle Timer&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ 86400, 500, 1000, 2000, 5000 ] ,
+   &quot;defaultValue&quot;: 86400,
+   &quot;examples&quot;: [ 86400, 500, 1000, 2000, 5000 ],
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Session Idle Timer&quot;,
+   &quot;valueSpecification&quot;: &quot;sessionIdleTimer&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL127" populated="true" UUID="c59bc338-8eb8-4721-b986-13a098a74072" autoIncrement="false" autoIncrementSequenceName="SessionStorage_externalProtocolSchemeOverride_seq" defaultValue="NA" name="externalProtocolSchemeOverride" nullable="0" physicalName="externalProtocolSchemeOverride" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>External Protocol Scheme Override
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;externalProtocolSchemeOverride&quot;,
+   &quot;description&quot;: &quot;External Protocol Scheme Override&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;NA&quot;, &quot;Yes&quot; ] ,
+   &quot;defaultValue&quot;: &quot;NA&quot;,
+   &quot;example&quot;: &quot;NA&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;External Protocol Scheme Override&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1233" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1232" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1234" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX128" populated="true" UUID="06395a7d-bfea-4729-98e4-938e8b81d79f" clustered="false" name="SessionStorage_pk" physicalName="SessionStorage_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB129" populated="true" UUID="99b5aa12-9620-4af5-8861-ca00b96c2ae3" name="api_profiles" objectType="TABLE" physicalName="api_profiles" >
+   <remarks></remarks>
+   <folder id="FOLTAB1291" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX130" populated="true" UUID="25e7bc11-d46a-4321-a390-b41aa96acde1" clustered="false" name="api_profiles_pk" physicalName="api_profiles_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB131" populated="true" UUID="08c957ca-499f-4b8e-9432-7b55679d582f" name="as-session-with-qos" objectType="TABLE" physicalName="as-session-with-qos" >
+   <remarks></remarks>
+   <folder id="FOLTAB1311" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL132" populated="true" UUID="ddfc09f6-7ee5-48d9-aabe-d4294633b5f8" autoIncrement="false" autoIncrementSequenceName="as-session-with-qos_nfServices_seq" defaultValue="" name="nfServices" nullable="1" physicalName="nfServices" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfServices&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;GMLC&quot; ] ,
+   &quot;defaultValue&quot;: &quot;GMLC&quot;,
+   &quot;example&quot;: &quot;GMLC&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 12,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfServices&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL133" populated="true" UUID="1716e297-8fe5-4ac5-8b4c-02033f3437b7" autoIncrement="false" autoIncrementSequenceName="as-session-with-qos_openAPIyaml_seq" defaultValue="" name="openAPIyaml" nullable="0" physicalName="openAPIyaml" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1313" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1312" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1314" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX134" populated="true" UUID="267b2a6a-b23a-44a4-8f8d-cb758f3d9359" clustered="false" name="as-session-with-qos_pk" physicalName="as-session-with-qos_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB135" populated="true" UUID="1774a763-15d1-4d2c-a1f4-d500a1e36861" name="chargeable-party" objectType="TABLE" physicalName="chargeable-party" >
+   <remarks></remarks>
+   <folder id="FOLTAB1351" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL136" populated="true" UUID="3b35490c-a2cf-448b-bf59-24bb14bd6b99" autoIncrement="false" autoIncrementSequenceName="chargeable-party_nfServices_seq" defaultValue="" name="nfServices" nullable="1" physicalName="nfServices" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfServices&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;GMLC&quot; ] ,
+   &quot;defaultValue&quot;: &quot;GMLC&quot;,
+   &quot;example&quot;: &quot;GMLC&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 12,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfServices&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL137" populated="true" UUID="2193d9ce-8345-4cb0-b4f4-e40bd1b4046a" autoIncrement="false" autoIncrementSequenceName="chargeable-party_openAPIyaml_seq" defaultValue="" name="openAPIyaml" nullable="0" physicalName="openAPIyaml" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1353" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1352" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1354" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX138" populated="true" UUID="883e740d-6f94-440b-8c1e-52ca0ccd598e" clustered="false" name="chargeable-party_pk" physicalName="chargeable-party_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB139" populated="true" UUID="16e52c37-47fa-4f34-b8e9-d6f9bc647378" name="monitoring-event" objectType="TABLE" physicalName="monitoring-event" >
+   <remarks></remarks>
+   <folder id="FOLTAB1391" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL140" populated="true" UUID="ca2ad041-ecc6-4be0-b46c-b5cf8837fb9f" autoIncrement="false" autoIncrementSequenceName="monitoring-event_nfServices_seq" defaultValue="" name="nfServices" nullable="1" physicalName="nfServices" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfServices&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;GMLC&quot; ] ,
+   &quot;defaultValue&quot;: &quot;GMLC&quot;,
+   &quot;example&quot;: &quot;GMLC&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 12,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfServices&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL141" populated="true" UUID="9733711a-1c96-438e-83b1-9cfa3338d1d7" autoIncrement="false" autoIncrementSequenceName="monitoring-event_openAPIyaml_seq" defaultValue="" name="openAPIyaml" nullable="0" physicalName="openAPIyaml" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1393" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1392" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1394" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX142" populated="true" UUID="aecdedd0-348b-44f3-8e0c-097d5738fc12" clustered="false" name="monitoring-event_pk" physicalName="monitoring-event_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB143" populated="true" UUID="ecd9e32b-ad6c-4ab4-8361-5d3304357398" name="traffic-influence" objectType="TABLE" physicalName="traffic-influence" >
+   <remarks></remarks>
+   <folder id="FOLTAB1431" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL144" populated="true" UUID="4d9ffcba-7968-4d87-b2e0-d5c433bb6d05" autoIncrement="false" autoIncrementSequenceName="traffic-influence_nfServices_seq" defaultValue="" name="nfServices" nullable="1" physicalName="nfServices" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfServices&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;GMLC&quot; ] ,
+   &quot;defaultValue&quot;: &quot;GMLC&quot;,
+   &quot;example&quot;: &quot;GMLC&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 12,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfServices&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL145" populated="true" UUID="c229e777-10b4-478f-992c-7d0a760ee847" autoIncrement="false" autoIncrementSequenceName="traffic-influence_openAPIyaml_seq" defaultValue="" name="openAPIyaml" nullable="0" physicalName="openAPIyaml" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1433" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1432" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1434" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX146" populated="true" UUID="29371ad4-a4f9-4e6c-8075-fe72bbb12914" clustered="false" name="traffic-influence_pk" physicalName="traffic-influence_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB147" populated="true" UUID="2bb10de6-cbb5-4041-a11c-457555e372c2" name="nf_profiles" objectType="TABLE" physicalName="nf_profiles" >
+   <remarks></remarks>
+   <folder id="FOLTAB1471" populated="true" name="Columns" physicalName="Columns" type="1">
+    <index id="IDX148" populated="true" UUID="32255788-a03e-4b43-9bd3-53f557873047" clustered="false" name="nf_profiles_pk" physicalName="nf_profile_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB149" populated="true" UUID="4ecbbe1d-0a6d-4f64-96ca-586e5aabe131" name="nf_identification" objectType="TABLE" physicalName="nf_identification" >
+   <remarks></remarks>
+   <folder id="FOLTAB1491" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL150" populated="true" UUID="86b2e233-5aa3-4073-ac07-f09c6b4e910e" autoIncrement="false" autoIncrementSequenceName="nf_identification_vendorId_seq" defaultValue="" name="vendorId" nullable="0" physicalName="vendorId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Vendor Id
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;vendorId&quot;,
+   &quot;description&quot;: &quot;NF Vendor Id&quot;,
+   &quot;tooltip&quot;: &quot;NF Vendor Id&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;Amdocs&quot;, &quot;HP&quot;, &quot;Ericsson&quot;, &quot;Samsung&quot; ] ,
+   &quot;defaultValue&quot;: &quot;Amdocs&quot;,
+   &quot;example&quot;: &quot;Amdocs&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Vendor Id&quot;,
+   &quot;valueSpecification&quot;: &quot;NF Vendor Id&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL151" populated="true" UUID="7a9ced96-fc8a-4b69-ac28-74b0c79cb4aa" autoIncrement="false" autoIncrementSequenceName="nf_identification_nfType_seq" defaultValue="" name="nfType" nullable="0" physicalName="nfType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>NF Type
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;nfType&quot;,
+   &quot;description&quot;: &quot;NF Type&quot;,
+   &quot;tooltip&quot;: &quot;NF Type&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;NRF&quot;, &quot;AMF&quot;, &quot;UDM&quot; , &quot;SMF&quot; ] ,
+   &quot;defaultValue&quot;: &quot;NRF&quot;,
+   &quot;example&quot;: &quot;NRF&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;NF Type&quot;,
+   &quot;valueSpecification&quot;: &quot;nfType&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1493" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1492" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1494" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX152" populated="true" UUID="507f45ce-c370-49fe-8667-db5cde3eaed9" clustered="false" name="nf_identification_pk" physicalName="nf_identification_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB153" populated="true" UUID="651eb3f6-c69c-40a1-8d41-94e47e4aab3e" name="features" objectType="TABLE" physicalName="features" >
+   <remarks></remarks>
+   <folder id="FOLTAB1531" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL154" populated="true" UUID="ac6bd3a4-d5a4-4342-b53b-77a809cfe3ed" autoIncrement="false" autoIncrementSequenceName="features_featureName_seq" defaultValue="" name="featureName" nullable="1" physicalName="featureName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Feature Name
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;featureName&quot;,
+   &quot;description&quot;: &quot;Feature Name&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;featureName1&quot;, &quot;featureName2&quot; ] ,
+   &quot;defaultValue&quot;: &quot;featureName1&quot;,
+   &quot;example&quot;: &quot;featureName1&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Feature Name&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL155" populated="true" UUID="12e9a86b-9dd4-4c1b-9c24-3cc324dde3d5" autoIncrement="false" autoIncrementSequenceName="features_featureVersion_seq" defaultValue="" name="featureVersion" nullable="0" physicalName="featureVersion" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Feature Version
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;featureVersion&quot;,
+   &quot;description&quot;: &quot;Feature Version&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;featureVersion1&quot;, &quot;featureVersion2&quot; ] ,
+   &quot;defaultValue&quot;: &quot;featureVersion1&quot;,
+   &quot;example&quot;: &quot;featureVersion1&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Feature Version&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1533" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1532" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1534" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX156" populated="true" UUID="4cf3cc28-ba49-4703-a63e-680fd2b119f3" clustered="false" name="features_pk" physicalName="feature_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB157" populated="true" UUID="34cc5cb7-6b60-4d95-a419-ef6a4f99b1ac" name="MonitoringEventServiceParameter" objectType="TABLE" physicalName="MonitoringEventServiceParameter" >
+   <remarks></remarks>
+   <folder id="FOLTAB1571" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL158" populated="true" UUID="a10641ae-ac76-4443-8650-04dd5b3046bf" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_retry_seq" defaultValue="" name="retry" nullable="0" physicalName="retry" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL159" populated="true" UUID="68fccfb3-25e6-4463-a935-02afaab9e29f" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_delay_seq" defaultValue="" name="delay" nullable="0" physicalName="delay" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL160" populated="true" UUID="62ef531b-9175-45ae-bbea-619483858f9e" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_retryOnTtlInPast_seq" defaultValue="" name="retryOnTtlInPast" nullable="0" physicalName="retryOnTtlInPast" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL161" populated="true" UUID="c88f268c-b076-4e5f-8ec4-782d9d84c3f4" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_delayOnTtlInPast_seq" defaultValue="" name="delayOnTtlInPast" nullable="0" physicalName="delayOnTtlInPast" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL162" populated="true" UUID="edec3da1-8509-427e-b5fb-6a0794385dd4" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_maximumNumberOfReportsMin_seq" defaultValue="" name="maximumNumberOfReportsMin" nullable="0" physicalName="maximumNumberOfReportsMin" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL163" populated="true" UUID="b2dc57e7-c2b7-452b-9437-a9401106a253" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_maximumNumberOfReportsMax_seq" defaultValue="100" name="maximumNumberOfReportsMax" nullable="0" physicalName="maximumNumberOfReportsMax" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL164" populated="true" UUID="3f86b768-08af-42a8-8b40-1018140800cc" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_maximumResponseTimeMax_seq" defaultValue="100" name="maximumResponseTimeMax" nullable="0" physicalName="maximumResponseTimeMax" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL165" populated="true" UUID="db73c448-e8af-4734-8020-07be2843aacc" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_monitorExpireTimePeriodMs_seq" defaultValue="86400000" name="monitorExpireTimePeriodMs" nullable="0" physicalName="monitorExpireTimePeriodMs" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL166" populated="true" UUID="9e045c03-1095-480c-80cf-3437d3bb23ea" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_maximumLatencyMin_seq" defaultValue="" name="maximumLatencyMin" nullable="0" physicalName="maximumLatencyMin" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL167" populated="true" UUID="5520d29d-4194-456b-bc87-b69c76ca8045" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_maximumLatencyMax_seq" defaultValue="" name="maximumLatencyMax" nullable="0" physicalName="maximumLatencyMax" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL168" populated="true" UUID="739914a8-08dd-439f-a0f9-94a7dc45502d" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_maximumResponseTimeMin_seq" defaultValue="" name="maximumResponseTimeMin" nullable="0" physicalName="maximumResponseTimeMin" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL169" populated="true" UUID="c71daa9b-8105-4faf-ac16-231f7fdc92f7" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_suggestedNumberOfDlPacketsMin_seq" defaultValue="10" name="suggestedNumberOfDlPacketsMin" nullable="0" physicalName="suggestedNumberOfDlPacketsMin" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL170" populated="true" UUID="451c91f5-748e-4dd4-b84d-5ee6df998043" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_suggestedNumberOfDlPacketsMax_seq" defaultValue="100" name="suggestedNumberOfDlPacketsMax" nullable="0" physicalName="suggestedNumberOfDlPacketsMax" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultValue&quot; ] ,
+   &quot;defaultValue&quot;: 2000,
+   &quot;example&quot;: 2000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL171" populated="true" UUID="65e7fcf0-d9c7-48a5-85df-5325afb850f1" autoIncrement="false" autoIncrementSequenceName="MonitoringEventServiceParameter_sendRoamingNewServingPlmnIdToAf_seq" defaultValue="true" name="sendRoamingNewServingPlmnIdToAf" nullable="0" physicalName="sendRoamingNewServingPlmnIdToAf" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;boolean&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ true, false ] ,
+   &quot;defaultValue&quot;: true,
+   &quot;example&quot;: true,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;noValidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1573" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1572" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1574" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX172" populated="true" UUID="3bdb3c36-a377-482a-9d1f-123243c66a28" clustered="false" name="MonitoringEventServiceParameter_pk" physicalName="MonitoringEventServiceParameter_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB173" populated="true" UUID="d12b9bf5-9e95-41ce-b035-246a19bedefa" name="READ_ME" objectType="TABLE" physicalName="ignore" >
+   <remarks></remarks>
+   <folder id="FOLTAB1731" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL174" populated="true" UUID="337e21bd-b15f-4a80-a1a0-34cd04082f4e" autoIncrement="false" autoIncrementSequenceName="ignore_Comment_seq" defaultValue="" name="Comment" nullable="0" physicalName="Comment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB1733" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB1732" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB1734" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX175" populated="true" UUID="2d9466b1-91be-4800-bb3d-979647d38fbb" clustered="false" name="ignore_READ_ME_pk" physicalName="ignore_READ_ME_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL176" populated="true" UUID="f821ea48-d9db-425e-94e7-93d0cfeee07f" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="3" identifying="false" name="NefCommon_services_fk" physicalName="NefCommon_services_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL177" populated="true" UUID="34beb26c-d57a-40dc-bdcf-6159536bd46e" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="3" identifying="false" name="NefCommon_nfClients_fk" physicalName="NefCommon_nfClients_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL178" populated="true" UUID="173b6756-e932-4c16-b5ba-05b4475117d4" deferrability="7" deleteRule="3" fk-table-ref="TAB4" fkCardinality="3" identifying="false" name="NefCommon_stage_fk" physicalName="NefCommon_stage_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL179" populated="true" UUID="4877a5ba-1943-44b6-a04a-7e4c5e769617" deferrability="7" deleteRule="3" fk-table-ref="TAB104" fkCardinality="3" identifying="false" name="stage_AuthStage_fk" physicalName="stage_AuthStage_fk" pk-table-ref="TAB4" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL180" populated="true" UUID="c0e5c5d9-3af4-4195-bfb6-3129cb276a4d" deferrability="7" deleteRule="3" fk-table-ref="TAB108" fkCardinality="3" identifying="false" name="stage_CreateChfStage_fk" physicalName="stage_CreateChfStage_fk" pk-table-ref="TAB4" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL181" populated="true" UUID="cdeccc5b-d91d-4523-ac49-3c7f4c8026a9" deferrability="7" deleteRule="3" fk-table-ref="TAB111" fkCardinality="3" identifying="false" name="stage_DiscoveryBsfStage_fk" physicalName="stage_DiscoveryBsfStage_fk" pk-table-ref="TAB4" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL182" populated="true" UUID="edcf9306-3f65-4c39-bb01-37fff7140ec6" deferrability="7" deleteRule="3" fk-table-ref="TAB114" fkCardinality="3" identifying="false" name="stage_WriteEdrStage_fk" physicalName="stage_WriteEdrStage_fk" pk-table-ref="TAB4" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL183" populated="true" UUID="808ecdf7-a6de-46b5-8bf1-43d56baba75b" deferrability="7" deleteRule="3" fk-table-ref="TAB117" fkCardinality="3" identifying="false" name="stage_PaPcfStage_fk" physicalName="stage_PaPcfStage_fk" pk-table-ref="TAB4" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL184" populated="true" UUID="41e8dda8-eda6-498f-9c8e-b5f359aa31b9" deferrability="7" deleteRule="3" fk-table-ref="TAB120" fkCardinality="3" identifying="false" name="stage_MeSelectLocationServiceStage_fk" physicalName="stage_MeSelectLocationServiceStage_fk" pk-table-ref="TAB4" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL185" populated="true" UUID="563fb877-5067-4d1f-a6b7-e18debff2868" deferrability="7" deleteRule="3" fk-table-ref="TAB123" fkCardinality="3" identifying="false" name="stage_SessionStorage_fk" physicalName="stage_SessionStorage_fk" pk-table-ref="TAB4" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL186" populated="true" UUID="e3e9fc06-7c69-4c29-9bbb-d89bce59889a" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="3" identifying="false" name="NefConfiguration_NefCommon_fk" physicalName="NefConfiguration_NefCommon_fk" pk-table-ref="TAB6" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL187" populated="true" UUID="fe251a1a-276d-4fa2-a52a-6ac684acae9c" deferrability="7" deleteRule="3" fk-table-ref="TAB129" fkCardinality="3" identifying="false" name="NefConfiguration_api_profiles_fk" physicalName="NefConfiguration_api_profiles_fk" pk-table-ref="TAB6" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL188" populated="true" UUID="5321b371-d701-4792-9169-235698fab2b8" deferrability="7" deleteRule="3" fk-table-ref="TAB11" fkCardinality="3" identifying="false" name="NefConfiguration_NefParameters_fk" physicalName="NefConfiguration_NefParameters_fk" pk-table-ref="TAB6" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL189" populated="true" UUID="efb3e9b1-d9da-422b-ae4d-3eb5218fdf2d" deferrability="7" deleteRule="3" fk-table-ref="TAB147" fkCardinality="7" identifying="false" name="NefConfiguration_nf_profile_fk1" physicalName="NefConfiguration_nf_profile_fk1" pk-table-ref="TAB6" pkCardinality="7" updateRule="3" >
+   </relationship>
+   <relationship id="REL190" populated="true" UUID="558e2282-a3d7-4fcc-87f8-5651618b5465" deferrability="7" deleteRule="3" fk-table-ref="TAB17" fkCardinality="3" identifying="false" name="services_MobileCodes_fk" physicalName="services_MobileCodes_fk" pk-table-ref="TAB15" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL191" populated="true" UUID="df6dc1c4-20a1-444b-81c2-25842809e035" deferrability="7" deleteRule="3" fk-table-ref="TAB23" fkCardinality="3" identifying="false" name="nfClients_AmfEventExposureService_fk" physicalName="nfClients_AmfEventExposureService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL192" populated="true" UUID="6413b100-5967-4b95-9e39-e64588b12b5a" deferrability="7" deleteRule="3" fk-table-ref="TAB29" fkCardinality="3" identifying="false" name="nfClients_BindingSupportManagementService_fk" physicalName="nfClients_BindingSupportManagementService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL193" populated="true" UUID="77f25d66-a6ac-4351-9a0e-55c074f3866e" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="3" identifying="false" name="nfClients_CHFService_fk" physicalName="nfClients_CHFService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL194" populated="true" UUID="9b0bfc1e-509e-4562-8ac8-dbbe6f80023c" deferrability="7" deleteRule="3" fk-table-ref="TAB41" fkCardinality="3" identifying="false" name="nfClients_GmlcLocationService_fk" physicalName="nfClients_GmlcLocationService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL195" populated="true" UUID="3f663e33-1791-4390-9750-4cd9561f992f" deferrability="7" deleteRule="3" fk-table-ref="TAB53" fkCardinality="3" identifying="false" name="nfClients_MonitoringEventService_fk" physicalName="nfClients_MonitoringEventService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL196" populated="true" UUID="32cb7c5a-b0e3-412e-9723-030948a31265" deferrability="7" deleteRule="3" fk-table-ref="TAB59" fkCardinality="3" identifying="false" name="nfClients_NudsfDr_fk1" physicalName="nfClients_NudsfDr_fk1" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL197" populated="true" UUID="cc28b8b3-342d-4645-b36a-d0ebdfa31b71" deferrability="7" deleteRule="3" fk-table-ref="TAB65" fkCardinality="3" identifying="false" name="nfClients_PolicyAuthorisationService_fk" physicalName="nfClients_PolicyAuthorisationService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL198" populated="true" UUID="1828dc06-6588-4090-8d4e-8d6f4aa6fc29" deferrability="7" deleteRule="3" fk-table-ref="TAB71" fkCardinality="3" identifying="false" name="nfClients_SmfEventExposureService_fk" physicalName="nfClients_SmfEventExposureService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL199" populated="true" UUID="3bde31a1-6c89-4c49-b602-b5bea3a2e5eb" deferrability="7" deleteRule="3" fk-table-ref="TAB77" fkCardinality="3" identifying="false" name="nfClients_TrafficInfluenceService_fk" physicalName="nfClients_TrafficInfluenceService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL200" populated="true" UUID="15325aa9-6bf2-4618-9564-81b5de34b6eb" deferrability="7" deleteRule="3" fk-table-ref="TAB83" fkCardinality="3" identifying="false" name="nfClients_UdmSdmService_fk" physicalName="nfClients_UdmSdmService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL201" populated="true" UUID="e8a53e55-fd33-46bb-a19f-69f44ab644ec" deferrability="7" deleteRule="3" fk-table-ref="TAB92" fkCardinality="3" identifying="false" name="nfClients_UdmEventExposureService_fk" physicalName="nfClients_UdmEventExposureService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL202" populated="true" UUID="1f07c862-bb35-4c35-ab29-c657cc292b09" deferrability="7" deleteRule="3" fk-table-ref="TAB98" fkCardinality="3" identifying="false" name="nfClients_UdrDrService_fk" physicalName="nfClients_UdrDrService_fk" pk-table-ref="TAB21" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL203" populated="true" UUID="59a59704-da99-4dff-a12a-59348c45d19f" deferrability="7" deleteRule="3" fk-table-ref="TAB26" fkCardinality="3" identifying="false" name="AmfEventExposureService_Subscriptions_fk" physicalName="AmfEventExposureService_Subscriptions_fk" pk-table-ref="TAB23" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL204" populated="true" UUID="2b160b0e-e2b3-41b9-aae0-ce94d685b828" deferrability="7" deleteRule="3" fk-table-ref="TAB32" fkCardinality="3" identifying="false" name="BindingSupportManagementService_PcfBindings_fk" physicalName="BindingSupportManagementService_PcfBindings_fk" pk-table-ref="TAB29" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL205" populated="true" UUID="66a65fae-f531-419f-b903-27751d55a578" deferrability="7" deleteRule="3" fk-table-ref="TAB38" fkCardinality="3" identifying="false" name="CHFService_Chargingdata_fk" physicalName="CHFService_Chargingdata_fk" pk-table-ref="TAB35" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL206" populated="true" UUID="068902ec-0ce1-45ad-bbfa-e1b48315c121" deferrability="7" deleteRule="3" fk-table-ref="TAB44" fkCardinality="3" identifying="false" name="GmlcLocationService_CancelLocation_fk" physicalName="GmlcLocationService_CancelLocation_fk" pk-table-ref="TAB41" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL207" populated="true" UUID="74a81eaa-5163-4422-928f-e15c4e0f5b13" deferrability="7" deleteRule="4" fk-table-ref="TAB47" fkCardinality="3" identifying="false" name="GmlcLocationService_LocationUpdate_fk" physicalName="GmlcLocationService_LocationUpdate_fk" pk-table-ref="TAB41" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL208" populated="true" UUID="0067e93d-75cf-4639-8395-f9241df15e5b" deferrability="7" deleteRule="3" fk-table-ref="TAB50" fkCardinality="3" identifying="false" name="GmlcLocationService_ProvideLocation_fk" physicalName="GmlcLocationService_ProvideLocation_fk" pk-table-ref="TAB41" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL209" populated="true" UUID="05469463-ac81-4a7d-8add-6cb189e3bc60" deferrability="7" deleteRule="3" fk-table-ref="TAB56" fkCardinality="3" identifying="false" name="MonitoringEventService_CreatesubscriptionCallback_fk" physicalName="MonitoringEventService_CreatesubscriptionCallback_fk" pk-table-ref="TAB53" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL210" populated="true" UUID="4568f828-fa6c-4ade-af39-ebac34683483" deferrability="7" deleteRule="3" fk-table-ref="TAB157" fkCardinality="3" identifying="false" name="MonitoringEventService_MonitoringEventServiceParameter_fk" physicalName="MonitoringEventService_MonitoringEventServiceParameter_fk" pk-table-ref="TAB53" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL211" populated="true" UUID="582d5aa3-ad07-4053-b2e6-0ce9338fc37f" deferrability="7" deleteRule="3" fk-table-ref="TAB62" fkCardinality="3" identifying="false" name="NudsfDr_NudsfDrRoot_fk" physicalName="NudsfDr_NudsfDrRoot_fk" pk-table-ref="TAB59" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL212" populated="true" UUID="6823c769-977f-4fd9-a4f2-be19b2fa2487" deferrability="7" deleteRule="3" fk-table-ref="TAB68" fkCardinality="3" identifying="false" name="PolicyAuthorisationService_AppSessions_fk" physicalName="PolicyAuthorisationService_AppSessions_fk" pk-table-ref="TAB65" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL213" populated="true" UUID="1002c2a5-8c1a-42de-8af5-b4c6c95e2a38" deferrability="7" deleteRule="3" fk-table-ref="TAB74" fkCardinality="3" identifying="false" name="SmfEventExposureService_CreateindividualsubcriptionCallback_fk" physicalName="SmfEventExposureService_CreateindividualsubcriptionCallback_fk" pk-table-ref="TAB71" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL214" populated="true" UUID="70edff06-7227-48bb-a5c0-921cc3bca68f" deferrability="7" deleteRule="3" fk-table-ref="TAB80" fkCardinality="3" identifying="false" name="TrafficInfluenceService_CreatesubscriptionCallback_fk" physicalName="TrafficInfluenceService_CreatesubscriptionCallback_fk" pk-table-ref="TAB77" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL215" populated="true" UUID="b3b2f39a-8d04-4985-a5af-da1d2be0d87c" deferrability="7" deleteRule="3" fk-table-ref="TAB86" fkCardinality="3" identifying="false" name="UdmSdmService_GroupData_fk" physicalName="UdmSdmService_GroupData_fk" pk-table-ref="TAB83" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL216" populated="true" UUID="5e8d5405-9b2c-4fdb-80e4-e0978018cc49" deferrability="7" deleteRule="3" fk-table-ref="TAB89" fkCardinality="3" identifying="false" name="UdmSdmService_UdmSdmServiceRoot_fk" physicalName="UdmSdmService_UdmSdmServiceRoot_fk" pk-table-ref="TAB83" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL217" populated="true" UUID="518deeaa-4ff1-489e-905a-ad739d6ef121" deferrability="7" deleteRule="3" fk-table-ref="TAB95" fkCardinality="3" identifying="false" name="UdmEventExposureService_UdmEventExposureServiceRoot_fk" physicalName="UdmEventExposureService_UdmEventExposureServiceRoot_fk" pk-table-ref="TAB92" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL218" populated="true" UUID="511689bd-647a-4c25-b072-83fd8fd3c068" deferrability="7" deleteRule="3" fk-table-ref="TAB101" fkCardinality="3" identifying="false" name="UdrDrService_ApplicationData_fk" physicalName="UdrDrService_ApplicationData_fk" pk-table-ref="TAB98" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL219" populated="true" UUID="248a2f35-29ec-47d7-997e-7c5cf3162d31" deferrability="7" deleteRule="3" fk-table-ref="TAB131" fkCardinality="3" identifying="false" name="api_profiles_as-session-with-qos_fk" physicalName="api_profiles_as-session-with-qos_fk" pk-table-ref="TAB129" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL220" populated="true" UUID="15ad8882-53eb-4a40-bd1e-2979b7b0a39d" deferrability="7" deleteRule="3" fk-table-ref="TAB135" fkCardinality="3" identifying="false" name="api_profiles_chargeable-party_fk" physicalName="api_profiles_chargeable-party_fk" pk-table-ref="TAB129" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL221" populated="true" UUID="99702de0-16bc-4f71-9839-e8ec0a7e1298" deferrability="7" deleteRule="3" fk-table-ref="TAB139" fkCardinality="3" identifying="false" name="api_profiles_monitoring-event_fk" physicalName="api_profiles_monitoring-event_fk" pk-table-ref="TAB129" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL222" populated="true" UUID="f29f3d41-ee15-4e6b-b398-3f1005211573" deferrability="7" deleteRule="3" fk-table-ref="TAB143" fkCardinality="3" identifying="false" name="api_profiles_traffic-influence_fk" physicalName="api_profiles_traffic-influence_fk" pk-table-ref="TAB129" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL223" populated="true" UUID="a7a7e685-97f8-46c9-9dca-76008de602be" deferrability="7" deleteRule="3" fk-table-ref="TAB4" fkCardinality="3" identifying="false" name="as-session-with-qos_stage_fk" physicalName="as-session-with-qos_stage_fk" pk-table-ref="TAB131" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL224" populated="true" UUID="5d2c022b-c81f-430a-bfa4-8b86b10e1430" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="3" identifying="false" name="as-session-with-qos_services_fk" physicalName="as-session-with-qos_services_fk" pk-table-ref="TAB131" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL225" populated="true" UUID="1606bc29-f666-444e-b103-baf821be9ad2" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="3" identifying="false" name="as-session-with-qos_nfClients_fk" physicalName="as-session-with-qos_nfClients_fk" pk-table-ref="TAB131" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL226" populated="true" UUID="2ae04d3f-0a61-41e1-83f4-a960763b0192" deferrability="7" deleteRule="3" fk-table-ref="TAB4" fkCardinality="3" identifying="false" name="chargeable-party_stage_fk" physicalName="chargeable-party_stage_fk" pk-table-ref="TAB135" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL227" populated="true" UUID="1940bde5-fd11-43b8-90a0-5624684bcb0b" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="3" identifying="false" name="chargeable-party_services_fk" physicalName="chargeable-party_services_fk" pk-table-ref="TAB135" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL228" populated="true" UUID="e87a04b4-751e-401d-bd75-daeeac9bac22" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="3" identifying="false" name="chargeable-party_nfClients_fk" physicalName="chargeable-party_nfClients_fk" pk-table-ref="TAB135" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL229" populated="true" UUID="5cd1f722-cbe7-4bcd-bb32-93ebbdb1185c" deferrability="7" deleteRule="3" fk-table-ref="TAB4" fkCardinality="3" identifying="false" name="monitoring-event_stage_fk" physicalName="monitoring-event_stage_fk" pk-table-ref="TAB139" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL230" populated="true" UUID="47f9c353-398e-4d32-95c8-5eaff2d33b04" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="3" identifying="false" name="monitoring-event_services_fk" physicalName="monitoring-event_services_fk" pk-table-ref="TAB139" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL231" populated="true" UUID="76dac67e-6c0d-45b4-bd05-c3eceedbfbf6" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="3" identifying="false" name="monitoring-event_nfClients_fk" physicalName="monitoring-event_nfClients_fk" pk-table-ref="TAB139" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL232" populated="true" UUID="fe7e0ae7-eac2-439e-8289-cb1574c8145f" deferrability="7" deleteRule="3" fk-table-ref="TAB4" fkCardinality="3" identifying="false" name="traffic-influence_stage_fk" physicalName="traffic-influence_stage_fk" pk-table-ref="TAB143" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL233" populated="true" UUID="d7d7823f-1319-4762-a73f-9d31f3e4f40d" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="3" identifying="false" name="traffic-influence_services_fk" physicalName="traffic-influence_services_fk" pk-table-ref="TAB143" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL234" populated="true" UUID="c43ae6bf-0c36-4f36-9b91-ce907e0b3f37" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="3" identifying="false" name="traffic-influence_nfClients_fk" physicalName="traffic-influence_nfClients_fk" pk-table-ref="TAB143" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL235" populated="true" UUID="78488309-2bbd-4e43-a903-126a9bf4e86e" deferrability="7" deleteRule="3" fk-table-ref="TAB149" fkCardinality="3" identifying="false" name="nf_profiles_nf_identification_fk" physicalName="nf_profiles_nf_identification_fk" pk-table-ref="TAB147" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL236" populated="true" UUID="70a86af8-a280-4aef-bf9a-3a1913a56c84" deferrability="7" deleteRule="3" fk-table-ref="TAB21" fkCardinality="3" identifying="false" name="nf_profiles_nfClients_fk" physicalName="nf_profiles_nfClients_fk" pk-table-ref="TAB147" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL237" populated="true" UUID="c1d3af9e-d17b-494c-bed7-90298ec61e0c" deferrability="7" deleteRule="3" fk-table-ref="TAB4" fkCardinality="3" identifying="false" name="nf_profiles_stage_fk" physicalName="nf_profiles_stage_fk" pk-table-ref="TAB147" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL238" populated="true" UUID="82b243c2-f154-4299-b5dc-a9b658ae54ff" deferrability="7" deleteRule="3" fk-table-ref="TAB15" fkCardinality="3" identifying="false" name="nf_profiles_services_fk" physicalName="nf_profiles_services_fk" pk-table-ref="TAB147" pkCardinality="3" updateRule="3" >
+   </relationship>
+   <relationship id="REL239" populated="true" UUID="5616fad3-ca88-42ab-8a9e-0ee8bca9d7a2" deferrability="7" deleteRule="3" fk-table-ref="TAB153" fkCardinality="7" identifying="false" name="nf_identification_feature_fk" physicalName="nf_identification_feature_fk" pk-table-ref="TAB149" pkCardinality="7" updateRule="3" >
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB1" x="309" y="188" bgColor="0xc8b7ea" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB4" x="492" y="545" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB6" x="188" y="84" bgColor="0xc8b7ea" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB11" x="38" y="189" bgColor="0xc8b7ea" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB15" x="590" y="545" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB17" x="560" y="641" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB21" x="685" y="547" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB23" x="938" y="130" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB26" x="1139" y="133" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB29" x="938" y="191" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB32" x="1139" y="202" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB35" x="938" y="262" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB38" x="1137" y="262" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB41" x="938" y="331" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB44" x="1138" y="313" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB47" x="1138" y="368" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB50" x="1139" y="443" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB53" x="938" y="500" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB56" x="1138" y="519" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB59" x="938" y="567" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB62" x="1139" y="572" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB65" x="938" y="623" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB68" x="1138" y="631" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB71" x="938" y="720" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB74" x="1139" y="720" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB77" x="938" y="804" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB80" x="1139" y="800" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB83" x="938" y="864" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB86" x="1141" y="847" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB89" x="1140" y="906" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB92" x="938" y="986" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB95" x="1143" y="989" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB98" x="943" y="1069" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB101" x="1142" y="1069" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB104" x="33" y="390" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB108" x="35" y="462" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB111" x="34" y="523" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB114" x="35" y="592" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB117" x="35" y="662" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB120" x="35" y="734" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB123" x="35" y="798" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB129" x="473" y="63" bgColor="0xeec994" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB131" x="449" y="112" bgColor="0xeec994" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB135" x="572" y="188" bgColor="0xeec994" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB139" x="647" y="266" bgColor="0xeec994" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB143" x="723" y="356" bgColor="0xeec994" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB147" x="723" y="31" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB149" x="826" y="20" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB153" x="1069" y="22" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB157" x="1308" y="407" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB173" x="40" y="23" bgColor="0xffffff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-link relationship-ref="REL176" pkConnection="0.5161290322580645" fkConnection="0.5581395348837209" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL190" pkConnection="0.46511627906976744" fkConnection="0.4148148148148148" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL203" pkConnection="0.6551724137931034" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL204" pkConnection="0.6551724137931034" fkConnection="0.23255813953488372" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL205" pkConnection="0.6206896551724138" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL206" pkConnection="0.6551724137931034" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL207" pkConnection="0.6551724137931034" fkConnection="0.4827586206896552" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL208" pkConnection="0.7241379310344828" fkConnection="0.41379310344827586" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL209" pkConnection="0.7931034482758621" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL211" pkConnection="0.5172413793103449" fkConnection="0.41379310344827586" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL212" pkConnection="0.6551724137931034" fkConnection="0.3793103448275862" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL213" pkConnection="0.4827586206896552" fkConnection="0.4827586206896552" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL214" pkConnection="0.4482758620689655" fkConnection="0.5172413793103449" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL215" pkConnection="0.4827586206896552" fkConnection="0.4827586206896552" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL216" pkConnection="0.5517241379310345" fkConnection="0.5517241379310345" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL217" pkConnection="0.5862068965517241" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL218" pkConnection="0.5862068965517241" fkConnection="0.3793103448275862" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL177" pkConnection="0.20967741935483872" fkConnection="0.5434782608695652" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL191" pkConnection="0.3448275862068966" fkConnection="0.5862068965517241" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL192" pkConnection="0.4482758620689655" fkConnection="0.6551724137931034" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL193" pkConnection="0.4482758620689655" fkConnection="0.5172413793103449" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL194" pkConnection="0.5862068965517241" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL195" pkConnection="0.5172413793103449" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL196" pkConnection="0.5862068965517241" fkConnection="0.5862068965517241" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL197" pkConnection="0.6206896551724138" fkConnection="0.6206896551724138" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL198" pkConnection="0.6206896551724138" fkConnection="0.6206896551724138" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL199" pkConnection="0.5517241379310345" fkConnection="0.5517241379310345" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL200" pkConnection="0.5172413793103449" fkConnection="0.5172413793103449" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL201" pkConnection="0.5862068965517241" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL202" pkConnection="0.5862068965517241" fkConnection="0.3448275862068966" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL178" pkConnection="0.8064516129032258" fkConnection="0.3225806451612903" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL179" pkConnection="0.5172413793103449" fkConnection="0.3684210526315789" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL180" pkConnection="0.6551724137931034" fkConnection="0.6511627906976745" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL181" pkConnection="0.6551724137931034" fkConnection="0.6744186046511628" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL182" pkConnection="0.6551724137931034" fkConnection="0.4418604651162791" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL183" pkConnection="0.6551724137931034" fkConnection="0.5581395348837209" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL184" pkConnection="0.8275862068965517" fkConnection="0.5581395348837209" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL185" pkConnection="0.7241379310344828" fkConnection="0.49411764705882355" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL186" pkConnection="0.48128342245989303" fkConnection="0.5581395348837209" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="36"/>
+  <table-link relationship-ref="REL223" pkConnection="0.30303030303030304" fkConnection="0.5483870967741935" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL224" pkConnection="0.5151515151515151" fkConnection="0.4418604651162791" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL225" pkConnection="0.7070707070707071" fkConnection="0.3695652173913043" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL226" pkConnection="0.2413793103448276" fkConnection="0.6774193548387096" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL227" pkConnection="0.4827586206896552" fkConnection="0.5116279069767442" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL228" pkConnection="0.6551724137931034" fkConnection="0.41304347826086957" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL187" pkConnection="0.4827586206896552" fkConnection="0.4827586206896552" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL219" pkConnection="0.4745762711864407" fkConnection="0.5050505050505051" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL220" pkConnection="0.7241379310344828" fkConnection="0.3793103448275862" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="129"/>
+  <table-link relationship-ref="REL221" pkConnection="0.6551724137931034" fkConnection="0.3488372093023256" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="129"/>
+  <table-link relationship-ref="REL222" pkConnection="0.4482758620689655" fkConnection="0.3125" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="129"/>
+  <table-link relationship-ref="REL229" pkConnection="0.2441860465116279" fkConnection="0.6774193548387096" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL230" pkConnection="0.4418604651162791" fkConnection="0.6046511627906976" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL231" pkConnection="0.6046511627906976" fkConnection="0.4782608695652174" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL232" pkConnection="0.275" fkConnection="0.7096774193548387" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL233" pkConnection="0.375" fkConnection="0.6976744186046512" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL234" pkConnection="0.4625" fkConnection="0.5434782608695652" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL188" pkConnection="0.5116279069767442" fkConnection="0.5789473684210527" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="130"/>
+  <table-link relationship-ref="REL235" pkConnection="0.4827586206896552" fkConnection="0.4482758620689655" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL239" pkConnection="0.5087719298245614" fkConnection="0.4827586206896552" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL236" pkConnection="0.8181818181818182" fkConnection="0.5217391304347826" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL237" pkConnection="0.10909090909090909" fkConnection="0.6774193548387096" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL210" pkConnection="0.18604651162790697" fkConnection="0.37777777777777777" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL189" pkConnection="0.5" fkConnection="0.5517241379310345" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="40"/>
+  <table-link relationship-ref="REL238" pkConnection="0.41818181818181815" fkConnection="0.5813953488372093" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>

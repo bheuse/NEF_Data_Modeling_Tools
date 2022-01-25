@@ -1,0 +1,641 @@
+{
+
+  "schemaVersion" : "1.0.0",
+  "schemaUri" : "https://nef.amdocs.com:8080/v1/NefConfiguration/schema",
+  "NefCommon": {
+    "services": {
+      "MobileCodes": {
+        "mcc": 150,
+        "mnc": 350
+      }
+    },
+    "nfClients": {
+      "AmfEventExposureService": {
+        "nfType": "AMF",
+        "Subscriptions": {
+          "timeout": 2001
+        }
+      },
+      "BindingSupportManagementService": {
+        "nfType": "BSF",
+        "PcfBindings": {
+          "timeout": 2002
+        }
+      },
+      "CHFService": {
+        "nfType": "CHF",
+        "Chargingdata": {
+          "timeout": 2003
+        }
+      },
+      "GmlcLocationService": {
+        "nfType": "GMLC",
+        "CancelLocation": {
+          "timeout": 2004
+        },
+        "LocationUpdate": {
+          "timeout": 2005
+        },
+        "ProvideLocation": {
+          "timeout": 2006
+        }
+      },
+      "MonitoringEventService": {
+        "nfType": "MES",
+        "meCreatesubscriptionCallback": {
+          "timeout": 2007
+        },
+        "MonitoringEventServiceParameter": {
+          "retry": -59607561,
+          "delay": 50099631,
+          "retryOnTtlInPast": -13097772,
+          "delayOnTtlInPast": -65649569,
+          "maximumNumberOfReportsMin": 34490798,
+          "maximumNumberOfReportsMax": 17562391,
+          "maximumResponseTimeMax": 11328786,
+          "monitorExpireTimePeriodMs": -56607886,
+          "maximumLatencyMin": -34073021,
+          "maximumLatencyMax": -29940743,
+          "maximumResponseTimeMin": -70298477,
+          "suggestedNumberOfDlPacketsMin": -49583882,
+          "suggestedNumberOfDlPacketsMax": 58955257,
+          "sendRoamingNewServingPlmnIdToAf": false
+        }
+      },
+      "NudsfDr": {
+        "nfType": "UDSF",
+        "NudsfDrRoot": {
+          "timeout": 2009
+        }
+      },
+      "PolicyAuthorisationService": {
+        "nfType": "PCF",
+        "AppSessions": {
+          "timeout": 2010
+        }
+      },
+      "SmfEventExposureService": {
+        "nfType": "SMF",
+        "CreateindividualsubcriptionCallback": {
+          "timeout": 2011
+        }
+      },
+      "TrafficInfluenceService": {
+        "nfType": "PCF",
+        "tiCreatesubscriptionCallback": {
+          "timeout": 2012
+        }
+      },
+      "UdmSdmService": {
+        "nfType": "UDM",
+        "GroupData": {
+          "timeout": 2013
+        },
+        "UdmSdmServiceRoot": {
+          "timeout": 2014
+        }
+      },
+      "UdmEventExposureService": {
+        "nfType": "UDM",
+        "UdmEventExposureServiceRoot": {
+          "timeout": 2015
+        }
+      },
+      "UdrDrService": {
+        "nfType": "UDR",
+        "ApplicationData": {
+          "timeout": 2016
+        }
+      }
+    },
+    "stages": {
+      "AuthStage": {
+        "enabled": true,
+        "keycloakPublicKey": "keycloakPublicKey"
+      },
+      "CreateChfStage": {
+        "enabled": true
+      },
+      "DiscoveryBsfStage": {
+        "enabled": false
+      },
+      "WriteEdrStage": {
+        "enabled": true
+      },
+      "PaPcfStage": {
+        "pcfSuppFeat": "PaPcfStage"
+      },
+      "MeSelectLocationServiceStage": {
+        "locationService": "GLMC"
+      },
+      "SessionStorage": {
+        "realm": "realm1",
+        "storageId": "storageId1",
+        "idleTimer": 2017,
+        "externalProtocolSchemeOverride": "externalProtocolSchemeOverride1"
+      }
+    }
+  },
+  "api_profiles": {
+    "as-session-with-qos": {
+      "openAPIyaml" : "as-session-with-qos.yaml" ,
+      "services": {
+        "MobileCodes": {
+          "mcc": 151,
+          "mnc": 351
+        }
+      },
+      "nfClients": {
+        "AmfEventExposureService": {
+          "nfType": "AMF",
+          "Subscriptions": {
+            "timeout": 3000
+          }
+        },
+        "BindingSupportManagementService": {
+          "nfType": "BSF",
+          "PcfBindings": {
+            "timeout": 3001
+          }
+        },
+        "CHFService": {
+          "nfType": "CHF",
+          "Chargingdata": {
+            "timeout": 3002
+          }
+        },
+        "GmlcLocationService": {
+          "nfType": "GMLC",
+          "CancelLocation": {
+            "timeout": 3003
+          },
+          "LocationUpdate": {
+            "timeout": 3004
+          },
+          "ProvideLocation": {
+            "timeout": 3005
+          }
+        },
+        "MonitoringEventService": {
+          "nfType": "MES",
+          "meCreatesubscriptionCallback": {
+            "timeout": 3006
+          },
+          "MonitoringEventServiceParameter": {
+            "retry": -88439751,
+            "delay": 56370336,
+            "retryOnTtlInPast": -80203870,
+            "delayOnTtlInPast": -92345599,
+            "maximumNumberOfReportsMin": -65032024,
+            "maximumNumberOfReportsMax": 74085116,
+            "maximumResponseTimeMax": 55784755,
+            "monitorExpireTimePeriodMs": 95886419,
+            "maximumLatencyMin": 44344223,
+            "maximumLatencyMax": -37917123,
+            "maximumResponseTimeMin": -9019745,
+            "suggestedNumberOfDlPacketsMin": -6237334,
+            "suggestedNumberOfDlPacketsMax": 96672177,
+            "sendRoamingNewServingPlmnIdToAf": true
+          }
+        },
+        "NudsfDr": {
+          "nfType": "UDSF",
+          "NudsfDrRoot": {
+            "timeout": 3007
+          }
+        },
+        "PolicyAuthorisationService": {
+          "nfType": "CHF",
+          "AppSessions": {
+            "timeout": 3008
+          }
+        },
+        "SmfEventExposureService": {
+          "nfType": "SMF",
+          "CreateindividualsubcriptionCallback": {
+            "timeout": 3009
+          }
+        },
+        "TrafficInfluenceService": {
+          "nfType": "CHF",
+          "tiCreatesubscriptionCallback": {
+            "timeout": 3010
+          }
+        },
+        "UdmSdmService": {
+          "nfType": "UDM",
+          "GroupData": {
+            "timeout": 3011
+          },
+          "UdmSdmServiceRoot": {
+            "timeout": 3012
+          }
+        },
+        "UdmEventExposureService": {
+          "nfType": "UDM",
+          "UdmEventExposureServiceRoot": {
+            "timeout": 3013
+          }
+        },
+        "UdrDrService": {
+          "nfType": "UDR",
+          "ApplicationData": {
+            "timeout": 3014
+          }
+        }
+      },
+      "stages": {
+      "AuthStage": {
+        "enabled": true,
+        "keycloakPublicKey": "keycloakPublicKey"
+      }
+    }
+    },
+    "chargeable-party": {
+      "openAPIyaml" : "chargeable-party.yaml" ,
+      "nfClients": {
+        "GmlcLocationService": {
+        "nfType": "GMLC",
+          "CancelLocation": {
+            "timeout": 4001
+          },
+          "LocationUpdate": {
+            "timeout": 4002
+          },
+          "ProvideLocation": {
+            "timeout": 4003
+          }
+        },
+        "MonitoringEventService": {
+        "nfType": "MES",
+          "meCreatesubscriptionCallback": {
+            "timeout": 4004
+          },
+          "MonitoringEventServiceParameter": {
+            "retry": -61000888,
+            "delay": -50619488,
+            "retryOnTtlInPast": -97120523,
+            "delayOnTtlInPast": 55938911,
+            "maximumNumberOfReportsMin": -80322293,
+            "maximumNumberOfReportsMax": 28354346,
+            "maximumResponseTimeMax": -19442896,
+            "monitorExpireTimePeriodMs": -74141362,
+            "maximumLatencyMin": 38337421,
+            "maximumLatencyMax": -31658226,
+            "maximumResponseTimeMin": -35746439,
+            "suggestedNumberOfDlPacketsMin": -28386322,
+            "suggestedNumberOfDlPacketsMax": -53446193,
+            "sendRoamingNewServingPlmnIdToAf": true
+          }
+        },
+        "NudsfDr": {
+        "nfType": "UDSF",
+          "NudsfDrRoot": {
+            "timeout": 4005
+          }
+        },
+        "PolicyAuthorisationService": {
+          "nfType": "PCF",
+          "AppSessions": {
+            "timeout": 4006
+          }
+        },
+        "SmfEventExposureService": {
+          "nfType": "SMF",
+          "CreateindividualsubcriptionCallback": {
+            "timeout": 4007
+          }
+        },
+        "TrafficInfluenceService": {
+          "nfType": "PCF",
+          "tiCreatesubscriptionCallback": {
+            "timeout": 4008
+          }
+        },
+        "UdmSdmService": {
+          "nfType": "UDM",
+          "GroupData": {
+            "timeout": 4009
+          },
+          "UdmSdmServiceRoot": {
+            "timeout": 4010
+          }
+        },
+        "UdmEventExposureService": {
+          "nfType": "UDM",
+          "UdmEventExposureServiceRoot": {
+            "timeout": 4011
+          }
+        },
+        "UdrDrService": {
+          "nfType": "UDR",
+          "ApplicationData": {
+            "timeout": 4012
+          }
+        }
+      },
+      "services": {
+        "MobileCodes": {
+          "mcc": 151,
+          "mnc": 351
+        }
+      },
+      "stages": {
+      "AuthStage": {
+        "enabled": true,
+        "keycloakPublicKey": "keycloakPublicKey"
+      }
+    }
+    },
+    "monitoring-event": {
+      "openAPIyaml" : "monitoring-event.yaml" ,
+      "nfClients": {
+        "GmlcLocationService": {
+          "nfType": "GMLC",
+          "CancelLocation": {
+            "timeout": 4001
+          },
+          "LocationUpdate": {
+            "timeout": 4002
+          },
+          "ProvideLocation": {
+            "timeout": 4003
+          }
+        },
+        "MonitoringEventService": {
+          "nfType": "MES",
+          "meCreatesubscriptionCallback": {
+            "timeout": 4004
+          },
+          "MonitoringEventServiceParameter": {
+            "retry": -61000888,
+            "delay": -50619488,
+            "retryOnTtlInPast": -97120523,
+            "delayOnTtlInPast": 55938911,
+            "maximumNumberOfReportsMin": -80322293,
+            "maximumNumberOfReportsMax": 28354346,
+            "maximumResponseTimeMax": -19442896,
+            "monitorExpireTimePeriodMs": -74141362,
+            "maximumLatencyMin": 38337421,
+            "maximumLatencyMax": -31658226,
+            "maximumResponseTimeMin": -35746439,
+            "suggestedNumberOfDlPacketsMin": -28386322,
+            "suggestedNumberOfDlPacketsMax": -53446193,
+            "sendRoamingNewServingPlmnIdToAf": true
+          }
+        },
+        "NudsfDr": {
+          "nfType": "UDSF",
+          "NudsfDrRoot": {
+            "timeout": 4005
+          }
+        },
+        "PolicyAuthorisationService": {
+          "nfType": "PCF",
+          "AppSessions": {
+            "timeout": 4006
+          }
+        },
+        "SmfEventExposureService": {
+          "nfType": "SMF",
+          "CreateindividualsubcriptionCallback": {
+            "timeout": 4007
+          }
+        },
+        "TrafficInfluenceService": {
+          "nfType": "PCF",
+          "tiCreatesubscriptionCallback": {
+            "timeout": 4008
+          }
+        },
+        "UdmSdmService": {
+          "nfType": "UDM",
+          "GroupData": {
+            "timeout": 4009
+          },
+          "UdmSdmServiceRoot": {
+            "timeout": 4010
+          }
+        },
+        "UdmEventExposureService": {
+          "nfType": "UDM",
+          "UdmEventExposureServiceRoot": {
+            "timeout": 4011
+          }
+        },
+        "UdrDrService": {
+          "nfType": "UDR",
+          "ApplicationData": {
+            "timeout": 4012
+          }
+        }
+      },
+      "services": {
+        "MobileCodes": {
+          "mcc": 151,
+          "mnc": 351
+        }
+      },
+      "stages": {
+      "AuthStage": {
+        "enabled": true,
+        "keycloakPublicKey": "keycloakPublicKey"
+      }
+    }
+    },
+    "traffic-influence": {
+      "openAPIyaml" : "traffic-influence.yaml" ,
+      "nfClients": {
+        "GmlcLocationService": {
+          "nfType": "GMLC",
+          "CancelLocation": {
+            "timeout": 4001
+          },
+          "LocationUpdate": {
+            "timeout": 4002
+          },
+          "ProvideLocation": {
+            "timeout": 4003
+          }
+        },
+        "MonitoringEventService": {
+          "nfType": "MES",
+          "meCreatesubscriptionCallback": {
+            "timeout": 4004
+          },
+          "MonitoringEventServiceParameter": {
+            "retry": -61000888,
+            "delay": -50619488,
+            "retryOnTtlInPast": -97120523,
+            "delayOnTtlInPast": 55938911,
+            "maximumNumberOfReportsMin": -80322293,
+            "maximumNumberOfReportsMax": 28354346,
+            "maximumResponseTimeMax": -19442896,
+            "monitorExpireTimePeriodMs": -74141362,
+            "maximumLatencyMin": 38337421,
+            "maximumLatencyMax": -31658226,
+            "maximumResponseTimeMin": -35746439,
+            "suggestedNumberOfDlPacketsMin": -28386322,
+            "suggestedNumberOfDlPacketsMax": -53446193,
+            "sendRoamingNewServingPlmnIdToAf": true
+          }
+        },
+        "NudsfDr": {
+          "nfType": "UDSF",
+          "NudsfDrRoot": {
+            "timeout": 4005
+          }
+        },
+        "PolicyAuthorisationService": {
+          "nfType": "PCF",
+          "AppSessions": {
+            "timeout": 4006
+          }
+        },
+        "SmfEventExposureService": {
+          "nfType": "SMF",
+          "CreateindividualsubcriptionCallback": {
+            "timeout": 4007
+          }
+        },
+        "TrafficInfluenceService": {
+          "nfType": "PCF",
+          "tiCreatesubscriptionCallback": {
+            "timeout": 4008
+          }
+        },
+        "UdmSdmService": {
+          "nfType": "UDM",
+          "GroupData": {
+            "timeout": 4009
+          },
+          "UdmSdmServiceRoot": {
+            "timeout": 4010
+          }
+        },
+        "UdmEventExposureService": {
+          "nfType": "UDM",
+          "UdmEventExposureServiceRoot": {
+            "timeout": 4011
+          }
+        },
+        "UdrDrService": {
+          "nfType": "UDR",
+          "ApplicationData": {
+            "timeout": 4012
+          }
+        }
+      },
+      "services": {
+        "MobileCodes": {
+          "mcc": 151,
+          "mnc": 351
+        }
+      },
+      "stages": {
+      "AuthStage": {
+        "enabled": true,
+        "keycloakPublicKey": "keycloakPublicKey"
+      }
+    }
+    }
+  },
+  "NefParameters": {
+    "nrfUri": "https://nef.amdocs.com:8080/v1",
+    "webGuiPort": 8080
+  },
+  "nf_profiles": [
+        {
+        "nf_identification": {
+          "vendorId": "vendorId",
+          "nfType": "AMF",
+          "features": [ {
+            "featureVersion": "featureVersion",
+            "featureName": "featureName"
+          }
+            ]
+        },
+        "stages": {
+          "AuthStage": {
+            "enabled": false,
+            "keycloakPublicKey": "AuthStageKeycloakPublicKey"
+          },
+          "CreateChfStage": {
+            "enabled": true
+          },
+          "DiscoveryBsfStage": {
+            "enabled": false
+          },
+          "WriteEdrStage": {
+            "enabled": false
+          },
+          "PaPcfStage": {
+            "pcfSuppFeat": "sed Duis tempor amet"
+          },
+          "MeSelectLocationServiceStage": {
+            "locationService": "magna aliquip nostrud fugiat"
+          },
+          "SessionStorage": {
+            "realm": "velit anim Excepteur irure aliquip",
+            "storageId": "do sit",
+            "idleTimer": 25560464,
+            "externalProtocolSchemeOverride": "aliqua nulla laboris"
+          }
+        },
+        "nfClients": {
+          "GmlcLocationService": {
+          "nfType": "GMLC",
+        "CancelLocation": {
+          "timeout": 2004
+        },
+        "LocationUpdate": {
+          "timeout": 2005
+        },
+        "ProvideLocation": {
+          "timeout": 2006
+        }
+
+          },
+          "MonitoringEventService": {
+          "nfType": "MES",
+            "meCreatesubscriptionCallback": {
+              "timeout": 5001
+            }
+          },
+          "NudsfDr": {
+          "nfType": "UDSF",
+            "NudsfDrRoot": {
+              "timeout": 5002
+            }
+          },
+          "SmfEventExposureService": {
+          "nfType": "SMF",
+            "CreateindividualsubcriptionCallback": {
+              "timeout": 5003
+            }
+          },
+          "TrafficInfluenceService": {
+          "nfType": "PCF",
+            "tiCreatesubscriptionCallback": {
+              "timeout": 5004
+            }
+          },
+          "UdmSdmService": {
+          "nfType": "UDM",
+            "GroupData": {
+              "timeout": 5005
+            },
+            "UdmSdmServiceRoot": {
+              "timeout": 5006
+            }
+          },
+          "UdrDrService": {
+          "nfType": "UDR",
+            "ApplicationData": {
+              "timeout": 5007
+            }
+          }
+        }
+        }
+    ]
+}
