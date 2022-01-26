@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.9">
+ <project-name>NEF_Catalog_DataModel</project-name>
+ <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="PlayPen Database" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB1" populated="true" UUID="2e6fd44d-d7de-4e57-b0ed-77bde5ee522b" name="Message" objectType="TABLE" physicalName="message" >
+   <remarks>A Diameter Request Message </remarks>
+   <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL2" populated="true" UUID="50514de3-6d02-49a0-bbe0-5d66598b904e" autoIncrement="false" autoIncrementSequenceName="message_ApplicationID_seq" defaultValue="" name="ApplicationID" nullable="0" physicalName="ApplicationID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;Application-ID&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;Diameter Application-ID&quot;,
+   &quot;tooltip&quot;: &quot;Diameter Application-ID&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;S6t&quot;, &quot;S6m&quot;, &quot;T6a&quot;, &quot;T6b&quot;, &quot;Rx&quot;, &quot;Nt&quot;, &quot;Ns&quot;, &quot;T4&quot;, &quot;T7&quot; ] ,
+   &quot;defaultValue&quot;: &quot;S6m&quot;,
+   &quot;example&quot;: &quot;S6t&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;Diameter Message&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;Diameter Message&quot;,
+   &quot;markdownDescription&quot;: &quot;&quot;,
+   &quot;valueSpecification&quot;: &quot;&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL3" populated="true" UUID="6fb3abac-7767-4f0f-adca-3acc8c24805e" autoIncrement="false" autoIncrementSequenceName="API_API_Description_seq" defaultValue="" name="CommandCode" nullable="0" physicalName="CommandCode" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;Application-ID&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;Diameter Application-ID&quot;,
+   &quot;tooltip&quot;: &quot;Diameter Application-ID&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;S6t&quot;, &quot;S6m&quot;, &quot;T6a&quot;, &quot;T6b&quot;, &quot;Rx&quot;, &quot;Nt&quot;, &quot;Ns&quot;, &quot;T4&quot;, &quot;T7&quot; ] ,
+   &quot;defaultValue&quot;: &quot;S6m&quot;,
+   &quot;example&quot;: &quot;S6t&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;Diameter Message&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;Diameter Message&quot;,
+   &quot;markdownDescription&quot;: &quot;&quot;,
+   &quot;valueSpecification&quot;: &quot;&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL4" populated="true" UUID="a1398d40-e6fc-4605-8bb7-8f0e267f8871" autoIncrement="false" autoIncrementSequenceName="message_MaxWaitingTime_seq" defaultValue="" name="MaxWaitingTime" nullable="0" physicalName="MaxWaitingTime" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;MaxWaitingTime&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;Max Waiting Time for a Diameter Response, in milliseconds. Returns an error in case of timeout.&quot;,
+   &quot;tooltip&quot;: &quot;Max Response Waiting Time&quot;,
+   &quot;type&quot;: &quot;Integer&quot;,
+   &quot;format&quot;: &quot;Integer&quot;,
+   &quot;possibleValues&quot;: [ 500, 3000, 5000 ] ,
+   &quot;defaultValue&quot;: 3000,
+   &quot;example&quot;: 3000,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;Diameter Message&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;Diameter Message&quot;,
+   &quot;markdownDescription&quot;: &quot;&quot;,
+   &quot;valueSpecification&quot;: &quot;&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL5" populated="true" UUID="f1748e44-cd65-43a6-a726-ce4095959bfc" autoIncrement="false" autoIncrementSequenceName="message_message_seq" defaultValue="/request" name="_PATH" nullable="0" physicalName="message" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>create-only</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX6" populated="true" UUID="b5cfd4d4-0ef5-47db-9db6-cd3ca9fc6210" clustered="false" name="message_pk" physicalName="API_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB7" populated="true" UUID="10ec1abc-7a22-45f6-b561-21b5ef288e1d" name="Diameter Bridge" objectType="TABLE" physicalName="ignore_DB" >
+   <remarks></remarks>
+   <folder id="FOLTAB71" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL8" populated="true" UUID="ba4c38b6-eaa3-44e7-8fab-2dca1ba4354a" autoIncrement="false" autoIncrementSequenceName="ignore_DB_Name_seq" defaultValue="" name="Name" nullable="0" physicalName="Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Diameter Dictionnary
+
+https://www.developingsolutions.com/DiaDict/Topics/About.htm</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB73" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB72" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB74" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX9" populated="true" UUID="80e1317e-4edc-4db9-aa64-0ccde7540afe" clustered="false" name="ignore_DB_pk" physicalName="API_Catalogue_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB10" populated="true" UUID="36f2aa51-d99e-4653-836e-867b024efebe" name="AVP" objectType="TABLE" physicalName="AVP" >
+   <remarks></remarks>
+   <folder id="FOLTAB101" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL11" populated="true" UUID="24d4f6e1-047b-45e5-82a5-73df0d7fb311" autoIncrement="false" autoIncrementSequenceName="AVP_Name_seq" defaultValue="" name="Name" nullable="0" physicalName="Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL12" populated="true" UUID="1028942c-4200-4096-b8c2-402a3e3dce47" autoIncrement="false" autoIncrementSequenceName="AVP_Value_seq" defaultValue="" name="Value" nullable="0" physicalName="Value" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1111" userDefinedTypeUUID="Unknown_UserDefinedSQLType" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL13" populated="true" UUID="fd8d3604-fad0-4269-a8be-295a603b5d4e" autoIncrement="false" autoIncrementSequenceName="AVP_null_seq" defaultValue="null" name="Code" nullable="1" physicalName="null" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>AVP Code - If absent, will lookup dictionnary for well-known value based on name.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;Code&quot;,
+   &quot;description&quot;: &quot;AVP Code&quot;,
+   &quot;key&quot;: false,
+   &quot;tooltip&quot;: &quot;AVP Code&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ ] ,
+   &quot;defaultValue&quot;: null,
+   &quot;example&quot;: &quot;123&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 0,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;AVP Code&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL14" populated="true" UUID="4a306361-7a37-4a71-ab1e-9fc610ea1fcb" autoIncrement="false" autoIncrementSequenceName="AVP_0_seq" defaultValue="0" name="VendorId" nullable="1" physicalName="0" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>AVP Vendor ID : If absent, will use 0.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;AVP Vendor ID&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;AVP Vendor ID&quot;,
+   &quot;tooltip&quot;: &quot;AVP Vendor ID&quot;,
+   &quot;type&quot;: &quot;integer&quot;,
+   &quot;format&quot;: &quot;&quot;,
+   &quot;possibleValues&quot;: [ ] ,
+   &quot;defaultValue&quot;: 0,
+   &quot;example&quot;: 0,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;&quot;,
+   &quot;minCardinality&quot;: 0,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;&quot;,
+   &quot;markdownDescription&quot;: &quot;AVP Vendor ID&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB103" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB102" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB104" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX15" populated="true" UUID="d50df16c-f320-4e98-9ecb-2de182b12191" clustered="false" name="AVP_pk" physicalName="UsagePolicy_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB16" populated="true" UUID="9771f4f7-36f2-4cb8-bd7c-8449f4bc461b" name="OpenAPI" objectType="TABLE" physicalName="Diameter Bridge API" >
+   <remarks>SCEF Diameter Bridge API. 
+
+This is generated, modify source architect data model instead.</remarks>
+   <folder id="FOLTAB161" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL17" populated="true" UUID="4c9fde27-4a4c-4b1c-9a58-d5c5bbdbe555" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_SCEF Diameter Bridge API_seq" defaultValue="" name="title" nullable="0" physicalName="SCEF Diameter Bridge API" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL18" populated="true" UUID="dee4523d-45fe-4343-a5f0-4fff4d65d1dc" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_Remarks_seq" defaultValue="See Remarks - JSON Format" name="contact" nullable="0" physicalName="Remarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{ 
+  &quot;name&quot;: &quot;Bernard Heuse&quot;,
+  &quot;url&quot;: &quot;https://www.amdocs.com/&quot;,
+  &quot;email&quot;: &quot;bheuse@amdocs.com&quot; 
+}</remarks>
+    </column>
+    <column id="COL19" populated="true" UUID="bae3da96-c05c-490e-b136-24036544f8db" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_license_seq" defaultValue="See Remarks - JSON Format" name="license" nullable="0" physicalName="license" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{
+ &quot;name&quot;: &quot;Apache 2.0&quot;,
+&quot;url&quot;: &quot;https://www.apache.org/licenses/LICENSE-2.0&quot;
+}</remarks>
+    </column>
+    <column id="COL20" populated="true" UUID="7a121174-d3d8-4d8e-b24d-0a32215204c6" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_tags_seq" defaultValue="See Remarks - JSON Format" name="tags" nullable="0" physicalName="tags" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+   {
+      &quot;name&quot;: &quot;NEF&quot;,
+      &quot;description&quot;: &quot;Amdocs NEF Business Data Model&quot;
+   }
+]</remarks>
+    </column>
+    <column id="COL21" populated="true" UUID="50210ae6-4921-4e12-8ab2-31e00731b4e7" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_securitySchemes_seq" defaultValue="" name="securitySchemes" nullable="0" physicalName="securitySchemes" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{  &quot;Oauth-Security-Scheme-Info&quot;: {
+            &quot;flows&quot;: {
+               &quot;implicit&quot;: {
+                  &quot;authorizationUrl&quot;: &quot;https://oauth.com/auth&quot;,
+                  &quot;refreshUrl&quot;: &quot;https://oauth.com/refresh&quot;,
+                  &quot;scopes&quot;: {
+                     &quot;scope-2&quot;: &quot;&quot;
+                  }
+               }
+            },
+            &quot;type&quot;: &quot;oauth2&quot;,
+            &quot;description&quot;: &quot;Oauth-Security-Scheme-Info-Description&quot;
+         }
+}</remarks>
+    </column>
+    <column id="COL22" populated="true" UUID="f1af196f-8ed1-44b2-a3ce-1e8d3eff5846" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_servers_seq" defaultValue="See Remarks - JSON Format" name="servers" nullable="0" physicalName="servers" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+      {
+         &quot;url&quot;: &quot;http://${NEF_DOMAIN}/${VERSION}/&quot;,
+         &quot;description&quot;: &quot;Amdocs NEF Play Ground Release 22-03&quot;,
+         &quot;variables&quot;: {
+            &quot;NEF_DOMAIN&quot;: {
+               &quot;default&quot;: &quot;nef.amdocs.com&quot;,
+               &quot;description&quot;: &quot;The NEF URL&quot;
+            },
+            &quot;VERSION&quot;: {
+               &quot;default&quot;: &quot;22-03&quot;,
+               &quot;description&quot;: &quot;Release Version&quot;
+            }
+         }
+      },
+      {
+         &quot;url&quot;: &quot;https://127.0.0.1:5000/&quot;,
+         &quot;description&quot;: &quot;Amdocs NEF Play Ground Data Store&quot;
+      }
+]</remarks>
+    </column>
+    <column id="COL23" populated="true" UUID="a00bb132-1896-46cb-ad85-1aef8b97dfd7" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_1.0.0_seq" defaultValue="" name="version" nullable="0" physicalName="1.0.0" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL24" populated="true" UUID="5736254d-6621-4d91-bbe0-492e69d40531" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_security_seq" defaultValue="See Remarks - JSON Format" name="security" nullable="0" physicalName="security" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+  {
+    &quot;Oauth-Security-Scheme-Info&quot;: [
+    &quot;scope-2&quot;
+         ]
+  }
+]</remarks>
+    </column>
+    <column id="COL25" populated="true" UUID="6cae4ca1-bbc4-41ff-aa92-ed16a6080367" autoIncrement="false" autoIncrementSequenceName="Diameter Bridge API_Diameter Bridge API_seq" defaultValue="" name="description" nullable="0" physicalName="Diameter Bridge API" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>This is generated, modify source architect data model instead.
+
+Diameter Dictionnary:
+https://www.developingsolutions.com/DiaDict/Topics/About.htm</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB163" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB162" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB164" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX26" populated="true" UUID="b1027083-5287-4d7d-83e3-06a7157f51fd" clustered="false" name="Diameter_Bridge_APIl_pk" physicalName="NEF Business Model_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB27" populated="true" UUID="450bfd79-d22a-4155-8b62-e44b5e278772" name="Response" objectType="TABLE" physicalName="Response" >
+   <remarks>A Diameter Response Message </remarks>
+   <folder id="FOLTAB271" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL28" populated="true" UUID="cae8190a-bdc2-4efd-949a-7f6b227aa1d2" autoIncrement="false" autoIncrementSequenceName="Message_ApplicationID_seq" defaultValue="" name="ApplicationID" nullable="0" physicalName="ApplicationID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL29" populated="true" UUID="9bf6164c-4cd8-4dd8-9fff-cb4b71b064bf" autoIncrement="false" autoIncrementSequenceName="Response_ResultCode_seq" defaultValue="" name="ResultCode" nullable="0" physicalName="ResultCode" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL30" populated="true" UUID="b572f93b-f6b0-4732-ad16-d0563ded3e2d" autoIncrement="false" autoIncrementSequenceName="Message_Origin_seq" defaultValue="" name="Origin" nullable="0" physicalName="Origin" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL31" populated="true" UUID="cc8aa519-3b3f-445b-940b-ba148530b812" autoIncrement="false" autoIncrementSequenceName="API_Charging Policies _seq" defaultValue="" name="Session-ID" nullable="0" physicalName="Session-ID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Charging Policies that can be applied on this API.API : Charging Policy Profile – Charge access to APIs for API Consumers:
+Monthly fee
+Pay per use
+Free …</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB273" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB272" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB274" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX32" populated="true" UUID="566c56f5-140b-472b-8f95-ca1e358d5d69" clustered="false" name="Response_pk" physicalName="API_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB33" populated="true" UUID="26eea193-eb94-4911-806a-3a1fb78e1996" name="Notification" objectType="TABLE" physicalName="Notification" >
+   <remarks>A Diameter Notification Message </remarks>
+   <folder id="FOLTAB331" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL34" populated="true" UUID="1ed43dc6-d7c6-4376-ba73-408cfbe17e31" autoIncrement="false" autoIncrementSequenceName="Message_ApplicationID_seq" defaultValue="" name="ApplicationID" nullable="0" physicalName="ApplicationID" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL35" populated="true" UUID="42aa1c6b-8732-450c-8e3f-698d5b7e044a" autoIncrement="false" autoIncrementSequenceName="API_API_Description_seq" defaultValue="" name="CommandCode" nullable="0" physicalName="CommandCode" precision="0" referenceCount="1" scale="0" source-column-ref="COL3" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;Application-ID&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;Diameter Application-ID&quot;,
+   &quot;tooltip&quot;: &quot;Diameter Application-ID&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;S6t&quot;, &quot;S6m&quot;, &quot;T6a&quot;, &quot;T6b&quot;, &quot;Rx&quot;, &quot;Nt&quot;, &quot;Ns&quot;, &quot;T4&quot;, &quot;T7&quot; ] ,
+   &quot;defaultValue&quot;: &quot;S6m&quot;,
+   &quot;example&quot;: &quot;S6t&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;Diameter Message&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;Diameter Message&quot;,
+   &quot;markdownDescription&quot;: &quot;&quot;,
+   &quot;valueSpecification&quot;: &quot;&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL36" populated="true" UUID="fe5de5c0-a889-4d68-974a-3bc444cbeb7a" autoIncrement="false" autoIncrementSequenceName="Message_Origin_seq" defaultValue="" name="Origin" nullable="0" physicalName="Origin" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL37" populated="true" UUID="b445a901-1c86-42d2-bd10-9344c569fb0b" autoIncrement="false" autoIncrementSequenceName="Notification_message_seq" defaultValue="/notify" name="_PATH" nullable="0" physicalName="message" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>create-only</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB333" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB332" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB334" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX38" populated="true" UUID="095fa0d5-6c24-4580-a7c2-6bb53495f09a" clustered="false" name="Notification_pk" physicalName="API_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL39" populated="true" UUID="2aac0c83-178f-487b-b694-70a8d0ae89d3" deferrability="7" deleteRule="3" fk-table-ref="TAB10" fkCardinality="7" identifying="false" name="include_API_UsagePolicy_fk" physicalName="include_API_UsagePolicy_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL40" populated="true" UUID="996716da-a5f7-476e-aeca-8d9257fa7d08" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="ignore_Message_fk" physicalName="ignore_Message_fk" pk-table-ref="TAB7" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL41" populated="true" UUID="dda200c4-e1e8-4713-842c-fde49fbac161" deferrability="7" deleteRule="3" fk-table-ref="TAB27" fkCardinality="7" identifying="false" name="ignore_DB_Response_fk" physicalName="ignore_DB_Response_fk" pk-table-ref="TAB7" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL42" populated="true" UUID="8357e3b8-0816-4d4d-a019-72e1cc8814d6" deferrability="7" deleteRule="3" fk-table-ref="TAB33" fkCardinality="7" identifying="false" name="ignore_DB_Notification_fk" physicalName="ignore_DB_Notification_fk" pk-table-ref="TAB7" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL43" populated="true" UUID="3ab5d65e-174f-4430-baca-7b8f80e28611" deferrability="7" deleteRule="3" fk-table-ref="TAB10" fkCardinality="7" identifying="false" name="Response_AVP_fk" physicalName="Response_AVP_fk" pk-table-ref="TAB27" pkCardinality="2" updateRule="3" >
+   </relationship>
+   <relationship id="REL44" populated="true" UUID="4e7c4e10-b83b-4d20-a3eb-cc7f1e0dbaee" deferrability="7" deleteRule="3" fk-table-ref="TAB10" fkCardinality="7" identifying="false" name="Notification_AVP_fk" physicalName="Notification_AVP_fk" pk-table-ref="TAB33" pkCardinality="2" updateRule="3" >
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="0.840896415253714" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB1" x="441" y="378" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB7" x="460" y="70" bgColor="0xbfd6ff" fgColor="0x5a6986" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB10" x="460" y="644" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB16" x="92" y="49" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB27" x="772" y="379" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB33" x="109" y="380" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-link relationship-ref="REL40" pkConnection="0.5454545454545454" fkConnection="0.4595744680851064" rLineColor="0x999999" pkLabelText="Sends" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL39" pkConnection="0.4808510638297872" fkConnection="0.4954128440366973" rLineColor="0x80b1d3" pkLabelText="payload" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL43" pkConnection="0.3148936170212766" fkConnection="0.5176470588235295" rLineColor="0x80b1d3" pkLabelText="payload" fkLabelText="" orientation="20"/>
+  <table-link relationship-ref="REL41" pkConnection="0.8395061728395061" fkConnection="0.17587939698492464" rLineColor="0x999999" pkLabelText="Receives" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL42" pkConnection="0.13580246913580246" fkConnection="0.8212765957446808" rLineColor="0x999999" pkLabelText="Transmits" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL44" pkConnection="0.5276595744680851" fkConnection="0.3764705882352941" rLineColor="0x80b1d3" pkLabelText="payload" fkLabelText="" orientation="36"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>

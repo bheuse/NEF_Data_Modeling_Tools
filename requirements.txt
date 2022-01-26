@@ -7,6 +7,6 @@ markdown
 termcolor
 jsonpath_ng
 expiringdict
-requests
 requests_file
+requests
 mako

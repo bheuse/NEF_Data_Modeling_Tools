@@ -242,7 +242,8 @@ class FileSystem:
 
     @staticmethod
     def render(p_template_filename : str, p_rendered_filename, context: dict):
-        Term.print_blue("Rendering : [" + p_template_filename + "] into [" + p_rendered_filename + "]")
+        Term.print_blue("Rendering : [" + p_template_filename )
+        Term.print_blue("   > into : [" + p_rendered_filename + "]")
         template_string = FileSystem.loadFileContent(p_template_filename)
         # dos2unix magic !
         "\n".join(template_string.splitlines())
@@ -596,6 +597,8 @@ def create_path(entities):
             elif ("read-create" in entities[entity]["PATH_OPERATION"].lower()):
                 l_paths_template = paths_template_list_create_prefix + "," + paths_template_list(list_par) + "," + paths_template_create(create_par) + path_par + " } ,"
                 l_paths_template = l_paths_template + paths_template_read_write_prefix + "," + path_parameters + "," + paths_template_get(get_par) + " } "
+            elif ("create-only" in entities[entity]["PATH_OPERATION"].lower()):
+                l_paths_template = paths_template_list_create_prefix + "," + paths_template_create(create_par) + path_par + "," + path_parameters + " }"
             elif ("read-create-patch" in entities[entity]["PATH_OPERATION"].lower()):
                 l_paths_template = paths_template_list_create_prefix + "," + paths_template_list(list_par) + "," + paths_template_create(create_par)  + path_par + " } ,"
                 l_paths_template = l_paths_template + paths_template_read_write_prefix + "," + path_parameters + "," + paths_template_get(get_par) + "," + paths_template_patch(patch_par) + " } "
@@ -840,11 +843,11 @@ class Architect:
             link["Description"]     = "No Description"
             ignore = False
             for tlink in self.architect["architect-project"]["play-pen"]["table-link"]:
-                if (tlink["@rLineColor"] == "0x999999"):
-                    # Ignore Grey Links (or starting with ignore)
-                    Term.print_verbose("Relation Ignored (grey color) : " + clean_name(relation["@name"]))
-                    ignore = True
-                    continue
+                # if (tlink["@rLineColor"] == "0x999999"):
+                    # # Ignore Grey Links (or starting with ignore)
+                    # Term.print_verbose("Relation Ignored (grey color) : " + clean_name(relation["@name"]))
+                    # ignore = True
+                    # continue
                 if (tlink["@relationship-ref"] == relation["@id"]):
                     link["Description"] = clean_name(tlink["@pkLabelText"]) + " " + clean_name(tlink["@fkLabelText"])
                     if (link["Description"] == " "): link["Description"] = link["Name"]
@@ -957,6 +960,7 @@ class Architect:
         if (att["@type"] == "93"):   att_property["format"] = "timestamp" # -
         if (att["@type"] == "2000"): att_property["type"]   = "string"    # JAVA_OBJECT
         if (att["@type"] == "2000"): att_property["format"] = "json"      # -
+        if (att["@type"] == "1111"): att_property["type"]   = "any"       # UNKNOWN = any type (needs to be fixed in hooks)
         if (att["@type"] == "16"):   att_property["type"]   = "boolean"   # BOOLEAN
         if (desc_schema["maxCardinality"] > 1):
             # Array
@@ -1435,6 +1439,31 @@ def lets_do_openapi_yaml():
                     # del open_api["paths"][path][op]["requestBody"]["content"]["application/json"]["schema"]
                     # del open_api["paths"][path][op]["responses"]["202"]["content"]["application/json"]["schema"]
 
+    # Some Custom for NEF_Configuration_Service
+    open_api["paths"]["/notify/message"] = open_api["paths"]["/notify/messages"]
+    del open_api["paths"]["/notify/messages"]
+    open_api["paths"]["/request/message"] = open_api["paths"]["/request/messages"]
+    del open_api["paths"]["/request/messages"]
+    if ("NEF_SCEF" in data_model) :
+        for path in open_api["paths"] :
+            if ("/request/message" == path):
+                del open_api["paths"]["/request/message"]["parameters"]
+                open_api["paths"]["/request/message"]["post"]["responses"]["202"]["content"]["application/json"]["schema"]["$ref"] = "#/components/schemas/Response"
+                open_api["paths"]["/request/message"]["description"] = "Submit Message Request"
+                open_api["paths"]["/request/message"]["summary"] = "Submit Message Request"
+            if ("/notify/message" == path):
+                del open_api["paths"]["/notify/message"]["parameters"]
+                open_api["paths"]["/notify/message"]["post"]["responses"]["202"]["content"]["application/json"]["schema"]["$ref"] = "#/components/schemas/Response"
+                open_api["paths"]["/notify/message"]["description"] = "Transmits Notifications"
+                open_api["paths"]["/notify/message"]["summary"] = "Transmits Notifications"
+        del open_api["components"]["schemas"]["AVP"]["properties"]["Value"]["type"]
+        open_api["components"]["schemas"]["AVP"]["properties"]["Value"]["oneOf"] = [ { "type" : "integer"} ,
+                                                                                     { "type" : "string"},
+                                                                                     { "type" : "boolean"},
+                                                                                     { "type" : "number"},
+                                                                                     { "type" : "array" ,
+                                                                                       "items" : { "$ref" : "#/components/schemas/AVP"  } }  ]
+
     Term.print_yellow("< lets_do_openapi")
     Term.print_verbose(open_api)
 
@@ -1782,22 +1811,28 @@ class Test(unittest.TestCase):
 
     def testGenerateNEFConfigurationSchema(self):
         Term.setVerbose(False)
-        lets_do_it("Nef"+os.sep+"NEF_Configuration", "schema")
+        lets_do_it("NEF"+os.sep+"NEF_Configuration", "schema")
 
     def testGenerateNEFConfigurationService(self):
         Term.setVerbose(False)
-        lets_do_it("Nef"+os.sep+"NEF_Configuration_Service", "openapi")
+        lets_do_it("NEF"+os.sep+"NEF_Configuration"+os.sep+"NEF_Configuration_Service", "openapi")
 
     def testGenerateNEFMarketPlaceDataService(self):
         Term.setVerbose(False)
-        lets_do_it("Nef"+os.sep+"NEF_MarketPlace_DataModel", "openapi")
+        lets_do_it("NEF"+os.sep+"NEF_MarketPlace"+os.sep+"NEF_MarketPlace_DataModel", "openapi")
 
     def testGenerateNEFCatalogDataService(self):
         Term.setVerbose(False)
         global data_model
-        data_model = "Nef"+os.sep+"NEF_Catalog_DataModel"
+        data_model = "NEF"+os.sep+"NEF_Catalog"+os.sep+"NEF_Catalog_DataModel"
         lets_do_it("openapi + schema + render")
         # lets_do_it("Nef"+os.sep+"NEF_Catalog_DataModel", "openapi + schema + datastore + render")
+
+    def testGenerateSCEFService(self):
+        Term.setVerbose(True)
+        global data_model
+        data_model = "NEF"+os.sep+"NEF_SCEF"+os.sep+"NEF_SCEF_API"
+        lets_do_it("openapi render")
 
 
 if __name__ == '__main__':
