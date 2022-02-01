@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import xmltodict
 import requests
 import json
