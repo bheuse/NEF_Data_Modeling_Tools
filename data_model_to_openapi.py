@@ -243,6 +243,21 @@ class FileSystem:
         return content
 
     @staticmethod
+    def filterBlankLines(string):
+        result = ""
+
+        for line in string.splitlines():
+            strippedLine = line.strip()
+            if strippedLine == '':
+                continue
+            elif strippedLine == '\\n':
+                result += '\n'
+            else:
+                result += line + '\n'
+
+        return result
+
+    @staticmethod
     def render(p_template_filename : str, p_rendered_filename, context: dict):
         Term.print_blue("Rendering : [" + p_template_filename + "] into [" + p_rendered_filename + "]")
         template_string = FileSystem.loadFileContent(p_template_filename)
@@ -251,6 +266,8 @@ class FileSystem:
         # Rendering Template
         mako.runtime.UNDEFINED = 'MISSING_IN_CONTEXT'
         rendered_template = Template(template_string).render(**context)
+        rendered_template = FileSystem.filterBlankLines(rendered_template)
+
         # And Saving to File ...
         FileSystem.saveFileContent(rendered_template, p_rendered_filename)
 
