@@ -15,7 +15,7 @@ CREATE ROLE @@DOC_PREFIX@@_role WITH sysproc, adhoc, defaultproc;
 CREATE TABLE @@DOC_PREFIX@@_${ENTITY} (
     id VARCHAR(36) NOT NULL,
 % for name, data in PROPS.items():
-    ${renderProp(name, data)}
+    ${renderProp(name, data, loop.last)}
 % endfor
     PRIMARY KEY(id)
 );
@@ -72,18 +72,20 @@ CREATE PROCEDURE @@DOC_PREFIX@@_delete${ENTITY}
         return counter
 
     def doRenderPropsValues(entities, props):
-        return '(?,' + ','.join(['?' for i in range(0, countProps(entities, props))]) + ')'
+        return '(' + ','.join(['?' for i in range(0, countProps(entities, props))]) + ')'
 %>
 
-<%def name="renderProp(name, data)">
+<%def name="renderProp(name, data, last)">
 <% entity = getEntity(ENTITIES, data) %>
-% if not entity: # primitive type
-    ${name} VARCHAR,
+% if name == 'id':
+
+% elif not entity: # primitive type
+    ${name} VARCHAR${'' if last else ','}
 % elif 'PATH' in entity: # reference to another entity
-    ${name} VARCHAR(36),
+    ${name} VARCHAR(36)${'' if last else ','}
 % else: # subobject
     % for subname, subdata in entity["properties"].items():
-        ${renderProp(name + '_' + subname, subdata)}
+        ${renderProp(name + '_' + subname, subdata, last)}
     % endfor
 % endif
 </%def>
@@ -92,7 +94,9 @@ CREATE PROCEDURE @@DOC_PREFIX@@_delete${ENTITY}
 
 <%def name="renderSetProp(name, data, last)">
 <% entity = getEntity(ENTITIES, data) %>
-% if entity and not 'PATH' in entity: # subobject
+% if name == 'id':
+
+% elif entity and not 'PATH' in entity: # subobject
     % for subname, subdata in entity["properties"].items():
         ${renderSetProp(name + '_' + subname, subdata, last)}
     % endfor
