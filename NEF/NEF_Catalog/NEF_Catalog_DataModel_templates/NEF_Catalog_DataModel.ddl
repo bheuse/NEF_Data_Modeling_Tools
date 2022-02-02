@@ -1,7 +1,5 @@
-<%doc>
-    DDL Template for VoltDB
-</%doc>
-
+/* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARHITECT SOURCE INSTEAD */
+\n
 /* DDL for ${DATAMODEL} */
 \n
 CREATE ROLE @@DOC_PREFIX@@_role WITH sysproc, adhoc, defaultproc;
