@@ -141,7 +141,7 @@ Free …</remarks>
   <table id="TAB31" populated="true" UUID="9771f4f7-36f2-4cb8-bd7c-8449f4bc461b" name="OpenAPI" objectType="TABLE" physicalName="NEF Business Model" >
    <remarks>OpenAPI Business Model. This is generated, modify source architect data model instead.</remarks>
    <folder id="FOLTAB311" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL32" populated="true" UUID="4c9fde27-4a4c-4b1c-9a58-d5c5bbdbe555" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Business Data Model_seq" defaultValue="" name="title" nullable="0" physicalName="NEF Business Data Model" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL32" populated="true" UUID="4c9fde27-4a4c-4b1c-9a58-d5c5bbdbe555" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Services Catalog Service_seq" defaultValue="" name="title" nullable="0" physicalName="NEF Services Catalog Service" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     <column id="COL33" populated="true" UUID="dee4523d-45fe-4343-a5f0-4fff4d65d1dc" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_Remarks_seq" defaultValue="See Remarks - JSON Format" name="contact" nullable="0" physicalName="Remarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -166,40 +166,30 @@ Free …</remarks>
 ]</remarks>
     </column>
     <column id="COL36" populated="true" UUID="50210ae6-4921-4e12-8ab2-31e00731b4e7" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_securitySchemes_seq" defaultValue="" name="securitySchemes" nullable="0" physicalName="securitySchemes" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>{  &quot;Oauth-Security-Scheme-Info&quot;: {
-            &quot;flows&quot;: {
-               &quot;implicit&quot;: {
-                  &quot;authorizationUrl&quot;: &quot;https://oauth.com/auth&quot;,
-                  &quot;refreshUrl&quot;: &quot;https://oauth.com/refresh&quot;,
-                  &quot;scopes&quot;: {
-                     &quot;scope-2&quot;: &quot;&quot;
-                  }
-               }
-            },
-            &quot;type&quot;: &quot;oauth2&quot;,
-            &quot;description&quot;: &quot;Oauth-Security-Scheme-Info-Description&quot;
-         }
-}</remarks>
+     <remarks>{
+    &quot;oAuth2ClientCredentials&quot;: {
+        &quot;type&quot;: &quot;oauth2&quot;,
+        &quot;flows&quot;: {
+            &quot;clientCredentials&quot;: {
+                &quot;tokenUrl&quot;: &quot;{tokenUrl}&quot;,
+                &quot;scopes&quot;: {}
+            }
+        }
+    }
+}
+</remarks>
     </column>
     <column id="COL37" populated="true" UUID="f1af196f-8ed1-44b2-a3ce-1e8d3eff5846" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_servers_seq" defaultValue="See Remarks - JSON Format" name="servers" nullable="0" physicalName="servers" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>[
       {
-         &quot;url&quot;: &quot;http://${NEF_DOMAIN}/${VERSION}/&quot;,
-         &quot;description&quot;: &quot;Amdocs NEF Play Ground Release 22-03&quot;,
+         &quot;url&quot;: &quot;{apiRoot}/nef-services-catalog-service/22-03&quot;,
+         &quot;description&quot;: &quot;Amdocs NEF Release 22-03&quot;,
          &quot;variables&quot;: {
-            &quot;NEF_DOMAIN&quot;: {
-               &quot;default&quot;: &quot;nef.amdocs.com&quot;,
-               &quot;description&quot;: &quot;The NEF URL&quot;
-            },
-            &quot;VERSION&quot;: {
-               &quot;default&quot;: &quot;22-03&quot;,
-               &quot;description&quot;: &quot;Release Version&quot;
+            &quot;apiRoot&quot;: {
+               &quot;default&quot;: &quot;https://nef.amdocs.com&quot;,
+               &quot;description&quot;: &quot;The Amdocs NEF URL&quot;
             }
          }
-      },
-      {
-         &quot;url&quot;: &quot;https://127.0.0.1:5000/&quot;,
-         &quot;description&quot;: &quot;Amdocs NEF Play Ground Data Store&quot;
       }
 ]</remarks>
     </column>
@@ -209,10 +199,10 @@ Free …</remarks>
     <column id="COL39" populated="true" UUID="5736254d-6621-4d91-bbe0-492e69d40531" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_security_seq" defaultValue="See Remarks - JSON Format" name="security" nullable="0" physicalName="security" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>[
   {
-    &quot;Oauth-Security-Scheme-Info&quot;: [
-    &quot;scope-2&quot;
-         ]
-  }
+  },
+  {
+    &quot;oAuth2ClientCredentials&quot;: []
+   }
 ]</remarks>
     </column>
     <column id="COL40" populated="true" UUID="6cae4ca1-bbc4-41ff-aa92-ed16a6080367" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Business Data Model. _seq" defaultValue="" name="description" nullable="0" physicalName="NEF Business Data Model. " precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
