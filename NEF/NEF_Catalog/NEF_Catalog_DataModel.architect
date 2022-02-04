@@ -20,7 +20,25 @@
      <remarks>API YAML - EndPoints</remarks>
     </column>
     <column id="COL4" populated="true" UUID="50514de3-6d02-49a0-bbe0-5d66598b904e" autoIncrement="false" autoIncrementSequenceName="API_API_Name_seq" defaultValue="" name="API_Name" nullable="0" physicalName="API_Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks></remarks>
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: true,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
     </column>
     <column id="COL5" populated="true" UUID="6fb3abac-7767-4f0f-adca-3acc8c24805e" autoIncrement="false" autoIncrementSequenceName="API_API_Description_seq" defaultValue="" name="API Description" nullable="0" physicalName="API Description" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
@@ -576,6 +594,7 @@ Free …</remarks>
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: true,
    &quot;description&quot;: &quot;noDescription&quot;,
    &quot;tooltip&quot;: &quot;noTooltip&quot;,
    &quot;type&quot;: &quot;string&quot;,
@@ -652,6 +671,7 @@ Free …</remarks>
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: true,
    &quot;description&quot;: &quot;noDescription&quot;,
    &quot;tooltip&quot;: &quot;noTooltip&quot;,
    &quot;type&quot;: &quot;string&quot;,
@@ -784,7 +804,28 @@ Free …</remarks>
   <table id="TAB75" populated="true" UUID="ab5f922a-a47b-46d5-a59f-37556f6fb2d6" name="API Article" objectType="TABLE" physicalName="API Article" >
    <remarks></remarks>
    <folder id="FOLTAB751" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL76" populated="true" UUID="a8433597-d201-4b91-a381-43a8fe6cc465" autoIncrement="false" autoIncrementSequenceName="API Article_ArticleDescription_seq" defaultValue="" name="ArticleDescription" nullable="0" physicalName="ArticleDescription" precision="0" referenceCount="1" scale="0" source-column-ref="COL56" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL76" populated="true" UUID="ceceefc9-3752-442a-aedf-5c4c2492ab8b" autoIncrement="false" autoIncrementSequenceName="API Collection_ArticleName_seq" defaultValue="" name="ArticleName" nullable="0" physicalName="ArticleName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: true,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL77" populated="true" UUID="a8433597-d201-4b91-a381-43a8fe6cc465" autoIncrement="false" autoIncrementSequenceName="API Article_ArticleDescription_seq" defaultValue="" name="ArticleDescription" nullable="0" physicalName="ArticleDescription" precision="0" referenceCount="1" scale="0" source-column-ref="COL56" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -804,7 +845,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL77" populated="true" UUID="02e3ae38-570c-4478-89e2-b3379970aa4c" autoIncrement="false" autoIncrementSequenceName="API Article_ArticleLogo_seq" defaultValue="" name="ArticleLogo" nullable="0" physicalName="ArticleLogo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL78" populated="true" UUID="02e3ae38-570c-4478-89e2-b3379970aa4c" autoIncrement="false" autoIncrementSequenceName="API Article_ArticleLogo_seq" defaultValue="" name="ArticleLogo" nullable="0" physicalName="ArticleLogo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -824,7 +865,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL78" populated="true" UUID="f993da82-1d7e-4844-acae-62830ff770cc" autoIncrement="false" autoIncrementSequenceName="API Article_ArticlePage_seq" defaultValue="" name="ArticlePage" nullable="0" physicalName="ArticlePage" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL79" populated="true" UUID="f993da82-1d7e-4844-acae-62830ff770cc" autoIncrement="false" autoIncrementSequenceName="API Article_ArticlePage_seq" defaultValue="" name="ArticlePage" nullable="0" physicalName="ArticlePage" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -844,7 +885,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL79" populated="true" UUID="569e8234-b414-4725-a96c-6a06d311a345" autoIncrement="false" autoIncrementSequenceName="API_API_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="article" precision="0" referenceCount="1" scale="0" source-column-ref="COL58" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL80" populated="true" UUID="569e8234-b414-4725-a96c-6a06d311a345" autoIncrement="false" autoIncrementSequenceName="API_API_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="article" precision="0" referenceCount="1" scale="0" source-column-ref="COL58" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     </folder>
@@ -853,30 +894,30 @@ Free …</remarks>
     <folder id="FOLTAB752" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB754" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX80" populated="true" UUID="ad410186-68ab-4324-bb67-ce29fc5d7531" clustered="false" name="API Article_pk" physicalName="API_Category_pk" primaryKeyIndex="true" unique="false" >
+    <index id="IDX81" populated="true" UUID="ad410186-68ab-4324-bb67-ce29fc5d7531" clustered="false" name="API Article_pk" physicalName="API_Category_pk" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
   <relationships>
-   <relationship id="REL81" populated="true" UUID="2aac0c83-178f-487b-b694-70a8d0ae89d3" deferrability="7" deleteRule="3" fk-table-ref="TAB23" fkCardinality="7" identifying="false" name="include_API_UsagePolicy_fk" physicalName="include_API_UsagePolicy_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL82" populated="true" UUID="2aac0c83-178f-487b-b694-70a8d0ae89d3" deferrability="7" deleteRule="3" fk-table-ref="TAB23" fkCardinality="7" identifying="false" name="include_API_UsagePolicy_fk" physicalName="include_API_UsagePolicy_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL82" populated="true" UUID="ec938d49-c66c-4578-a311-a1a29e782065" deferrability="7" deleteRule="3" fk-table-ref="TAB39" fkCardinality="3" identifying="true" name="API_API_Details_fk" physicalName="API_API_Details_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL83" populated="true" UUID="ec938d49-c66c-4578-a311-a1a29e782065" deferrability="7" deleteRule="3" fk-table-ref="TAB39" fkCardinality="3" identifying="true" name="API_API_Details_fk" physicalName="API_API_Details_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL83" populated="true" UUID="c479652b-f661-4dd4-8e98-8e60208599da" deferrability="7" deleteRule="3" fk-table-ref="TAB54" fkCardinality="7" identifying="false" name="API_API_Category_fk" physicalName="API_API_Category_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+   <relationship id="REL84" populated="true" UUID="c479652b-f661-4dd4-8e98-8e60208599da" deferrability="7" deleteRule="3" fk-table-ref="TAB54" fkCardinality="7" identifying="false" name="API_API_Category_fk" physicalName="API_API_Category_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
    </relationship>
-   <relationship id="REL84" populated="true" UUID="f2416890-ec09-46d3-a2d2-06d1ff9e766c" deferrability="7" deleteRule="3" fk-table-ref="TAB60" fkCardinality="7" identifying="false" name="API_API_Collection_fk" physicalName="API_API_Collection_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+   <relationship id="REL85" populated="true" UUID="f2416890-ec09-46d3-a2d2-06d1ff9e766c" deferrability="7" deleteRule="3" fk-table-ref="TAB60" fkCardinality="7" identifying="false" name="API_API_Collection_fk" physicalName="API_API_Collection_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
    </relationship>
-   <relationship id="REL85" populated="true" UUID="9428b6ad-84e4-48fc-822c-db2165badf99" deferrability="7" deleteRule="3" fk-table-ref="TAB66" fkCardinality="7" identifying="false" name="API_API_ Provider _fk" physicalName="API_API_ Provider _fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL86" populated="true" UUID="9428b6ad-84e4-48fc-822c-db2165badf99" deferrability="7" deleteRule="3" fk-table-ref="TAB66" fkCardinality="7" identifying="false" name="API_API_ Provider _fk" physicalName="API_API_ Provider _fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL86" populated="true" UUID="5f2019e0-ec8a-44b1-9cfb-84cb66bc0645" deferrability="7" deleteRule="3" fk-table-ref="TAB75" fkCardinality="7" identifying="false" name="API_API_Article_fk" physicalName="API_API_Article_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+   <relationship id="REL87" populated="true" UUID="5f2019e0-ec8a-44b1-9cfb-84cb66bc0645" deferrability="7" deleteRule="3" fk-table-ref="TAB75" fkCardinality="7" identifying="false" name="API_API_Article_fk" physicalName="API_API_Article_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
    </relationship>
-   <relationship id="REL87" populated="true" UUID="b11b9deb-7db3-413a-9315-23474ba123dd" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="include_API_Bundle_API_fk" physicalName="include_API_Bundle_API_fk" pk-table-ref="TAB14" pkCardinality="2" updateRule="3" >
+   <relationship id="REL88" populated="true" UUID="b11b9deb-7db3-413a-9315-23474ba123dd" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="include_API_Bundle_API_fk" physicalName="include_API_Bundle_API_fk" pk-table-ref="TAB14" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL88" populated="true" UUID="9b1b2df7-c7e2-4ddd-9a29-9813d904c7f1" deferrability="7" deleteRule="3" fk-table-ref="TAB14" fkCardinality="7" identifying="false" name="API Catalogue_API_Bundle_fk" physicalName="API Catalogue_API_Bundle_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
+   <relationship id="REL89" populated="true" UUID="9b1b2df7-c7e2-4ddd-9a29-9813d904c7f1" deferrability="7" deleteRule="3" fk-table-ref="TAB14" fkCardinality="7" identifying="false" name="API Catalogue_API_Bundle_fk" physicalName="API Catalogue_API_Bundle_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL89" populated="true" UUID="996716da-a5f7-476e-aeca-8d9257fa7d08" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="API Catalogue_API_fk" physicalName="API Catalogue_API_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
+   <relationship id="REL90" populated="true" UUID="996716da-a5f7-476e-aeca-8d9257fa7d08" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="API Catalogue_API_fk" physicalName="API Catalogue_API_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL90" populated="true" UUID="dbc56581-9b6d-461c-98b1-82b8e761fe95" deferrability="7" deleteRule="3" fk-table-ref="TAB66" fkCardinality="7" identifying="false" name="API_Catalogue_API_ Provider _fk" physicalName="API_Catalogue_API_ Provider _fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
+   <relationship id="REL91" populated="true" UUID="dbc56581-9b6d-461c-98b1-82b8e761fe95" deferrability="7" deleteRule="3" fk-table-ref="TAB66" fkCardinality="7" identifying="false" name="API_Catalogue_API_ Provider _fk" physicalName="API_Catalogue_API_ Provider _fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
    </relationship>
   </relationships>
  </target-database>
@@ -894,16 +935,16 @@ Free …</remarks>
   <table-pane table-ref="TAB60" x="972" y="652" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB66" x="756" y="349" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB75" x="973" y="778" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-link relationship-ref="REL87" pkConnection="0.6993006993006993" fkConnection="0.2937062937062937" rLineColor="0x377eb8" pkLabelText="Includes" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL88" pkConnection="0.14743589743589744" fkConnection="0.6588235294117647" rLineColor="0x000000" pkLabelText="Proposes" fkLabelText="Bundles" orientation="20"/>
-  <table-link relationship-ref="REL89" pkConnection="0.5454545454545454" fkConnection="0.4595744680851064" rLineColor="0x000000" pkLabelText="Offers" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL81" pkConnection="0.4808510638297872" fkConnection="0.4954128440366973" rLineColor="0x80b1d3" pkLabelText="" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL82" pkConnection="0.48633879781420764" fkConnection="0.5106382978723404" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL83" pkConnection="0.15846994535519127" fkConnection="0.5555555555555556" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL84" pkConnection="0.5076142131979695" fkConnection="0.4507042253521127" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL85" pkConnection="0.7872340425531915" fkConnection="0.2907488986784141" rLineColor="0x000000" pkLabelText="Provides" fkLabelText="" orientation="72"/>
-  <table-link relationship-ref="REL86" pkConnection="0.8527918781725888" fkConnection="0.5492957746478874" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL90" pkConnection="0.7592592592592593" fkConnection="0.3524229074889868" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL88" pkConnection="0.6993006993006993" fkConnection="0.2937062937062937" rLineColor="0x377eb8" pkLabelText="Includes" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL89" pkConnection="0.14743589743589744" fkConnection="0.6588235294117647" rLineColor="0x000000" pkLabelText="Proposes" fkLabelText="Bundles" orientation="20"/>
+  <table-link relationship-ref="REL90" pkConnection="0.5454545454545454" fkConnection="0.4595744680851064" rLineColor="0x000000" pkLabelText="Offers" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL82" pkConnection="0.4808510638297872" fkConnection="0.4954128440366973" rLineColor="0x80b1d3" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL83" pkConnection="0.48633879781420764" fkConnection="0.5106382978723404" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL84" pkConnection="0.15846994535519127" fkConnection="0.5555555555555556" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL85" pkConnection="0.5076142131979695" fkConnection="0.4507042253521127" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL86" pkConnection="0.7872340425531915" fkConnection="0.2907488986784141" rLineColor="0x000000" pkLabelText="Provides" fkLabelText="" orientation="72"/>
+  <table-link relationship-ref="REL87" pkConnection="0.8527918781725888" fkConnection="0.5492957746478874" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL91" pkConnection="0.7592592592592593" fkConnection="0.3524229074889868" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
  </play-pen>
  <critic-manager>
   <critic-grouping platformType="Generic" enabled="true">

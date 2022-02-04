@@ -233,7 +233,7 @@ class FileSystem:
     @staticmethod
     def loadFileContent(file_name: str) -> str:
         if (not FileSystem.is_FileExist(file_name)):
-            Term.error("File not Found : " + file_name)
+            Term.print_error("File not Found : " + file_name)
             return None
         with open(file_name, "r") as file:
             content = file.read()
@@ -265,56 +265,117 @@ class FileSystem:
         FileSystem.saveFileContent(yaml.safe_dump(context, indent=2, default_flow_style=False, sort_keys=False), context_file_yaml)
         FileSystem.saveFileContent(json.dumps(context, indent=3), context_file_json)
         for template_file in template_files:
+            if os.path.isdir(p_input_dir  + os.sep + template_file) : continue
             p_template_filename = p_input_dir  + os.sep + template_file
             p_rendered_filename = p_output_dir + os.sep + template_file.replace("_Template", "").replace(".mako", "").replace("_mako", "")
             FileSystem.render(p_template_filename, p_rendered_filename, context)
 
+    @staticmethod
+    def renderDir2(p_input_dir : str, p_output_dir : str, context : dict, file_ext: str = "", root : bool = True, name : str = None):
+        Term.print_yellow("Rendering Templates Dir : [" + p_input_dir + "]")
+        Term.print_yellow("Rendering Artifacts Dir : [" + p_output_dir + "]")
+        if (root) :
+            context_file_yaml = p_output_dir + os.sep + context["DATAMODEL"] + "_context.yaml"
+            context_file_json = p_output_dir + os.sep + context["DATAMODEL"] + "_context.json"
+            Term.print_yellow("Rendering Context File  : [" + context_file_yaml + "]")
+            Term.print_verbose("Rendering Context : [\n" + yaml.safe_dump(context, indent=2, default_flow_style=False,sort_keys=False) + "\n]")
+            FileSystem.saveFileContent(yaml.safe_dump(context, indent=2, default_flow_style=False, sort_keys=False),context_file_yaml)
+            FileSystem.saveFileContent(json.dumps(context, indent=3), context_file_json)
+            for entity in context["ENTITIES"]:
+                context_file_yaml = p_output_dir + os.sep + entity + "_context.yaml"
+                context_file_json = p_output_dir + os.sep + entity + "_context.json"
+                FileSystem.saveFileContent(yaml.safe_dump(context["ENTITIES"][entity], indent=2, default_flow_style=False, sort_keys=False),context_file_yaml)
+                FileSystem.saveFileContent(json.dumps(context["ENTITIES"][entity], indent=3), context_file_json)
+        for template_file in os.listdir(p_input_dir):
+            if template_file.startswith("."+os.sep+".git"): continue
+            if template_file.startswith("."+os.sep+".idea"): continue
+            if template_file.startswith("."+os.sep+"venv"): continue
+            print(str(p_input_dir + os.sep + template_file))
+            if (os.path.isdir(p_input_dir + os.sep + template_file)):
+                if ("${ENTITY}" in template_file) :
+                    for entity in context["ENTITIES"] :
+                        new_dir = p_output_dir + os.sep + template_file.replace("${ENTITY}", entity)
+                        Term.print_blue("Creating Dir : "+new_dir)
+                        if not os.path.exists(new_dir): os.makedirs(new_dir)
+                        FileSystem.renderDir2(p_input_dir + os.sep + template_file, new_dir, context["ENTITIES"][entity], root=False, name=entity)
+                else:
+                    new_dir = p_output_dir + os.sep + template_file
+                    Term.print_blue("Creating Dir : " + new_dir)
+                    if not os.path.exists(new_dir): os.makedirs(new_dir)
+                    FileSystem.renderDir2(p_input_dir + os.sep + template_file, new_dir, context, root=False)
+            else:
+                if ("${ENTITY}" in template_file) :
+                    if ("ENTITIES" in context):
+                        for entity in context["ENTITIES"]:
+                            p_template_filename = p_input_dir  + os.sep + template_file
+                            p_rendered_filename = p_output_dir + os.sep + template_file.replace("${ENTITY}", entity)
+                            FileSystem.render(p_template_filename, p_rendered_filename, context["ENTITIES"][entity])
+                    else:
+                        p_template_filename = p_input_dir  + os.sep + template_file
+                        p_rendered_filename = p_output_dir + os.sep + template_file.replace("${ENTITY}", name)
+                        FileSystem.render(p_template_filename, p_rendered_filename, context)
+                else:
+                    p_template_filename = p_input_dir + os.sep + template_file
+                    p_rendered_filename = p_output_dir + os.sep + template_file.replace("_Template", "").replace(".mako", "").replace("_mako", "")
+                    FileSystem.render(p_template_filename, p_rendered_filename, context)
+
+
+    @staticmethod
+    def listFiles(p_input_dir : str):
+        for root, dirs, files in os.walk(p_input_dir):
+            if root.startswith("."+os.sep+".git"): continue
+            if root.startswith("."+os.sep+".idea"): continue
+            if root.startswith("."+os.sep+"venv"): continue
+            print(str(root) + str(dirs) + str(files))
 
 ###
 ### Util
 ###
 
-def find_between(content, start, end):
-    found = re.search(start + '([\s\S]*?)' + end, content)
-    if (found is None): return None
-    found = found.group(1)
-    found = re.sub(start, "", found)
-    found = re.sub(end, "", found)
-    return found
+class Util:
 
+    @staticmethod
+    def find_between(content, start, end):
+        found = re.search(start + '([\s\S]*?)' + end, content)
+        if (found is None): return None
+        found = found.group(1)
+        found = re.sub(start, "", found)
+        found = re.sub(end, "", found)
+        return found
 
-def remove_between(content, start, end):
-    if (not content): return ""
-    found = re.sub(start + '([\s\S]*?)' + end, "", content)
-    return found
+    @staticmethod
+    def remove_between(content, start, end):
+        if (not content): return ""
+        found = re.sub(start + '([\s\S]*?)' + end, "", content)
+        return found
 
+    @staticmethod
+    def get_parameters(text, prefix) -> str :
+        found = Util.find_between(text.strip(), "<"+prefix+">", "</"+prefix+">")
+        if (found): return found
+        return None
 
 ###
 ### Path Generation
 ###
 
 
-def get_parameters(text, prefix) -> str :
-    found = find_between(text.strip(), "<"+prefix+">", "</"+prefix+">")
-    if (found): return found
-    return None
+class Path:
 
-
-paths_template_list_create_prefix  = """
-        "${PATH_PREFIX}/${PATH}s": {
+    paths_template_list_create_prefix  = """
+"${PATH_PREFIX}/${PATH}s": {
             "summary": "Path used to manage the list of ${table}s.",
             "description": "The REST endpoint/path used to list and create zero or more `${TABLE}`.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively."
 """
 
+    def paths_template_list(parameters : str = None) -> str:
+        if ((parameters) and (parameters.strip() == "")): parameters = None
+        if (not parameters):
+            parameters = ""
+        else:
+            parameters = "\"parameters\" : [  " + parameters + " ] , "
 
-def paths_template_list(parameters : str = None) -> str:
-    if ((parameters) and (parameters.strip() == "")): parameters = None
-    if (not parameters):
-        parameters = ""
-    else:
-        parameters = "\"parameters\" : [  " + parameters + " ] , "
-
-    paths_template_list = """
+        paths_template_list = """
                 "get": {
                     "operationId": "get${TABLE}s",
                     "summary": "List All ${TABLE}s",
@@ -336,11 +397,11 @@ def paths_template_list(parameters : str = None) -> str:
                         }
                     }
                 }
-    """
-    return paths_template_list
+"""
+        return paths_template_list
 
 
-body_content = """
+    body_content = """
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -351,69 +412,96 @@ body_content = """
                         "required": true
 """
 
-
-def paths_template_create(parameters : str = None) -> str:
-    if ((parameters) and (parameters.strip() == "")): parameters = None
-    if (not parameters):
-        parameters = ""
-    else:
-        parameters = "\"parameters\" : [  " + parameters + " ] , "
-    paths_template_create = """
-                "post": {
-                    "operationId": "create${TABLE}",
-                    "summary": "Create a ${TABLE}",
-                    "description": "Creates a new instance of a `${TABLE}`.",
-                    """ + parameters + """
-                    "requestBody": {
-                        "description": "A new `${TABLE}` to be created.",
-                        "content": {
-                            "application/json": {
-                                    "schema": {
-                                        "$ref": "#/components/schemas/${TABLE}"
-                                    }
-                            }
-                        },
-                        "required": true
-                    },
-                    "responses": {
-                        "202": {
-                            "description": "Successful response.",
+    @staticmethod
+    def paths_template_create(parameters : str = None) -> str:
+        if ((parameters) and (parameters.strip() == "")): parameters = None
+        if (not parameters):
+            parameters = ""
+        else:
+            parameters = "\"parameters\" : [  " + parameters + " ] , "
+        paths_template_create = """
+                    "post": {
+                        "operationId": "create${TABLE}",
+                        "summary": "Create a ${TABLE}",
+                        "description": "Creates a new instance of a `${TABLE}`.",
+                        """ + parameters + """
+                        "requestBody": {
+                            "description": "A new `${TABLE}` to be created.",
                             "content": {
                                 "application/json": {
-                                    "schema": {
-                                        "$ref": "#/components/schemas/${TABLE}"
-                                    }
-                                  }
+                                        "schema": {
+                                            "$ref": "#/components/schemas/${TABLE}"
+                                        }
+                                }
+                            },
+                            "required": true
+                        },
+                        "responses": {
+                            "202": {
+                                "description": "Successful response.",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/${TABLE}"
+                                        }
+                                      }
+                                }
                             }
                         }
                     }
-                }
+        """
+        return paths_template_create
+
+    paths_template_read_write_prefix = """
+            "${PATH_PREFIX}/${PATH}s/{${PATH}Id}": {
+                "summary": "Path used to manage a single ${TABLE}.",
+                "description": "The REST endpoint/path used to get, update, and delete single instances of an `${TABLE}`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively."
     """
-    return paths_template_create
 
+    @staticmethod
+    def paths_template_get(parameters : str = None) -> str:
+        if ((parameters) and (parameters.strip() == "")): parameters = None
+        if (not parameters):
+            parameters = ""
+        else:
+            parameters = "\"parameters\" : [  " + parameters + " ] , "
+        paths_template_get = """
+                    "get": {
+                        "operationId": "get${TABLE}",
+                        "summary": "Get a ${TABLE}",
+                        "description": "Gets the details of a single instance of a `${TABLE}`.",
+                        """ + parameters + """
+                        "responses": {
+                            "200": {
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/${TABLE}"
+                                        }
+                                    }
+                                },
+                                "description": "Successful response - returns a single `${TABLE}`."
+                            }
+                        }
+                    }
+        """
+        return paths_template_get
 
-paths_template_read_write_prefix = """
-
-        "${PATH_PREFIX}/${PATH}s/{${PATH}Id}": {
-            "summary": "Path used to manage a single ${TABLE}.",
-            "description": "The REST endpoint/path used to get, update, and delete single instances of an `${TABLE}`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively."
-"""
-
-
-def paths_template_get(parameters : str = None) -> str:
-    if ((parameters) and (parameters.strip() == "")): parameters = None
-    if (not parameters):
-        parameters = ""
-    else:
-        parameters = "\"parameters\" : [  " + parameters + " ] , "
-    paths_template_get = """
-                "get": {
-                    "operationId": "get${TABLE}",
-                    "summary": "Get a ${TABLE}",
-                    "description": "Gets the details of a single instance of a `${TABLE}`.",
-                    """ + parameters + """
-                    "responses": {
-                        "200": {
+    @staticmethod
+    def paths_template_put(parameters : str = None) -> str:
+        if ((parameters) and (parameters.strip() == "")): parameters = None
+        if (not parameters):
+            parameters = ""
+        else:
+            parameters = "\"parameters\" : [  " + parameters + " ] , "
+        paths_template_put = """
+                    "put": {
+                        "operationId": "update${TABLE}",
+                        "summary": "Update a ${TABLE}",
+                        "description": "Updates an existing `${TABLE}`.",
+                        """ + parameters + """
+                        "requestBody": {
+                            "description": "Updated `${TABLE}` information.",
                             "content": {
                                 "application/json": {
                                     "schema": {
@@ -421,197 +509,168 @@ def paths_template_get(parameters : str = None) -> str:
                                     }
                                 }
                             },
-                            "description": "Successful response - returns a single `${TABLE}`."
+                            "required": true
+                        },
+                        "responses": {
+                            "202": {
+                                "description": "Successful response."
+                            }
                         }
                     }
-                }
+        """
+        return paths_template_put
+
+
     """
-    return paths_template_get
-
-
-def paths_template_put(parameters : str = None) -> str:
-    if ((parameters) and (parameters.strip() == "")): parameters = None
-    if (not parameters):
-        parameters = ""
-    else:
-        parameters = "\"parameters\" : [  " + parameters + " ] , "
-    paths_template_put = """
-                "put": {
-                    "operationId": "update${TABLE}",
-                    "summary": "Update a ${TABLE}",
-                    "description": "Updates an existing `${TABLE}`.",
-                    """ + parameters + """
-                    "requestBody": {
-                        "description": "Updated `${TABLE}` information.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/${TABLE}"
-                                }
-                            }
-                        },
-                        "required": true
-                    },
-                    "responses": {
-                        "202": {
-                            "description": "Successful response."
-                        }
-                    }
-                }
+                                    "schema": {
+                                        "$ref": "#/components/schemas/${TABLE}"
+                                    }
     """
-    return paths_template_put
 
-
-"""
-                                "schema": {
-                                    "$ref": "#/components/schemas/${TABLE}"
-                                }
-"""
-
-
-def paths_template_patch(parameters : str = None) -> str:
-    if ((parameters) and (parameters.strip() == "")): parameters = None
-    if (not parameters):
-        parameters = ""
-    else:
-        parameters = "\"parameters\" : [  " + parameters + " ] , "
-    paths_template_patch = """
-                "patch": {
-                    "operationId": "update${TABLE}",
-                    "summary": "Update a ${TABLE}",
-                    "description": "Updates an existing `${TABLE}`.",
-                    """ + parameters + """
-                    "requestBody": {
-                        "description": "Updated `${TABLE}` information.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/${TABLE}"
-                                }
-                            }
-                        },
-                        "required": true
-                    },
-                    "responses": {
-                        "202": {
-                            "description": "Successful response.",
+    @staticmethod
+    def paths_template_patch(parameters : str = None) -> str:
+        if ((parameters) and (parameters.strip() == "")): parameters = None
+        if (not parameters):
+            parameters = ""
+        else:
+            parameters = "\"parameters\" : [  " + parameters + " ] , "
+        paths_template_patch = """
+                    "patch": {
+                        "operationId": "update${TABLE}",
+                        "summary": "Update a ${TABLE}",
+                        "description": "Updates an existing `${TABLE}`.",
+                        """ + parameters + """
+                        "requestBody": {
+                            "description": "Updated `${TABLE}` information.",
                             "content": {
                                 "application/json": {
                                     "schema": {
                                         "$ref": "#/components/schemas/${TABLE}"
-                                     }
-                                  }
+                                    }
+                                }
+                            },
+                            "required": true
+                        },
+                        "responses": {
+                            "202": {
+                                "description": "Successful response.",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/${TABLE}"
+                                         }
+                                      }
+                                }
                             }
                         }
                     }
-                }
-    """
-    return paths_template_patch
+        """
+        return paths_template_patch
 
-
-def paths_template_delete(parameters : str = None) -> str:
-    if ((parameters) and (parameters.strip() == "")): parameters = None
-    if (not parameters):
-        parameters = ""
-    else:
-        parameters = "\"parameters\" : [  " + parameters + " ] , "
-    paths_template_delete = """
-                "delete": {
-                    "operationId": "delete${TABLE}",
-                    "summary": "Delete a ${TABLE}",
-                    "description": "Deletes an existing `${TABLE}`.",
-                    """ + parameters + """
-                    "responses": {
-                        "204": {
-                            "description": "Successful response."
+    @staticmethod
+    def paths_template_delete(parameters : str = None) -> str:
+        if ((parameters) and (parameters.strip() == "")): parameters = None
+        if (not parameters):
+            parameters = ""
+        else:
+            parameters = "\"parameters\" : [  " + parameters + " ] , "
+        paths_template_delete = """
+                    "delete": {
+                        "operationId": "delete${TABLE}",
+                        "summary": "Delete a ${TABLE}",
+                        "description": "Deletes an existing `${TABLE}`.",
+                        """ + parameters + """
+                        "responses": {
+                            "204": {
+                                "description": "Successful response."
+                            }
                         }
                     }
-                }
-    """
-    return paths_template_delete
+        """
+        return paths_template_delete
 
+    @staticmethod
+    def paths_template_parameters() -> str:
 
-def paths_template_parameters() -> str:
+        paths_template_parameters = """            
+                        {
+                            "name": "${PATH}Id",
+                            "description": "A unique identifier for a `${TABLE}`.",
+                            "schema": {
+                                "type": "string"
+                            },
+                            "in": "path",
+                            "required": true
+                        }
+        """
+        return paths_template_parameters
 
-    paths_template_parameters = """            
-                    {
-                        "name": "${PATH}Id",
-                        "description": "A unique identifier for a `${TABLE}`.",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "path",
-                        "required": true
-                    }
-    """
-    return paths_template_parameters
+    @staticmethod
+    def paths_table(path : str, table: str, path_prefix: str = "", p_paths_template=""):
+        l_paths_template = p_paths_template.replace("${PATH_PREFIX}", path_prefix)
+        l_paths_template = l_paths_template.replace("${TABLE}", table)
+        l_paths_template = l_paths_template.replace("${PATH}", path)
+        l_paths_template = l_paths_template.replace("${table}", table.lower())
+        return l_paths_template
 
+    @staticmethod
+    def create_path(entities):
+        global schema_parameters
+        f_paths_template = ""
+        sep = ""
+        for entity in entities:
+            if ("PATH" in entities[entity]):
+                path_par = None
+                path_parameters = None
+                list_par = None
+                get_par = None
+                create_par = None
+                patch_par = None
+                put_par = None
+                del_par = None
+                schema_par = None
+                if ("PATH_PARAMETERS" in entities[entity]) :
+                    path_par   = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "path_parameters")
+                    list_par   = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "list_parameters")
+                    get_par    = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "get_parameters")
+                    create_par = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "post_parameters")
+                    patch_par  = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "patch_parameters")
+                    put_par    = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "put_parameters")
+                    del_par    = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "delete_parameters")
+                    schema_par = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "schema_parameters")
 
-def paths_table(path : str, table: str, path_prefix: str = "", p_paths_template=""):
-    l_paths_template = p_paths_template.replace("${PATH_PREFIX}", path_prefix)
-    l_paths_template = l_paths_template.replace("${TABLE}", table)
-    l_paths_template = l_paths_template.replace("${PATH}", path)
-    l_paths_template = l_paths_template.replace("${table}", table.lower())
-    return l_paths_template
+                if (schema_par and schema_par.strip() != "") :
+                    schema_params = Term.json_load(schema_par)
+                    for param in schema_params:
+                        schema_parameters[param] = schema_params[param]
+                if (not path_par or path_par.strip() == "") :
+                    path_par = ""
+                    path_parameters = "\"parameters\": [" + Path.paths_template_parameters() + "]"
+                else:
+                    path_parameters = "\"parameters\": [" + Path.paths_template_parameters() + "," + path_par + "]"
+                    path_par = " , \"parameters\": [" + path_par + "]"
 
+                if ("read-only" in entities[entity]["PATH_OPERATION"].lower()):
+                    l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + path_par + " } ,"
+                    l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par)  + " }"
+                elif ("read-create" in entities[entity]["PATH_OPERATION"].lower()):
+                    l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + "," + Path.paths_template_create(create_par) + path_par + " } ,"
+                    l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par) + " } "
+                elif ("create-only" in entities[entity]["PATH_OPERATION"].lower()):
+                    l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_create(create_par) + path_par + "," + path_parameters + " }"
+                elif ("read-create-patch" in entities[entity]["PATH_OPERATION"].lower()):
+                    l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + "," + Path.paths_template_create(create_par)  + path_par + " } ,"
+                    l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par) + "," + Path.paths_template_patch(patch_par) + " } "
+                else:  # "read-write"
+                    l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + "," + Path.paths_template_create(create_par) + path_par + " } ,"
+                    l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par) + "," + Path.paths_template_put(put_par) + "," + Path.paths_template_delete(del_par) + " } "
 
-def create_path(entities):
-    global schema_parameters
-    f_paths_template = ""
-    sep = ""
-    for entity in entities:
-        if ("PATH" in entities[entity]):
-            path_par = None
-            path_parameters = None
-            list_par = None
-            get_par = None
-            create_par = None
-            patch_par = None
-            put_par = None
-            del_par = None
-            schema_par = None
-            if ("PATH_PARAMETERS" in entities[entity]) :
-                path_par   = get_parameters(entities[entity]["PATH_PARAMETERS"], "path_parameters")
-                list_par   = get_parameters(entities[entity]["PATH_PARAMETERS"], "list_parameters")
-                get_par    = get_parameters(entities[entity]["PATH_PARAMETERS"], "get_parameters")
-                create_par = get_parameters(entities[entity]["PATH_PARAMETERS"], "post_parameters")
-                patch_par  = get_parameters(entities[entity]["PATH_PARAMETERS"], "patch_parameters")
-                put_par    = get_parameters(entities[entity]["PATH_PARAMETERS"], "put_parameters")
-                del_par    = get_parameters(entities[entity]["PATH_PARAMETERS"], "delete_parameters")
-                schema_par = get_parameters(entities[entity]["PATH_PARAMETERS"], "schema_parameters")
-
-            if (schema_par and schema_par.strip() != "") :
-                schema_params = Term.json_load(schema_par)
-                for param in schema_params:
-                    schema_parameters[param] = schema_params[param]
-            if (not path_par or path_par.strip() == "") :
-                path_par = ""
-                path_parameters = "\"parameters\": [" + paths_template_parameters() + "]"
-            else:
-                path_parameters = "\"parameters\": [" + paths_template_parameters() + "," + path_par + "]"
-                path_par = " , \"parameters\": [" + path_par + "]"
-
-            if ("read-only" in entities[entity]["PATH_OPERATION"].lower()):
-                l_paths_template = paths_template_list_create_prefix + "," + paths_template_list(list_par) + path_par + " } ,"
-                l_paths_template = l_paths_template + paths_template_read_write_prefix + "," + path_parameters + "," + paths_template_get(get_par)  + " }"
-            elif ("read-create" in entities[entity]["PATH_OPERATION"].lower()):
-                l_paths_template = paths_template_list_create_prefix + "," + paths_template_list(list_par) + "," + paths_template_create(create_par) + path_par + " } ,"
-                l_paths_template = l_paths_template + paths_template_read_write_prefix + "," + path_parameters + "," + paths_template_get(get_par) + " } "
-            elif ("create-only" in entities[entity]["PATH_OPERATION"].lower()):
-                l_paths_template = paths_template_list_create_prefix + "," + paths_template_create(create_par) + path_par + "," + path_parameters + " }"
-            elif ("read-create-patch" in entities[entity]["PATH_OPERATION"].lower()):
-                l_paths_template = paths_template_list_create_prefix + "," + paths_template_list(list_par) + "," + paths_template_create(create_par)  + path_par + " } ,"
-                l_paths_template = l_paths_template + paths_template_read_write_prefix + "," + path_parameters + "," + paths_template_get(get_par) + "," + paths_template_patch(patch_par) + " } "
-            else:  # "read-write"
-                l_paths_template = paths_template_list_create_prefix + "," + paths_template_list(list_par) + "," + paths_template_create(create_par) + path_par + " } ,"
-                l_paths_template = l_paths_template + paths_template_read_write_prefix + "," + path_parameters + "," + paths_template_get(get_par) + "," + paths_template_put(put_par) + "," + paths_template_delete(del_par) + " } "
-
-            path   = entities[entity]["PATH"]
-            prefix = entities[entity]["PATH_PREFIX"]
-            f_paths_template = f_paths_template + sep + paths_table(path, entity, path_prefix=prefix, p_paths_template=l_paths_template)
-            sep = ", "
-    Term.print_verbose(f_paths_template)
-    return f_paths_template
+                path   = entities[entity]["PATH"]
+                prefix = entities[entity]["PATH_PREFIX"]
+                f_paths_template = f_paths_template + sep + Path.paths_table(path, entity, path_prefix=prefix, p_paths_template=l_paths_template)
+                sep = ", "
+        Term.print_verbose(f_paths_template)
+        return f_paths_template
 
 
 ###
@@ -632,8 +691,8 @@ def decode_prop_schema(prop: str, schema: str, description: str = None, key : st
     - description will be used as default is not in schema
     """
     desc_schema = dict()
-    if (find_between(schema, "<"+key+">", "</"+key+">")):
-        schema = find_between(schema, "<"+key+">", "</"+key+">")
+    if (Util.find_between(schema, "<"+key+">", "</"+key+">")):
+        schema = Util.find_between(schema, "<"+key+">", "</"+key+">")
         schema = schema.strip()
         try:
             if schema.startswith("{"):  # JSON
@@ -648,7 +707,7 @@ def decode_prop_schema(prop: str, schema: str, description: str = None, key : st
                 Term.print_error(schema, str(e))
                 desc_schema = dict()
 
-    description = remove_between(description, "<"+key+">", "</"+key+">")
+    description = Util.remove_between(description, "<"+key+">", "</"+key+">")
     if (not description or description.strip() == ""):
         description = "No Description"
 
@@ -665,7 +724,7 @@ def decode_prop_schema(prop: str, schema: str, description: str = None, key : st
 
 def check_as_parameter(desc, desc_schema):
     """ Check if this desc_schema property should be set as a global schema parameter and create it if necessary
-    - description will be used as default is not in schema
+    - description will be used as default if not in schema
     """
     global schema_parameters
     if ("asParameter" in desc_schema):
@@ -751,11 +810,7 @@ def find_table_cardinatilty(table_containing, table_contained) -> str:
     return None
 
 """
-The content of the Data Model in SQL Architect will be used as ReadMe File
-
-The content of the Data Model in DB Schema will be used as in ReadMe File
-
-See ReadMe File
+The content of the Data Model in SQL Architect will be used as in ReadMe File
 
 """
 
@@ -819,6 +874,13 @@ class Architect:
                 return entities[table]["NAME"]
         return None
 
+    def find_table_key(self, table_id):
+        global entities, links
+        for table in entities.keys():
+            if (entities[table]["TABLE"] == table_id):
+                return entities[table]["KEY"]
+        return None
+
     def collect_links(self):
         """ Scan for all Links / Relationships  and their Attributes in the Architect Data Model """
         global entities, links
@@ -863,7 +925,7 @@ class Architect:
         # remarks -> description
         if (table["remarks"] is None):
             table["remarks"] = ""
-        obj_desc["description"] = remove_between(table["remarks"], "<schema>", "</schema>").strip()
+        obj_desc["description"] = Util.remove_between(table["remarks"], "<schema>", "</schema>").strip()
         if (obj_desc["description"] == "") :
             obj_desc["description"] = "No Description for " + name
 
@@ -901,16 +963,16 @@ class Architect:
             obj_desc["PATH_PREFIX"] = att["@defaultValue"]  # This is the route path prefix
             obj_desc["PATH_OPERATION"] = "READ-WRITE"
             if (att["remarks"] is not None):
-                parameters = find_between(att["remarks"], "<parameters>", "</parameters>")
+                parameters = Util.find_between(att["remarks"], "<parameters>", "</parameters>")
                 if (parameters):
                     obj_desc["PATH_PARAMETERS"] = parameters
-                    att["remarks"] = remove_between(att["remarks"], "<parameters>", "</parameters>")
+                    att["remarks"] = Util.remove_between(att["remarks"], "<parameters>", "</parameters>")
                 obj_desc["PATH_OPERATION"]  = att["remarks"]
 
         # remarks -> description
         if (att["remarks"] is None):
             att["remarks"] = ""
-        att_property["description"] = remove_between(att["remarks"], "<schema>", "</schema>").strip()
+        att_property["description"] = Util.remove_between(att["remarks"], "<schema>", "</schema>").strip()
         if (att_property["description"] == "") :
             att_property["description"] = "No Description for " + att["@name"]
 
@@ -973,6 +1035,10 @@ class Architect:
         if (att_property["type"] == "INVALID"):
             Term.print_error("Unsupported Attribute Type for : " + str(att_name) + " : " + att["@type"])
 
+        # add key name
+        if (desc_schema["key"] == True):
+            obj_desc["KEY"] = att_name
+
         # add to object descriptor
         if (att_name != "_PATH"):
             obj_desc["properties"][att_name] = att_property
@@ -994,6 +1060,7 @@ class Architect:
                         data_type["primary_key"] = folder["index"]["index-column"]["@physicalName"]
                 if "column" not in folder: continue
                 column = folder["column"]
+                data_type["KEY"] = None
                 if isinstance(column, list):
                     for col in column:
                         data_type, att_name = self.handle_attribute(data_type, col)
@@ -1029,17 +1096,24 @@ class Architect:
                     continue
                 rel["TableContenanteID"] = rel["TableContaining"]
                 rel["TableContenueID"]   = rel["TableContained"]
-                rel["TableContaining"]   = self.find_table_name(rel["TableContaining"])
-                rel["TableContained"]     = self.find_table_name(rel["TableContained"])
+                rel["TableContaining"]   = self.find_table_name(rel["TableContenanteID"])
+                rel["TableContained"]    = self.find_table_name(rel["TableContenueID"])
+                foreign_key = self.find_table_key(rel["TableContenueID"])
                 entities[entity]["RELATIONS"][rel["Name"]] = rel
                 this_property = dict()
                 this_property["description"] = rel["Description"]
                 if (rel["Cardinalite"] == "OneToOne") or (rel["Cardinalite"] == "ZeroToOne") :
-                    this_property["$ref"] = "#/components/schemas/" + rel["TableContained"]
+                    if (foreign_key):
+                        this_property["type"] = "string"
+                    else:
+                        this_property["$ref"] = "#/components/schemas/" + rel["TableContained"]
                 else:
                     this_property["type"] = "array"
                     this_property["items"] = {}
-                    this_property["items"]["$ref"] = "#/components/schemas/" + rel["TableContained"]
+                    if (foreign_key):
+                        this_property["items"]["type"] = "string"
+                    else:
+                        this_property["items"]["$ref"] = "#/components/schemas/" + rel["TableContained"]
                 entities[entity]["properties"][rel["TableContained"]] = this_property
 
         # What did we get ?
@@ -1050,255 +1124,6 @@ class Architect:
 
         Term.print_yellow("< read_architect")
         return entities, links
-
-
-"""
-
-class DbSchema:
-
-    def __init__(self):
-        self.tables   = dict()
-
-    def log(self):
-        global entities, links
-        Term.print_verbose("tables    : " + str(self.tables))
-        Term.print_verbose("entities  : " + str(entities))
-        Term.print_verbose("links     : " + str(links))
-        return
-
-    def handle_table(self, table):
-        # @name, @spec, comment,
-        # Not used : options, pre_script, post_script
-        # Not usable : @prior,
-        data_type = {}
-        name = clean_name(table["@name"])
-        data_type["name"] = "name"
-        data_type["type"] = "object"
-        data_type["description"] = table["comment"] if ("comment"     in table) else "No Description for " + table["@name"]
-        data_type["options"] = table["options"]     if ("options"     in table) else ""
-        data_type["append"]  = table["post_script"] if ("post_script" in table) else ""
-        data_type["prepend"] = table["pre_script"]  if ("pre_script"  in table) else ""
-        data_type["example"] = table["@spec"]       if ("@spec"       in table) else ""
-        data_type["properties"] = {}
-        data_type["NAME"]       = name
-        data_type["TABLE"]      = table["@name"]
-        data_type["RELATIONS"]  = {}
-        return data_type, name
-
-    def handle_attribute(self, data_type, att, entity_name):
-        # "@name"   : "Name"    => Property Name
-        # "@type"   : "varchar" => Type
-        # "@length" : "255"     => Not Used
-        # "@jt"     : "12",     => Type Related Information ?
-        # "@mandatory" : "y"    => Required
-        # "@to do"     : "1"    => Not Used
-        # "comment"    :        => Description
-        # "@defo"      : [default] => Example
-
-        name = clean_name(att["@name"])
-
-        if (name == "_PATH"):
-            data_type["PATH"]            = clean_name(entity_name)
-            data_type["PATH_PREFIX"]     = att["defo"]     if ("defo" in att)    else "/"+clean_name(entity_name).lower()
-            if ("comment" in att) :
-                desc  = att["comment"]
-                found = find_between(desc, "<parameters>", "</parameters>")
-                if (found):
-                    desc = remove_between(desc, "<parameters>", "</parameters>")
-                    data_type["PATH_PARAMETERS"] = found
-                data_type["PATH_OPERATION"]  = desc
-            else:
-                data_type["PATH_OPERATION"] = "READ-WRITE"
-
-            return data_type, name
-
-        property = dict()
-        property["name"]        = name
-        property["pattern"]     = None
-        property["description"] = None
-        property["example"]     = None
-        property["mandatory"]   = False
-        property["type"]        = "INVALID"
-        property["format"]      = ""
-
-        property["description"]    = att["comment"]  if ("comment" in att) else "No Description for " + att["@name"]
-        if ("@defo" in att): property["pattern"] = att["@defo"]
-
-        property["example"] = re.sub(".*xample:" , "" , property["description"])
-
-        if (("@mandatory" in att) and (att["@mandatory"] == "y")):
-            # Required property
-            if "required" not in data_type : data_type["required"] = list()
-            data_type["required"].append(name)
-            property["mandatory"] = True
-
-        if (att["@type"] == "text")     : property["type"]   = "string"
-        if (att["@type"] == "varchar")  : property["type"]   = "string"
-        if (att["@type"] == "boolean")  : property["type"]   = "boolean"
-        if (att["@type"] == "integer")  : property["type"]   = "integer"
-        if (att["@type"] == "numeric")  : property["type"]   = "number"
-        if (att["@type"] == "decimal")  : property["type"]   = "number"
-        if (att["@type"] == "int")      : property["type"]   = "integer"
-        if (att["@type"] == "datetime") : property["type"]   = "string"
-        if (att["@type"] == "datetime") : property["format"] = "date-time "
-        if (att["@type"] == "date")     : property["type"]   = "string"
-        if (att["@type"] == "date")     : property["format"] = "date"
-        if (property["type"] == "INVALID"):
-            property["type"]  = att["@type"]
-            Term.print_error("Unsupported Attribute Type : " + att["@type"])
-        data_type["properties"][name] = property
-        return data_type, name
-
-    def handle_link(self, data_type, relation, entity_name):
-        # "@name"       : "fk_ue_restrictions_service",
-        # "@to_schema"  : "NEF_MarketPlace_DataModel",
-        # "@to_table"   : "Service",
-        # "@type"       : "Identifying",
-        # "comment"     : "Service Owner"
-        global entities, links
-        link = dict()
-        if ("ignore" in relation["@name"]) :
-            # Ignore  Links with ignore
-            return data_type, relation["@name"]
-        else:
-            name = relation["@name"]
-            ignore = False
-        link["TableContaining"] = relation["@to_table"]
-        link["TableContained"]   = entity_name
-        link["Name"]            = clean_name(relation["@name"])
-        if "comment" in relation :
-            link["Description"] = relation["comment"]
-        else:
-            link["Description"] = "No Description"
-        #  Identifying / NonIdentifyingMandatory / OneToOne  / ManyToMany
-        link["Cardinality"] = relation["@type"]
-
-        links[link["Name"]] = link
-        data_type["RELATIONS"][link["Name"]] = link
-
-        return data_type, name
-
-    def collect_entities_links(self):
-        global entities, links
-        for table in self.tables:
-            Term.print_verbose(table)
-            data_type, entity_name = self.handle_table(table)
-            if "column" in table:
-                if isinstance(table["column"], list):
-                    for col in table["column"]:
-                        data_type, att_name = self.handle_attribute(data_type, col, entity_name)
-                else:
-                    data_type, att_name = self.handle_attribute(data_type, table["column"], entity_name)
-            data_type["RELATIONS"] = {}
-            if "fk" in table:
-                if isinstance(table["fk"], list):
-                    for rel in table["fk"]:
-                        data_type, att_name = self.handle_link(data_type, rel, entity_name)
-                else:
-                    data_type, att_name = self.handle_link(data_type, table["fk"], entity_name)
-            if ("ignore" in data_type["example"]) :
-                continue
-            entities[entity_name] = data_type
-
-    def handle_links(self):
-        for link in links:
-            property = dict()
-            property["description"] = links[link]["Description"]
-            if (links[link]["Cardinality"] == "OneToOne") :
-                property["$ref"] = "#/components/schemas/" + links[link]["TableContained"]
-            else:
-                property["type"] = "array"
-                property["items"] = {}
-                property["items"]["$ref"] = "#/components/schemas/" + links[link]["TableContained"]
-            table = find_entity(entities, links[link]["TableContaining"])
-            table["properties"][links[link]["TableContained"]] = property
-
-    def read_dbschema(self, data_model : str):
-        Term.print_yellow("> read_dbschema")
-        global entities, links
-
-        # Reading dbschema file
-        myFile = open(data_model + ".dbs", "r")
-        dbschemaContent = myFile.read()
-        myFile.close()
-        dict_schema = xmltodict.parse(dbschemaContent)
-
-        # Save to JSON Format
-        FileSystem.saveFileContent(json.dumps(dict_schema, indent=3), data_model + ".json")
-
-        # Collecting Table & Links
-        self.tables = dict_schema["project"]["schema"]["table"]
-        self.collect_entities_links()
-
-        # Handle Relationships between entities
-        self.handle_links()
-
-        # What did we get ?
-        self.log()
-
-        Term.print_yellow("< read_dbschema")
-        return entities, links
-
-"""
-
-
-"""
-def lets_do_dbschema(data_model : str):
-    Term.print_yellow("> lets_do_dbschema")
-    data_model = re.sub(".*\\" + os.sep , "", data_model)
-    xml =       "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
-    xml = xml + "   <project name=\""+data_model+"\" id=\"Project-2cc\" database=\""+"LogicalDesign"+"\" >"
-    xml = xml + "       <schema name=\""+data_model+"\" >"
-    x, y = 0, 0
-    for entity in entities:
-        x, y = x + 25, y + 25
-        # entity : type, description, example
-        xml = xml + "<table name=\""+entity+"\" prior=\"Entity\" spec=\"\" >"
-        xml = xml + "<comment><![CDATA["+entities[entity]["description"]+"]]></comment>\n"
-        xml = xml + "<options><![CDATA[" + entities[entity]["example"] + "]]></options>\n"
-        xml = xml + "<pre_script><![CDATA[" + entities[entity]["example"] + "]]></pre_script>\n"
-        xml = xml + "<post_script><![CDATA[" + entities[entity]["example"] + "]]></post_script>\n"
-        # property: type, description, example, pattern
-        for property in entities[entity]["properties"]:
-            prop = entities[entity]["properties"][property]
-            add = ""
-            if ("required" in entities[entity]) and (property in entities[entity]["required"]):
-                add = " mandatory=\"y\" "
-            type = "type=\"varchar\""
-            if "type" in prop:
-                if (prop["type"] == "integer"):
-                    type = "type=\"integer\""
-                elif (prop["type"] == "string"):
-                    type = "type=\"varchar\""
-                elif (prop["type"] == "boolean"):
-                    type = "type=\"boolean\""
-            xml = xml + "<column name=\"" + property + "\" "+type+" length=\"255\" "+add+"jt=\"12\" todo=\"1\">\n"
-            if "pattern" in prop:
-                xml = xml + "<defo> <![CDATA["+prop["pattern"]+"]]> </defo>\n"
-            if "description" in prop:
-                xml = xml + "<comment> <![CDATA["+prop["description"]+"]]> </comment>\n"
-            if "example" in prop:
-                xml = xml + "<options><![CDATA[" + prop["example"] + "]]></options>\n"
-            xml = xml + "</column>\n"
-        # Links
-        for lk in links :
-            link = links[lk]
-            # link: TableContenante, TableContenue, Cardinalite, Name, Description
-            if (link["TableContained"] != entity): continue
-            xml = xml + "<fk name=\""+link["Name"]+"\" to_schema=\""+data_model+"\" to_table=\""+link["TableContaining"]+"\" type=\"Identifying\" >\n"
-            xml = xml + "<comment><![CDATA[" + link["Description"] + "]]></comment></fk>\n"
-        xml = xml + "</table>\n"
-    xml = xml + "       </schema>"
-    xml = xml + "<layout name=\"Default Layout\" id=\"Layout-686\" show_relation=\"columns\" >\n"
-    for entity in entities:
-        xml = xml + "<entity schema=\"NEF_Business_Model\" name=\""+entity+"\"  color=\"3986C1\" x=\""+str(x)+"\" y=\""+str(y)+"\"/>\n"
-    xml = xml + "   </layout>\n"
-    xml = xml + "</project>\n"
-    dbs_file = data_model + ".dbs"
-    FileSystem.saveFileContent(xml, dbs_file)
-    Term.print_yellow("< lets_do_dbschema")
-    return xml
-"""
 
 
 def get_entity_property_value(p_entity : dict, p_property: str) -> str :
@@ -1319,7 +1144,7 @@ def lets_do_openapi_yaml():
     global entities, links, schema_parameters
 
     # Create API Operations
-    paths = Term.json_load("{" + create_path(entities) + "}")
+    paths = Term.json_load("{" + Path.create_path(entities) + "}")
 
     # Info Data / Default Values
     open_api_yaml = dict()
@@ -1377,6 +1202,7 @@ def lets_do_openapi_yaml():
         if ("TABLE" in entities_yaml[entity])     : del entities_yaml[entity]["TABLE"]
         if ("RELATIONS" in entities_yaml[entity]) : del entities_yaml[entity]["RELATIONS"]
         if ("NAME" in entities_yaml[entity])      : del entities_yaml[entity]["NAME"]
+        if ("KEY" in entities_yaml[entity])       : del entities_yaml[entity]["KEY"]
         if ("prepend" in entities_yaml[entity])   : del entities_yaml[entity]["prepend"]
         if ("append" in entities_yaml[entity])    : del entities_yaml[entity]["append"]
         if ("options" in entities_yaml[entity])   : del entities_yaml[entity]["options"]
@@ -1440,11 +1266,11 @@ def lets_do_openapi_yaml():
                     # del open_api["paths"][path][op]["responses"]["202"]["content"]["application/json"]["schema"]
 
     # Some Custom for NEF_Configuration_Service
-    open_api["paths"]["/notify/message"] = open_api["paths"]["/notify/messages"]
-    del open_api["paths"]["/notify/messages"]
-    open_api["paths"]["/request/message"] = open_api["paths"]["/request/messages"]
-    del open_api["paths"]["/request/messages"]
     if ("NEF_SCEF" in data_model) :
+        open_api["paths"]["/notify/message"] = open_api["paths"]["/notify/messages"]
+        del open_api["paths"]["/notify/messages"]
+        open_api["paths"]["/request/message"] = open_api["paths"]["/request/messages"]
+        del open_api["paths"]["/request/messages"]
         for path in open_api["paths"] :
             if ("/request/message" == path):
                 del open_api["paths"]["/request/message"]["parameters"]
@@ -1490,6 +1316,7 @@ def lets_do_json_schema():
         if ("TABLE" in entities_json[entity])     : del entities_json[entity]["TABLE"]
         if ("RELATIONS" in entities_json[entity]) : del entities_json[entity]["RELATIONS"]
         if ("NAME" in entities_json[entity])      : del entities_json[entity]["NAME"]
+        if ("KEY" in entities_json[entity])       : del entities_json[entity]["KEY"]
         if ("prepend" in entities_json[entity])   : del entities_json[entity]["prepend"]
         if ("append" in entities_json[entity])    : del entities_json[entity]["append"]
         if ("options" in entities_json[entity])   : del entities_json[entity]["options"]
@@ -1557,7 +1384,9 @@ def lets_do_json_schema():
                     # Array of Basic Types
                     Term.print_verbose("   #>> Array Types : " + str(property_desc["items"]["type"]))
                     prop_schema["type"] = "array"
-                    prop_schema["items"] = {"type" : property_desc["items"]["type"] , "format" : property_desc["items"]["format"] }
+                    prop_schema["items"] = {"type" : property_desc["items"]["type"]  }
+                    if ("format" in property_desc["items"]):
+                        prop_schema["items"]["format"]= property_desc["items"]["format"]
             else:
                 # Value Property
                 desc = property_desc["description"]
@@ -1751,6 +1580,7 @@ def lets_do_render():
         "ENTITIES"  : entities
     }
     FileSystem.renderDir(input_dir, output_dir, context)
+    FileSystem.renderDir2(input_dir, output_dir, context)
 
     Term.print_yellow("< lets_do_render")
 
@@ -1763,11 +1593,6 @@ def lets_do_it(do_what : str = "openapi, render"):
         Term.print_blue("Reading : "+data_model+".architect")
         architect = Architect()
         architect.read_architect(data_model)
-    elif FileSystem.is_FileExist(data_model+".dbs"):
-        Term.print_error("Disabled : "+data_model+".dbs")
-        # Term.print_blue("Reading : "+data_model+".dbs")
-        # dbschema = DbSchema()
-        # dbschema.read_dbschema(the_data_model)
     else:
         Term.print_error("Model not found : "+data_model)
         return
@@ -1833,6 +1658,10 @@ class Test(unittest.TestCase):
         global data_model
         data_model = "NEF"+os.sep+"NEF_SCEF"+os.sep+"NEF_SCEF_API"
         lets_do_it("openapi render")
+
+    def testListFiles(self):
+        FileSystem.listFiles(".")
+        print(os.listdir("."))
 
 
 if __name__ == '__main__':
