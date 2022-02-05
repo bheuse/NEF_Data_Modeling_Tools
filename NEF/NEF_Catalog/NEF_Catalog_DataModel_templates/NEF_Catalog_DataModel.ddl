@@ -4,7 +4,8 @@
 \n
 CREATE ROLE @@DOC_PREFIX@@_role WITH sysproc, adhoc, defaultproc;
 \n
-% for ENTITY in ENTITIES:
+% for ENTITY, ENTITY_DATA in ENTITIES.items():
+% if 'PATH' in ENTITY_DATA:
 /* ${ENTITY} Table */
 \n
 CREATE TABLE @@DOC_PREFIX@@_${ENTITY} (
@@ -41,4 +42,5 @@ CREATE PROCEDURE @@DOC_PREFIX@@_delete${ENTITY}
     PARTITION ON TABLE @@DOC_PREFIX@@_${ENTITY} COLUMN id
     AS DELETE FROM @@DOC_PREFIX@@_${ENTITY} WHERE id = ?;
 \n
+%endif
 % endfor
