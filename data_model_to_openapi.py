@@ -412,7 +412,7 @@ def paths_template_create(parameters : str = None) -> str:
 
 paths_template_read_write_prefix = """
 
-        "${PATH_PREFIX}/${PATH}s/{${PATH}Id}": {
+        "${PATH_PREFIX}/${PATH}s/{id}": {
             "summary": "Path used to manage a single ${TABLE}.",
             "description": "The REST endpoint/path used to get, update, and delete single instances of an `${TABLE}`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively."
 """
@@ -553,7 +553,7 @@ def paths_template_parameters() -> str:
 
     paths_template_parameters = """            
                     {
-                        "name": "${PATH}Id",
+                        "name": "id",
                         "description": "A unique identifier for a `${TABLE}`.",
                         "schema": {
                             "type": "string"
