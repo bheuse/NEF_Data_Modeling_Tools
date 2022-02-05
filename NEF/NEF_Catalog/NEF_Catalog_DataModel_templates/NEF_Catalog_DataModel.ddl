@@ -5,16 +5,11 @@
 CREATE ROLE @@DOC_PREFIX@@_role WITH sysproc, adhoc, defaultproc;
 \n
 % for ENTITY in ENTITIES:
-
-<% PROPS = ENTITIES[ENTITY]["properties"] %>
-
 /* ${ENTITY} Table */
 \n
 CREATE TABLE @@DOC_PREFIX@@_${ENTITY} (
     id VARCHAR(36) NOT NULL,
-% for name, data in PROPS.items():
-    ${renderProp(name, data, loop.last)}
-% endfor
+    json_data VARCHAR(4096) NOT NULL
     PRIMARY KEY(id)
 );
 PARTITION TABLE @@DOC_PREFIX@@_${ENTITY} ON COLUMN id;
@@ -23,7 +18,7 @@ DR TABLE @@DOC_PREFIX@@_${ENTITY};
 CREATE PROCEDURE @@DOC_PREFIX@@_create${ENTITY}
     ALLOW @@DOC_PREFIX@@_role
     PARTITION ON TABLE @@DOC_PREFIX@@_${ENTITY} COLUMN id
-    AS INSERT INTO @@DOC_PREFIX@@_${ENTITY} VALUES ${renderPropsValues(PROPS)};
+    AS INSERT INTO @@DOC_PREFIX@@_${ENTITY} VALUES (?,?);
 \n
 CREATE PROCEDURE @@DOC_PREFIX@@_get${ENTITY}
     ALLOW @@DOC_PREFIX@@_role
@@ -37,9 +32,8 @@ CREATE PROCEDURE @@DOC_PREFIX@@_getAll${ENTITY}
 CREATE PROCEDURE @@DOC_PREFIX@@_update${ENTITY}
     ALLOW @@DOC_PREFIX@@_role
     AS UPDATE @@DOC_PREFIX@@_${ENTITY} SET
-% for name, data in PROPS.items():
-        ${renderSetProp(name, data, loop.last)}
-% endfor
+        id = ?,
+        json_data =?
         WHERE id = ?;
 \n
 CREATE PROCEDURE @@DOC_PREFIX@@_delete${ENTITY}
@@ -48,57 +42,3 @@ CREATE PROCEDURE @@DOC_PREFIX@@_delete${ENTITY}
     AS DELETE FROM @@DOC_PREFIX@@_${ENTITY} WHERE id = ?;
 \n
 % endfor
-
-<%doc>
-    Utilities
-</%doc>
-
-<%!
-    def getEntity(entities, propData):
-        return entities[propData['$ref'].split('/')[-1]] if '$ref' in propData else None
-
-    def countProps(entities, props):
-        counter = 0
-
-        for name, data in props.items():
-            entity = getEntity(entities, data)
-            if entity and not 'PATH' in entity: # subobject
-                counter += countProps(entities, entity["properties"])
-            else:
-                counter += 1
-
-        return counter
-
-    def doRenderPropsValues(entities, props):
-        return '(' + ','.join(['?' for i in range(0, countProps(entities, props))]) + ')'
-%>
-
-<%def name="renderProp(name, data, last)">
-<% entity = getEntity(ENTITIES, data) %>
-% if name == 'id':
-
-% elif not entity: # primitive type
-    ${name} VARCHAR${'' if last else ','}
-% elif 'PATH' in entity: # reference to another entity
-    ${name} VARCHAR(36)${'' if last else ','}
-% else: # subobject
-    % for subname, subdata in entity["properties"].items():
-        ${renderProp(name + '_' + subname, subdata, last)}
-    % endfor
-% endif
-</%def>
-
-<%def name="renderPropsValues(props)">${doRenderPropsValues(ENTITIES, props)}</%def>
-
-<%def name="renderSetProp(name, data, last)">
-<% entity = getEntity(ENTITIES, data) %>
-% if name == 'id':
-
-% elif entity and not 'PATH' in entity: # subobject
-    % for subname, subdata in entity["properties"].items():
-        ${renderSetProp(name + '_' + subname, subdata, last)}
-    % endfor
-% else:
-        ${name} = ?${'' if last else ','}
-% endif
-</%def>
