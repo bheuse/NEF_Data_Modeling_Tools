@@ -1,7 +1,4 @@
-<%doc>
-    DDL Template for VoltDB
-</%doc>
-/* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARHITECT SOURCE INSTEAD */
+/* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARCHITECT SOURCE INSTEAD */
 \n
 package com.openet.servicescatalogmanager.api;
 \n
@@ -15,15 +12,15 @@ import java.util.List;
 \n
 @ProviderEnabledApi
 public interface ServicesCatalogManager {
-% for entityName, entityData in ENTITIES.items():
-<% entity = entityName.replace('_', '') %>
-% if 'PATH' in entityData:
+% for ENTITY, ENTITY_DATA in ENTITIES.items():
+<% className = ENTITY.replace('_', '') %>
+% if 'PATH' in ENTITY_DATA:
 \n
-    Single<${entity}> create${entity}(${entity} entity, FlowContext ctx);
-    Single<${entity}> get${entity}(String id, FlowContext ctx);
-    Single<List<${entity}>> getAll${entity}(FlowContext ctx);
-    Single<${entity}> update${entity}(${entity} entity, FlowContext ctx);
-    Completable delete${entity}(String id, FlowContext ctx);
+    Single<${className}> create${className}(${className} entity, FlowContext ctx);
+    Single<${className}> get${className}(String id, FlowContext ctx);
+    Single<List<${className}>> getAll${className}(FlowContext ctx);
+    Single<${className}> update${className}(${className} entity, FlowContext ctx);
+    Completable delete${className}(String id, FlowContext ctx);
 %endif
 % endfor
 }
