@@ -49,6 +49,7 @@ public class ServicesCatalogManagerImpl implements ServicesCatalogManager {
 % for ENTITY, ENTITY_DATA in ENTITIES.items():
 <% className = ENTITY.replace('_', '') %>
 % if 'PATH' in ENTITY_DATA:
+% if ENTITY_DATA['PATH_OPERATION'] != 'read-only':
     @Override
     public Single<${className}> create${className}(${className} entity, FlowContext ctx) {
         entity.setId(UUID.randomUUID().toString());
@@ -63,6 +64,30 @@ public class ServicesCatalogManagerImpl implements ServicesCatalogManager {
                 .map(response -> entity);
     }
 \n
+    @Override
+    public Single<${className}> update${className}(${className} entity, FlowContext ctx) {
+        String procedureName = "NEF_update${ENTITY}";
+        return executeProcedureRx(ctx,
+                procedureName,
+                Json.encode(entity),
+                entity.getId())
+                .doOnSuccess(response -> logResponse(procedureName, response, ctx))
+                .doOnSuccess(response -> checkResponseStatus(procedureName, response, ctx))
+                .doOnSuccess(response -> checkEntityFoundByModifiedCount(procedureName, response, ctx))
+                .map(response -> entity);
+    }
+\n
+    @Override
+    public Completable delete${className}(String id, FlowContext ctx) {
+        String procedureName = "NEF_delete${ENTITY}";
+        return executeProcedureRx(ctx, procedureName, id)
+                .doOnSuccess(response -> logResponse(procedureName, response, ctx))
+                .doOnSuccess(response -> checkResponseStatus(procedureName, response, ctx))
+                .doOnSuccess(response -> checkEntityFoundByModifiedCount(procedureName, response, ctx))
+                .ignoreElement();
+    }
+\n
+% endif
     @Override
     public Single<${className}> get${className}(String id, FlowContext ctx) {
         String procedureName = "NEF_get${ENTITY}";
@@ -100,29 +125,6 @@ public class ServicesCatalogManagerImpl implements ServicesCatalogManager {
 \n
                     return entities;
                 });
-    }
-\n
-    @Override
-    public Single<${className}> update${className}(${className} entity, FlowContext ctx) {
-        String procedureName = "NEF_update${ENTITY}";
-        return executeProcedureRx(ctx,
-                procedureName,
-                Json.encode(entity),
-                entity.getId())
-                .doOnSuccess(response -> logResponse(procedureName, response, ctx))
-                .doOnSuccess(response -> checkResponseStatus(procedureName, response, ctx))
-                .doOnSuccess(response -> checkEntityFoundByModifiedCount(procedureName, response, ctx))
-                .map(response -> entity);
-    }
-\n
-    @Override
-    public Completable delete${className}(String id, FlowContext ctx) {
-        String procedureName = "NEF_delete${ENTITY}";
-        return executeProcedureRx(ctx, procedureName, id)
-                .doOnSuccess(response -> logResponse(procedureName, response, ctx))
-                .doOnSuccess(response -> checkResponseStatus(procedureName, response, ctx))
-                .doOnSuccess(response -> checkEntityFoundByModifiedCount(procedureName, response, ctx))
-                .ignoreElement();
     }
 \n
 % endif

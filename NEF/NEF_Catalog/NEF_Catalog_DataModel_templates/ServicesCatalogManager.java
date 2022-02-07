@@ -16,11 +16,13 @@ public interface ServicesCatalogManager {
 <% className = ENTITY.replace('_', '') %>
 % if 'PATH' in ENTITY_DATA:
 \n
+% if ENTITY_DATA['PATH_OPERATION'] != 'read-only':
     Single<${className}> create${className}(${className} entity, FlowContext ctx);
-    Single<${className}> get${className}(String id, FlowContext ctx);
-    Single<List<${className}>> getAll${className}(FlowContext ctx);
     Single<${className}> update${className}(${className} entity, FlowContext ctx);
     Completable delete${className}(String id, FlowContext ctx);
-%endif
+% endif
+    Single<${className}> get${className}(String id, FlowContext ctx);
+    Single<List<${className}>> getAll${className}(FlowContext ctx);
+% endif
 % endfor
 }
