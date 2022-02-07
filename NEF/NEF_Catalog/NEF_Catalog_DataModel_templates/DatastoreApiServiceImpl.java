@@ -64,7 +64,7 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
     }
 \n
     @Override
-    public Single<ApiResponse<Void>> update${className}(Update${className}ServiceData serviceData, FlowContext ctx) {
+    public Single<ApiResponse<${className}>> update${className}(Update${className}ServiceData serviceData, FlowContext ctx) {
         logger.trace(ctx.getMarker(), "update${className}()");
 \n
         serviceData.getRequest()
@@ -72,7 +72,7 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
 \n
         return servicesCatalogManagerProvider.get()
                 .update${className}(serviceData.getRequest(), ctx)
-                .map(entity -> new ApiResponse<Void>())
+                .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
     }
 \n

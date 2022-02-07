@@ -1061,7 +1061,7 @@ class Architect:
                 else:
                     this_property["type"] = "array"
                     this_property["items"] = {}
-                    this_property["items"]["$ref"] = "#/components/schemas/" + rel["TableContained"]
+                    this_property["items"]["type"] = "string"
                 entities[entity]["properties"][rel["TableContained"]] = this_property
 
         # What did we get ?
