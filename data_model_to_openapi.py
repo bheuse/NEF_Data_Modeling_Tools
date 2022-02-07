@@ -401,7 +401,7 @@ def paths_template_create(parameters : str = None) -> str:
                                     "schema": {
                                         "$ref": "#/components/schemas/${TABLE}"
                                     }
-                                  }
+                                }
                             }
                         }
                     }
@@ -472,7 +472,14 @@ def paths_template_put(parameters : str = None) -> str:
                     },
                     "responses": {
                         "202": {
-                            "description": "Successful response."
+                            "description": "Successful response.",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/${TABLE}"
+                                    }
+                                }
+                            }
                         }
                     }
                 }
