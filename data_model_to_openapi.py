@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import xmltodict
 import requests
 import json
@@ -241,6 +243,21 @@ class FileSystem:
         return content
 
     @staticmethod
+    def filterBlankLines(string):
+        result = ""
+
+        for line in string.splitlines():
+            strippedLine = line.strip()
+            if strippedLine == '':
+                continue
+            elif strippedLine == '\\n':
+                result += '\n'
+            else:
+                result += line + '\n'
+
+        return result
+
+    @staticmethod
     def render(p_template_filename : str, p_rendered_filename, context: dict):
         Term.print_blue("Rendering : [" + p_template_filename + "] into [" + p_rendered_filename + "]")
         template_string = FileSystem.loadFileContent(p_template_filename)
@@ -249,6 +266,8 @@ class FileSystem:
         # Rendering Template
         mako.runtime.UNDEFINED = 'MISSING_IN_CONTEXT'
         rendered_template = Template(template_string).render(**context)
+        rendered_template = FileSystem.filterBlankLines(rendered_template)
+
         # And Saving to File ...
         FileSystem.saveFileContent(rendered_template, p_rendered_filename)
 
@@ -382,7 +401,7 @@ def paths_template_create(parameters : str = None) -> str:
                                     "schema": {
                                         "$ref": "#/components/schemas/${TABLE}"
                                     }
-                                  }
+                                }
                             }
                         }
                     }
@@ -393,7 +412,7 @@ def paths_template_create(parameters : str = None) -> str:
 
 paths_template_read_write_prefix = """
 
-        "${PATH_PREFIX}/${PATH}s/{${PATH}Id}": {
+        "${PATH_PREFIX}/${PATH}s/{id}": {
             "summary": "Path used to manage a single ${TABLE}.",
             "description": "The REST endpoint/path used to get, update, and delete single instances of an `${TABLE}`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively."
 """
@@ -453,7 +472,14 @@ def paths_template_put(parameters : str = None) -> str:
                     },
                     "responses": {
                         "202": {
-                            "description": "Successful response."
+                            "description": "Successful response.",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/${TABLE}"
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -534,7 +560,7 @@ def paths_template_parameters() -> str:
 
     paths_template_parameters = """            
                     {
-                        "name": "${PATH}Id",
+                        "name": "id",
                         "description": "A unique identifier for a `${TABLE}`.",
                         "schema": {
                             "type": "string"
@@ -1035,7 +1061,7 @@ class Architect:
                 else:
                     this_property["type"] = "array"
                     this_property["items"] = {}
-                    this_property["items"]["$ref"] = "#/components/schemas/" + rel["TableContained"]
+                    this_property["items"]["type"] = "string"
                 entities[entity]["properties"][rel["TableContained"]] = this_property
 
         # What did we get ?
