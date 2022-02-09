@@ -715,6 +715,7 @@ def decode_prop_schema(prop: str, schema: str, description: str = None, key : st
     desc_schema = set_default(prop, desc_schema, "description",          description)
     desc_schema = set_default(prop, desc_schema, "markdownDescription",  description)
     desc_schema = set_default(prop, desc_schema, "key",  False)
+    desc_schema = set_default(prop, desc_schema, "filter",  False)
     desc_schema = set_default(prop, desc_schema, "validationScript",     "")
     desc_schema = set_default(prop, desc_schema, "example",          "")
     desc_schema = set_default(prop, desc_schema, "applicableTo",     "")
@@ -932,6 +933,7 @@ class Architect:
         # remarks : we may have a <schema> </schema> with property description
         desc_schema = decode_prop_schema(None, table["remarks"], key="schema")
         desc_schema = set_default(name, desc_schema, "key", False)
+        desc_schema = set_default(name, desc_schema, "filter", False)
         desc_schema = set_default(name, desc_schema, "validationScript", "")
         desc_schema = set_default(name, desc_schema, "example", "")
         desc_schema = set_default(name, desc_schema, "applicableTo", "")
@@ -979,6 +981,7 @@ class Architect:
         # remarks : we may have a <schema> </schema> with property description
         desc_schema =  decode_prop_schema(att_name, att["remarks"], key="schema")
         desc_schema = set_default(att_name, desc_schema, "key", False)
+        desc_schema = set_default(att_name, desc_schema, "filter", False)
         desc_schema = set_default(att_name, desc_schema, "validationScript", "")
         desc_schema = set_default(att_name, desc_schema, "valueSpecification", "")
         desc_schema = set_default(att_name, desc_schema, "possibleValues", ["default_value", "value1", "value2"])
