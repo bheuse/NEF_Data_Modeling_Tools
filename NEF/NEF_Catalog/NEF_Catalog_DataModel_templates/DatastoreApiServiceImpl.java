@@ -10,7 +10,12 @@ import com.openet.modules.framework.vertx.core.common.ApiResponse;
 import com.openet.modules.nef.servicescatalogservice.service.api.model.*;
 import com.openet.modules.nef.servicescatalogservice.service.api.service.DatastoreApiService;
 import com.openet.sba.core.flowcontext.api.FlowContext;
+import com.openet.sba.core.http.headers.MultiMap;
 import com.openet.servicescatalogmanager.api.provider.ServicesCatalogManagerProvider;
+import com.openet.stages.auth.api.AuthStageInput;
+import com.openet.stages.auth.api.AuthStageOutput;
+import com.openet.stages.auth.api.Role;
+import com.openet.stages.auth.api.provider.AuthStageProvider;
 import com.openet.stages.common.exception.CatchAllErrorWrapper;
 import io.reactivex.Single;
 import org.osgi.service.component.annotations.Activate;
@@ -37,6 +42,9 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
     private DeploymentConfigApi deploymentConfigApi;
 \n
     @Reference
+    private AuthStageProvider authStageProvider;
+\n
+    @Reference
     private ServicesCatalogManagerProvider servicesCatalogManagerProvider;
 \n
     @Activate
@@ -57,8 +65,9 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
     public Single<ApiResponse<${className}>> create${className}(Create${className}ServiceData serviceData, FlowContext ctx) {
         logger.trace(ctx.getMarker(), "create${className}()");
 \n
-        return servicesCatalogManagerProvider.get()
-                .create${className}(serviceData.getRequest(), ctx)
+        return Single
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_CREATE))
+                .flatMap(output -> servicesCatalogManagerProvider.get().create${className}(serviceData.getRequest(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
     }
@@ -70,8 +79,9 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
         serviceData.getRequest()
                 .setId(serviceData.getPathParams().getId());
 \n
-        return servicesCatalogManagerProvider.get()
-                .update${className}(serviceData.getRequest(), ctx)
+        return Single
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_UPDATE))
+                .flatMap(output -> servicesCatalogManagerProvider.get().update${className}(serviceData.getRequest(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
     }
@@ -80,9 +90,10 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
     public Single<ApiResponse<Void>> delete${className}(Delete${className}ServiceData serviceData, FlowContext ctx) {
         logger.trace(ctx.getMarker(), "delete${className}()");
 \n
-        return servicesCatalogManagerProvider.get()
-                .delete${className}(serviceData.getPathParams().getId(), ctx)
-                .andThen(Single.just(new ApiResponse<Void>()))
+        return Single
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_DELETE))
+                .flatMap(output -> servicesCatalogManagerProvider.get().delete${className}(serviceData.getPathParams().getId(), ctx)
+                        .andThen(Single.just(new ApiResponse<Void>())))
                 .onErrorResumeNext(error -> createErrorReply(error));
     }
 \n
@@ -91,8 +102,9 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
     public Single<ApiResponse<${className}>> get${className}(Get${className}ServiceData serviceData, FlowContext ctx) {
         logger.trace(ctx.getMarker(), "get${className}()");
 \n
-        return servicesCatalogManagerProvider.get()
-                .get${className}(serviceData.getPathParams().getId(), ctx)
+        return Single
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_READ))
+                .flatMap(output -> servicesCatalogManagerProvider.get().get${className}(serviceData.getPathParams().getId(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
     }
@@ -101,14 +113,23 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
     public Single<ApiResponse<List<${className}>>> get${className}s(Get${className}sServiceData serviceData, FlowContext ctx) {
         logger.trace(ctx.getMarker(), "get${className}s()");
 \n
-        return servicesCatalogManagerProvider.get()
-                .getAll${className}(ctx)
+        return Single
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_READ))
+                .flatMap(output -> servicesCatalogManagerProvider.get().getAll${className}(ctx))
                 .map(entities -> new ApiResponse<>(entities))
                 .onErrorResumeNext(error -> createErrorReply(error));
     }
 \n
 % endif
 % endfor
+    private Single<AuthStageOutput> authorize(FlowContext ctx, MultiMap requestHeaders, Role role) {
+        AuthStageInput stageInput = new AuthStageInput()
+                .setAuthorizationHeader(requestHeaders.get("Authorization"))
+                .setRole(role);
+\n
+        return authStageProvider.get().execute(stageInput, ctx);
+    }
+\n
     private <T> Single<T> createErrorReply(Throwable throwable) {
         CatchAllErrorWrapper error = new CatchAllErrorWrapper(throwable);
         return Single.error(error);
