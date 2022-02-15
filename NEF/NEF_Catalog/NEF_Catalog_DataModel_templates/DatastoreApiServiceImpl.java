@@ -66,7 +66,7 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
         logger.trace(ctx.getMarker(), "create${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_CREATE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_SCS_CREATE))
                 .flatMap(output -> servicesCatalogManagerProvider.get().create${className}(serviceData.getRequest(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -80,7 +80,7 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
                 .setId(serviceData.getPathParams().getId());
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_UPDATE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_SCS_UPDATE))
                 .flatMap(output -> servicesCatalogManagerProvider.get().update${className}(serviceData.getRequest(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -91,7 +91,7 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
         logger.trace(ctx.getMarker(), "delete${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_DELETE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_SCS_DELETE))
                 .flatMap(output -> servicesCatalogManagerProvider.get().delete${className}(serviceData.getPathParams().getId(), ctx)
                         .andThen(Single.just(new ApiResponse<Void>())))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -103,7 +103,7 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
         logger.trace(ctx.getMarker(), "get${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_READ))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_SCS_READ))
                 .flatMap(output -> servicesCatalogManagerProvider.get().get${className}(serviceData.getPathParams().getId(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -114,7 +114,7 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
         logger.trace(ctx.getMarker(), "get${className}s()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_NEF_READ))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_SCS_READ))
                 .flatMap(output -> servicesCatalogManagerProvider.get().getAll${className}(ctx))
                 .map(entities -> new ApiResponse<>(entities))
                 .onErrorResumeNext(error -> createErrorReply(error));
