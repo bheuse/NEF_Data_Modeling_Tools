@@ -13,7 +13,7 @@ Code generation is supported through template design.
 
 See below how to Model with SQL Architect for OpenAPI:
 
-![img.png](img.png)
+![img.png](images/img.png)
 
 ## Generate your API: 
 
@@ -25,11 +25,11 @@ See below how to Model with SQL Architect for OpenAPI:
 
 [View your APIs once generated in Swagger Editor : ](https://editor.swagger.io/)
 
-![img_1.png](img_1.png)
+![img_1.png](images/img_1.png)
 
 [View your APIs once generated in Apicurio Studio](https://studio.apicur.io/)
 
-![img_2.png](img_2.png)
+![img_2.png](images/img_2.png)
 
 ## Next Steps:
 
@@ -106,15 +106,15 @@ The content of the SQL Architect Data Model in SQL Architect will be used as fol
 
 Table OpenAPI:
 
-![img_3.png](img_3.png)
+![img_3.png](images/img_3.png)
 
 Becomes:
 
-![img_4.png](img_4.png)
+![img_4.png](images/img_4.png)
 
 ## Code Generation
 
-![img_7.png](img_7.png)
+![img_7.png](images/img_7.png)
 
 The tool supports code generation, using [mako template engine](https://docs.makotemplates.org/en/latest/usage.html).
 
@@ -160,7 +160,7 @@ Project Type muse be "LogicalDesign"
 
 See below how to Model with DbSchema for OpenAPI:
 
-![img_5.png](img_5.png)
+![img_5.png](images/img_5.png)
 
 ## Generate your API: 
 
@@ -228,4 +228,4 @@ The content of the DBSchema Data Model in DBSchema will be used as follow:
         "security"        : Description in JSON Format used as API Security
         "securitySchemes" : Description in JSON Format used as API SecuritySchemes
 
-![img_6.png](img_6.png)
+![img_6.png](images/img_6.png)

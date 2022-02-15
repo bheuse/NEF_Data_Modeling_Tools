@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import xmltodict
 import requests
 import json
@@ -241,6 +243,19 @@ class FileSystem:
         return content
 
     @staticmethod
+    def filterBlankLines(string):
+        result = ""
+        for line in string.splitlines():
+            strippedLine = line.strip()
+            if strippedLine == '':
+                continue
+            elif strippedLine == '\\n':
+                result += '\n'
+            else:
+                result += line + '\n'
+        return result
+
+    @staticmethod
     def render(p_template_filename : str, p_rendered_filename, context: dict):
         Term.print_blue("Rendering : [" + p_template_filename )
         Term.print_blue("   > into : [" + p_rendered_filename + "]")
@@ -250,6 +265,7 @@ class FileSystem:
         # Rendering Template
         mako.runtime.UNDEFINED = 'MISSING_IN_CONTEXT'
         rendered_template = Template(template_string).render(**context)
+        rendered_template = FileSystem.filterBlankLines(rendered_template)
         # And Saving to File ...
         FileSystem.saveFileContent(rendered_template, p_rendered_filename)
 
@@ -452,8 +468,10 @@ class Path:
         """
         return paths_template_create
 
-    paths_template_read_write_prefix = """
-            "${PATH_PREFIX}/${PATH}s/{${PATH}Id}": {
+        # ${PATH_PREFIX}/${PATH}s/{${PATH}Id}"
+        # ${PATH_PREFIX}/${PATH}s/{id}"
+        paths_template_read_write_prefix = """
+            "${PATH_PREFIX}/${PATH}s/{id}": {
                 "summary": "Path used to manage a single ${TABLE}.",
                 "description": "The REST endpoint/path used to get, update, and delete single instances of an `${TABLE}`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively."
     """
@@ -513,7 +531,14 @@ class Path:
                         },
                         "responses": {
                             "202": {
-                                "description": "Successful response."
+                                "description": "Successful response.",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/${TABLE}"
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -592,9 +617,10 @@ class Path:
     @staticmethod
     def paths_template_parameters() -> str:
 
+        # "name": "${PATH}Id"
         paths_template_parameters = """            
                         {
-                            "name": "${PATH}Id",
+                            "name": "id",
                             "description": "A unique identifier for a `${TABLE}`.",
                             "schema": {
                                 "type": "string"
@@ -621,7 +647,6 @@ class Path:
         for entity in entities:
             if ("PATH" in entities[entity]):
                 path_par = None
-                path_parameters = None
                 list_par = None
                 get_par = None
                 create_par = None
@@ -638,6 +663,11 @@ class Path:
                     put_par    = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "put_parameters")
                     del_par    = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "delete_parameters")
                     schema_par = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "schema_parameters")
+
+                if (list_par is None):
+                    list_par = {"parameters": []}
+                list_par["parameters"].append({"in": "query", "name": "limit",  "type": "integer", "description": "Pagination Limit"})
+                list_par["parameters"].append({"in": "query", "name": "offset", "type": "integer", "description": "Pagination Offset"})
 
                 if (schema_par and schema_par.strip() != "") :
                     schema_params = Term.json_load(schema_par)
