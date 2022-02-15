@@ -389,7 +389,12 @@ class Path:
         if (not parameters):
             parameters = ""
         else:
-            parameters = "\"parameters\" : [  " + parameters + " ] , "
+            if (parameters.startswith("[")):
+                parameters = "\"parameters\" : " + parameters + " , "
+            elif (parameters.startswith('"parameters"')):
+                parameters = parameters + " , "
+            else:
+                parameters = "\"parameters\" : [  " + parameters + " ] , "
 
         paths_template_list = """
                 "get": {
@@ -468,9 +473,9 @@ class Path:
         """
         return paths_template_create
 
-        # ${PATH_PREFIX}/${PATH}s/{${PATH}Id}"
-        # ${PATH_PREFIX}/${PATH}s/{id}"
-        paths_template_read_write_prefix = """
+    # ${PATH_PREFIX}/${PATH}s/{${PATH}Id}"
+    # ${PATH_PREFIX}/${PATH}s/{id}"
+    paths_template_read_write_prefix = """
             "${PATH_PREFIX}/${PATH}s/{id}": {
                 "summary": "Path used to manage a single ${TABLE}.",
                 "description": "The REST endpoint/path used to get, update, and delete single instances of an `${TABLE}`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively."
@@ -664,10 +669,12 @@ class Path:
                     del_par    = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "delete_parameters")
                     schema_par = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "schema_parameters")
 
-                if (list_par is None):
-                    list_par = {"parameters": []}
-                list_par["parameters"].append({"in": "query", "name": "limit",  "type": "integer", "description": "Pagination Limit"})
-                list_par["parameters"].append({"in": "query", "name": "offset", "type": "integer", "description": "Pagination Offset"})
+                list_parj = []
+                if (list_par):
+                    list_parj = json.loads(list_par)
+                list_parj.append({"in": "query", "name": "limit",  "schema" : { "type": "integer" }, "description": "Pagination Limit"})
+                list_parj.append({"in": "query", "name": "offset", "schema" : { "type": "integer" }, "description": "Pagination Offset"})
+                list_par = json.dumps(list_parj)
 
                 if (schema_par and schema_par.strip() != "") :
                     schema_params = Term.json_load(schema_par)
