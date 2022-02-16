@@ -2,6 +2,10 @@
 
 # Services Catalog Service
 
+cd NEF/NEF_Catalog
+../../data_model_to_openapi.py NEF_Catalog_DataModel
+cd ../..
+
 # API
 cp NEF/NEF_Catalog/NEF_Catalog_DataModel_artifacts/NEF_Catalog_DataModel_API.yaml ../services-catalog-service-api/services-catalog-service-api/src/main/resources
 # DDL
