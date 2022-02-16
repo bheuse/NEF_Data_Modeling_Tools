@@ -52,7 +52,7 @@
    &quot;minCardinality&quot;: 1,
    &quot;maxCardinality&quot;: 1,
    &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;markdownDescription&quot;: &quot;no-MarkdownDescription&quot;,
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
