@@ -5,7 +5,6 @@ Feature: Services Catalog Service operations
 \n
   Background:
     * url apiBaseUrl
-    * configure afterScenario =
 <% deleteFromTablesQuery = '; '.join(['DELETE FROM NEF_' + ENTITY for ENTITY, ENTITY_DATA in ENTITIES.items() if 'PATH' in ENTITY_DATA]) %>
     * configure afterScenario =
       """
