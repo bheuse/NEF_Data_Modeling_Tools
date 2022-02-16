@@ -669,12 +669,24 @@ class Path:
                     del_par    = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "delete_parameters")
                     schema_par = Util.get_parameters(entities[entity]["PATH_PARAMETERS"], "schema_parameters")
 
+                # Add Pagination Support
                 list_parj = []
                 if (list_par):
                     list_parj = json.loads(list_par)
                 list_parj.append({"in": "query", "name": "limit",  "schema" : { "type": "integer" }, "description": "Pagination Limit"})
                 list_parj.append({"in": "query", "name": "offset", "schema" : { "type": "integer" }, "description": "Pagination Offset"})
+
+                # Add Filtering Support
+                for att in entities[entity]['properties'] :
+                    if ('Schema' not in entities[entity]['properties'][att]) : continue
+                    if ('filter' not in entities[entity]['properties'][att]['Schema']) : continue
+                    if (entities[entity]['properties'][att]['Schema']['filter']):
+                        list_parj.append( {"in": "query",
+                                           "name": entities[entity]['properties'][att]['name'],
+                                           "schema": {"type": entities[entity]['properties'][att]['type']},
+                                           "description": "Filter for "+entities[entity]['properties'][att]['name']})
                 list_par = json.dumps(list_parj)
+
 
                 if (schema_par and schema_par.strip() != "") :
                     schema_params = Term.json_load(schema_par)

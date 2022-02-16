@@ -35,7 +35,26 @@
 } &lt;/schema&gt;</remarks>
     </column>
     <column id="COL3" populated="true" UUID="a1398d40-e6fc-4605-8bb7-8f0e267f8871" autoIncrement="false" autoIncrementSequenceName="API_API_Provider_Name_seq" defaultValue="" name="API_Provider_Name" nullable="0" physicalName="API_Provider_Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks></remarks>
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;filter&quot;: true,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
     </column>
     <column id="COL4" populated="true" UUID="5c06d09b-01c9-4945-95bd-902576f8a892" autoIncrement="false" autoIncrementSequenceName="API_YAML_seq" defaultValue="" name="YAML" nullable="0" physicalName="YAML" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>API YAML - EndPoints</remarks>
