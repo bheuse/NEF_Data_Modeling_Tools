@@ -160,14 +160,19 @@ Feature: Services Catalog Service operations
             return [randomValue(subType, subFormat, None, None)]
         else:
             return None
+
+    def doGenerateRefEntity(container):
+        subEntity = container['$ref'].split('/')[-1]
+        return doGenerateEntity(ENTITIES[subEntity])
         
     def doGenerateEntity(entityData):
         entity = {}
 
         for prop, propData in entityData['properties'].items():
             if '$ref' in propData:
-                subEntity = propData['$ref'].split('/')[-1]
-                entity[prop] = doGenerateEntity(ENTITIES[subEntity])
+                entity[prop] = doGenerateRefEntity(propData)
+            elif propData['type'] == 'array' and '$ref' in propData['items']:
+                entity[prop] = [doGenerateRefEntity(propData['items'])]
             else:
                 type = propData['type']
                 format = propData['format'] if 'format' in propData else None

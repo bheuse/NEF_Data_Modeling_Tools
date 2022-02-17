@@ -5,6 +5,7 @@ package com.openet.servicescatalogmanager.impl;
 import com.openet.modules.framework.voltdb.client.VoltClient;
 import com.openet.modules.framework.voltdb.client.VoltProcedure;
 import com.openet.modules.framework.voltdb.client.impl.VoltClientImpl;
+import com.openet.modules.nef.servicescatalogservice.service.api.beans.DatastoreApiBeans.*;
 import com.openet.modules.nef.servicescatalogservice.service.api.model.*;
 import com.openet.modules.opc.common.enums.HttpStatus;
 import com.openet.sba.core.flowcontext.api.FlowContext;
@@ -107,9 +108,12 @@ public class ServicesCatalogManagerImpl implements ServicesCatalogManager {
     }
 \n
     @Override
-    public Single<List<${className}>> getAll${className}(FlowContext ctx) {
+    public Single<List<${className}>> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx) {
         String procedureName = "NEF_getAll${ENTITY}";
-        return executeProcedureRx(ctx, procedureName)
+        return executeProcedureRx(ctx, procedureName,
+                ${generateFilterParams(ENTITY_DATA)}
+                queryParams.getLimit() != null ? queryParams.getLimit() : Integer.MAX_VALUE,
+                queryParams.getOffset() != null ? queryParams.getOffset() : 0)
                 .doOnSuccess(response -> logResponse(procedureName, response, ctx))
                 .doOnSuccess(response -> checkResponseStatus(procedureName, response, ctx))
                 .map(response -> {
@@ -188,3 +192,20 @@ public class ServicesCatalogManagerImpl implements ServicesCatalogManager {
         return new NefStageException(httpStatus, null, cause, message);
     }
 }
+
+<%def name="generateFilterParams(entityData)">
+<%
+    def isFilterParam(propData):
+        return 'Schema' in propData and propData['Schema']['filter']
+
+    def getterName(prop):
+        prop = prop.replace('_', '')
+        return 'get' + prop[0].upper() + prop[1].lower() + prop[2:]
+%>
+        % for prop, propData in entityData['properties'].items():
+            % if isFilterParam(propData):
+                queryParams.${getterName(prop)}(),
+                queryParams.${getterName(prop)}(),
+            % endif
+        % endfor
+</%def>
