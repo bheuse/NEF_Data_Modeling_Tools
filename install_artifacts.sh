@@ -3,7 +3,7 @@
 # Services Catalog Service
 
 cd NEF/NEF_Catalog
-../../data_model_to_openapi.py NEF_Catalog_DataModel
+python ../../data_model_to_openapi.py NEF_Catalog_DataModel
 cd ../..
 
 # API

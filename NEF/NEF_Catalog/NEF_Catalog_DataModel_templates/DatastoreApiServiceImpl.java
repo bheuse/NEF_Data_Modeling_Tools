@@ -115,7 +115,7 @@ public class DatastoreApiServiceImpl implements DatastoreApiService {
 \n
         return Single
                 .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_SCS_READ))
-                .flatMap(output -> servicesCatalogManagerProvider.get().getAll${className}(ctx))
+                .flatMap(output -> servicesCatalogManagerProvider.get().getAll${className}(serviceData.getQueryParams(), ctx))
                 .map(entities -> new ApiResponse<>(entities))
                 .onErrorResumeNext(error -> createErrorReply(error));
     }
