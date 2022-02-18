@@ -1,15 +1,57 @@
 
 # SQL Architect to OpenAPI 
 
+![img.png](images/img_9.png)   ![img.png](images/img_8.png)
+
 [This tool](https://github.com/bheuse/SQL_Architect_to_OpenAPI) converts an SQL Architect project into an OpenAPI 3.0.2 Data Model & CRUD Operations.
 
 A JSON Schema can also be generated.
 
 Code generation is supported through template design.
 
-## Create your Data Model :
+## Install SQL Architect :
 
 [Download SQL Architect](http://www.bestofbi.com/page/architect)
+
+SQL Architect requires Oracle Java Version.
+
+### Configure SQL Architect :
+
+Install and navigate menu : `File / User Preferences / Default Column Setting`
+
+Configure as follow:
+- Column Name by Default : `PropertyName`
+- Column Type by Default : `VARCHAR`
+- Column Precision by Default : 225
+- Column Allow Nulls by Default : Yes
+- Value By Default : `noExampleValue`
+- Column Remarks By Default : 
+
+
+    Enter Description Here
+    <schema> {
+       "name": "noName",
+       "key": false,
+       "filter": false,
+       "description": "noDescription",
+       "tooltip": "noTooltip",
+       "type": "string",
+       "format": "noFormat",
+       "possibleValues": [ "noExampleValue", "noDefaultalue" ] ,
+       "defaultValue": "noDefaultalue",
+       "example": "noExampleValue",
+       "validationScript": "",
+       "applicableTo": "noApplicableTo",
+       "minCardinality": 1,
+       "maxCardinality": 1,
+       "validFor": "novalidFor",
+       "markdownDescription": "noMarkdownDescription",
+       "valueSpecification": "noValueSpecification"
+    } </schema>
+
+![img.png](images/img_10.png)
+
+## Create your Data Model :
 
 See below how to Model with SQL Architect for OpenAPI:
 
@@ -38,7 +80,6 @@ Use OpenAPI Code Generation Tools like Swagger Editor or PostMan to generate ser
 ## How to Model in SQL Architect for OpenAPI:
 
 The content of the SQL Architect Data Model in SQL Architect will be used as follow:
-
 
 
     Table:
@@ -77,9 +118,11 @@ The content of the SQL Architect Data Model in SQL Architect will be used as fol
                                       - otherwise list / get / put / post / delete
                                       - <parameters>  </parameters> used for parameters description
                                            Path Parameters   : "path_parameters"  
-                                           Query Paramenters : "get_parameters", "list_parameters", "post_parameters" "patch_parameters", "delete_parameters", "put_parameters",  
+                                           Query Paramenters : "get_parameters",    "list_parameters", 
+                                                               "post_parameters",   "patch_parameters", 
+                                                               "delete_parameters", "put_parameters",  
                                            Schema level Parameters : "schema_parameters" 
-                                           Example :
+                                           Example adding a query parameter to the GET operation :
                                             <parameters> 
                                                <get_parameters>
                                                   { "in"       : "query" ,
@@ -104,7 +147,78 @@ The content of the SQL Architect Data Model in SQL Architect will be used as fol
         "security"        : Remarks in JSON Format used as API Security
         "securitySchemes" : Remarks in JSON Format used as API SecuritySchemes
 
-Table OpenAPI:
+
+### Pagination Support
+
+Pagination query parameters are automatically generated for _PATH entities:
+
+    paths:
+      /datastore/APIs:
+        summary: Path used to manage the list of apis.
+        get:
+          summary: List All APIs
+          parameters:
+          - in: query
+            name: limit
+            schema:
+              type: integer
+            description: Pagination Limit
+          - in: query
+            name: offset
+            schema:
+              type: integer
+            description: Pagination Offset
+
+Please note pagination in responses in not supported in the schema for now:
+- self, first, next, prev, last page links
+- this page number, total number of pages, total count of entries 
+
+are not documented in the returned objects schema (this count be improvement). 
+
+### Filtering Support
+
+
+If the attribute of an _PATH entity has its `filter` set to `true` in its schema, 
+then a filter query parameter will be added to the list GET operation :
+
+<span style="color:yellow">"filter": true</span>,
+
+    <schema> {
+       "name": "noName",
+       "key": false,
+       <span style="color:blue">"filter": true</span>,
+       "description": "noDescription",
+       "tooltip": "noTooltip",
+       "type": "string",
+       "format": "noFormat",
+       "possibleValues": [ "noExampleValue", "noDefaultalue" ] ,
+       "defaultValue": "noDefaultalue",
+       "example": "noExampleValue",
+       "validationScript": "",
+       "applicableTo": "noApplicableTo",
+       "minCardinality": 1,
+       "maxCardinality": 1,
+       "validFor": "novalidFor",
+       "markdownDescription": "no-MarkdownDescription",
+       "valueSpecification": "noValueSpecification"
+    } </schema>
+
+Generates :
+
+    paths:
+      /datastore/APIs:
+        summary: Path used to manage the list of apis.
+        get:
+          summary: List All APIs
+          parameters:
+          - in: query
+            name: API_Provider_Name
+            schema:
+              type: string
+            description: Filter for API_Provider_Name
+
+
+### Table OpenAPI:
 
 ![img_3.png](images/img_3.png)
 
@@ -118,13 +232,15 @@ Becomes:
 
 The tool supports code generation, using [mako template engine](https://docs.makotemplates.org/en/latest/usage.html).
 
-All files stored in <model>_templates are considered as being Mako Template files.
+All files stored in `<model>_templates` are considered as being Mako Template files.
 
-They will be scanned and template generated in the <model>_artifacts directory.
+They will be scanned and template generated in the `<model>_artifacts` directory.
+
+The whole `<model>_templates` directory structure is scanned and replicated in `<model>_artifacts`. 
 
 The variables that can be used in the template are generated on the first schema generation, in file 
 
-`<model>_artifacts/<model>_context.yaml`
+`<model>_artifacts/<model>_context.[yaml|json]`
 
 All entities, attributes are documented in the context and can be used for code generation.`
 
@@ -144,6 +260,17 @@ An example of mako template for DDL generation:
     % endfor
 
 Java code and most of other artifact can be generated in this manner, defining the appropriate templates.
+
+### Code Generation per Entities
+
+Code can be generated by Entities having the _PATH attribute.
+
+If a file or a directory has a name in the form `<model>_templates/prefix_${ENTITIES}_name`,
+then one file or directory per entities with the _PATH attribute will be generated.
+
+Instead of passing the overall project context for code generation, only the context for this object type is available.
+The context can be examined in the files `<model>_artifacts/<entity_name>_context.[yaml|json]` generated in the artifact root directory (onne for each entity).
+
 
 # DbSchema to OpenAPI 
 
