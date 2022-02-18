@@ -2,6 +2,7 @@
 \n
 package com.openet.servicescatalogmanager.api;
 \n
+import com.openet.modules.nef.servicescatalogservice.service.api.beans.DatastoreApiBeans.*;
 import com.openet.modules.nef.servicescatalogservice.service.api.model.*;
 import com.openet.sba.core.flowcontext.api.FlowContext;
 import com.openet.sba.core.provider.annotations.ProviderEnabledApi;
@@ -22,7 +23,7 @@ public interface ServicesCatalogManager {
     Completable delete${className}(String id, FlowContext ctx);
 % endif
     Single<${className}> get${className}(String id, FlowContext ctx);
-    Single<List<${className}>> getAll${className}(FlowContext ctx);
+    Single<List<${className}>> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx);
 % endif
 % endfor
 }

@@ -41,7 +41,36 @@ CREATE PROCEDURE @@DOC_PREFIX@@_get${ENTITY}
 \n
 CREATE PROCEDURE @@DOC_PREFIX@@_getAll${ENTITY}
     ALLOW @@DOC_PREFIX@@_role
-    AS SELECT * FROM @@DOC_PREFIX@@_${ENTITY};
+    AS SELECT * FROM @@DOC_PREFIX@@_${ENTITY}
+        ${generateWhere(ENTITY_DATA)}
+        ORDER BY id
+        LIMIT ?
+        OFFSET ?;
 \n
 % endif
 % endfor
+
+<%def name="generateWhere(entityData)">
+<%
+    def isFilterParam(propData):
+        return 'Schema' in propData and propData['Schema']['filter']
+
+    def countFilterParams(entityData):
+        counter = 0
+        for prop, propData in entityData['properties'].items():
+            if isFilterParam(propData):
+                counter += 1
+        return counter
+
+    filterParamCount = countFilterParams(entityData)
+%>
+% if filterParamCount:
+        WHERE
+        % for prop, propData in entityData['properties'].items():
+            % if isFilterParam(propData):
+            field(json_data, '${prop}') = (CASE WHEN CAST(? as varchar) IS NOT NULL THEN CAST(? as varchar) ELSE field(json_data, '${prop}') END) ${'AND' if filterParamCount > 1 else ''}
+            <% filterParamCount -= 1 %>
+            % endif
+        % endfor
+% endif
+</%def>
