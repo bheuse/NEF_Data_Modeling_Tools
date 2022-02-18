@@ -68,6 +68,30 @@ Feature: Services Catalog Service operations
     And print response
     And assert response.length == 2
 \n
+    Given path '/datastore/${path}'
+    And param limit = 1
+    And param offset = 0
+    When method get
+    Then status 200
+    And print response
+    And assert response.length == 1
+\n
+    Given path '/datastore/${path}'
+    And param limit = 1
+    And param offset = 1
+    When method get
+    Then status 200
+    And print response
+    And assert response.length == 1
+\n
+    Given path '/datastore/${path}'
+    And param limit = 1
+    And param offset = 2
+    When method get
+    Then status 200
+    And print response
+    And assert response.length == 0
+\n
   Scenario: Update ${ENTITY} by id
     Given path '/datastore/${path}'
     And request
