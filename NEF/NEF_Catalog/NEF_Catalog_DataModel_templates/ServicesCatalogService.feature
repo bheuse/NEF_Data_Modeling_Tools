@@ -9,7 +9,7 @@ Feature: Services Catalog Service operations
     * configure afterScenario =
       """
       function() {
-        commandLineUtil('docker exec voltdb-nef-data-model sqlcmd --query="${deleteFromTablesQuery};"')
+        karate.call('classpath:util/execute-query.feature', { query: '${deleteFromTablesQuery};' })
       }
       """
 \n
