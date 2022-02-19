@@ -274,12 +274,16 @@ class FileSystem:
         template_files = FileSystem.safeListFiles(p_input_dir, file_ext=file_ext, keepExt=True)
         Term.print_yellow ("Rendering Templates Dir : [" + p_input_dir  + "]")
         Term.print_yellow ("Rendering Artifacts Dir : [" + p_output_dir + "]")
-        context_file_yaml = p_output_dir + os.sep + context["DATAMODEL"] + "_context.yaml"
-        context_file_json = p_output_dir + os.sep + context["DATAMODEL"] + "_context.json"
+        # Generating Context File
+        contexts_dir = p_output_dir + os.sep + "_Contexts"
+        FileSystem.createDir(contexts_dir)
+        context_file_yaml = contexts_dir + os.sep + context["DATAMODEL"] + "_context.yaml"
+        context_file_json = contexts_dir + os.sep + context["DATAMODEL"] + "_context.json"
         Term.print_yellow ("Rendering Context File  : [" + context_file_yaml + "]")
         Term.print_verbose("Rendering Context : [\n" + yaml.safe_dump(context, indent=2, default_flow_style=False, sort_keys=False) + "\n]")
         FileSystem.saveFileContent(yaml.safe_dump(context, indent=2, default_flow_style=False, sort_keys=False), context_file_yaml)
         FileSystem.saveFileContent(json.dumps(context, indent=3), context_file_json)
+        # Rendering Single Level Template Directory
         for template_file in template_files:
             if os.path.isdir(p_input_dir  + os.sep + template_file) : continue
             p_template_filename = p_input_dir  + os.sep + template_file
@@ -291,17 +295,21 @@ class FileSystem:
         Term.print_yellow("Rendering Templates Dir : [" + p_input_dir + "]")
         Term.print_yellow("Rendering Artifacts Dir : [" + p_output_dir + "]")
         if (root) :
-            context_file_yaml = p_output_dir + os.sep + context["DATAMODEL"] + "_context.yaml"
-            context_file_json = p_output_dir + os.sep + context["DATAMODEL"] + "_context.json"
+            # Generating Context File
+            contexts_dir = p_output_dir + os.sep + "_Contexts"
+            FileSystem.createDir(contexts_dir)
+            context_file_yaml = contexts_dir + os.sep + context["DATAMODEL"] + "_context.yaml"
+            context_file_json = contexts_dir + os.sep + context["DATAMODEL"] + "_context.json"
             Term.print_yellow("Rendering Context File  : [" + context_file_yaml + "]")
             Term.print_verbose("Rendering Context : [\n" + yaml.safe_dump(context, indent=2, default_flow_style=False,sort_keys=False) + "\n]")
             FileSystem.saveFileContent(yaml.safe_dump(context, indent=2, default_flow_style=False, sort_keys=False),context_file_yaml)
             FileSystem.saveFileContent(json.dumps(context, indent=3), context_file_json)
             for entity in context["ENTITIES"]:
-                context_file_yaml = p_output_dir + os.sep + entity + "_context.yaml"
-                context_file_json = p_output_dir + os.sep + entity + "_context.json"
+                context_file_yaml = contexts_dir + os.sep + entity + "_context.yaml"
+                context_file_json = contexts_dir + os.sep + entity + "_context.json"
                 FileSystem.saveFileContent(yaml.safe_dump(context["ENTITIES"][entity], indent=2, default_flow_style=False, sort_keys=False),context_file_yaml)
                 FileSystem.saveFileContent(json.dumps(context["ENTITIES"][entity], indent=3), context_file_json)
+        # Rendering Multi Level Template Directory
         for template_file in os.listdir(p_input_dir):
             if template_file.startswith("."+os.sep+".git"): continue
             if template_file.startswith("."+os.sep+".idea"): continue
@@ -362,6 +370,7 @@ class Util:
     @staticmethod
     def remove_between(content, start, end):
         if (not content): return ""
+        found = re.sub(start + '([\s\S]*?)' + end, "", content)
         found = re.sub(start + '([\s\S]*?)' + end, "", content)
         return found
 
@@ -676,6 +685,9 @@ class Path:
                 list_parj.append({"in": "query", "name": "limit",  "schema" : { "type": "integer" }, "description": "Pagination Limit"})
                 list_parj.append({"in": "query", "name": "offset", "schema" : { "type": "integer" }, "description": "Pagination Offset"})
 
+                # Add Schema Support
+                list_parj.append({"in": "query", "name": "schema", "type": "boolean" ,  "allowEmptyValue": "true" ,"description": "Return JSON Schema"})
+
                 # Add Filtering Support
                 for att in entities[entity]['properties'] :
                     if ('Schema' not in entities[entity]['properties'][att]) : continue
@@ -686,7 +698,6 @@ class Path:
                                            "schema": {"type": entities[entity]['properties'][att]['type']},
                                            "description": "Filter for "+entities[entity]['properties'][att]['name']})
                 list_par = json.dumps(list_parj)
-
 
                 if (schema_par and schema_par.strip() != "") :
                     schema_params = Term.json_load(schema_par)
@@ -1352,6 +1363,8 @@ def lets_do_openapi_yaml():
     FileSystem.saveFileContent(yaml_text, yaml_file)
     Term.print_blue("Ready   : " + yaml_file)
 
+    lets_do_datastore(with_upload=False)
+
 
 baseURI  = "https://amdocs.com/schemas/nef/"
 schemas  = {}
@@ -1499,7 +1512,7 @@ def lets_do_json_schema():
     schema_file = None
     for schema in schemas:
         if "properties" not in schemas[schema]: continue
-        if "_ROOT" in schemas[schema]["properties"] :
+        if ("_ROOT" in schemas[schema]["properties"]) :
             # del schemas[schema]["properties"]["_ROOT"]
             schemas[schema]["$defs"] = {}
             for schema2 in schemas:
@@ -1507,12 +1520,12 @@ def lets_do_json_schema():
                 if "_ROOT" in schemas[schema2]["properties"] :
                     del schemas[schema2]["properties"]["_ROOT"]
                     continue
-                del schemas[schema2]["$schema"]
-                del schemas[schema2]["$id"]
+                if ("$schema" in schemas[schema2]): del schemas[schema2]["$schema"]
+                if ("$id"     in schemas[schema2]): del schemas[schema2]["$id"]
                 schemas[schema]["$defs"][schema2] = schemas[schema2]
             # Generate Schema File - multiple _ROOT
-            schema_file = output_dir + FileSystem.get_basename(data_model) + "_" + schema + "_Schema.json"
-            FileSystem.saveFileContent(json.dumps(schemas[schema], indent=3), schema_file)
+            # schema_file = output_dir + FileSystem.get_basename(data_model) + "_" + schema + "_Schema.json"
+            # FileSystem.saveFileContent(json.dumps(schemas[schema], indent=3), schema_file)
             # Generate Schema File - assuming only one _ROOT
             schema_file = data_model + "_Schema.json"
             FileSystem.saveFileContent(json.dumps(schemas[schema], indent=3), schema_file)
@@ -1537,6 +1550,7 @@ def lets_do_datastore(with_upload : bool = True):
         if ("TABLE" in entities_json[entity])     : del entities_json[entity]["TABLE"]
         if ("RELATIONS" in entities_json[entity]) : del entities_json[entity]["RELATIONS"]
         # if ("NAME" in entities_json[entity])      : del entities_json[entity]["NAME"]
+        if ("KEY" in entities_json[entity])       : del entities_json[entity]["KEY"]
         if ("prepend" in entities_json[entity])   : del entities_json[entity]["prepend"]
         if ("append" in entities_json[entity])    : del entities_json[entity]["append"]
         if ("options" in entities_json[entity])   : del entities_json[entity]["options"]
@@ -1546,11 +1560,13 @@ def lets_do_datastore(with_upload : bool = True):
         # if ("PATH"  in entities_json[entity]):           del entities_json[entity]["PATH"]
         # if ("name" in entities_json[entity]) :           del entities_json[entity]["name"]
         # if ("mandatory" in entities_json[entity]) :      del entities_json[entity]["mandatory"]
+        if ("Schema" in entities_json[entity])     : del entities_json[entity]["Schema"]
         Term.print_verbose("> " + entity)
         for prop in entities_json[entity]["properties"] :
             Term.print_verbose(" - " + prop)
             # if ("name" in entities_json[entity]["properties"][prop]):           del entities_json[entity]["properties"][prop]["name"]
             # if ("mandatory" in entities_json[entity]["properties"][prop]):      del entities_json[entity]["properties"][prop]["mandatory"]
+            if ("Schema" in entities_json[entity]["properties"][prop]):      del entities_json[entity]["properties"][prop]["Schema"]
             continue
 
     # Generating Schema for _PATH Entities
@@ -1562,6 +1578,11 @@ def lets_do_datastore(with_upload : bool = True):
         schema_file = data_model + "_" + name + "_Schema.json"
         schema = schemas[name]
 
+        entities_json[entity]["$schema"]     = "http://json-schema.org/draft-07/schema"
+        entities_json[entity]["$id"]         = baseURI+entity+".json"
+        entities_json[entity]["type"]        = "object"
+        entities_json[entity]["title"]       = "Schema for " + entity
+
         # Add $defs Sub-Objects Schemas
         for schema in schemas:
             if (schema == entity) : continue
@@ -1572,12 +1593,14 @@ def lets_do_datastore(with_upload : bool = True):
                 card = find_table_cardinatilty(entity, schema)
                 if (card and (card == "OneToOne" or card == "ZeroToOne")):
                     # del entities_json[entity]["properties"][schema]["description"]
-                    entities_json[entity]["properties"][schema]["$ref"] = os.path.basename(data_model) + "_" + schema + "_Schema.json"
+                    entities_json[entity]["properties"][schema]["-$ref"] = os.path.basename(data_model) + "_" + schema + "_Schema.json"
+                    entities_json[entity]["properties"][schema]["type"] = "string"
                 if (card and (card == "OneToMore" or card == "ZeroToMore")):
                     # del entities_json[entity]["properties"][schema]["description"]
                     entities_json[entity]["properties"][schema]["type"]  = "array"
                     entities_json[entity]["properties"][schema]["items"] = {}
-                    entities_json[entity]["properties"][schema]["items"]["$ref"] = os.path.basename(data_model) + "_" + schema + "_Schema.json"
+                    entities_json[entity]["properties"][schema]["items"]["-$ref"] = os.path.basename(data_model) + "_" + schema + "_Schema.json"
+                    entities_json[entity]["properties"][schema]["items"]["type"] = "string"
                 pass
             else:
                 # Entity is internal - Add to internal schema
@@ -1599,8 +1622,8 @@ def lets_do_datastore(with_upload : bool = True):
 
     Term.print_yellow("< lets_do_datastore")
 
-    if (not with_upload):
-        return
+    # if (not with_upload):
+    #    return
 
     Term.print_yellow("> lets_do_datastore upload")
 
@@ -1609,15 +1632,18 @@ def lets_do_datastore(with_upload : bool = True):
         entity_desc = entities_json[entity]
         if ("PATH" not in entity_desc): continue
         api_target = entity_desc["PATH"]
-        if ("PATH"  in entities_json[entity]):           del entities_json[entity]["PATH"]
-        schema_file = output_dir + os.sep + FileSystem.get_basename(data_model) + "_" + entity + "_Schema.json"
+        if ("PATH" in entities_json[entity]): del entities_json[entity]["PATH"]
+        schema_dir = output_dir + os.sep + "_Schemas"
+        FileSystem.createDir(schema_dir)
+        schema_file = schema_dir + os.sep + FileSystem.get_basename(data_model) + "_" + entity + "_Schema.json"
         Term.print_yellow(schema_file)
         FileSystem.saveFileContent(json.dumps(entities_json[entity], indent=3), schema_file)
-        curl = 'curl -X POST -H "Content-Type: application/json" -d @'+schema_file+' https://127.0.0.1:5000/datastore/'+api_target+'?create'
-        Term.print_yellow(curl)
-        req = "https://127.0.0.1:5000"+"/datastore/"+api_target+"s"+"?create"
-        res = requests.post(req, json=schema, verify=False)
-        Term.print_yellow(str(res))
+        if (with_upload):
+            curl = 'curl -X POST -H "Content-Type: application/json" -d @'+schema_file+' https://127.0.0.1:5000/datastore/'+api_target+'?create'
+            Term.print_yellow(curl)
+            req = "https://127.0.0.1:5000"+"/datastore/"+api_target+"s"+"?create"
+            res = requests.post(req, json=schema, verify=False)
+            Term.print_yellow(str(res))
 
     Term.print_yellow("< lets_do_datastore upload")
 
