@@ -686,7 +686,7 @@ class Path:
                 list_parj.append({"in": "query", "name": "offset", "schema" : { "type": "integer" }, "description": "Pagination Offset"})
 
                 # Add Schema Support
-                list_parj.append({"in": "query", "name": "schema", "type": "boolean" ,  "allowEmptyValue": "true" ,"description": "Return JSON Schema"})
+                list_parj.append({"in": "query", "name": "schema", "schema" : { "type": "boolean" } , "allowEmptyValue": True  ,"description": "Return JSON Schema"})
 
                 # Add Filtering Support
                 for att in entities[entity]['properties'] :
@@ -1724,14 +1724,22 @@ class Test(unittest.TestCase):
         Term.setVerbose(False)
         lets_do_it("NEF"+os.sep+"NEF_MarketPlace"+os.sep+"NEF_MarketPlace_DataModel", "openapi")
 
-    def testGenerateNEFCatalogDataService(self):
+    def testGenerate_NEF_Catalog_DataService(self):
         Term.setVerbose(False)
         global data_model
         data_model = "NEF"+os.sep+"NEF_Catalog"+os.sep+"NEF_Catalog_DataModel"
         lets_do_it("openapi + schema + render")
         # lets_do_it("Nef"+os.sep+"NEF_Catalog_DataModel", "openapi + schema + datastore + render")
 
-    def testGenerateSCEFService(self):
+    def testGenerate_NEF_AF_DataService(self):
+        Term.setVerbose(False)
+        global data_model
+        data_model = "NEF"+os.sep+"NEF_AF"+os.sep+"NEF_AF_DataModel"
+        lets_do_it("openapi + schema + render")
+        # lets_do_it("Nef"+os.sep+"NEF_Catalog_DataModel", "openapi + schema + datastore + render")
+
+
+    def testGenerate_SCEF_Service(self):
         Term.setVerbose(True)
         global data_model
         data_model = "NEF"+os.sep+"NEF_SCEF"+os.sep+"NEF_SCEF_API"

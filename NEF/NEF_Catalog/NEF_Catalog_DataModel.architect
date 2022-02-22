@@ -211,7 +211,7 @@ Free …</remarks>
      <remarks>{ 
   &quot;name&quot;: &quot;Bernard Heuse&quot;,
   &quot;url&quot;: &quot;https://www.amdocs.com/&quot;,
-  &quot;email&quot;: &quot;bheuse@gmail.com&quot; 
+  &quot;email&quot;: &quot;bheuse@amdocs.com&quot; 
 }</remarks>
     </column>
     <column id="COL31" populated="true" UUID="bae3da96-c05c-490e-b136-24036544f8db" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_license_seq" defaultValue="See Remarks - JSON Format" name="license" nullable="0" physicalName="license" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
