@@ -728,7 +728,7 @@ Can be extracted from Catalog Bundles</remarks>
   <table id="TAB84" populated="true" UUID="6701230f-4687-4f74-9030-933749f8aafd" name="OpenAPI" objectType="TABLE" physicalName="OpenAPI" >
    <remarks>OpenAPI Business Model. This is generated, modify source architect data model instead.</remarks>
    <folder id="FOLTAB841" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL85" populated="true" UUID="d4959877-4a9c-444a-bee8-847650ffb9c2" autoIncrement="false" autoIncrementSequenceName="OpenAPI_NEF Market Place Data Model_seq" defaultValue="" name="title" nullable="0" physicalName="NEF Market Place Data Model" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL85" populated="true" UUID="d4959877-4a9c-444a-bee8-847650ffb9c2" autoIncrement="false" autoIncrementSequenceName="OpenAPI_NEF Application User Profile Data Model_seq" defaultValue="" name="title" nullable="0" physicalName="NEF Application User Profile Data Model" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     <column id="COL86" populated="true" UUID="80708871-8b28-4d9f-ac81-e75be106b790" autoIncrement="false" autoIncrementSequenceName="OpenAPI_Remarks_seq" defaultValue="See Remarks - JSON Format" name="contact" nullable="0" physicalName="Remarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
