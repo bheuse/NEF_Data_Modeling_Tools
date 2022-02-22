@@ -1731,10 +1731,10 @@ class Test(unittest.TestCase):
         lets_do_it("openapi + schema + render")
         # lets_do_it("Nef"+os.sep+"NEF_Catalog_DataModel", "openapi + schema + datastore + render")
 
-    def testGenerate_NEF_AF_DataService(self):
+    def testGenerate_NEF_ApplicationUserProfile_DataService(self):
         Term.setVerbose(False)
         global data_model
-        data_model = "NEF"+os.sep+"NEF_AF"+os.sep+"NEF_AF_DataModel"
+        data_model = "NEF"+os.sep+"NEF_ApplicationUserProfile"+os.sep+"NEF_ApplicationUserProfile_DataModel"
         lets_do_it("openapi + schema + render")
         # lets_do_it("Nef"+os.sep+"NEF_Catalog_DataModel", "openapi + schema + datastore + render")
 
