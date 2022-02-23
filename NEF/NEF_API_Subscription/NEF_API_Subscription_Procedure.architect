@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.9">
+ <project-name>NEF_API_Subscription_Procedure</project-name>
+ <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="PlayPen Database" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB1" populated="true" UUID="6701230f-4687-4f74-9030-933749f8aafd" name="OpenAPI" objectType="TABLE" physicalName="OpenAPI" >
+   <remarks>OpenAPI Business Model. This is generated, modify source architect data model instead.</remarks>
+   <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL2" populated="true" UUID="d4959877-4a9c-444a-bee8-847650ffb9c2" autoIncrement="false" autoIncrementSequenceName="OpenAPI_NEF_API_Subscription_Procedure_seq" defaultValue="" name="title" nullable="0" physicalName="NEF API Subscription Procedures" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL3" populated="true" UUID="80708871-8b28-4d9f-ac81-e75be106b790" autoIncrement="false" autoIncrementSequenceName="OpenAPI_Remarks_seq" defaultValue="See Remarks - JSON Format" name="contact" nullable="0" physicalName="Remarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{ 
+  &quot;name&quot;: &quot;Bernard Heuse&quot;,
+  &quot;url&quot;: &quot;https://www.amdocs.com/&quot;,
+  &quot;email&quot;: &quot;bheuse@amdocs.com&quot; 
+}</remarks>
+    </column>
+    <column id="COL4" populated="true" UUID="7b39fd5a-9ca1-4fb9-8c88-11d4e5e67372" autoIncrement="false" autoIncrementSequenceName="OpenAPI_license_seq" defaultValue="See Remarks - JSON Format" name="license" nullable="0" physicalName="license" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{
+ &quot;name&quot;: &quot;Apache 2.0&quot;,
+&quot;url&quot;: &quot;https://www.apache.org/licenses/LICENSE-2.0&quot;
+}</remarks>
+    </column>
+    <column id="COL5" populated="true" UUID="9137fcb8-95c0-4bcd-b227-b37e0be4ecc7" autoIncrement="false" autoIncrementSequenceName="OpenAPI_tags_seq" defaultValue="See Remarks - JSON Format" name="tags" nullable="0" physicalName="tags" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+   {
+      &quot;name&quot;: &quot;NEF&quot;,
+      &quot;description&quot;: &quot;Amdocs NEF Business Data Model&quot;
+   }
+]</remarks>
+    </column>
+    <column id="COL6" populated="true" UUID="6c38d1b5-b670-4b01-b287-8d8e8fd9ae10" autoIncrement="false" autoIncrementSequenceName="OpenAPI_securitySchemes_seq" defaultValue="" name="securitySchemes" nullable="0" physicalName="securitySchemes" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>{
+    &quot;oAuth2ClientCredentials&quot;: {
+        &quot;type&quot;: &quot;oauth2&quot;,
+        &quot;flows&quot;: {
+            &quot;clientCredentials&quot;: {
+                &quot;tokenUrl&quot;: &quot;{tokenUrl}&quot;,
+                &quot;scopes&quot;: {}
+            }
+        }
+    }
+}</remarks>
+    </column>
+    <column id="COL7" populated="true" UUID="d563d44b-ca52-4c79-9f54-e0c69bcdedd8" autoIncrement="false" autoIncrementSequenceName="OpenAPI_servers_seq" defaultValue="See Remarks - JSON Format" name="servers" nullable="0" physicalName="servers" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+      {
+         &quot;url&quot;: &quot;{apiRoot}/nef-api-subsciption-service/22-03&quot;,
+         &quot;description&quot;: &quot;Amdocs NEF Release 22-03&quot;,
+         &quot;variables&quot;: {
+            &quot;apiRoot&quot;: {
+               &quot;default&quot;: &quot;https://nef.amdocs.com&quot;,
+               &quot;description&quot;: &quot;The Amdocs NEF URL&quot;
+            }
+         }
+      },
+      {
+         &quot;url&quot;: &quot;http://${NEF_DOMAIN}/${NEF_SERVICE}/${VERSION}/&quot;,
+         &quot;description&quot;: &quot;Amdocs NEF Play Ground Release 22-03&quot;,
+         &quot;variables&quot;: {
+            &quot;NEF_DOMAIN&quot;: {
+               &quot;default&quot;: &quot;nef.amdocs.com&quot;,
+               &quot;description&quot;: &quot;The NEF URL&quot;
+            },
+            &quot;NEF_SERVICE&quot;: {
+               &quot;default&quot;: &quot;nef-api-subsciption-service&quot;,
+               &quot;description&quot;: &quot;The NEF API Subscription Endpoint&quot;
+            },
+            &quot;VERSION&quot;: {
+               &quot;default&quot;: &quot;22-03&quot;,
+               &quot;description&quot;: &quot;Release Version&quot;
+            }
+         }
+      }
+]</remarks>
+    </column>
+    <column id="COL8" populated="true" UUID="63c0a072-c548-46e9-9ff6-798f52a50e8d" autoIncrement="false" autoIncrementSequenceName="OpenAPI_1.0.0_seq" defaultValue="" name="version" nullable="0" physicalName="1.0.0" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL9" populated="true" UUID="c42f0436-5589-408b-a7a4-146d59d5bbda" autoIncrement="false" autoIncrementSequenceName="OpenAPI_security_seq" defaultValue="See Remarks - JSON Format" name="security" nullable="0" physicalName="security" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>[
+  {
+  },
+  {
+    &quot;oAuth2ClientCredentials&quot;: []
+   }
+]</remarks>
+    </column>
+    <column id="COL10" populated="true" UUID="5f27ff50-8db4-4c44-bea3-baeb165308ca" autoIncrement="false" autoIncrementSequenceName="OpenAPI_NEF Business API and Data Model. _seq" defaultValue="" name="description" nullable="0" physicalName="NEF Business API and Data Model. " precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>This is generated, modify source SQL Architect data model instead.</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX11" populated="true" UUID="f16f0a27-1442-450f-b0ab-2d5c4a652606" clustered="false" name="NEF Business Model_pk" physicalName="NEF Business Model_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB12" populated="true" UUID="d5ea8c2b-a273-4248-81db-a5019d000eb7" name="API Subscription" objectType="TABLE" physicalName="API_Subscription" >
+   <remarks></remarks>
+   <folder id="FOLTAB121" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL13" populated="true" UUID="1bea2623-a3a3-4113-84c6-47ba85d4bd2e" autoIncrement="false" autoIncrementSequenceName="API_Subscription_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL14" populated="true" UUID="ef5d299e-3569-4125-ad4f-1ee53eb86615" autoIncrement="false" autoIncrementSequenceName="API_Subscription_ApiConsumer_seq" defaultValue="" name="ApiConsumer" nullable="0" physicalName="ApiConsumer" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Api Consumer
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;ApiConsumer&quot;,
+   &quot;key&quot;: false,
+   &quot;filter&quot;: true,
+   &quot;description&quot;: &quot;Api Consumer&quot;,
+   &quot;tooltip&quot;: &quot;Api Consumer&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [  ] ,
+   &quot;defaultValue&quot;: &quot;1&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Api Consumer&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL15" populated="true" UUID="acae933f-77b6-48b7-a65b-9169f3cdfe3d" autoIncrement="false" autoIncrementSequenceName="API_Subscription_ApiConsumer_seq" defaultValue="" name="ApiSubscribed" nullable="0" physicalName="ApiSubscribed" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Api Subscribed
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;ApiSubscribed&quot;,
+   &quot;key&quot;: false,
+   &quot;filter&quot;: true,
+   &quot;description&quot;: &quot;Api Subscribed&quot;,
+   &quot;tooltip&quot;: &quot;Api Subscribed&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [  ] ,
+   &quot;defaultValue&quot;: &quot;1&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Api Subscribed&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL16" populated="true" UUID="a50f08a8-fdd4-464f-91b9-723efec05b39" autoIncrement="false" autoIncrementSequenceName="API_Subscription_ApiConsumer_seq" defaultValue="" name="ApiSubscriptionState" nullable="0" physicalName="ApiSubscriptionState" precision="0" referenceCount="1" scale="0" source-column-ref="COL15" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Api Subscription State
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;ApiSubscriptionState&quot;,
+   &quot;key&quot;: false,
+   &quot;filter&quot;: true,
+   &quot;description&quot;: &quot;Api Subscription State&quot;,
+   &quot;tooltip&quot;: &quot;Api Subscribed&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;active&quot; , &quot;inactive&quot;] ,
+   &quot;defaultValue&quot;: &quot;inactive&quot;,
+   &quot;example&quot;: &quot;inactive&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;Api Subscription State&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL17" populated="true" UUID="6eb22b8c-ac4c-41d1-9658-48d8813104fa" autoIncrement="false" autoIncrementSequenceName="API_Subscription_subscription_seq" defaultValue="" name="_PATH" nullable="0" physicalName="subscription" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>read-write</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB123" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB122" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB124" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX18" populated="true" UUID="4acb63c6-1fe7-415a-bee2-c3c2d0f00cc6" clustered="false" name="API_Subscription_pk" physicalName="Industry_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <relationships>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="0.840896415253714" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB1" x="42" y="36" bgColor="0xf0f0f0" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB12" x="323" y="35" bgColor="0xeec994" fgColor="0x000000" rounded="false" dashed="false"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>
