@@ -17,9 +17,10 @@ import unidecode
 import glob
 from mako.template import Template
 import mako.runtime
+import shutil
 import dicttoxml
 import markdown
-import platform, socket, shutil, errno, getopt
+import platform, socket, errno, getopt
 from jsonpath_ng import jsonpath, parse
 
 timestamp = datetime.datetime.now().strftime("%y%m%d-%H%M%S")
@@ -161,6 +162,11 @@ class FileSystem:
             content = file.write(content)
             file.close()
         return content
+
+    @staticmethod
+    def get_dirname(filename):
+        """ Without Parent Directory  """
+        return os.path.dirname(filename)
 
     @staticmethod
     def get_basename(filename):
@@ -1663,7 +1669,7 @@ def lets_do_render():
     Term.print_yellow("< lets_do_render")
 
 
-def lets_do_it(do_what : str = "openapi, render"):
+def lets_do_it(do_what : str = "schema, openapi, render"):
     global data_model, input_dir, output_dir
     input_dir  = data_model + input_dir_suffix
     output_dir = data_model + output_dir_suffix
@@ -1678,14 +1684,20 @@ def lets_do_it(do_what : str = "openapi, render"):
     FileSystem.createDir(data_model + input_dir_suffix)
     FileSystem.createDir(data_model + output_dir_suffix)
 
+    # Backup architect file
+    backup_dir  = FileSystem.get_dirname(data_model) + os.sep + "Archive"
+    backup_file = FileSystem.get_basename(data_model) + "_" + datetime.datetime.now().strftime("%y%m%d-%H%M%S") +".architect"
+    FileSystem.createDir(backup_dir)
+    shutil.copyfile(data_model+".architect", backup_dir + os.sep + backup_file)
+
     if ("schema" in do_what.lower()) :
         lets_do_json_schema()
     if (("openapi" in do_what.lower()) or ("yaml" in do_what.lower())) :
         lets_do_openapi_yaml()
-    if ("datastore" in do_what.lower()) :
-        lets_do_datastore()
     if ("render" in do_what.lower()) :
         lets_do_render()
+    if ("datastore" in do_what.lower()) :
+        lets_do_datastore()
 
 
 class Test(unittest.TestCase):
