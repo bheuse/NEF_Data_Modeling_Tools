@@ -1154,9 +1154,10 @@ class Architect:
 
         # Collecting architect entities
         self.tables    = self.architect["architect-project"]["target-database"]["table"]
-        self.relations = self.architect["architect-project"]["target-database"]["relationships"]["relationship"]
-        self.collect_links()
         self.collect_tables()
+        if (self.architect["architect-project"]["target-database"]["relationships"]) :
+            self.relations = self.architect["architect-project"]["target-database"]["relationships"]["relationship"]
+            self.collect_links()
 
         # Replacing Table IDs by Names & Creating Sub-Relationships
         for entity in entities:
@@ -1219,9 +1220,9 @@ def lets_do_openapi_yaml():
     open_api_yaml = dict()
     open_api_yaml["openapi"] = "3.0.2"
     open_api_yaml["info"] = dict()
-    open_api_yaml["info"]["title"]       = "Business Data Model"
+    open_api_yaml["info"]["title"]       = "Business API and Data Model"
     open_api_yaml["info"]["version"]     = "1.0.0"
-    open_api_yaml["info"]["description"] = "Business Data Model. This is generated, modify source SQL Architect data model instead."
+    open_api_yaml["info"]["description"] = "Business API and Data Model. This is generated, modify source SQL Architect data model instead."
     open_api_yaml["info"]["contact"]     = {}
     open_api_yaml["info"]["contact"]["name"]  = "Bernard Heuse"
     open_api_yaml["info"]["contact"]["url"]   = "https://www.amdocs.com/"
@@ -1748,7 +1749,12 @@ class Test(unittest.TestCase):
         global data_model
         data_model = "NEF"+os.sep+"NEF_ApplicationUserProfile"+os.sep+"NEF_ApplicationUserProfile_DataModel"
         lets_do_it("openapi + schema + render")
-        # lets_do_it("Nef"+os.sep+"NEF_Catalog_DataModel", "openapi + schema + datastore + render")
+
+    def testGenerate_NEF_ApplicationUserProfile_DataService(self):
+        Term.setVerbose(False)
+        global data_model
+        data_model = "NEF"+os.sep+"NEF_API_Subscription"+os.sep+"NEF_API_Subscription_Procedure"
+        lets_do_it("openapi + schema + render")
 
 
     def testGenerate_SCEF_Service(self):
