@@ -15,26 +15,44 @@ import datetime
 from termcolor import colored
 import unidecode
 import glob
+import getopt
 from mako.template import Template
+from mako.lookup import TemplateLookup
 import mako.runtime
 import shutil
 import dicttoxml
 import markdown
-import platform, socket, errno, getopt
 from jsonpath_ng import jsonpath, parse
+import platform, socket, errno
 
+### Logging
 timestamp = datetime.datetime.now().strftime("%y%m%d-%H%M%S")
 logFile   = "."+os.sep+"sql_architect_to_openapi.log"
 logging.basicConfig(filename=logFile, filemode='w', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
+### Defaults
 default_data_model = "API_Data_Model_Sample"
 
-input_dir_suffix  = "_templates"
-output_dir_suffix = "_artifacts"
+templates_dir_suffix = "_templates"
+artifacts_dir_suffix = "_artifacts"
 
-data_model  = "API_Data_Model_Sample"
-input_dir   = "." + os.sep + default_data_model + input_dir_suffix
-output_dir  = "." + os.sep + default_data_model + output_dir_suffix
+data_model    = default_data_model
+templates_dir = "." + os.sep + default_data_model + templates_dir_suffix
+artifacts_dir = "." + os.sep + default_data_model + artifacts_dir_suffix
+includes_dir  = "." + os.sep + "include"
+context_file  = None
+context_mako  = {}
+
+### Globals
+TEMPLATES_DIR = None
+ARTIFACTS_DIR = None
+INCLUDES_DIR  = None
+DATA_MODEL    = None
+CONTEXT_FILE  = None
+RENDER = ""
+YAML = ""
+SCHEMA = ""
+DATASTORE = ""
 
 ###
 ### Print
@@ -153,7 +171,6 @@ class Term:
 ### Directories and Files
 ###
 
-
 class FileSystem:
 
     @staticmethod
@@ -249,6 +266,43 @@ class FileSystem:
         return content
 
     @staticmethod
+    def loadFileData(file_name: str) -> str:
+        return FileSystem.loadDataContent(FileSystem.loadFileContent(file_name))
+
+    @staticmethod
+    def loadJsonContent(content: str) -> dict:
+        if (not content) or (content == "") : return None
+        try:
+            return json.loads(content)
+        except Exception as ex:
+            Term.print_error("Error Loading JSON Content : " + str(content)[0: 50] + " ... \n" + str(ex))
+            return None
+
+    @staticmethod
+    def loadYamlContent(content: str) -> dict:
+        if (not content) or (content == "") : return None
+        try:
+            parsed_data = yaml.safe_load(content)
+            if not isinstance(parsed_data, dict): return None
+            return parsed_data
+        except Exception as ex:
+            Term.print_error("Error Reading YAML Content : " + str(content)[0: 50] + " ... \n" + str(ex))
+            return None
+
+    @staticmethod
+    def loadDataContent(content) -> dict:
+        if (not content) or (content == "") : return None
+        dc = FileSystem.loadJsonContent(content)
+        if (not dc): dc = FileSystem.loadYamlContent(content)
+        return dc
+
+###
+### Rendering
+###
+
+class Render:
+
+    @staticmethod
     def filterBlankLines(string):
         result = ""
         for line in string.splitlines():
@@ -270,39 +324,18 @@ class FileSystem:
         "\n".join(template_string.splitlines())
         # Rendering Template
         mako.runtime.UNDEFINED = 'MISSING_IN_CONTEXT'
-        rendered_template = Template(template_string).render(**context)
-        rendered_template = FileSystem.filterBlankLines(rendered_template)
+        rendered_template = Template(template_string, lookup=TemplateLookup(directories=[includes_dir])).render(**context)
+        rendered_template = Render.filterBlankLines(rendered_template)
         # And Saving to File ...
         FileSystem.saveFileContent(rendered_template, p_rendered_filename)
 
     @staticmethod
-    def renderDir(p_input_dir : str, p_output_dir : str, context : dict, file_ext: str = ""):
-        template_files = FileSystem.safeListFiles(p_input_dir, file_ext=file_ext, keepExt=True)
-        Term.print_yellow ("Rendering Templates Dir : [" + p_input_dir  + "]")
-        Term.print_yellow ("Rendering Artifacts Dir : [" + p_output_dir + "]")
-        # Generating Context File
-        contexts_dir = p_output_dir + os.sep + "_Contexts"
-        FileSystem.createDir(contexts_dir)
-        context_file_yaml = contexts_dir + os.sep + context["DATAMODEL"] + "_context.yaml"
-        context_file_json = contexts_dir + os.sep + context["DATAMODEL"] + "_context.json"
-        Term.print_yellow ("Rendering Context File  : [" + context_file_yaml + "]")
-        Term.print_verbose("Rendering Context : [\n" + yaml.safe_dump(context, indent=2, default_flow_style=False, sort_keys=False) + "\n]")
-        FileSystem.saveFileContent(yaml.safe_dump(context, indent=2, default_flow_style=False, sort_keys=False), context_file_yaml)
-        FileSystem.saveFileContent(json.dumps(context, indent=3), context_file_json)
-        # Rendering Single Level Template Directory
-        for template_file in template_files:
-            if os.path.isdir(p_input_dir  + os.sep + template_file) : continue
-            p_template_filename = p_input_dir  + os.sep + template_file
-            p_rendered_filename = p_output_dir + os.sep + template_file.replace("_Template", "").replace(".mako", "").replace("_mako", "")
-            FileSystem.render(p_template_filename, p_rendered_filename, context)
-
-    @staticmethod
-    def renderDir2(p_input_dir : str, p_output_dir : str, context : dict, file_ext: str = "", root : bool = True, name : str = None):
-        Term.print_yellow("Rendering Templates Dir : [" + p_input_dir + "]")
-        Term.print_yellow("Rendering Artifacts Dir : [" + p_output_dir + "]")
+    def renderSubDir(p_templates_dir : str, p_artifacts_dir : str, context : dict, file_ext: str = "", root : bool = True, name : str = None):
+        Term.print_yellow("Rendering Templates Dir : [" + p_templates_dir + "]")
+        Term.print_yellow("Rendering Artifacts Dir : [" + p_artifacts_dir + "]")
         if (root) :
             # Generating Context File
-            contexts_dir = p_output_dir + os.sep + "_Contexts"
+            contexts_dir = p_artifacts_dir + os.sep + "_Contexts"
             FileSystem.createDir(contexts_dir)
             context_file_yaml = contexts_dir + os.sep + context["DATAMODEL"] + "_context.yaml"
             context_file_json = contexts_dir + os.sep + context["DATAMODEL"] + "_context.json"
@@ -316,43 +349,43 @@ class FileSystem:
                 FileSystem.saveFileContent(yaml.safe_dump(context["ENTITIES"][entity], indent=2, default_flow_style=False, sort_keys=False),context_file_yaml)
                 FileSystem.saveFileContent(json.dumps(context["ENTITIES"][entity], indent=3), context_file_json)
         # Rendering Multi Level Template Directory
-        for template_file in os.listdir(p_input_dir):
+        for template_file in os.listdir(p_templates_dir):
             if template_file.startswith("."+os.sep+".git"): continue
             if template_file.startswith("."+os.sep+".idea"): continue
             if template_file.startswith("."+os.sep+"venv"): continue
-            print(str(p_input_dir + os.sep + template_file))
-            if (os.path.isdir(p_input_dir + os.sep + template_file)):
+            print(str(p_templates_dir + os.sep + template_file))
+            if (os.path.isdir(p_templates_dir + os.sep + template_file)):
                 if ("${ENTITY}" in template_file) :
                     for entity in context["ENTITIES"] :
-                        new_dir = p_output_dir + os.sep + template_file.replace("${ENTITY}", entity)
+                        new_dir = p_artifacts_dir + os.sep + template_file.replace("${ENTITY}", entity)
                         Term.print_blue("Creating Dir : "+new_dir)
                         if not os.path.exists(new_dir): os.makedirs(new_dir)
-                        FileSystem.renderDir2(p_input_dir + os.sep + template_file, new_dir, context["ENTITIES"][entity], root=False, name=entity)
+                        Render.renderDir2(p_templates_dir + os.sep + template_file, new_dir, context["ENTITIES"][entity], root=False, name=entity)
                 else:
-                    new_dir = p_output_dir + os.sep + template_file
+                    new_dir = p_artifacts_dir + os.sep + template_file
                     Term.print_blue("Creating Dir : " + new_dir)
                     if not os.path.exists(new_dir): os.makedirs(new_dir)
-                    FileSystem.renderDir2(p_input_dir + os.sep + template_file, new_dir, context, root=False)
+                    Render.renderDir2(p_templates_dir + os.sep + template_file, new_dir, context, root=False)
             else:
                 if ("${ENTITY}" in template_file) :
                     if ("ENTITIES" in context):
                         for entity in context["ENTITIES"]:
-                            p_template_filename = p_input_dir  + os.sep + template_file
-                            p_rendered_filename = p_output_dir + os.sep + template_file.replace("${ENTITY}", entity)
-                            FileSystem.render(p_template_filename, p_rendered_filename, context["ENTITIES"][entity])
+                            p_template_filename = p_templates_dir  + os.sep + template_file
+                            p_rendered_filename = p_artifacts_dir + os.sep + template_file.replace("${ENTITY}", entity)
+                            Render.render(p_template_filename, p_rendered_filename, context["ENTITIES"][entity])
                     else:
-                        p_template_filename = p_input_dir  + os.sep + template_file
-                        p_rendered_filename = p_output_dir + os.sep + template_file.replace("${ENTITY}", name)
-                        FileSystem.render(p_template_filename, p_rendered_filename, context)
+                        p_template_filename = p_templates_dir  + os.sep + template_file
+                        p_rendered_filename = p_artifacts_dir + os.sep + template_file.replace("${ENTITY}", name)
+                        Render.render(p_template_filename, p_rendered_filename, context)
                 else:
-                    p_template_filename = p_input_dir + os.sep + template_file
-                    p_rendered_filename = p_output_dir + os.sep + template_file.replace("_Template", "").replace(".mako", "").replace("_mako", "")
-                    FileSystem.render(p_template_filename, p_rendered_filename, context)
+                    p_template_filename = p_templates_dir + os.sep + template_file
+                    p_rendered_filename = p_artifacts_dir + os.sep + template_file.replace("_Template", "").replace(".mako", "").replace("_mako", "")
+                    Render.render(p_template_filename, p_rendered_filename, context)
 
 
     @staticmethod
-    def listFiles(p_input_dir : str):
-        for root, dirs, files in os.walk(p_input_dir):
+    def listFiles(p_templates_dir : str):
+        for root, dirs, files in os.walk(p_templates_dir):
             if root.startswith("."+os.sep+".git"): continue
             if root.startswith("."+os.sep+".idea"): continue
             if root.startswith("."+os.sep+"venv"): continue
@@ -389,7 +422,6 @@ class Util:
 ###
 ### Path Generation
 ###
-
 
 class Path:
 
@@ -1207,7 +1239,7 @@ def get_entity_property_value(p_entity : dict, p_property: str) -> str :
 
 
 def lets_do_openapi_yaml():
-    global data_model, input_dir, output_dir, openapi
+    global data_model, templates_dir, artifacts_dir, openapi, context_mako
 
     """ Created Openapi Yaml from Data Model """
     Term.print_yellow("> lets_do_openapi Yaml API")
@@ -1262,6 +1294,10 @@ def lets_do_openapi_yaml():
             securitySchemes = Term.json_load(entities["OpenAPI"]["properties"]["securitySchemes"]["description"])
             open_api_yaml["components"] = dict()
             open_api_yaml["components"]["securitySchemes"] = securitySchemes
+
+        if ("context" in entities["OpenAPI"]["properties"]):
+            op_context = Term.json_load(entities["OpenAPI"]["properties"]["context"]["description"])
+            context_mako = {**context_mako , **op_context}
 
         openapi = open_api_yaml
         del entities["OpenAPI"]
@@ -1366,7 +1402,7 @@ def lets_do_openapi_yaml():
     # Done - Save
     yaml_text = yaml.safe_dump(open_api, indent=2, default_flow_style=False, sort_keys=False)
     Term.print_verbose(yaml_text)
-    yaml_file = output_dir + os.sep + FileSystem.get_basename(data_model)+"_API.yaml"
+    yaml_file = artifacts_dir + os.sep + FileSystem.get_basename(data_model)+"_API.yaml"
     FileSystem.saveFileContent(yaml_text, yaml_file)
     Term.print_blue("Ready   : " + yaml_file)
 
@@ -1378,7 +1414,7 @@ schemas  = {}
 
 
 def lets_do_json_schema():
-    global data_model, input_dir, output_dir
+    global data_model, templates_dir, artifacts_dir
     Term.print_yellow("> lets_do_json Schema")
     ex_objets = {}
 
@@ -1531,7 +1567,7 @@ def lets_do_json_schema():
                 if ("$id"     in schemas[schema2]): del schemas[schema2]["$id"]
                 schemas[schema]["$defs"][schema2] = schemas[schema2]
             # Generate Schema File - multiple _ROOT
-            # schema_file = output_dir + FileSystem.get_basename(data_model) + "_" + schema + "_Schema.json"
+            # schema_file = artifacts_dir + FileSystem.get_basename(data_model) + "_" + schema + "_Schema.json"
             # FileSystem.saveFileContent(json.dumps(schemas[schema], indent=3), schema_file)
             # Generate Schema File - assuming only one _ROOT
             schema_file = data_model + "_Schema.json"
@@ -1547,7 +1583,7 @@ def lets_do_json_schema():
 
 
 def lets_do_datastore(with_upload : bool = True):
-    global data_model, input_dir, output_dir
+    global data_model, templates_dir, artifacts_dir
     Term.print_yellow("> lets_do_datastore API Targets")
 
     entities_json = copy.deepcopy(entities)
@@ -1640,7 +1676,7 @@ def lets_do_datastore(with_upload : bool = True):
         if ("PATH" not in entity_desc): continue
         api_target = entity_desc["PATH"]
         if ("PATH" in entities_json[entity]): del entities_json[entity]["PATH"]
-        schema_dir = output_dir + os.sep + "_Schemas"
+        schema_dir = artifacts_dir + os.sep + "_Schemas"
         FileSystem.createDir(schema_dir)
         schema_file = schema_dir + os.sep + FileSystem.get_basename(data_model) + "_" + entity + "_Schema.json"
         Term.print_yellow(schema_file)
@@ -1656,7 +1692,7 @@ def lets_do_datastore(with_upload : bool = True):
 
 
 def lets_do_render():
-    global data_model, input_dir, output_dir, openapi
+    global data_model, templates_dir, artifacts_dir, openapi
     Term.print_yellow("> lets_do_render artifacts")
 
     context = {
@@ -1664,26 +1700,19 @@ def lets_do_render():
         "OPENAPI"   : openapi,
         "ENTITIES"  : entities
     }
-    FileSystem.renderDir(input_dir, output_dir, context)
-    FileSystem.renderDir2(input_dir, output_dir, context)
+    if (context_file): context = {**context, **FileSystem.loadFileData(context_file)}
+    if (context_mako): context = {**context, **context_mako}
+    Render.renderSubDir(templates_dir, artifacts_dir, context)
 
     Term.print_yellow("< lets_do_render")
 
 
 def lets_do_it(do_what : str = "schema, openapi, render"):
-    global data_model, input_dir, output_dir
-    input_dir  = data_model + input_dir_suffix
-    output_dir = data_model + output_dir_suffix
-    if FileSystem.is_FileExist(data_model+".architect"):
-        Term.print_blue("Reading : "+data_model+".architect")
-        architect = Architect()
-        architect.read_architect(data_model)
-    else:
-        Term.print_error("Model not found : "+data_model)
-        return
+    global data_model, templates_dir, artifacts_dir, includes_dir
 
-    FileSystem.createDir(data_model + input_dir_suffix)
-    FileSystem.createDir(data_model + output_dir_suffix)
+    # Create Dir Structure ...
+    FileSystem.createDir(data_model + templates_dir_suffix)
+    FileSystem.createDir(data_model + artifacts_dir_suffix)
 
     # Backup architect file
     backup_dir  = FileSystem.get_dirname(data_model) + os.sep + "Archive"
@@ -1691,13 +1720,19 @@ def lets_do_it(do_what : str = "schema, openapi, render"):
     FileSystem.createDir(backup_dir)
     shutil.copyfile(data_model+".architect", backup_dir + os.sep + backup_file)
 
+    # Read architect file
+    Term.print_blue("Reading : "+data_model+".architect")
+    architect = Architect()
+    architect.read_architect(data_model)
+
+    # Generate ...
     if ("schema" in do_what.lower()) :
         lets_do_json_schema()
     if (("openapi" in do_what.lower()) or ("yaml" in do_what.lower())) :
         lets_do_openapi_yaml()
-    if ("render" in do_what.lower()) :
+    if (("render" in do_what.lower()) or ("data" in do_what.lower())) :
         lets_do_render()
-    if ("datastore" in do_what.lower()) :
+    if ("anme" in do_what.lower()) :
         lets_do_datastore()
 
 
@@ -1707,6 +1742,10 @@ class Test(unittest.TestCase):
         Term.print_red("> Setup")
         Term.setVerbose()
         Term.print_red("< Setup")
+
+    def testListFiles(self):
+        FileSystem.listFiles(".")
+        print(os.listdir("."))
 
     def testValidateSchema(self):
         Term.print_green("> testValidateSchema")
@@ -1725,24 +1764,23 @@ class Test(unittest.TestCase):
         validate(instance=obj_instance, schema=schema)
         Term.print_green("< testValidateSchema")
 
-    def testGenerateNEFConfigurationSchema(self):
+    def testGenerate_NEF_Configuration_Service_Schema(self):
         Term.setVerbose(False)
-        lets_do_it("NEF"+os.sep+"NEF_Configuration", "schema")
+        global data_model
+        data_model = "NEF"+os.sep+"NEF_Configuration"+os.sep+"NEF_Configuration"
+        lets_do_it("openapi schema")
 
-    def testGenerateNEFConfigurationService(self):
+    def testGenerate_NEF_MarketPlace_DataService(self):
         Term.setVerbose(False)
-        lets_do_it("NEF"+os.sep+"NEF_Configuration"+os.sep+"NEF_Configuration_Service", "openapi")
-
-    def testGenerateNEFMarketPlaceDataService(self):
-        Term.setVerbose(False)
-        lets_do_it("NEF"+os.sep+"NEF_MarketPlace"+os.sep+"NEF_MarketPlace_DataModel", "openapi")
+        global data_model
+        data_model = "NEF"+os.sep+"NEF_MarketPlace"+os.sep+"NEF_MarketPlace_DataModel"
+        lets_do_it("openapi schema render")
 
     def testGenerate_NEF_Catalog_DataService(self):
         Term.setVerbose(False)
         global data_model
         data_model = "NEF"+os.sep+"NEF_Catalog"+os.sep+"NEF_Catalog_DataModel"
-        lets_do_it("openapi + schema + render")
-        # lets_do_it("Nef"+os.sep+"NEF_Catalog_DataModel", "openapi + schema + datastore + render")
+        lets_do_it("openapi schema render")
 
     def testGenerate_NEF_ApplicationUserProfile_DataService(self):
         Term.setVerbose(False)
@@ -1750,28 +1788,152 @@ class Test(unittest.TestCase):
         data_model = "NEF"+os.sep+"NEF_ApplicationUserProfile"+os.sep+"NEF_ApplicationUserProfile_DataModel"
         lets_do_it("openapi + schema + render")
 
-    def testGenerate_NEF_ApplicationUserProfile_DataService(self):
+    def testGenerate_NEF_API_Subscription_DataService(self):
         Term.setVerbose(False)
         global data_model
-        data_model = "NEF"+os.sep+"NEF_API_Subscription"+os.sep+"NEF_API_Subscription_Procedure"
-        lets_do_it("openapi + schema + render")
-
+        data_model = "NEF" + os.sep + "NEF_API_Subscription" + os.sep + "NEF_API_Subscription_Procedure"
+        lets_do_it("openapi schema render")
 
     def testGenerate_SCEF_Service(self):
         Term.setVerbose(True)
         global data_model
-        data_model = "NEF"+os.sep+"NEF_SCEF"+os.sep+"NEF_SCEF_API"
-        lets_do_it("openapi render")
+        data_model = "NEF" + os.sep + "NEF_SCEF" + os.sep+"NEF_SCEF_API"
+        lets_do_it("openapi")
 
-    def testListFiles(self):
-        FileSystem.listFiles(".")
-        print(os.listdir("."))
+    def testGenerate_NEF_API_Data_Model_Sample(self):
+        Term.print_red("> testGenerate_NEF_API_Data_Model_Sample")
+        Term.setVerbose(False)
+        global context_file, data_model, artifacts_dir, templates_dir, includes_dir
+        data_model    = "NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample"
+        context_file  = data_model + "_context.yaml"
+        templates_dir = data_model + templates_dir_suffix
+        artifacts_dir = data_model + artifacts_dir_suffix
+        includes_dir  = "NEF" + os.sep + "include"
+        lets_do_it("openapi schema render")
+        Term.print_blue(ARTIFACTS_DIR)
+        self.assertTrue(FileSystem.is_FileExist(artifacts_dir + os.sep+"API_Data_Model_Sample_API.yaml"))
+        self.assertTrue(FileSystem.is_FileExist(artifacts_dir + os.sep+"_Contexts"+os.sep+"API_Data_Model_Sample_context.json"))
+        self.assertTrue(FileSystem.is_FileExist(artifacts_dir + os.sep+"_Contexts"+os.sep+"API_Data_Model_Sample_context.yaml"))
+        self.assertTrue(FileSystem.is_FileExist(artifacts_dir + os.sep+"ServicesCatalog.sql"))
+        self.assertIn("TT", FileSystem.loadFileContent(artifacts_dir + os.sep+"ServicesCatalog.sql"))
 
+
+def read_command_line_args(argv, p_usage : bool = False):
+    global VERBOSE
+    global INCLUDES_DIR, DATA_MODEL, CONTEXT_FILE
+    global RENDER, YAML, SCHEMA, DATASTORE
+    global ARTIFACTS_DIR, TEMPLATES_DIR
+
+    usage = """
+Usage: -v -r -y -o -s -d -m <model> -t <templates_dir> -a <artifacts_dir> -i <includes_dir> -c <context_file>  
+       -m --model    <file> : Generate for model <model_file>.architect                 
+       -c --context  <file> : Context File for rendering <context_file>.[json|yaml]                 
+       -t --templates <dir> : Use <dir> as templates dir                      
+       -a --artifacts <dir> : Use <dir> as artifacts dir                      
+       -i --include   <dir> : Use <dir> as include template dir                      
+       -r --render      : Render <model_file>_template dir into <model_file>_artifacts dir
+       -y --yaml        : Generate OpenAPI Yaml <model_file>_artifacts dir
+       -o --openapi     : Generate OpenAPI Yaml <model_file>_artifacts dir
+       -s --schema      : Generate JSON Schema  <model_file>_artifacts/_Schemas dir
+       -d --datastore   : Generate and provision ANME Datastore               
+       -v --verbose     : Verbose     
+"""
+
+    if (p_usage) :
+        return usage
+
+    Term.print_yellow("Command Line Arguments : " + str(argv))
+
+    try:
+        opts, args = getopt.getopt(argv, "hvrydosm:t:a:i:c:", ["verbose", "datastore", "schema" , "openapi" , "yaml" , "render" , "include=", "model=", "templates=", "artifacts=", "context="])
+    except getopt.GetoptError as e:
+        Term.print_yellow("GetoptError : " + str(e))
+        print(usage)
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print(usage)
+            quit()
+        elif opt in ("-v", "-V", "-verbose", "-VERBOSE"):
+            VERBOSE = True
+            continue
+        elif opt in ("-o", "-O", "-openapi", "-OPENAPI"):
+            YAML = "openapi"
+            continue
+        elif opt in ("-y", "-Y", "-yaml", "-YAML"):
+            YAML = "openapi"
+            continue
+        elif opt in ("-s", "-S", "-schema", "-SCHEMA"):
+            SCHEMA = "schema"
+            continue
+        elif opt in ("-d", "-D", "-datastore", "-DATASTORE"):
+            DATASTORE = "datastore"
+            continue
+        elif opt in ("-r", "-R", "-render", "-RENDER"):
+            RENDER = "render"
+            Term.print_yellow("RENDER : " + RENDER)
+            continue
+        elif opt in ("-m", "-M", "-model", "-MODEL"):
+            Term.print_yellow("MODEL : " + arg)
+            DATA_MODEL = arg
+            continue
+        elif opt in ("-c", "-C", "-context", "-CONTEXT"):
+            Term.print_yellow("CONTEXT : " + arg)
+            CONTEXT_FILE = arg
+            continue
+        elif opt in ("-t", "-T", "-templates", "-TEMPLATES"):
+            Term.print_yellow("TEMPLATES : " + arg)
+            TEMPLATES_DIR = arg
+            continue
+        elif opt in ("-a", "-A", "-artifacts", "-ARTIFACTS"):
+            TEMPLATES_DIR = arg
+            continue
+        elif opt in ("-i", "-I", "-include", "-INCLUDE"):
+            INCLUDES_DIR = arg
+            continue
+
+
+read_command_line_args(argv=sys.argv[1:])
 
 if __name__ == '__main__':
-    what = "openapi, render"
-    if (len(sys.argv) >= 2):
-        data_model = sys.argv[1]
-    if (len(sys.argv) >= 3):
-        what = sys.argv[2]
+
+    if (DATA_MODEL) :
+        DATA_MODEL = str(DATA_MODEL).replace(".architect" , "")
+
+    if (DATA_MODEL) and FileSystem.is_FileExist(DATA_MODEL+".architect"):
+        data_model = DATA_MODEL
+        Term.print_blue("Model : "+data_model+".architect")
+    else:
+        Term.print_error("Model not found : "+str(data_model))
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+
+    if (CONTEXT_FILE) and FileSystem.is_FileExist(CONTEXT_FILE):
+        context_file = CONTEXT_FILE
+        Term.print_blue("Context File : "+context_file)
+        context_mako = FileSystem.loadFileContent(context_file)
+
+    if (TEMPLATES_DIR) and (not FileSystem.is_DirExist(TEMPLATES_DIR)):
+        Term.print_error("Templates Dir not found : " + TEMPLATES_DIR)
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+    templates_dir = TEMPLATES_DIR if TEMPLATES_DIR else "." + os.sep + DATA_MODEL + templates_dir_suffix
+    Term.print_yellow("Templates Dir : " + templates_dir)
+
+    if (ARTIFACTS_DIR) and (not FileSystem.is_DirExist(ARTIFACTS_DIR)):
+        Term.print_error("Artifacts Dir not found : " + ARTIFACTS_DIR)
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+    artifacts_dir = ARTIFACTS_DIR if ARTIFACTS_DIR else "." + os.sep + DATA_MODEL + artifacts_dir_suffix
+    Term.print_yellow("Artifacts Dir : " + artifacts_dir)
+
+    if (INCLUDES_DIR) and (not FileSystem.is_DirExist(INCLUDES_DIR)):
+        Term.print_error("Include Dir not found : " + INCLUDES_DIR)
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+    includes_dir = INCLUDES_DIR if INCLUDES_DIR else "." + os.sep + "include"
+    Term.print_yellow("Include Dir : " + includes_dir)
+
+    what       = YAML + " " + SCHEMA + " " + RENDER + " " + DATASTORE
+    Term.print_yellow("Generating : " + what)
     lets_do_it(what)
