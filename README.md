@@ -63,7 +63,7 @@ See below how to Model with SQL Architect for OpenAPI:
 
 ## Generate your API: 
 
-    python    .\data_model_to_openapi.py .\API_Data_Model_Sample
+    python    .\data_model_to_openapi.py -m .\API_Data_Model_Sample
     Reading : .\API_Data_Model_Sample.architect
     Ready   : .\API_Data_Model_Sample.yaml
 
@@ -274,6 +274,57 @@ then one file or directory per entities with the _PATH attribute will be generat
 
 Instead of passing the overall project context for code generation, only the context for this object type is available.
 The context can be examined in the files `<model>_artifacts/<entity_name>_context.[yaml|json]` generated in the artifact root directory (onne for each entity).
+
+### Adding Extra Context for Code Generation 
+
+If additional context information is necessary to be added in template context (adding place-holders keywords),
+this can be done either within the model, or in a separate file:
+
+#### In Model :
+- Create a context attribute in the OpenAPI entity.
+- Set the necessary context in the remarks field, in JSON format.
+
+![](images/Picture1.png)
+
+#### In Separate file :
+- Create a file with the context as content in JSON or YAML format.
+- Specify the file path in the command line parameter : -c <context_file>.[json|yaml]
+
+![](images/Picture2.png)
+
+### Template Includes
+
+- External template files can be included and reused in several templates.
+- This can be combined with %def blocks.
+
+![](images/Picture3.png)
+
+- All included files should be in a single include directory 
+- Specify include directory path in the command line parameter : -i <dir>
+
+### Template and Artifact Directory Locations 
+
+- Specify templates source directory path in the command line parameter : -t <dir>
+- Specify artifacts destination directory path in the command line parameter : -a <dir>
+
+### Model File Location
+
+- Specify architect model file path in the command line parameter : -m <file>
+
+### Command Line Usage 
+
+    Usage: -v -r -y -o -s -d -m <model> -t <templates_dir> -a <artifacts_dir> -i <includes_dir> -c <context_file>  
+           -m --model    <file> : Generate for model <model_file>.architect                 
+           -c --context  <file> : Context File for rendering <context_file>.[json|yaml]                 
+           -t --templates <dir> : Use <dir> as templates dir                      
+           -a --artifacts <dir> : Use <dir> as artifacts dir                      
+           -i --include   <dir> : Use <dir> as include template dir                      
+           -r --render      : Render <model_file>_template dir into <model_file>_artifacts dir
+           -y --yaml        : Generate OpenAPI Yaml <model_file>_artifacts dir
+           -o --openapi     : Generate OpenAPI Yaml <model_file>_artifacts dir
+           -s --schema      : Generate JSON Schema  <model_file>_artifacts/_Schemas dir
+           -d --datastore   : Generate and provision ANME Datastore               
+           -v --verbose     : Verbose    
 
 
 # DbSchema to OpenAPI 
