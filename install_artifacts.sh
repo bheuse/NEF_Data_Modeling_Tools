@@ -1,10 +1,13 @@
 #! /usr/bin/bash
 
+function generate() {
+    architect=$1
+    python data_model_to_openapi.py -r -y -o -s -d -m $architect -i NEF/include
+}
+
 # Services Catalog Service
 
-cd NEF/NEF_Catalog
-python ../../data_model_to_openapi.py NEF_Catalog_DataModel
-cd ../..
+generate NEF/NEF_Catalog/NEF_Catalog_DataModel
 
 # API
 cp NEF/NEF_Catalog/NEF_Catalog_DataModel_artifacts/NEF_Catalog_DataModel_API.yaml ../services-catalog-service-api/services-catalog-service-api/src/main/resources
@@ -17,3 +20,7 @@ cp NEF/NEF_Catalog/NEF_Catalog_DataModel_artifacts/ServicesCatalogManagerImpl.ja
 cp NEF/NEF_Catalog/NEF_Catalog_DataModel_artifacts/DatastoreApiServiceImpl.java ../services-catalog-service-service/services-catalog-service-service-impl/src/main/java/com/openet/modules/nef/servicescatalogservice/service/service/impl
 # System tests
 cp NEF/NEF_Catalog/NEF_Catalog_DataModel_artifacts/ServicesCatalogService.feature ../services-catalog-service-packager/services-catalog-service-system-test/src/test/java/com/openet/services_catalog_service/test/features
+
+# Application User Profile Service
+
+generate NEF/NEF_ApplicationUserProfile/NEF_ApplicationUserProfile_DataModel
