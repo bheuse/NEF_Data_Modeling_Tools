@@ -1,10 +1,10 @@
-<%def name="generate(managerName, serviceName)">
+<%def name="generate(managerName, managerPackageName, servicePackageName)">
 /* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARCHITECT SOURCE INSTEAD */
 \n
-package com.openet.servicescatalogmanager.api;
+package com.openet.${managerPackageName}.api;
 \n
-import com.openet.modules.nef.${serviceName}.service.api.beans.DatastoreApiBeans.*;
-import com.openet.modules.nef.${serviceName}.service.api.model.*;
+import com.openet.modules.nef.${servicePackageName}.api.beans.DatastoreApiBeans.*;
+import com.openet.modules.nef.${servicePackageName}.api.model.*;
 import com.openet.sba.core.flowcontext.api.FlowContext;
 import com.openet.sba.core.provider.annotations.ProviderEnabledApi;
 import io.reactivex.Completable;

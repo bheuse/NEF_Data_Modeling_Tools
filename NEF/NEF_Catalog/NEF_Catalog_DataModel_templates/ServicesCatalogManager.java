@@ -1,3 +1,3 @@
 <%namespace name="manager" file="manager.mako"/>
 
-${manager.generate('ServicesCatalogManager', 'servicescatalogservice')}
+${manager.generate('ServicesCatalogManager', 'servicescatalogmanager', 'servicescatalogservice.service')}

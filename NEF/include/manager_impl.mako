@@ -1,4 +1,5 @@
-<%def name="generate(managerName, servicePackageName, managerPackagerName)">
+<%def name="generate(managerName, managerPackagerName, servicePackageName, serviceShortName)">
+<% prefix = 'NEF_' + serviceShortName %>
 /* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARCHITECT SOURCE INSTEAD */
 \n
 package com.openet.${managerPackagerName}.impl;
@@ -56,7 +57,7 @@ public class ${managerName}Impl implements ${managerName} {
     public Single<${className}> create${className}(${className} entity, FlowContext ctx) {
         entity.setId(UUID.randomUUID().toString());
 \n
-        String procedureName = "NEF_create${ENTITY}";
+        String procedureName = "${prefix}_create${ENTITY}";
         return executeProcedureRx(ctx,
                 procedureName,
                 entity.getId(),
@@ -68,7 +69,7 @@ public class ${managerName}Impl implements ${managerName} {
 \n
     @Override
     public Single<${className}> update${className}(${className} entity, FlowContext ctx) {
-        String procedureName = "NEF_update${ENTITY}";
+        String procedureName = "${prefix}_update${ENTITY}";
         return executeProcedureRx(ctx,
                 procedureName,
                 Json.encode(entity),
@@ -81,7 +82,7 @@ public class ${managerName}Impl implements ${managerName} {
 \n
     @Override
     public Completable delete${className}(String id, FlowContext ctx) {
-        String procedureName = "NEF_delete${ENTITY}";
+        String procedureName = "${prefix}_delete${ENTITY}";
         return executeProcedureRx(ctx, procedureName, id)
                 .doOnSuccess(response -> logResponse(procedureName, response, ctx))
                 .doOnSuccess(response -> checkResponseStatus(procedureName, response, ctx))
@@ -92,7 +93,7 @@ public class ${managerName}Impl implements ${managerName} {
 % endif
     @Override
     public Single<${className}> get${className}(String id, FlowContext ctx) {
-        String procedureName = "NEF_get${ENTITY}";
+        String procedureName = "${prefix}_get${ENTITY}";
         return executeProcedureRx(ctx, procedureName, id)
                 .doOnSuccess(response -> logResponse(procedureName, response, ctx))
                 .doOnSuccess(response -> checkResponseStatus(procedureName, response, ctx))
@@ -110,7 +111,7 @@ public class ${managerName}Impl implements ${managerName} {
 \n
     @Override
     public Single<List<${className}>> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx) {
-        String procedureName = "NEF_getAll${ENTITY}";
+        String procedureName = "${prefix}_getAll${ENTITY}";
         return executeProcedureRx(ctx, procedureName,
                 ${generateFilterParams(ENTITY_DATA)}
                 queryParams.getLimit() != null ? queryParams.getLimit() : Integer.MAX_VALUE,
