@@ -1,4 +1,4 @@
-<%def name="generate(serviceName)">
+<%def name="generate(serviceName, shortServiceName)">
 <%
 def readableString(str):
     res = ''
@@ -18,7 +18,7 @@ Feature: ${readableString(serviceName)} operations
 \n
   Background:
     * url apiBaseUrl
-<% deleteFromTablesQuery = '; '.join(['DELETE FROM NEF_' + ENTITY for ENTITY, ENTITY_DATA in ENTITIES.items() if 'PATH' in ENTITY_DATA]) %>
+<% deleteFromTablesQuery = '; '.join(['DELETE FROM NEF_' + shortServiceName + '_' + ENTITY for ENTITY, ENTITY_DATA in ENTITIES.items() if 'PATH' in ENTITY_DATA]) %>
     * configure afterScenario =
       """
       function() {

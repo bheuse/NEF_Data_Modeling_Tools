@@ -1,5 +1,5 @@
-<%def name="generate(serviceShortName)">
-<% prefix = '@@DOC_PREFIX@@_' + serviceShortName %>
+<%def name="generate(shortServiceName)">
+<% prefix = '@@DOC_PREFIX@@_' + shortServiceName %>
 /* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARCHITECT SOURCE INSTEAD */
 \n
 /* DDL for ${DATAMODEL} */

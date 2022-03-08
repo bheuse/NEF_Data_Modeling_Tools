@@ -1,4 +1,4 @@
-<%def name="generate(serviceName, servicePackageName, serviceShortName, pidPrefix, managerName, managerPackageName)">
+<%def name="generate(serviceName, servicePackageName, shortServiceName, pidPrefix, managerName, managerPackageName)">
 /* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARCHITECT SOURCE INSTEAD */
 \n
 package com.openet.modules.nef.${servicePackageName}.service.impl;
@@ -69,7 +69,7 @@ public class ${serviceName}Impl implements ${serviceName} {
         logger.trace(ctx.getMarker(), "create${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_CREATE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${shortServiceName}_CREATE))
                 .flatMap(output -> ${managerProviderName}.get().create${className}(serviceData.getRequest(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -83,7 +83,7 @@ public class ${serviceName}Impl implements ${serviceName} {
                 .setId(serviceData.getPathParams().getId());
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_UPDATE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${shortServiceName}_UPDATE))
                 .flatMap(output -> ${managerProviderName}.get().update${className}(serviceData.getRequest(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -94,7 +94,7 @@ public class ${serviceName}Impl implements ${serviceName} {
         logger.trace(ctx.getMarker(), "delete${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_DELETE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${shortServiceName}_DELETE))
                 .flatMap(output -> ${managerProviderName}.get().delete${className}(serviceData.getPathParams().getId(), ctx)
                         .andThen(Single.just(new ApiResponse<Void>())))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -106,7 +106,7 @@ public class ${serviceName}Impl implements ${serviceName} {
         logger.trace(ctx.getMarker(), "get${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_READ))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${shortServiceName}_READ))
                 .flatMap(output -> ${managerProviderName}.get().get${className}(serviceData.getPathParams().getId(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -117,7 +117,7 @@ public class ${serviceName}Impl implements ${serviceName} {
         logger.trace(ctx.getMarker(), "get${className}s()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_READ))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${shortServiceName}_READ))
                 .flatMap(output -> ${managerProviderName}.get().getAll${className}(serviceData.getQueryParams(), ctx))
                 .map(entities -> new ApiResponse<>(entities))
                 .onErrorResumeNext(error -> createErrorReply(error));

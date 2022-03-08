@@ -1,5 +1,5 @@
-<%def name="generate(managerName, managerPackagerName, servicePackageName, serviceShortName)">
-<% prefix = 'NEF_' + serviceShortName %>
+<%def name="generate(managerName, managerPackagerName, servicePackageName, shortServiceName)">
+<% prefix = 'NEF_' + shortServiceName %>
 /* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARCHITECT SOURCE INSTEAD */
 \n
 package com.openet.${managerPackagerName}.impl;
