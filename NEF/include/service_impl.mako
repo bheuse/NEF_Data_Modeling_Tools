@@ -1,21 +1,20 @@
 <%def name="generate(serviceName, servicePackageName, serviceShortName, pidPrefix, managerName, managerPackageName)">
 /* THIS IS AUTO GENERATED CODE. DO NOT CHANGE. CHANGE ARCHITECT SOURCE INSTEAD */
 \n
-package com.openet.modules.nef.${servicePackageName}.service.service.impl;
+package com.openet.modules.nef.${servicePackageName}.service.impl;
 \n
 import com.openet.fusionworks.component.statistics.StatisticsInterface;
 import com.openet.fusionworks.component.statistics.StatisticsInterfaceProvider;
 import com.openet.modules.deployment.config.api.DeploymentConfigApi;
 import com.openet.modules.deployment.config.api.DeploymentConfigFields;
 import com.openet.modules.framework.vertx.core.common.ApiResponse;
-import com.openet.modules.nef.${servicePackageName}.service.api.model.*;
-import com.openet.modules.nef.${servicePackageName}.service.api.service.DatastoreApiService;
+import com.openet.modules.nef.${servicePackageName}.api.model.*;
+import com.openet.modules.nef.${servicePackageName}.api.service.DatastoreApiService;
 import com.openet.sba.core.flowcontext.api.FlowContext;
 import com.openet.sba.core.http.headers.MultiMap;
-import com.openet.${managerPackageName}.api.provider.ServicesCatalogManagerProvider;
+import com.openet.${managerPackageName}.api.provider.${managerName}Provider;
 import com.openet.stages.auth.api.AuthStageInput;
 import com.openet.stages.auth.api.AuthStageOutput;
-import com.openet.stages.auth.api.Role;
 import com.openet.stages.auth.api.provider.AuthStageProvider;
 import com.openet.stages.common.exception.CatchAllErrorWrapper;
 import io.reactivex.Single;
@@ -28,6 +27,8 @@ import org.slf4j.LoggerFactory;
 \n
 import java.util.List;
 import java.util.Map;
+\n
+import static com.openet.stages.auth.api.Role.*;
 \n
 @Component(property = "type=native", configurationPid = "${pidPrefix}.${serviceName}")
 @javax.annotation.Generated(value = "com.openet.sba.codegen.rest.ms.codegen.service.VertxOsgiServiceCodegen", date = "2022-01-28T10:21:26.450+03:00[Europe/Moscow]")
@@ -68,7 +69,7 @@ public class ${serviceName}Impl implements ${serviceName} {
         logger.trace(ctx.getMarker(), "create${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_${serviceShortName}_CREATE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_CREATE))
                 .flatMap(output -> ${managerProviderName}.get().create${className}(serviceData.getRequest(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -82,7 +83,7 @@ public class ${serviceName}Impl implements ${serviceName} {
                 .setId(serviceData.getPathParams().getId());
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_${serviceShortName}_UPDATE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_UPDATE))
                 .flatMap(output -> ${managerProviderName}.get().update${className}(serviceData.getRequest(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -93,7 +94,7 @@ public class ${serviceName}Impl implements ${serviceName} {
         logger.trace(ctx.getMarker(), "delete${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_${serviceShortName}_DELETE))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_DELETE))
                 .flatMap(output -> ${managerProviderName}.get().delete${className}(serviceData.getPathParams().getId(), ctx)
                         .andThen(Single.just(new ApiResponse<Void>())))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -105,7 +106,7 @@ public class ${serviceName}Impl implements ${serviceName} {
         logger.trace(ctx.getMarker(), "get${className}()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_${serviceShortName}_READ))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_READ))
                 .flatMap(output -> ${managerProviderName}.get().get${className}(serviceData.getPathParams().getId(), ctx))
                 .map(entity -> new ApiResponse<>(entity))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -116,7 +117,7 @@ public class ${serviceName}Impl implements ${serviceName} {
         logger.trace(ctx.getMarker(), "get${className}s()");
 \n
         return Single
-                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), Role.ROLE_${serviceShortName}_READ))
+                .defer(() -> authorize(ctx, serviceData.getRequestHeaders(), ROLE_${serviceShortName}_READ))
                 .flatMap(output -> ${managerProviderName}.get().getAll${className}(serviceData.getQueryParams(), ctx))
                 .map(entities -> new ApiResponse<>(entities))
                 .onErrorResumeNext(error -> createErrorReply(error));
@@ -124,7 +125,8 @@ public class ${serviceName}Impl implements ${serviceName} {
 \n
 % endif
 % endfor
-    private Single<AuthStageOutput> authorize(FlowContext ctx, MultiMap requestHeaders, Role role) {
+    private Single<AuthStageOutput> authorize(FlowContext ctx, MultiMap requestHeaders,
+                                              com.openet.stages.auth.api.Role role) {
         AuthStageInput stageInput = new AuthStageInput()
                 .setAuthorizationHeader(requestHeaders.get("Authorization"))
                 .setRole(role);

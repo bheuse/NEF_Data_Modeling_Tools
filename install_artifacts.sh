@@ -52,3 +52,7 @@ cp \
 cp \
     NEF/NEF_ApplicationUserProfile/NEF_ApplicationUserProfile_DataModel_artifacts/ApplicationUserProfileManagerImpl.java \
     ../application-user-profile-manager/application-user-profile-manager-impl/src/main/java/com/openet/applicationuserprofilemanager/impl
+# Service
+cp \
+    NEF/NEF_ApplicationUserProfile/NEF_ApplicationUserProfile_DataModel_artifacts/DatastoreApiServiceImpl.java \
+    ../application-user-profile-service-service/application-user-profile-service-service-impl/src/main/java/com/openet/modules/nef/aups/service/impl
