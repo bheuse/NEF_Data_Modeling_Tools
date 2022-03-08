@@ -749,7 +749,7 @@ Free …</remarks>
     </column>
     <column id="COL78" populated="true" UUID="04b35329-bc72-44a9-b723-06a1c9341003" autoIncrement="false" autoIncrementSequenceName="OpenAPI_context_seq" defaultValue="" name="context" nullable="0" physicalName="context" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>{
-   &quot;PREFIX&quot;: &quot;/datastore&quot;
+   &quot;PATH_PREFIX&quot;: &quot;/datastore&quot;
 }</remarks>
     </column>
     </folder>
@@ -977,7 +977,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL93" populated="true" UUID="6eb22b8c-ac4c-41d1-9658-48d8813104fa" autoIncrement="false" autoIncrementSequenceName="Role_industry_seq" defaultValue="" name="_PATH" nullable="0" physicalName="industry" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL93" populated="true" UUID="6eb22b8c-ac4c-41d1-9658-48d8813104fa" autoIncrement="false" autoIncrementSequenceName="Role_industry_seq" defaultValue="/tt" name="_PATH" nullable="0" physicalName="industry" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>read-only</remarks>
     </column>
     </folder>
@@ -1102,7 +1102,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL101" populated="true" UUID="5ecca17c-4e34-40b2-a801-625419919214" autoIncrement="false" autoIncrementSequenceName="UseCase_industry_seq" defaultValue="" name="_PATH" nullable="0" physicalName="industry" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL101" populated="true" UUID="5ecca17c-4e34-40b2-a801-625419919214" autoIncrement="false" autoIncrementSequenceName="UseCase_usecase_seq" defaultValue="" name="_PATH" nullable="0" physicalName="usecase" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>read-only</remarks>
     </column>
     </folder>

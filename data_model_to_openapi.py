@@ -764,7 +764,10 @@ class Path:
                     l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par) + "," + Path.paths_template_put(put_par) + "," + Path.paths_template_delete(del_par) + " } "
 
                 path   = entities[entity]["PATH"]
-                prefix = entities[entity]["PATH_PREFIX"]
+                if (str(entities[entity]["PATH_PREFIX"]).strip() == "") and ("PATH_PREFIX" in context_mako):
+                    prefix = context_mako["PATH_PREFIX"]
+                else:
+                    prefix = entities[entity]["PATH_PREFIX"]
                 f_paths_template = f_paths_template + sep + Path.paths_table(path, entity, path_prefix=prefix, p_paths_template=l_paths_template)
                 sep = ", "
         Term.print_verbose(f_paths_template)
@@ -1245,9 +1248,6 @@ def lets_do_openapi_yaml():
     Term.print_yellow("> lets_do_openapi Yaml API")
     global entities, links, schema_parameters
 
-    # Create API Operations
-    paths = Term.json_load("{" + Path.create_path(entities) + "}")
-
     # Info Data / Default Values
     open_api_yaml = dict()
     open_api_yaml["openapi"] = "3.0.2"
@@ -1301,6 +1301,9 @@ def lets_do_openapi_yaml():
 
         openapi = open_api_yaml
         del entities["OpenAPI"]
+
+    # Create API Operations
+    paths = Term.json_load("{" + Path.create_path(entities) + "}")
 
     # Clean-up before generation
     entities_yaml = copy.deepcopy(entities)
@@ -1692,7 +1695,7 @@ def lets_do_datastore(with_upload : bool = True):
 
 
 def lets_do_render():
-    global data_model, templates_dir, artifacts_dir, openapi
+    global data_model, templates_dir, artifacts_dir, openapi, context_file, context_mako
     Term.print_yellow("> lets_do_render artifacts")
 
     context = {
@@ -1784,15 +1787,23 @@ class Test(unittest.TestCase):
 
     def testGenerate_NEF_ApplicationUserProfile_DataService(self):
         Term.setVerbose(False)
-        global data_model
-        data_model = "NEF"+os.sep+"NEF_ApplicationUserProfile"+os.sep+"NEF_ApplicationUserProfile_DataModel"
+        global context_file, data_model, artifacts_dir, templates_dir, includes_dir
+        data_model    = "NEF"+os.sep+"NEF_ApplicationUserProfile"+os.sep+"NEF_ApplicationUserProfile_DataModel"
+        # context_file  = data_model + "_context.yaml"
+        templates_dir = data_model + templates_dir_suffix
+        artifacts_dir = data_model + artifacts_dir_suffix
+        includes_dir  = "NEF" + os.sep + "include"
         lets_do_it("openapi + schema + render")
 
     def testGenerate_NEF_API_Subscription_DataService(self):
         Term.setVerbose(False)
-        global data_model
-        data_model = "NEF" + os.sep + "NEF_API_Subscription" + os.sep + "NEF_API_Subscription_Procedure"
-        lets_do_it("openapi schema render")
+        global context_file, data_model, artifacts_dir, templates_dir, includes_dir
+        data_model    = "NEF" + os.sep + "NEF_API_Subscription" + os.sep + "NEF_API_Subscription_Procedure"
+        context_file  = data_model + "_context.yaml"
+        templates_dir = data_model + templates_dir_suffix
+        artifacts_dir = data_model + artifacts_dir_suffix
+        includes_dir  = "NEF" + os.sep + "include"
+        lets_do_it("schema openapi")
 
     def testGenerate_SCEF_Service(self):
         Term.setVerbose(True)
