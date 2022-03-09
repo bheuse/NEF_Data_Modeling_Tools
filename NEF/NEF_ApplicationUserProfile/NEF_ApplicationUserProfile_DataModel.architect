@@ -150,7 +150,7 @@
     <column id="COL9" populated="true" UUID="ad0e1487-2e13-412d-a727-c9233f52071f" autoIncrement="false" autoIncrementSequenceName="Account_Manufacturing, IoT, Drones, Automotive_seq" defaultValue="" name="Industry" nullable="0" physicalName="Manufacturing_IoT_Drones_Automotive" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Informationnal Data</remarks>
     </column>
-    <column id="COL10" populated="true" UUID="ee72f474-2f5b-475d-a51f-0b4554c01e71" autoIncrement="false" autoIncrementSequenceName="Account_Account_seq_1" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="account" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL10" populated="true" UUID="ee72f474-2f5b-475d-a51f-0b4554c01e71" autoIncrement="false" autoIncrementSequenceName="Account_Account_seq_1" defaultValue="" name="_PATH" nullable="0" physicalName="account" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>&lt;context&gt; {
    &quot;PREFIX&quot;: &quot;/datastore&quot;
 } &lt;/context&gt;</remarks>
@@ -223,7 +223,7 @@
     <column id="COL22" populated="true" UUID="797e14c1-925f-4f5c-b860-1284e439ccb2" autoIncrement="false" autoIncrementSequenceName="Service_12, 50_seq" defaultValue="" name="VolumeOrg" nullable="1" physicalName="Column_1_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL23" populated="true" UUID="8d9dc46a-74e1-4f0e-a411-a73998d0ed93" autoIncrement="false" autoIncrementSequenceName="Service_service_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="service" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL23" populated="true" UUID="8d9dc46a-74e1-4f0e-a411-a73998d0ed93" autoIncrement="false" autoIncrementSequenceName="Service_service_seq" defaultValue="" name="_PATH" nullable="0" physicalName="service" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     </folder>
@@ -643,7 +643,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL66" populated="true" UUID="340c7a21-bf9a-449c-8451-65f94dd4145d" autoIncrement="false" autoIncrementSequenceName="Contact_contact_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="contact" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL66" populated="true" UUID="340c7a21-bf9a-449c-8451-65f94dd4145d" autoIncrement="false" autoIncrementSequenceName="Contact_contact_seq" defaultValue="" name="_PATH" nullable="0" physicalName="contact" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>read-write</remarks>
     </column>
     </folder>
@@ -749,7 +749,7 @@ Free …</remarks>
     </column>
     <column id="COL78" populated="true" UUID="04b35329-bc72-44a9-b723-06a1c9341003" autoIncrement="false" autoIncrementSequenceName="OpenAPI_context_seq" defaultValue="" name="context" nullable="0" physicalName="context" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>{
-   &quot;PREFIX&quot;: &quot;/datastore&quot;
+   &quot;PATH_PREFIX&quot;: &quot;/datastore&quot;
 }</remarks>
     </column>
     </folder>
@@ -852,7 +852,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: null
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL85" populated="true" UUID="bb9c8f5d-aa86-4588-adcd-94366b4a9e54" autoIncrement="false" autoIncrementSequenceName="Role_role_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="role" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL85" populated="true" UUID="bb9c8f5d-aa86-4588-adcd-94366b4a9e54" autoIncrement="false" autoIncrementSequenceName="Role_role_seq" defaultValue="" name="_PATH" nullable="0" physicalName="role" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>read-only</remarks>
     </column>
     </folder>
@@ -977,7 +977,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL93" populated="true" UUID="6eb22b8c-ac4c-41d1-9658-48d8813104fa" autoIncrement="false" autoIncrementSequenceName="Role_industry_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="industry" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL93" populated="true" UUID="6eb22b8c-ac4c-41d1-9658-48d8813104fa" autoIncrement="false" autoIncrementSequenceName="Role_industry_seq" defaultValue="" name="_PATH" nullable="0" physicalName="industry" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>read-only</remarks>
     </column>
     </folder>
@@ -1102,7 +1102,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL101" populated="true" UUID="5ecca17c-4e34-40b2-a801-625419919214" autoIncrement="false" autoIncrementSequenceName="UseCase_usecase_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="usecase" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL101" populated="true" UUID="5ecca17c-4e34-40b2-a801-625419919214" autoIncrement="false" autoIncrementSequenceName="UseCase_usecase_seq" defaultValue="" name="_PATH" nullable="0" physicalName="usecase" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>read-only</remarks>
     </column>
     </folder>
