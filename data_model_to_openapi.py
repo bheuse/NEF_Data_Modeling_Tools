@@ -27,11 +27,12 @@ timestamp = datetime.datetime.now().strftime("%y%m%d-%H%M%S")
 logFile   = "."+os.sep+"data_model_to_openapi.log"
 logging.basicConfig(filename=logFile, filemode='w', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
-### Defaults
+### Defaults / Constants
 default_data_model   = "NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample"
 templates_dir_suffix = "_templates"
 artifacts_dir_suffix = "_artifacts"
 openapi_yaml_suffix  = "_API.yaml"
+schema_json_suffix   = "_Schema.json"
 json_schema_baseURI  = "https://amdocs.com/schemas/nef/"
 
 ###
@@ -44,46 +45,12 @@ class Term:
     VERBOSE = False
 
     @staticmethod
-    def flatten(pDict : dict, sep: str = "/") -> dict:
-        newDict = {}
-        for key, value in pDict.items():
-            if type(value) == dict:
-                fDict = {sep.join([key, _key]): _value for _key, _value in Term.flatten(value, sep).items()}
-                newDict.update(fDict)
-            elif type(value) == list:
-                i = 0
-                for el in value:
-                    if type(el) == dict:
-                        fDict = {sep.join([key, str(i), _key]): _value for _key, _value in Term.flatten(el, sep).items()}
-                        newDict.update(fDict)
-                    else:
-                        # fDict = { key + str(i) , str(el)}
-                        # newDict.update(fDict)
-                        newDict[key + sep + str(i)] = str(el)
-                        pass
-                    i = i + 1
-            else:
-                newDict[key] = value
-        return newDict
-
-    @staticmethod
     def setVerbose(verbose : bool = True):
         Term.VERBOSE = verbose
 
     @staticmethod
-    def print_green(text):
-        print(colored(text, "green"))
-        logging.debug(text)
-
-    @staticmethod
-    def print_red(text):
-        print(colored(text, "red"))
-        logging.debug(text)
-
-    @staticmethod
     def print_verbose(text):
-        if (Term.VERBOSE):
-            print(colored(text, "magenta"))
+        if (Term.VERBOSE):  print(colored(text, "magenta"))
         logging.debug(text)
 
     @staticmethod
@@ -104,6 +71,16 @@ class Term:
             logging.warning(exception)
 
     @staticmethod
+    def print_green(text):
+        print(colored(text, "green"))
+        logging.debug(text)
+
+    @staticmethod
+    def print_red(text):
+        print(colored(text, "red"))
+        logging.debug(text)
+
+    @staticmethod
     def print_yellow(text):
         print(colored(text, "yellow"))
         logging.debug(text)
@@ -120,33 +97,13 @@ class Term:
 
     @staticmethod
     def print_flat(tree_dict):
-        flat_dict = Term.flatten(tree_dict, ":")
+        flat_dict = Util.flatten(tree_dict, ":")
         for key in flat_dict.keys() :
             print(colored(key, "blue") + " : " + colored(flat_dict[key], "yellow"))
 
     @staticmethod
-    def json_load(text : str) -> dict:
-        try:
-            return json.loads(text)
-        except Exception as ex :
-            Term.print_error("Error with decoding JSON :")
-            Term.print_error(text)
-            Term.print_error(str(ex))
-            raise ex
-
-    @staticmethod
-    def yaml_load(text : str) -> dict:
-        try:
-            return yaml.safe_load(text)
-        except Exception as ex :
-            Term.print_error("Error with decoding YAML :")
-            Term.print_error(text)
-            Term.print_error(str(ex))
-            raise ex
-
-    @staticmethod
     def gen_assert(data : dict):
-        flat = Term.flatten(data, '/')
+        flat = Util.flatten(data, '/')
         for item in flat.keys():
             if (isinstance(flat[item], str)):
                 print("        self.assertEqual(flat[\""+item+"\"], \""+str(flat[item])+"\")")
@@ -159,13 +116,6 @@ class Term:
 
 
 class FileSystem:
-
-    @staticmethod
-    def saveFileContent(content, file_name: str):
-        with open(file_name, "w") as file:
-            content = file.write(content)
-            file.close()
-        return content
 
     @staticmethod
     def getDirName(filename):
@@ -223,11 +173,14 @@ class FileSystem:
             os.makedirs(dirName)
 
     @staticmethod
-    def rmDir(dirName):
+    def rmDir(dirName, silent : bool = False) -> bool:
         try:
             shutil.rmtree(dirName)
+            return True
         except OSError as error:
+            if (silent) : return False
             Term.print_error("Directory can not be removed : " + str(dirName) + "\n" + str(error))
+            return False
 
     @staticmethod
     def removeExtension(filename):
@@ -242,6 +195,13 @@ class FileSystem:
                 f = FileSystem.removeExtension(f)
             myList.append(f)
         return myList
+
+    @staticmethod
+    def saveFileContent(content, file_name: str):
+        with open(file_name, "w") as file:
+            content = file.write(content)
+            file.close()
+        return content
 
     @staticmethod
     def loadFileContent(file_name: str) -> Union[str, None]:
@@ -290,6 +250,47 @@ class FileSystem:
 
 
 class Util:
+
+    @staticmethod
+    def flatten(pDict : dict, sep: str = "/") -> dict:
+        newDict = {}
+        for key, value in pDict.items():
+            if type(value) == dict:
+                fDict = {sep.join([key, _key]): _value for _key, _value in Util.flatten(value, sep).items()}
+                newDict.update(fDict)
+            elif type(value) == list:
+                i = 0
+                for el in value:
+                    if type(el) == dict:
+                        fDict = {sep.join([key, str(i), _key]): _value for _key, _value in Util.flatten(el, sep).items()}
+                        newDict.update(fDict)
+                    else:
+                        newDict[key + sep + str(i)] = str(el)
+                        pass
+                    i = i + 1
+            else:
+                newDict[key] = value
+        return newDict
+
+    @staticmethod
+    def json_load(text : str) -> dict:
+        try:
+            return json.loads(text)
+        except Exception as ex :
+            Term.print_error("Error with decoding JSON :")
+            Term.print_error(text)
+            Term.print_error(str(ex))
+            raise ex
+
+    @staticmethod
+    def yaml_load(text : str) -> dict:
+        try:
+            return yaml.safe_load(text)
+        except Exception as ex :
+            Term.print_error("Error with decoding YAML :")
+            Term.print_error(text)
+            Term.print_error(str(ex))
+            raise ex
 
     @staticmethod
     def findBetween(content, start, end):
@@ -439,13 +440,13 @@ class DataModel:
             schema = schema.strip()
             try:
                 if schema.startswith("{"):  # JSON
-                    desc_schema = Term.json_load(schema)
+                    desc_schema = Util.json_load(schema)
                 elif schema.startswith("\""):  # JSON
-                    desc_schema = Term.json_load("{" + schema + "}")
+                    desc_schema = Util.json_load("{" + schema + "}")
                 elif (schema == ""):  # JSON
                     desc_schema = dict()
                 else:  # YAML
-                    desc_schema = Term.yaml_load(schema)
+                    desc_schema = Util.yaml_load(schema)
             except Exception as e:
                 Term.print_error(schema, str(e))
                 desc_schema = dict()
@@ -528,6 +529,20 @@ class Architect:
         if (architect_model_file):
             self.setFile(architect_model_file)
 
+    def setFile(self, architect_model_file : str):
+        if (architect_model_file):
+            architect_model_file = str(architect_model_file).replace(".architect", "")
+
+        if (architect_model_file) and FileSystem.isFileExist(architect_model_file + ".architect"):
+            self.architect_file = architect_model_file
+            Term.print_verbose("Set Model : " + architect_model_file + ".architect")
+            if (self.architect_file):
+                self.dataModel = DataModel(self.architect_file)
+            return self.architect_file
+        else:
+            Term.print_error("Model not found : " + str(architect_model_file))
+            return None
+
     @staticmethod
     def cleanName(name: str) -> str:
         return unidecode.unidecode(name.strip()).replace(" ", "_").replace("\\", "_") \
@@ -581,7 +596,7 @@ class Architect:
         """ Extract Data from Architect Table for Object Descriptors """
         obj_desc = {}
         name = Architect.cleanName(table["@name"])
-        obj_desc["name"] = "name"
+        obj_desc["name"] = name
         obj_desc["type"] = "object"
         # remarks -> description
         if (table["remarks"] is None):
@@ -735,6 +750,7 @@ class Architect:
         return entities
 
     def collectOpenAPI(self) -> Union[dict, None]:
+        """ Scan for OpenAPI Entity and its Attributes in the Architect Data Model """
 
         # Info Data for OpenAPI / Default Values
         open_api_yaml = dict()
@@ -766,52 +782,38 @@ class Architect:
             open_api_yaml["info"]["description"] = description
 
         if ("contact" in self.dataModel.entities["OpenAPI"]["properties"]):
-            contact = Term.json_load(self.dataModel.entities["OpenAPI"]["properties"]["contact"]["description"])
+            contact = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["contact"]["description"])
             open_api_yaml["info"]["contact"] = contact
 
         if ("security" in self.dataModel.entities["OpenAPI"]["properties"]):
-            security = Term.json_load(self.dataModel.entities["OpenAPI"]["properties"]["security"]["description"])
+            security = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["security"]["description"])
             open_api_yaml["security"] = security
 
         if ("license" in self.dataModel.entities["OpenAPI"]["properties"]):
-            lic = Term.json_load(self.dataModel.entities["OpenAPI"]["properties"]["license"]["description"])
+            lic = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["license"]["description"])
             open_api_yaml["info"]["license"] = lic
 
         if ("tags" in self.dataModel.entities["OpenAPI"]["properties"]):
-            tags = Term.json_load(self.dataModel.entities["OpenAPI"]["properties"]["tags"]["description"])
+            tags = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["tags"]["description"])
             open_api_yaml["tags"] = tags
 
         if ("servers" in self.dataModel.entities["OpenAPI"]["properties"]):
-            servers = Term.json_load(self.dataModel.entities["OpenAPI"]["properties"]["servers"]["description"])
+            servers = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["servers"]["description"])
             open_api_yaml["servers"] = servers
 
         if ("securitySchemes" in self.dataModel.entities["OpenAPI"]["properties"]):
-            securitySchemes = Term.json_load(self.dataModel.entities["OpenAPI"]["properties"]["securitySchemes"]["description"])
+            securitySchemes = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["securitySchemes"]["description"])
             open_api_yaml["components"] = dict()
             open_api_yaml["components"]["securitySchemes"] = securitySchemes
 
         if ("context" in self.dataModel.entities["OpenAPI"]["properties"]):
-            op_context = Term.json_load(self.dataModel.entities["OpenAPI"]["properties"]["context"]["description"])
+            op_context = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["context"]["description"])
             self.dataModel.addContext(op_context)
 
         del self.dataModel.entities["OpenAPI"]
         self.dataModel.openapi = open_api_yaml
 
         return open_api_yaml
-
-    def setFile(self, architect_model_file : str):
-        if (architect_model_file):
-            architect_model_file = str(architect_model_file).replace(".architect", "")
-
-        if (architect_model_file) and FileSystem.isFileExist(architect_model_file + ".architect"):
-            self.architect_file = architect_model_file
-            Term.print_blue("Model : " + architect_model_file + ".architect")
-            if (self.architect_file):
-                self.dataModel = DataModel(self.architect_file)
-            return self.architect_file
-        else:
-            Term.print_error("Model not found : " + str(architect_model_file))
-            return None
 
     def readArchitect(self, architect_model_file : str = None) -> Union[DataModel, None]:
         """ Read and Scan Architect Data Model """
@@ -1160,7 +1162,8 @@ class Path:
         return l_paths_template
 
     @staticmethod
-    def create_path(p_model : DataModel, entities):
+    def create_path(p_model : DataModel):
+        entities = p_model.entities
         f_paths_template = ""
         sep = ""
         for entity in entities:
@@ -1205,7 +1208,7 @@ class Path:
                 list_par = json.dumps(listParameters)
 
                 if (schema_par and schema_par.strip() != "") :
-                    schema_params = Term.json_load(schema_par)
+                    schema_params = Util.json_load(schema_par)
                     for param in schema_params:
                         p_model.schema_parameters[param] = schema_params[param]
                 if (not path_par or path_par.strip() == "") :
@@ -1246,10 +1249,10 @@ class Path:
 ###
 
 """
-There are 3 types for stuff to be generated:
+There are 4 types for stuff to be generated:
 - OpenAPI Components and Operations          => Components + Path
 - Contexts for Code Generation (using mako)  => This is a JSON Object with all Entities and OpenAPI Details
-- JSON Schema for Input Validation           => for Configuration  (using ROOT indicators)
+- JSON Schema for Configuration Validation   => for Configuration  (using ROOT indicators)
 - JSON Schema for APIs  Validation           => for API Validation (using PATH indicators)
 """
 
@@ -1259,16 +1262,13 @@ class CodeGenerator:
     def __init__(self, p_model_location : str = None):
         self.model_location  = p_model_location if p_model_location else default_data_model
         self.templates_dir   = "." + os.sep + self.model_location + templates_dir_suffix
-        self.artifacts_dir   = "." + os.sep + self.model_location + artifacts_dir_suffix
         self.includes_dir    = "." + os.sep + "NEF" + os.sep + "include"
+        self.artifacts_dir   = "." + os.sep + self.model_location + artifacts_dir_suffix
         self.context_file    = None
 
     def configureDir(self, p_model_location : str, p_templates_dir : str, p_artifacts_dir : str, p_includes_dir : str, p_context_file : str):
         self.model_location = p_model_location.replace(".architect", "")
         Term.print_yellow("Model Location : " + str(self.templates_dir))
-
-        self.context_file = p_context_file if p_context_file else None
-        Term.print_yellow("Context File   : " + str(self.context_file))
 
         self.templates_dir = p_templates_dir if p_templates_dir else "." + os.sep + self.model_location + templates_dir_suffix
         Term.print_yellow("Templates Dir  : " + str(self.templates_dir))
@@ -1278,6 +1278,9 @@ class CodeGenerator:
 
         self.artifacts_dir = p_artifacts_dir if p_artifacts_dir else "." + os.sep + self.model_location + artifacts_dir_suffix
         Term.print_yellow("Artifacts Dir  : " + str(self.artifacts_dir))
+
+        self.context_file = p_context_file if p_context_file else None
+        Term.print_yellow("Context File   : " + str(self.context_file))
 
     def checkDir(self, forRendering : bool = True):
 
@@ -1431,7 +1434,7 @@ class CodeGenerator:
         open_api_yaml = p_dataModel.openapi if p_dataModel.openapi else dict()
 
         # Create API Operations, add as Paths
-        paths = Term.json_load("{" + Path.create_path(p_dataModel, p_dataModel.entities) + "}")
+        paths = Util.json_load("{" + Path.create_path(p_dataModel) + "}")
         open_api_yaml["paths"] = paths
 
         # Add Components
@@ -1474,11 +1477,11 @@ class CodeGenerator:
     def renderArtifacts(self, p_dataModel : DataModel):
         """ Create Artifacts from Templates & Data Model """
         Term.print_yellow("> render Artifacts")
-        self.checkDir()
+        self.checkDir(forRendering=True)
 
         p_dataModel.addContext(self.context_file)
 
-        context = p_dataModel.context
+        context = p_dataModel.context if p_dataModel.context else {}
         context["DATAMODEL"] = FileSystem.getBaseName(p_dataModel.name)
         context["ENTITIES"]  = p_dataModel.entities
         context["OPENAPI"]   = self.renderOpenAPI(p_dataModel)
@@ -1493,7 +1496,7 @@ class CodeGenerator:
         # Create a Schema for each Entity
         # Create internal sub-objects References for Relationships to other Entities
         # Generate example objects for the entities schema
-        Term.print_yellow("> render Entities Json Schema")
+        Term.print_yellow("> generate Entities Json Schema")
         self.checkDir(forRendering=False)
 
         json_schemas   = {}
@@ -1640,7 +1643,7 @@ class CodeGenerator:
         Term.print_verbose("json_schemas   : \n" + json.dumps(json_schemas,   indent=3))
         Term.print_verbose("example_objets : \n" + json.dumps(example_objets, indent=3))
 
-        Term.print_yellow("< render Entities Json Schema")
+        Term.print_yellow("< generate Entities Json Schema")
 
         return json_schemas
 
@@ -1702,12 +1705,12 @@ class CodeGenerator:
                     # Entity is external - Create a Reference to its schema ($ref)
                     card = p_dataModel.findTableCardinality(entity, rel_entity)
                     if (card and (card == "OneToOne" or card == "ZeroToOne")):
-                        entities_json[entity]["properties"][rel_entity]["-$ref"] = p_dataModel.name + "_" + rel_entity + "_Schema.json"
+                        entities_json[entity]["properties"][rel_entity]["-$ref"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
                         entities_json[entity]["properties"][rel_entity]["type"] = "string"
                     if (card and (card == "OneToMore" or card == "ZeroToMore")):
                         entities_json[entity]["properties"][rel_entity]["type"]  = "array"
                         entities_json[entity]["properties"][rel_entity]["items"] = {}
-                        entities_json[entity]["properties"][rel_entity]["items"]["-$ref"] = p_dataModel.name + "_" + rel_entity + "_Schema.json"
+                        entities_json[entity]["properties"][rel_entity]["items"]["-$ref"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
                         entities_json[entity]["properties"][rel_entity]["items"]["type"] = "string"
                     pass
                 else:
@@ -1726,7 +1729,7 @@ class CodeGenerator:
                             entities_json[entity]["$defs"] = {}
                         entities_json[entity]["$defs"][rel_entity] = entities_json[rel_entity]
 
-        Term.print_yellow("< generatePathJsonSchema")
+        Term.print_yellow("< generate Path Json Schema")
 
         # Collecting Schema List for _PATH Entities & Saving
         schema_list = {}
@@ -1743,7 +1746,7 @@ class CodeGenerator:
             schema_list[entity] = entities_json[entity]
             if (with_saving):
                 # Create Schema Files
-                schema_file = schema_dir + os.sep + p_dataModel.name + "_" + entity + "_Schema.json"
+                schema_file = schema_dir + os.sep + p_dataModel.name + "_" + entity + schema_json_suffix
                 Term.print_yellow("Schema File : " + schema_file)
                 FileSystem.saveFileContent(json.dumps(entities_json[entity], indent=3), schema_file)
                 FileSystem.saveFileContent(yaml.safe_dump(entities_json[entity], indent=4, default_flow_style=False), schema_file.replace(".json", ".yaml"))
@@ -1791,14 +1794,14 @@ class CodeGenerator:
                 if (root_count > 1) :
                     generated_schemas[schema] = json_schemas[schema]
                     # Generate Schema File - multiple _ROOT
-                    schema_file = self.artifacts_dir + os.sep + p_dataModel.name + "_" + schema + "_Schema.json"
+                    schema_file = self.artifacts_dir + os.sep + p_dataModel.name + "_" + schema + schema_json_suffix
                     if (with_saving) :
                         FileSystem.saveFileContent(json.dumps(json_schemas[schema], indent=3), schema_file)
                         Term.print_blue("Schema Ready   : " + schema_file)
                 else:
                     generated_schemas["ROOT"] = json_schemas[schema]
                     # Generate Schema File - assuming only one _ROOT
-                    schema_file = self.artifacts_dir + os.sep + p_dataModel.name + "_Schema.json"
+                    schema_file = self.artifacts_dir + os.sep + p_dataModel.name + schema_json_suffix
                     if (with_saving) :
                         FileSystem.saveFileContent(json.dumps(json_schemas[schema], indent=3), schema_file)
                         Term.print_blue("Schema Ready   : " + schema_file)
@@ -1826,7 +1829,7 @@ class CodeGenerator:
             if ("PATH" not in entity_desc): continue
             api_target = entity_desc["PATH"]
             if ("PATH" in entities_json[entity]): del entities_json[entity]["PATH"]
-            schema_file = schema_dir + os.sep + p_dataModel.name + "_" + entity + "_Schema.json"
+            schema_file = schema_dir + os.sep + p_dataModel.name + "_" + entity + schema_json_suffix
             schema_list[entity] = entities_json[entity]
             curl = 'curl -X POST -H "Content-Type: application/json" -d @'+schema_file+' https://127.0.0.1:5000/datastore/'+api_target+'?create'
             Term.print_yellow(curl)
@@ -1841,10 +1844,10 @@ class CodeGenerator:
 class Test(unittest.TestCase):
 
     def setUp(self) -> None:
-        Term.print_red("> Setup")
+        Term.print_green("> Setup")
         Term.setVerbose()
         FileSystem.rmDir("NEF" + os.sep + "NEF_SCEF" + os.sep + "NEF_SCEF_artifacts")
-        Term.print_red("< Setup")
+        Term.print_green("< Setup")
 
     def test_Validate_Schema(self):
         Term.print_green("> testValidateSchema")
@@ -1890,7 +1893,7 @@ class Test(unittest.TestCase):
         dataModel = arch.readArchitect()
         self.assertIsNotNone(dataModel)
 
-        flat = Term.flatten(dataModel.entities)
+        flat = Util.flatten(dataModel.entities)
         Term.print_verbose(json.dumps(flat, indent=3))
         Term.gen_assert(flat)
 
@@ -1914,7 +1917,7 @@ class Test(unittest.TestCase):
         codeGen   = CodeGenerator(default_data_model)
         open_api  = codeGen.renderOpenAPI(dataModel)
 
-        flat = Term.flatten(open_api)
+        flat = Util.flatten(open_api)
         Term.print_verbose(json.dumps(flat, indent=3))
         Term.gen_assert(open_api)
 
@@ -1948,11 +1951,10 @@ class Test(unittest.TestCase):
         # Check Generation Context
         context = FileSystem.loadFileData(codeGen.artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.json")
 
-        flat = Term.flatten(context)
+        flat = Util.flatten(context)
         Term.print_verbose(json.dumps(flat, indent=3))
 
         Term.gen_assert(context)
-        self.assertIn("API", context)
         self.assertEqual(flat["PATH_PREFIX"], "/datastore")
         self.assertEqual(flat["DATAMODEL"], "API_Data_Model_Sample")
         self.assertEqual(flat["ENTITIES/API/name"], "name")
@@ -1969,7 +1971,7 @@ class Test(unittest.TestCase):
         codeGen   = CodeGenerator(default_data_model)
         schemas   = codeGen.generateEntitiesJsonSchema(dataModel)
 
-        flat = Term.flatten(schemas)
+        flat = Util.flatten(schemas)
         Term.print_verbose(json.dumps(flat, indent=3))
 
         # Check Schema Generation
@@ -1986,7 +1988,7 @@ class Test(unittest.TestCase):
         codeGen   = CodeGenerator(default_data_model)
         schemas   = codeGen.generatePathJsonSchema(dataModel)
 
-        flat = Term.flatten(schemas)
+        flat = Util.flatten(schemas)
         Term.print_verbose(json.dumps(flat, indent=3))
 
         # Check File Generation
@@ -2008,7 +2010,7 @@ class Test(unittest.TestCase):
         codeGen   = CodeGenerator(default_data_model)
         schemas   = codeGen.generateRootJsonSchema(dataModel)
 
-        flat = Term.flatten(schemas)
+        flat = Util.flatten(schemas)
         Term.print_verbose(json.dumps(flat, indent=3))
 
         # Check File Generation
@@ -2029,7 +2031,7 @@ class Test(unittest.TestCase):
         codeGen   = CodeGenerator(default_data_model)
         schemas   = codeGen.configure_ANME_DataStore(dataModel)
 
-        flat = Term.flatten(schemas)
+        flat = Util.flatten(schemas)
         Term.print_verbose(json.dumps(flat, indent=3))
 
         # Check Schema Generation
@@ -2042,87 +2044,142 @@ class Test(unittest.TestCase):
 class TestArchitectModels(unittest.TestCase):
 
     def setUp(self) -> None:
-        Term.print_red("> Setup")
-        Term.setVerbose()
-        Term.print_red("< Setup")
+        Term.print_green("> Setup")
+        Term.setVerbose(False)
+        Term.print_green("< Setup")
 
     def testGenerate_NEF_Configuration_Service_Schema(self):
-        Term.setVerbose(False)
+        Term.print_green("> testGenerate_NEF_Configuration_Service_Schema")
         data_model_location = "NEF"+os.sep+"NEF_Configuration"+os.sep+"NEF_Configuration"
-        FileSystem.rmDir(data_model_location + "_artifacts")
-        dataModel = Architect(data_model_location).readArchitect()
-        codeGen   = CodeGenerator(data_model_location)
-        codeGen.generateRootJsonSchema(dataModel)
+        generate({"WHAT" : "config", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
 
     def testGenerate_NEF_MarketPlace_DataService(self):
-        Term.setVerbose(False)
+        Term.print_green("> testGenerate_NEF_MarketPlace_DataService")
         data_model_location = "NEF"+os.sep+"NEF_MarketPlace"+os.sep+"NEF_MarketPlace_DataModel"
-        FileSystem.rmDir(data_model_location + "_artifacts")
-        dataModel = Architect(data_model_location).readArchitect()
-        codeGen   = CodeGenerator(data_model_location)
-        codeGen.generatePathJsonSchema(dataModel)
-        codeGen.renderOpenAPI(dataModel)
-        codeGen.renderArtifacts(dataModel)
+        generate({"WHAT" : "schema openapi render", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
 
     def testGenerate_NEF_Catalog_DataService(self):
-        Term.setVerbose(False)
+        Term.print_green("> testGenerate_NEF_Catalog_DataService")
         data_model_location = "NEF"+os.sep+"NEF_Catalog"+os.sep+"NEF_Catalog_DataModel"
-        FileSystem.rmDir(data_model_location + "_artifacts")
-        dataModel = Architect(data_model_location).readArchitect()
-        codeGen   = CodeGenerator(data_model_location)
-        codeGen.generatePathJsonSchema(dataModel)
-        codeGen.renderOpenAPI(dataModel)
-        codeGen.renderArtifacts(dataModel)
+        generate({"WHAT" : "schema openapi render", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
 
     def testGenerate_NEF_ApplicationUserProfile_DataService(self):
-        Term.setVerbose(False)
-        data_model_location    = "NEF"+os.sep+"NEF_ApplicationUserProfile"+os.sep+"NEF_ApplicationUserProfile_DataModel"
-        FileSystem.rmDir(data_model_location + "_artifacts")
-        dataModel = Architect(data_model_location).readArchitect()
-        codeGen   = CodeGenerator(data_model_location)
-        codeGen.generatePathJsonSchema(dataModel)
-        codeGen.renderOpenAPI(dataModel)
-        codeGen.renderArtifacts(dataModel)
+        Term.print_green("> testGenerate_NEF_ApplicationUserProfile_DataService")
+        data_model_location = "NEF"+os.sep+"NEF_ApplicationUserProfile"+os.sep+"NEF_ApplicationUserProfile_DataModel"
+        generate({"WHAT" : "schema openapi render", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
 
     def testGenerate_NEF_API_Subscription_DataService(self):
-        Term.setVerbose(False)
-        data_model_location    = "NEF" + os.sep + "NEF_API_Subscription" + os.sep + "NEF_API_Subscription_Procedure"
-        FileSystem.rmDir(data_model_location + "_artifacts")
-        context_file  = data_model_location + "_context.yaml"
-        includes_dir  = "NEF" + os.sep + "include"
-        generate("schema openapi", data_model_location, context_file=context_file, includes_dir=includes_dir)
+        Term.print_green("> testGenerate_NEF_API_Subscription_DataService")
+        data_model_location = "NEF" + os.sep + "NEF_API_Subscription" + os.sep + "NEF_API_Subscription_Procedure"
+        context_file        = data_model_location + "_context.yaml"
+        includes_dir        = "NEF" + os.sep + "include"
+        generate({"WHAT" : "schema openapi", "DATA_MODEL" : data_model_location, "CONTEXT_FILE" : context_file, "INCLUDES_DIR" : includes_dir}, clean_artifacts=True)
 
     def testGenerate_SCEF_Service(self):
-        Term.setVerbose(False)
+        Term.print_green("> testGenerate_SCEF_Service")
         data_model_location = "NEF" + os.sep + "NEF_SCEF" + os.sep+"NEF_SCEF_API"
-        FileSystem.rmDir(data_model_location + "_artifacts")
-        generate("openapi", data_model_location)
+        generate({"WHAT" : "openapi", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
 
     def testGenerate_NEF_API_Data_Model_Sample(self):
-        Term.print_red("> testGenerate_NEF_API_Data_Model_Sample")
-        Term.setVerbose(False)
-        data_model_location    = "NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample"
-        FileSystem.rmDir(data_model_location + "_artifacts")
-        context_file  = data_model_location + "_context.yaml"
+        Term.print_green("> testGenerate_NEF_API_Data_Model_Sample")
+        data_model_location = "NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample"
+        FileSystem.rmDir(data_model_location + artifacts_dir_suffix)
+        context_file  = data_model_location + "_context.json"
         templates_dir = data_model_location + templates_dir_suffix
         artifacts_dir = data_model_location + artifacts_dir_suffix
         includes_dir  = "NEF" + os.sep + "include"
-        generate("openapi schema render", data_model_location, templates_dir=templates_dir,
-            includes_dir=includes_dir, artifacts_dir=artifacts_dir, context_file=context_file)
+        generate({"WHAT" : "openapi schema render config", "DATA_MODEL" : data_model_location,
+                  "TEMPLATES_DIR" : templates_dir, "INCLUDES_DIR" : includes_dir,
+                  "ARTIFACTS_DIR" : artifacts_dir, "CONTEXT_FILE" : context_file},
+                  clean_artifacts=True)
+
+        # Check Generated File Existence
         self.assertTrue(FileSystem.isFileExist(artifacts_dir + os.sep + "API_Data_Model_Sample_API.yaml"))
         self.assertTrue(FileSystem.isFileExist(artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.json"))
         self.assertTrue(FileSystem.isFileExist(artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.yaml"))
         self.assertTrue(FileSystem.isFileExist(artifacts_dir + os.sep + "ServicesCatalog.sql"))
+
+        # Check Generated File Content
         self.assertIn("TT", FileSystem.loadFileContent(artifacts_dir + os.sep+"ServicesCatalog.sql"))
 
+        # Check in Code Generation Context
+        context = Util.flatten(FileSystem.loadFileData(artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.json"))
+        Term.gen_assert(context)
+        flat = Util.flatten(context)
+        self.assertEqual(flat["DD"], "Context")
+        self.assertEqual(flat["ENTITIES/API/name"], "API")
+        self.assertEqual(flat["ENTITIES/API/properties/id/Schema/defaultValue"], "noDefaultalue")
 
-def generate(what, data_model_location, templates_dir: str = None, includes_dir: str = None, artifacts_dir: str = None, context_file: str = None):
+
+def generate(cl_args : dict, clean_artifacts : bool = False):
+
+    what = cl_args["WHAT"]                      if ("DATA_MODEL"    in cl_args) else ""
+    data_model_location = cl_args["DATA_MODEL"] if ("DATA_MODEL"    in cl_args) else None
+    templates_dir = cl_args["TEMPLATES_DIR"]    if ("TEMPLATES_DIR" in cl_args) else None
+    includes_dir  = cl_args["INCLUDES_DIR"]     if ("INCLUDES_DIR"  in cl_args) else None
+    artifacts_dir = cl_args["ARTIFACTS_DIR"]    if ("ARTIFACTS_DIR" in cl_args) else None
+    context_file  = cl_args["CONTEXT_FILE"]     if ("CONTEXT_FILE"  in cl_args) else None
+
+    # Check Command Line Arguments
+    if (data_model_location) :
+        data_model_location = str(data_model_location).replace(".architect" , "")
+
+    if (data_model_location) and FileSystem.isFileExist(data_model_location + ".architect"):
+        data_model = data_model_location
+        Term.print_blue("Model Location : "+data_model+".architect")
+    else:
+        Term.print_error("Model not found : "+str(data_model_location))
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+
+    if (templates_dir) and (not FileSystem.isDirExist(templates_dir)):
+        FileSystem.createDir(templates_dir)
+    if (templates_dir) and (not FileSystem.isDirExist(templates_dir)):
+        Term.print_error("Templates Dir not found : " + str(templates_dir))
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+    templates_dir = templates_dir if templates_dir else "." + os.sep + data_model_location + templates_dir_suffix
+    Term.print_yellow("Templates Dir  : " + str(templates_dir))
+
+    if (includes_dir) and (not FileSystem.isDirExist(includes_dir)):
+        FileSystem.createDir(includes_dir)
+    if (includes_dir) and (not FileSystem.isDirExist(includes_dir)):
+        Term.print_error("Include Dir not found : " + str(includes_dir))
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+    includes_dir = includes_dir if includes_dir else "." + os.sep + "include"
+    Term.print_yellow("Includes Dir   : " + includes_dir)
+
+    if (clean_artifacts):
+        if (artifacts_dir) and (FileSystem.isDirExist(artifacts_dir)):
+            FileSystem.rmDir(artifacts_dir)
+        elif FileSystem.isDirExist(data_model_location + artifacts_dir_suffix):
+            FileSystem.rmDir(data_model_location + artifacts_dir_suffix)
+
+    if (artifacts_dir) and (not FileSystem.isDirExist(artifacts_dir)):
+        FileSystem.createDir(artifacts_dir)
+    if (artifacts_dir) and (not FileSystem.isDirExist(artifacts_dir)):
+        Term.print_error("Artifacts Dir not found : " + str(artifacts_dir))
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+    artifacts_dir = artifacts_dir if artifacts_dir else "." + os.sep + data_model_location + artifacts_dir_suffix
+    Term.print_yellow("Artifacts Dir  : " + str(artifacts_dir))
+
+    if (context_file) and (not FileSystem.isFileExist(context_file)):
+        Term.print_error("Context File not found : " + str(context_file))
+        Term.print_yellow(read_command_line_args([], p_usage=True))
+        quit()
+    Term.print_yellow("Context File   : "+str(context_file))
+
+    Term.print_yellow("Generating     : " + str(cl_args["WHAT"]))
+    Term.print_blue("Model   : " + data_model_location + ".architect")
+
     # Backup architect file
     backup_dir = FileSystem.getDirName(data_model_location) + os.sep + "Archive"
-    backup_file = FileSystem.getBaseName(data_model_location) + "_" + datetime.datetime.now().strftime(
-        "%y%m%d-%H%M%S") + ".architect"
+    backup_file = FileSystem.getBaseName(data_model_location) + "_" + datetime.datetime.now().strftime("%y%m%d-%H%M%S") + ".architect"
     FileSystem.createDir(backup_dir)
     shutil.copyfile(data_model_location + ".architect", backup_dir + os.sep + backup_file)
+    Term.print_blue("Backup  : " + backup_dir + os.sep + backup_file)
 
     # Read architect file
     Term.print_blue("Reading : " + data_model_location + ".architect")
@@ -2135,9 +2192,9 @@ def generate(what, data_model_location, templates_dir: str = None, includes_dir:
         codeGen.generateRootJsonSchema(dataModel)
     if ("schema" in what.lower()):
         codeGen.generatePathJsonSchema(dataModel)
-    if (("openapi" in what.lower()) or ("yaml" in do_what.lower())):
+    if (("openapi" in what.lower()) or ("yaml" in what.lower())):
         codeGen.renderOpenAPI(dataModel)
-    if (("render" in what.lower()) or ("artifacts" in do_what.lower())):
+    if (("render" in what.lower()) or ("artifacts" in what.lower())):
         codeGen.renderArtifacts(dataModel)
     if ("anme" in what.lower()):
         codeGen.configure_ANME_DataStore(dataModel)
@@ -2146,7 +2203,7 @@ def generate(what, data_model_location, templates_dir: str = None, includes_dir:
 # This method to alter/customize Generated OpenAPI, when needed.
 def customOpenApi(p_model : str, open_api : dict) -> dict:
 
-    Term.print_yellow("> custom OpenApi for : "+p_model)
+    Term.print_yellow("> custom OpenApi for : " + p_model)
 
     # Some Custom for NEF_Configuration_Service
     if ("NEF_Configuration_Service" in p_model) :
@@ -2192,31 +2249,17 @@ def customOpenApi(p_model : str, open_api : dict) -> dict:
     return open_api
 
 
-### Globals
-DATA_MODEL    = None
-TEMPLATES_DIR = None
-INCLUDES_DIR  = None
-ARTIFACTS_DIR = None
-CONTEXT_FILE  = None
-DATASTORE = ""
-RENDER    = ""
-YAML      = ""
-SCHEMA    = ""
-CONFIG    = ""
+def read_command_line_args(argv, p_usage : bool = False) -> Union[str, dict, None]:
 
-
-def read_command_line_args(argv, p_usage : bool = False):
-    global INCLUDES_DIR, DATA_MODEL, CONTEXT_FILE
-    global RENDER, YAML, SCHEMA, DATASTORE, CONFIG
-    global ARTIFACTS_DIR, TEMPLATES_DIR
+    Term.print_yellow("Command Line Arguments : " + str(argv))
 
     usage = """
-Usage: -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> -i <includes_dir> -c <context_file>  
+Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> -i <includes_dir> -c <context_file>  
        -m --model    <file> : Generate for model <model_file>.architect                 
-       -c --context  <file> : Context File for rendering <context_file>.[json|yaml]                 
        -t --templates <dir> : Use <dir> as templates dir                      
-       -a --artifacts <dir> : Use <dir> as artifacts dir                      
        -i --include   <dir> : Use <dir> as include template dir                      
+       -a --artifacts <dir> : Use <dir> as artifacts dir                      
+       -c --context  <file> : Context File for rendering <context_file>.[json|yaml]                 
        -r --render      : CodeGenerator <model_file>_template dir into <model_file>_artifacts dir
        -y --yaml        : Generate OpenAPI Yaml <model_file>_artifacts dir
        -o --openapi     : Generate OpenAPI Yaml <model_file>_artifacts dir
@@ -2224,12 +2267,19 @@ Usage: -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> -i 
        -g --config      : Generate ROOT JSON Schema <model_file>_artifacts/_Schemas dir
        -d --datastore   : Generate and provision ANME Datastore               
        -v --verbose     : Verbose     
+       -h --help        : Usage help 
 """
 
     if (p_usage) :
         return usage
 
-    Term.print_yellow("Command Line Arguments : " + str(argv))
+    cl_args = dict()
+    cl_args["WHAT"]          = ""
+    cl_args["DATA_MODEL"]    = None
+    cl_args["TEMPLATES_DIR"] = None
+    cl_args["INCLUDES_DIR"]  = None
+    cl_args["ARTIFACTS_DIR"] = None
+    cl_args["CONTEXT_FILE"]  = None
 
     try:
         opts, args = getopt.getopt(argv, "hvgrydosm:t:a:i:c:", ["verbose", "datastore", "schema" , "openapi" , "yaml" , "render" , "config" , "include=", "model=", "templates=", "artifacts=", "context="])
@@ -2242,97 +2292,45 @@ Usage: -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> -i 
             print(usage)
             quit()
         elif opt.lower() in ("-v", "-verbose"):
-            Term.VERBOSE = True
+            Term.setVerbose(True)
             continue
         elif opt.lower() in ("-o", "-openapi"):
-            YAML = "openapi"
+            cl_args["WHAT"] = cl_args["WHAT"] + " openapi"
             continue
         elif opt.lower() in ("-y", "-yaml"):
-            YAML = "openapi"
+            cl_args["WHAT"] = cl_args["WHAT"] + " openapi"
             continue
         elif opt.lower() in ("-g", "-config"):
-            CONFIG = "config"
+            cl_args["WHAT"] = cl_args["WHAT"] + " config"
             continue
         elif opt.lower() in ("-s", "-schema"):
-            SCHEMA = "schema"
+            cl_args["WHAT"] = cl_args["WHAT"] + " schema"
             continue
         elif opt.lower() in ("-d", "-datastore"):
-            DATASTORE = "datastore"
+            cl_args["WHAT"] = cl_args["WHAT"] + " datastore"
             continue
         elif opt.lower() in ("-r", "-render"):
-            Term.print_yellow("RENDER : " + RENDER)
-            RENDER = "render"
+            cl_args["WHAT"] = cl_args["WHAT"] + " render"
             continue
         elif opt.lower() in ("-m", "-model"):
-            Term.print_yellow("MODEL : " + arg)
-            DATA_MODEL = arg
-            continue
-        elif opt.lower() in ("-c", "-context"):
-            Term.print_yellow("CONTEXT : " + arg)
-            CONTEXT_FILE = arg
+            cl_args["DATA_MODEL"] = arg
             continue
         elif opt.lower() in ("-t", "-templates"):
-            Term.print_yellow("TEMPLATES : " + arg)
-            TEMPLATES_DIR = arg
-            continue
-        elif opt.lower() in ("-a", "-artifacts"):
-            Term.print_yellow("ARTIFACTS : " + arg)
-            ARTIFACTS_DIR = arg
+            cl_args["TEMPLATES_DIR"] = arg
             continue
         elif opt.lower() in ("-i", "-include"):
-            Term.print_yellow("INCLUDES : " + arg)
-            INCLUDES_DIR = arg
+            cl_args["INCLUDES_DIR"] = arg
             continue
+        elif opt.lower() in ("-a", "-artifacts"):
+            cl_args["ARTIFACTS_DIR"] = arg
+            continue
+        elif opt.lower() in ("-c", "-context"):
+            cl_args["CONTEXT_FILE"] = arg
+            continue
+    Term.print_yellow("Command Line Args : \n" + json.dumps(cl_args, indent=3))
+    return cl_args
 
 if __name__ == '__main__':
 
-    read_command_line_args(argv=sys.argv[1:])
-
-    # Check Command Line Arguments
-    if (DATA_MODEL) :
-        DATA_MODEL = str(DATA_MODEL).replace(".architect" , "")
-
-    if (DATA_MODEL) and FileSystem.isFileExist(DATA_MODEL + ".architect"):
-        data_model = DATA_MODEL
-        Term.print_blue("Model : "+data_model+".architect")
-    else:
-        Term.print_error("Model not found : "+str(DATA_MODEL))
-        Term.print_yellow(read_command_line_args([], p_usage=True))
-        quit()
-
-    if (CONTEXT_FILE) and (not FileSystem.isFileExist(CONTEXT_FILE)):
-        Term.print_error("Context File not found : " + str(CONTEXT_FILE))
-        Term.print_yellow(read_command_line_args([], p_usage=True))
-        quit()
-    Term.print_blue("Context File : "+str(CONTEXT_FILE))
-
-    if (TEMPLATES_DIR) and (not FileSystem.isDirExist(TEMPLATES_DIR)):
-        FileSystem.createDir(TEMPLATES_DIR)
-    if (TEMPLATES_DIR) and (not FileSystem.isDirExist(TEMPLATES_DIR)):
-        Term.print_error("Templates Dir not found : " + str(TEMPLATES_DIR))
-        Term.print_yellow(read_command_line_args([], p_usage=True))
-        quit()
-    TEMPLATES_DIR = TEMPLATES_DIR if TEMPLATES_DIR else "." + os.sep + DATA_MODEL + templates_dir_suffix
-    Term.print_yellow("Templates Dir : " + str(TEMPLATES_DIR))
-
-    if (ARTIFACTS_DIR) and (not FileSystem.isDirExist(ARTIFACTS_DIR)):
-        FileSystem.createDir(ARTIFACTS_DIR)
-    if (ARTIFACTS_DIR) and (not FileSystem.isDirExist(ARTIFACTS_DIR)):
-        Term.print_error("Artifacts Dir not found : " + str(ARTIFACTS_DIR))
-        Term.print_yellow(read_command_line_args([], p_usage=True))
-        quit()
-    ARTIFACTS_DIR = ARTIFACTS_DIR if ARTIFACTS_DIR else "." + os.sep + DATA_MODEL + artifacts_dir_suffix
-    Term.print_yellow("Artifacts Dir : " + str(ARTIFACTS_DIR))
-
-    if (INCLUDES_DIR) and (not FileSystem.isDirExist(INCLUDES_DIR)):
-        FileSystem.createDir(INCLUDES_DIR)
-    if (INCLUDES_DIR) and (not FileSystem.isDirExist(INCLUDES_DIR)):
-        Term.print_error("Include Dir not found : " + str(INCLUDES_DIR))
-        Term.print_yellow(read_command_line_args([], p_usage=True))
-        quit()
-    INCLUDES_DIR = INCLUDES_DIR if INCLUDES_DIR else "." + os.sep + "include"
-    Term.print_yellow("Include Dir : " + INCLUDES_DIR)
-
-    do_what = YAML + " " + SCHEMA + " " + RENDER + " " + DATASTORE + " " + CONFIG
-    Term.print_yellow("Generating : " + do_what)
-    generate(do_what, DATA_MODEL, TEMPLATES_DIR, INCLUDES_DIR, ARTIFACTS_DIR, CONTEXT_FILE)
+    rcl_args = read_command_line_args(argv=sys.argv[1:])
+    generate(rcl_args)
