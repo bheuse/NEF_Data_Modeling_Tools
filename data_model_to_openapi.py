@@ -2317,7 +2317,7 @@ Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> 
             cl_args["WHAT"] = cl_args["WHAT"] + "schema "
             continue
         elif opt.lower() in ("-d", "-datastore"):
-            cl_args["WHAT"] = cl_args["WHAT"] + "datastore "
+            cl_args["WHAT"] = cl_args["WHAT"] + "anme "
             continue
         elif opt.lower() in ("-r", "-render"):
             cl_args["WHAT"] = cl_args["WHAT"] + "render "
