@@ -36,7 +36,7 @@ schema_json_suffix   = "_Schema.json"
 json_schema_baseURI  = "https://amdocs.com/schemas/nef/"
 
 ###
-### Print
+### Term Util - Print
 ###
 
 
@@ -540,6 +540,7 @@ class Architect:
                 self.dataModel = DataModel(self.architect_file)
             return self.architect_file
         else:
+            self.architect_file = None
             Term.print_error("Model not found : " + str(architect_model_file))
             return None
 
@@ -890,7 +891,7 @@ class Architect:
         return self.dataModel
 
 ###
-### Path Generation
+### OpenAPI Path Generation
 ###
 
 
@@ -1249,11 +1250,17 @@ class Path:
 ###
 
 """
-There are 4 types for stuff to be generated:
-- OpenAPI Components and Operations          => Components + Path
-- Contexts for Code Generation (using mako)  => This is a JSON Object with all Entities and OpenAPI Details
-- JSON Schema for Configuration Validation   => for Configuration  (using ROOT indicators)
-- JSON Schema for APIs  Validation           => for API Validation (using PATH indicators)
+Note : The OpenAPI Components and JSON Schema do not have exactly the same structure.
+
+There are multiple types for stuff to be generated:
+- OpenAPI Components and Operations          : Components + Path  
+  => using PATH indicators - renderOpenAPI + create_path
+- JSON Schema for APIs Validation            : for API Validation
+  => using PATH indicators - generatePathJsonSchema
+- JSON Schema for Configuration Validation   : for Configuration  
+  => using ROOT indicators - generateRootJsonSchema
+- Contexts for Code Generation (using mako)  : This is a JSON Object with all Entities and OpenAPI Details 
+  => renderArtifacts = generateEntitiesJsonSchema + renderOpenAPI + renderDir
 """
 
 
@@ -1648,7 +1655,7 @@ class CodeGenerator:
         return json_schemas
 
     def generatePathJsonSchema(self, p_dataModel: DataModel,  with_saving : bool = True):
-        """ Create Json Schema from Data Store _PATH Entity """
+        """ Create Json Schema for PATH Entity (used for API Validation) """
 
         # Create a Schema for each PATH Entity, and only for PATH Entities
         # Create References for Relationships to external Entities (which have a PATH)
@@ -1841,12 +1848,12 @@ class CodeGenerator:
         return schema_list
 
 
-class Test(unittest.TestCase):
+class TestCodeGen(unittest.TestCase):
 
     def setUp(self) -> None:
         Term.print_green("> Setup")
         Term.setVerbose()
-        FileSystem.rmDir("NEF" + os.sep + "NEF_SCEF" + os.sep + "NEF_SCEF_artifacts")
+        FileSystem.rmDir("NEF" + os.sep + "NEF_SCEF" + os.sep + "NEF_SCEF_artifacts", silent=True)
         Term.print_green("< Setup")
 
     def test_Validate_Schema(self):
@@ -1874,8 +1881,8 @@ class Test(unittest.TestCase):
         # self.assertRaises(exceptions.ValidationError, validate, instance={"name": "Eggs", "price": 34.99},          schema=schema)
         Term.print_green("< testValidateSchema")
 
-    def test_Architect(self):
-        Term.print_red("> testArchitect")
+    def test_Architect_Parser(self):
+        Term.print_red("> test_Architect_Parser")
         Term.setVerbose(False)
 
         arch = Architect("NA" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample")
@@ -1908,60 +1915,6 @@ class Test(unittest.TestCase):
         self.assertEqual(flat["TestRoot2/properties/API_Documentation/Schema/filter"], False)
         self.assertEqual(flat["TestRoot2/properties/API_Description/Schema/possibleValues/1"], "value1")
         self.assertEqual(flat["TestRoot2/properties/YAML/description"], "API YAML - EndPoints")
-
-    def test_CodeGenerator_OpenAPI(self):
-        Term.setVerbose(False)
-        Term.print_red("> test CodeGenerator renderOpenAPI")
-        FileSystem.rmDir("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts")
-        dataModel = Architect(default_data_model).readArchitect()
-        codeGen   = CodeGenerator(default_data_model)
-        open_api  = codeGen.renderOpenAPI(dataModel)
-
-        flat = Util.flatten(open_api)
-        Term.print_verbose(json.dumps(flat, indent=3))
-        Term.gen_assert(open_api)
-
-        self.assertTrue(FileSystem.isFileExist("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts" + os.sep + "API_Data_Model_Sample" + openapi_yaml_suffix))
-
-        self.assertEqual(flat["openapi"], "3.0.2")
-        self.assertEqual(flat["servers/0/url"], "{apiRoot}/nef-services-catalog-service/22-03")
-        self.assertEqual(flat["servers/0/description"], "Amdocs NEF Release 22-03")
-        self.assertEqual(flat["paths//datastore/APIs/post/requestBody/description"], "A new `TestRoot2` to be created.")
-        self.assertEqual(flat["paths//datastore/APIs/post/requestBody/content/application/json/schema/$ref"], "#/components/schemas/TestRoot2")
-        self.assertEqual(flat["paths//datastore/API_Bundles/get/parameters/1/description"], "Pagination Offset")
-        self.assertEqual(flat["paths//datastore/collections/get/parameters/0/description"], "Pagination Limit")
-        self.assertEqual(flat["components/schemas/API/properties/API_Documentation/description"], "No Description for API Documentation ")
-        self.assertEqual(flat["components/schemas/API/required/6"], "API_Documentation")
-        self.assertEqual(flat["components/schemas/UsagePolicy/properties/VariableType/example"], "VariableType")
-
-    def test_CodeGenerator_Artifacts(self):
-        Term.setVerbose(False)
-        Term.print_red("> test CodeGenerator renderArtifacts")
-        FileSystem.rmDir("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts")
-        dataModel = Architect(default_data_model).readArchitect()
-        codeGen   = CodeGenerator(default_data_model)
-        codeGen.renderArtifacts(dataModel)
-
-        # Check File Generation
-        self.assertTrue(FileSystem.isFileExist(codeGen.artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.json"))
-        self.assertTrue(FileSystem.isFileExist(codeGen.artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.yaml"))
-        self.assertTrue(FileSystem.isFileExist(codeGen.artifacts_dir + os.sep + "ServicesCatalog.sql"))
-        self.assertIn("TT", FileSystem.loadFileContent(codeGen.artifacts_dir + os.sep+"ServicesCatalog.sql"))
-
-        # Check Generation Context
-        context = FileSystem.loadFileData(codeGen.artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.json")
-
-        flat = Util.flatten(context)
-        Term.print_verbose(json.dumps(flat, indent=3))
-
-        Term.gen_assert(context)
-        self.assertEqual(flat["PATH_PREFIX"], "/datastore")
-        self.assertEqual(flat["DATAMODEL"], "API_Data_Model_Sample")
-        self.assertEqual(flat["ENTITIES/API/name"], "name")
-        self.assertEqual(flat["ENTITIES/API/type"], "object")
-        self.assertEqual(flat["ENTITIES/UsagePolicy/type"], "object")
-        self.assertEqual(flat["OPENAPI/paths//datastore/API_Bundles/get/description"], "Gets a list of all `API_Bundle` entities.")
-        self.assertEqual(flat["OPENAPI/paths//datastore/APIs/{id}/put/responses/202/description"], "Successful response.")
 
     def test_CodeGenerator_generateEntitiesJsonSchema(self):
         Term.setVerbose(False)
@@ -2023,7 +1976,61 @@ class Test(unittest.TestCase):
         self.assertEqual(flat["API/$defs/UsagePolicy/title"], "Schema for UsagePolicy")
         self.assertEqual(flat["API/properties/API_Description/title"], "API_Description")
 
-    def test_CodeGenerator_configure_ANME_DataStore(self):
+    def test_CodeGenerator_OpenAPI(self):
+        Term.setVerbose(False)
+        Term.print_red("> test CodeGenerator renderOpenAPI")
+        FileSystem.rmDir("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts")
+        dataModel = Architect(default_data_model).readArchitect()
+        codeGen   = CodeGenerator(default_data_model)
+        open_api  = codeGen.renderOpenAPI(dataModel)
+
+        flat = Util.flatten(open_api)
+        Term.print_verbose(json.dumps(flat, indent=3))
+        Term.gen_assert(open_api)
+
+        self.assertTrue(FileSystem.isFileExist("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts" + os.sep + "API_Data_Model_Sample" + openapi_yaml_suffix))
+
+        self.assertEqual(flat["openapi"], "3.0.2")
+        self.assertEqual(flat["servers/0/url"], "{apiRoot}/nef-services-catalog-service/22-03")
+        self.assertEqual(flat["servers/0/description"], "Amdocs NEF Release 22-03")
+        self.assertEqual(flat["paths//datastore/APIs/post/requestBody/description"], "A new `TestRoot2` to be created.")
+        self.assertEqual(flat["paths//datastore/APIs/post/requestBody/content/application/json/schema/$ref"], "#/components/schemas/TestRoot2")
+        self.assertEqual(flat["paths//datastore/API_Bundles/get/parameters/1/description"], "Pagination Offset")
+        self.assertEqual(flat["paths//datastore/collections/get/parameters/0/description"], "Pagination Limit")
+        self.assertEqual(flat["components/schemas/API/properties/API_Documentation/description"], "No Description for API Documentation ")
+        self.assertEqual(flat["components/schemas/API/required/6"], "API_Documentation")
+        self.assertEqual(flat["components/schemas/UsagePolicy/properties/VariableType/example"], "VariableType")
+
+    def test_CodeGenerator_Artifacts(self):
+        Term.setVerbose(False)
+        Term.print_red("> test CodeGenerator renderArtifacts")
+        FileSystem.rmDir("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts")
+        dataModel = Architect(default_data_model).readArchitect()
+        codeGen   = CodeGenerator(default_data_model)
+        codeGen.renderArtifacts(dataModel)
+
+        # Check File Generation
+        self.assertTrue(FileSystem.isFileExist(codeGen.artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.json"))
+        self.assertTrue(FileSystem.isFileExist(codeGen.artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.yaml"))
+        self.assertTrue(FileSystem.isFileExist(codeGen.artifacts_dir + os.sep + "ServicesCatalog.sql"))
+        self.assertIn("TT", FileSystem.loadFileContent(codeGen.artifacts_dir + os.sep+"ServicesCatalog.sql"))
+
+        # Check Generation Context
+        context = FileSystem.loadFileData(codeGen.artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.json")
+
+        flat = Util.flatten(context)
+        Term.print_verbose(json.dumps(flat, indent=3))
+
+        Term.gen_assert(context)
+        self.assertEqual(flat["PATH_PREFIX"], "/datastore")
+        self.assertEqual(flat["DATAMODEL"], "API_Data_Model_Sample")
+        self.assertEqual(flat["ENTITIES/API/name"], "API")
+        self.assertEqual(flat["ENTITIES/API/type"], "object")
+        self.assertEqual(flat["ENTITIES/UsagePolicy/type"], "object")
+        self.assertEqual(flat["OPENAPI/paths//datastore/API_Bundles/get/description"], "Gets a list of all `API_Bundle` entities.")
+        self.assertEqual(flat["OPENAPI/paths//datastore/APIs/{id}/put/responses/202/description"], "Successful response.")
+
+    def _test_CodeGenerator_configure_ANME_DataStore(self):
         Term.setVerbose(False)
         Term.print_red("> test configure_ANME_DataStore")
         FileSystem.rmDir("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts")
