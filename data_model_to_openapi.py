@@ -29,6 +29,7 @@ logging.basicConfig(filename=logFile, filemode='w', format='%(asctime)s - %(name
 
 ### Defaults / Constants
 default_data_model   = "NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample"
+default_include_dir  = "NEF" + os.sep + "include"
 templates_dir_suffix = "_templates"
 artifacts_dir_suffix = "_artifacts"
 openapi_yaml_suffix  = "_API.yaml"
@@ -1269,7 +1270,7 @@ class CodeGenerator:
     def __init__(self, p_model_location : str = None):
         self.model_location  = p_model_location if p_model_location else default_data_model
         self.templates_dir   = "." + os.sep + self.model_location + templates_dir_suffix
-        self.includes_dir    = "." + os.sep + "NEF" + os.sep + "include"
+        self.includes_dir    = "." + os.sep + default_include_dir
         self.artifacts_dir   = "." + os.sep + self.model_location + artifacts_dir_suffix
         self.context_file    = None
 
@@ -1277,13 +1278,13 @@ class CodeGenerator:
         self.model_location = p_model_location.replace(".architect", "")
         Term.print_yellow("Model Location : " + str(self.templates_dir))
 
-        self.templates_dir = p_templates_dir if p_templates_dir else "." + os.sep + self.model_location + templates_dir_suffix
+        self.templates_dir = p_templates_dir if p_templates_dir else self.model_location + templates_dir_suffix
         Term.print_yellow("Templates Dir  : " + str(self.templates_dir))
 
-        self.includes_dir = p_includes_dir if p_includes_dir else "." + os.sep + "include"
+        self.includes_dir = p_includes_dir if p_includes_dir else default_include_dir
         Term.print_yellow("Include Dir    : " + str(self.includes_dir))
 
-        self.artifacts_dir = p_artifacts_dir if p_artifacts_dir else "." + os.sep + self.model_location + artifacts_dir_suffix
+        self.artifacts_dir = p_artifacts_dir if p_artifacts_dir else  self.model_location + artifacts_dir_suffix
         Term.print_yellow("Artifacts Dir  : " + str(self.artifacts_dir))
 
         self.context_file = p_context_file if p_context_file else None
@@ -2079,7 +2080,7 @@ class TestArchitectModels(unittest.TestCase):
         Term.print_green("> testGenerate_NEF_API_Subscription_DataService")
         data_model_location = "NEF" + os.sep + "NEF_API_Subscription" + os.sep + "NEF_API_Subscription_Procedure"
         context_file        = data_model_location + "_context.yaml"
-        includes_dir        = "NEF" + os.sep + "include"
+        includes_dir        = default_include_dir
         generate({"WHAT" : "schema openapi", "DATA_MODEL" : data_model_location, "CONTEXT_FILE" : context_file, "INCLUDES_DIR" : includes_dir}, clean_artifacts=True)
 
     def testGenerate_SCEF_Service(self):
@@ -2094,7 +2095,7 @@ class TestArchitectModels(unittest.TestCase):
         context_file  = data_model_location + "_context.json"
         templates_dir = data_model_location + templates_dir_suffix
         artifacts_dir = data_model_location + artifacts_dir_suffix
-        includes_dir  = "NEF" + os.sep + "include"
+        includes_dir  = default_include_dir
         generate({"WHAT" : "openapi schema render config", "DATA_MODEL" : data_model_location,
                   "TEMPLATES_DIR" : templates_dir, "INCLUDES_DIR" : includes_dir,
                   "ARTIFACTS_DIR" : artifacts_dir, "CONTEXT_FILE" : context_file},
@@ -2154,7 +2155,7 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
         Term.print_error("Include Dir not found : " + str(includes_dir))
         Term.print_yellow(read_command_line_args([], p_usage=True))
         quit()
-    includes_dir = includes_dir if includes_dir else "." + os.sep + "include"
+    includes_dir = includes_dir if includes_dir else default_include_dir
     Term.print_yellow("Includes Dir   : " + includes_dir)
 
     if (clean_artifacts):
