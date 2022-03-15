@@ -1255,13 +1255,13 @@ Note : The OpenAPI Components and JSON Schema do not have exactly the same struc
 
 There are multiple types for stuff to be generated:
 - OpenAPI Components and Operations          : Components + Path  
-  => using PATH indicators - renderOpenAPI + create_path
+  => using PATH indicators - CodeGenerator.renderOpenAPI + Path.create_path
 - JSON Schema for APIs Validation            : for API Validation
-  => using PATH indicators - generatePathJsonSchema
+  => using PATH indicators - CodeGenerator.generatePathJsonSchema
 - JSON Schema for Configuration Validation   : for Configuration  
-  => using ROOT indicators - generateRootJsonSchema
+  => using ROOT indicators - CodeGenerator.generateRootJsonSchema
 - Contexts for Code Generation (using mako)  : This is a JSON Object with all Entities and OpenAPI Details 
-  => renderArtifacts = generateEntitiesJsonSchema + renderOpenAPI + renderDir
+  => renderArtifacts = CodeGenerator.generateEntitiesJsonSchema + CodeGenerator.renderOpenAPI + CodeGenerator.renderDir
 """
 
 
@@ -1269,12 +1269,12 @@ class CodeGenerator:
 
     def __init__(self, p_model_location : str = None):
         self.model_location  = p_model_location if p_model_location else default_data_model
-        self.templates_dir   = "." + os.sep + self.model_location + templates_dir_suffix
-        self.includes_dir    = "." + os.sep + default_include_dir
-        self.artifacts_dir   = "." + os.sep + self.model_location + artifacts_dir_suffix
+        self.templates_dir   = self.model_location + templates_dir_suffix
+        self.includes_dir    = default_include_dir
+        self.artifacts_dir   = self.model_location + artifacts_dir_suffix
         self.context_file    = None
 
-    def configureDir(self, p_model_location : str, p_templates_dir : str, p_artifacts_dir : str, p_includes_dir : str, p_context_file : str):
+    def configureDir(self, p_model_location : str, p_templates_dir : str, p_includes_dir : str, p_artifacts_dir : str, p_context_file : str):
         self.model_location = p_model_location.replace(".architect", "")
         Term.print_yellow("Model Location : " + str(self.templates_dir))
 
@@ -2110,7 +2110,7 @@ class TestArchitectModels(unittest.TestCase):
         # Check Generated File Content
         self.assertIn("TT", FileSystem.loadFileContent(artifacts_dir + os.sep+"ServicesCatalog.sql"))
 
-        # Check in Code Generation Context
+        # Check Code Generation Context
         context = Util.flatten(FileSystem.loadFileData(artifacts_dir + os.sep + "_Contexts" + os.sep + "API_Data_Model_Sample_context.json"))
         Term.gen_assert(context)
         flat = Util.flatten(context)
@@ -2146,7 +2146,7 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
         Term.print_error("Templates Dir not found : " + str(templates_dir))
         Term.print_yellow(read_command_line_args([], p_usage=True))
         quit()
-    templates_dir = templates_dir if templates_dir else "." + os.sep + data_model_location + templates_dir_suffix
+    templates_dir = templates_dir if templates_dir else data_model_location + templates_dir_suffix
     Term.print_yellow("Templates Dir  : " + str(templates_dir))
 
     if (includes_dir) and (not FileSystem.isDirExist(includes_dir)):
@@ -2170,7 +2170,7 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
         Term.print_error("Artifacts Dir not found : " + str(artifacts_dir))
         Term.print_yellow(read_command_line_args([], p_usage=True))
         quit()
-    artifacts_dir = artifacts_dir if artifacts_dir else "." + os.sep + data_model_location + artifacts_dir_suffix
+    artifacts_dir = artifacts_dir if artifacts_dir else data_model_location + artifacts_dir_suffix
     Term.print_yellow("Artifacts Dir  : " + str(artifacts_dir))
 
     if (context_file) and (not FileSystem.isFileExist(context_file)):
@@ -2180,20 +2180,22 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
     Term.print_yellow("Context File   : "+str(context_file))
 
     Term.print_yellow("Generating     : " + str(cl_args["WHAT"]))
-    Term.print_blue("Model   : " + data_model_location + ".architect")
+    Term.print_blue("Model          : " + data_model_location + ".architect")
 
     # Backup architect file
-    backup_dir = FileSystem.getDirName(data_model_location) + os.sep + "Archive"
+    backup_dir  = FileSystem.getDirName(data_model_location) + os.sep + "Archive"
     backup_file = FileSystem.getBaseName(data_model_location) + "_" + datetime.datetime.now().strftime("%y%m%d-%H%M%S") + ".architect"
     FileSystem.createDir(backup_dir)
     shutil.copyfile(data_model_location + ".architect", backup_dir + os.sep + backup_file)
-    Term.print_blue("Backup  : " + backup_dir + os.sep + backup_file)
+    Term.print_blue("Backup         : " + backup_dir + os.sep + backup_file)
 
     # Read architect file
-    Term.print_blue("Reading : " + data_model_location + ".architect")
+    Term.print_blue("Reading        : " + data_model_location + ".architect")
     dataModel = Architect(default_data_model).readArchitect()
-    codeGen = CodeGenerator(data_model_location)
-    codeGen.configureDir(data_model_location, templates_dir, artifacts_dir, includes_dir, context_file)
+
+    # Configure CodeGenerator
+    codeGen   = CodeGenerator(data_model_location)
+    codeGen.configureDir(data_model_location, templates_dir, includes_dir, artifacts_dir, context_file)
 
     # Generate ...
     if ("config" in what.lower()):
@@ -2303,22 +2305,22 @@ Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> 
             Term.setVerbose(True)
             continue
         elif opt.lower() in ("-o", "-openapi"):
-            cl_args["WHAT"] = cl_args["WHAT"] + " openapi"
+            cl_args["WHAT"] = cl_args["WHAT"] + "openapi "
             continue
         elif opt.lower() in ("-y", "-yaml"):
-            cl_args["WHAT"] = cl_args["WHAT"] + " openapi"
+            cl_args["WHAT"] = cl_args["WHAT"] + "openapi "
             continue
         elif opt.lower() in ("-g", "-config"):
-            cl_args["WHAT"] = cl_args["WHAT"] + " config"
+            cl_args["WHAT"] = cl_args["WHAT"] + "config "
             continue
         elif opt.lower() in ("-s", "-schema"):
-            cl_args["WHAT"] = cl_args["WHAT"] + " schema"
+            cl_args["WHAT"] = cl_args["WHAT"] + "schema "
             continue
         elif opt.lower() in ("-d", "-datastore"):
-            cl_args["WHAT"] = cl_args["WHAT"] + " datastore"
+            cl_args["WHAT"] = cl_args["WHAT"] + "datastore "
             continue
         elif opt.lower() in ("-r", "-render"):
-            cl_args["WHAT"] = cl_args["WHAT"] + " render"
+            cl_args["WHAT"] = cl_args["WHAT"] + "render "
             continue
         elif opt.lower() in ("-m", "-model"):
             cl_args["DATA_MODEL"] = arg
@@ -2340,5 +2342,5 @@ Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> 
 
 if __name__ == '__main__':
 
-    rcl_args = read_command_line_args(argv=sys.argv[1:])
-    generate(rcl_args)
+    args = read_command_line_args(argv=sys.argv[1:])
+    generate(args)
