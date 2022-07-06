@@ -1280,10 +1280,10 @@ class CodeGenerator:
         self.model_location = p_model_location.replace(".architect", "")
         Term.print_yellow("Model Location : " + str(self.templates_dir))
 
-        self.templates_dir = p_templates_dir if p_templates_dir else None # self.model_location + templates_dir_suffix
+        self.templates_dir = p_templates_dir if p_templates_dir else self.model_location + templates_dir_suffix
         Term.print_yellow("Templates Dir  : " + str(self.templates_dir))
 
-        self.includes_dir = p_includes_dir if p_includes_dir else None # default_include_dir
+        self.includes_dir = p_includes_dir if p_includes_dir else default_include_dir
         Term.print_yellow("Include Dir    : " + str(self.includes_dir))
 
         self.artifacts_dir = p_artifacts_dir if p_artifacts_dir else  self.model_location + artifacts_dir_suffix
@@ -1496,7 +1496,7 @@ class CodeGenerator:
         context["ENTITIES"]  = p_dataModel.entities
         context["OPENAPI"]   = self.renderOpenAPI(p_dataModel)
 
-        CodeGenerator.renderDir(self.templates_dir, self.includes_dir, self.artifacts_dir, context)
+        self.renderDir(self.templates_dir, self.includes_dir, self.artifacts_dir, context)
 
         Term.print_yellow("< render Artifacts")
 
