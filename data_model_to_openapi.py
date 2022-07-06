@@ -1496,7 +1496,7 @@ class CodeGenerator:
         context["ENTITIES"]  = p_dataModel.entities
         context["OPENAPI"]   = self.renderOpenAPI(p_dataModel)
 
-        self.renderDir(self.templates_dir, self.includes_dir, self.artifacts_dir, context)
+        CodeGenerator.renderDir(self.templates_dir, self.includes_dir, self.artifacts_dir, context)
 
         Term.print_yellow("< render Artifacts")
 
