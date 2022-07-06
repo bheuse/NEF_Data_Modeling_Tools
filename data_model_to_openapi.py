@@ -672,11 +672,8 @@ class Architect:
         att_property["Schema"] = desc_schema
 
         # physicalName -> example
-        if (att["@physicalName"] is None) or (att["@physicalName"] == att_property["name"]):
-            if (("example" in desc_schema) and (str(desc_schema["example"]).strip != "")):
-                att_property["example"] = desc_schema["example"]
-            else:
-                att_property["example"] = "No example for " + att["@name"]
+        if (att["@physicalName"] is None):
+            att_property["example"] = "No example for " + att["@name"]
         else:
             att_property["example"] = att["@physicalName"]
 
