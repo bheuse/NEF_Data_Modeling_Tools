@@ -40,7 +40,6 @@ json_schema_baseURI  = "https://amdocs.com/schemas/nef/"
 ### Term Util - Print
 ###
 
-
 class Term:
 
     VERBOSE = False
@@ -326,12 +325,12 @@ The content of the Data Model in SQL Architect will be used as in ReadMe File.
 THe mapping as follow :
 
 
-DataModel                       Architect                              DbSchema
+DataModel                       Architect                              
 
 Entity:
     entity["name"]              = Logical Name
     entity["type"]              = "object"
-    entity["description"]       = table["remarks"]
+    entity["description"]       = table["remarks"] (stripped off <tags></tags>)
     entity["example"]           = table["@physicalName"]
     entity["NAME"]              = Logical Name
     entity["TABLE"]             = table["@id"]                         N/A
@@ -424,8 +423,7 @@ class DataModel:
     def setDefault(attribute: str, desc: dict, prop: str, default) -> dict:
         if ((prop not in desc) or (str(desc[prop]).strip() == "")):
             desc[prop] = default
-            Term.print_warning(
-                "Warning : attribute [" + str(attribute) + "] " + str(prop) + " defaulted to : [" + str(default) + "]")
+            Term.print_warning("Warning : attribute [" + str(attribute) + "] " + str(prop) + " defaulted to : [" + str(default) + "]")
         return desc
 
     @staticmethod
@@ -587,7 +585,8 @@ class Architect:
             ignore = False
             for tlink in self.architect["architect-project"]["play-pen"]["table-link"]:
                 if (tlink["@relationship-ref"] == relation["@id"]):
-                    link["Description"] = Architect.cleanName(tlink["@pkLabelText"]) + " " + Architect.cleanName(tlink["@fkLabelText"])
+                    # link["Description"] = Architect.cleanName(tlink["@pkLabelText"]) + " " + Architect.cleanName(tlink["@fkLabelText"])
+                    link["Description"] = tlink["@pkLabelText"] + " " + tlink["@fkLabelText"]
                     if (link["Description"] == " "): link["Description"] = link["Name"]
                 if (ignore is False) :
                     links[relation["@id"]] = link
@@ -673,8 +672,11 @@ class Architect:
         att_property["Schema"] = desc_schema
 
         # physicalName -> example
-        if (att["@physicalName"] is None):
-            att_property["example"] = "No example for " + att["@name"]
+        if (att["@physicalName"] is None) or (att["@physicalName"] == att_property["name"]):
+            if (("example" in desc_schema) and (str(desc_schema["example"]).strip != "")):
+                att_property["example"] = desc_schema["example"]
+            else:
+                att_property["example"] = "No example for " + att["@name"]
         else:
             att_property["example"] = att["@physicalName"]
 
@@ -1170,13 +1172,13 @@ class Path:
         sep = ""
         for entity in entities:
             if ("PATH" in entities[entity]):
-                path_par = None
-                list_par = None
-                get_par = None
+                path_par   = None
+                list_par   = None
+                get_par    = None
                 create_par = None
-                patch_par = None
-                put_par = None
-                del_par = None
+                patch_par  = None
+                put_par    = None
+                del_par    = None
                 schema_par = None
                 if ("PATH_PARAMETERS" in entities[entity]) :
                     path_par   = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "path_parameters")
@@ -1278,10 +1280,10 @@ class CodeGenerator:
         self.model_location = p_model_location.replace(".architect", "")
         Term.print_yellow("Model Location : " + str(self.templates_dir))
 
-        self.templates_dir = p_templates_dir if p_templates_dir else self.model_location + templates_dir_suffix
+        self.templates_dir = p_templates_dir if p_templates_dir else None # self.model_location + templates_dir_suffix
         Term.print_yellow("Templates Dir  : " + str(self.templates_dir))
 
-        self.includes_dir = p_includes_dir if p_includes_dir else default_include_dir
+        self.includes_dir = p_includes_dir if p_includes_dir else None # default_include_dir
         Term.print_yellow("Include Dir    : " + str(self.includes_dir))
 
         self.artifacts_dir = p_artifacts_dir if p_artifacts_dir else  self.model_location + artifacts_dir_suffix
@@ -2031,7 +2033,7 @@ class TestCodeGen(unittest.TestCase):
         self.assertEqual(flat["OPENAPI/paths//datastore/API_Bundles/get/description"], "Gets a list of all `API_Bundle` entities.")
         self.assertEqual(flat["OPENAPI/paths//datastore/APIs/{id}/put/responses/202/description"], "Successful response.")
 
-    def _test_CodeGenerator_configure_ANME_DataStore(self):
+    def test_CodeGenerator_configure_ANME_DataStore(self):
         Term.setVerbose(False)
         Term.print_red("> test configure_ANME_DataStore")
         FileSystem.rmDir("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts")
@@ -2085,8 +2087,11 @@ class TestArchitectModels(unittest.TestCase):
 
     def testGenerate_SCEF_Service(self):
         Term.print_green("> testGenerate_SCEF_Service")
-        data_model_location = "NEF" + os.sep + "NEF_SCEF" + os.sep+"NEF_SCEF_API"
-        generate({"WHAT" : "openapi", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
+        data_model_location = "NEF" + os.sep + "NEF_SCEF" + os.sep+"NEF_SCEF"
+        context_file        = None
+        includes_dir        = None
+        generate({"WHAT" : "openapi", "DATA_MODEL" : data_model_location,
+                  "INCLUDES_DIR"    : includes_dir , "CONTEXT_FILE" : context_file}, clean_artifacts=True)
 
     def testGenerate_NEF_API_Data_Model_Sample(self):
         Term.print_green("> testGenerate_NEF_API_Data_Model_Sample")
@@ -2146,7 +2151,7 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
         Term.print_error("Templates Dir not found : " + str(templates_dir))
         Term.print_yellow(read_command_line_args([], p_usage=True))
         quit()
-    templates_dir = templates_dir if templates_dir else data_model_location + templates_dir_suffix
+    # templates_dir = templates_dir if templates_dir else data_model_location + templates_dir_suffix
     Term.print_yellow("Templates Dir  : " + str(templates_dir))
 
     if (includes_dir) and (not FileSystem.isDirExist(includes_dir)):
@@ -2155,8 +2160,8 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
         Term.print_error("Include Dir not found : " + str(includes_dir))
         Term.print_yellow(read_command_line_args([], p_usage=True))
         quit()
-    includes_dir = includes_dir if includes_dir else default_include_dir
-    Term.print_yellow("Includes Dir   : " + includes_dir)
+    # includes_dir = includes_dir if includes_dir else default_include_dir
+    Term.print_yellow("Includes Dir   : " + str(includes_dir))
 
     if (clean_artifacts):
         if (artifacts_dir) and (FileSystem.isDirExist(artifacts_dir)):
@@ -2191,7 +2196,7 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
 
     # Read architect file
     Term.print_blue("Reading        : " + data_model_location + ".architect")
-    dataModel = Architect(default_data_model).readArchitect()
+    dataModel = Architect(data_model_location).readArchitect()
 
     # Configure CodeGenerator
     codeGen   = CodeGenerator(data_model_location)
@@ -2206,18 +2211,18 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
         codeGen.renderOpenAPI(dataModel)
     if (("render" in what.lower()) or ("artifacts" in what.lower())):
         codeGen.renderArtifacts(dataModel)
-    if ("anme" in what.lower()):
+    if (("anme" in what.lower()) or ("datastore" in what.lower())):
         codeGen.configure_ANME_DataStore(dataModel)
 
 
 # This method to alter/customize Generated OpenAPI, when needed.
 def customOpenApi(p_model : str, open_api : dict) -> dict:
 
-    Term.print_yellow("> custom OpenApi for : " + p_model)
+    Term.print_yellow("> OpenApi Customizations on : " + p_model)
 
     # Some Custom for NEF_Configuration_Service
     if ("NEF_Configuration_Service" in p_model) :
-        Term.print_yellow("> custom OpenApi NEF_Configuration_Service")
+        Term.print_yellow("> Customs for NEF_Configuration_Service")
         for path in open_api["paths"] :
             for op in open_api["paths"][path]:
                 if (op == "get") :
@@ -2232,29 +2237,30 @@ def customOpenApi(p_model : str, open_api : dict) -> dict:
 
     # Some Custom for NEF_Configuration_Service
     if ("NEF_SCEF" in p_model) :
-        Term.print_yellow("> custom OpenApi NEF_SCEF")
-        open_api["paths"]["/notify/message"] = open_api["paths"]["/notify/messages"]
-        del open_api["paths"]["/notify/messages"]
-        open_api["paths"]["/request/message"] = open_api["paths"]["/request/messages"]
-        del open_api["paths"]["/request/messages"]
+        Term.print_yellow("> Customs for NEF_SCEF")
+        # open_api["paths"]["/notify/message"] = open_api["paths"]["/notify/messages"]
+        # del open_api["paths"]["/notify/messages"]
+        # open_api["paths"]["/request/message"] = open_api["paths"]["/request/messages"]
+        # del open_api["paths"]["/request/messages"]
         for path in open_api["paths"] :
-            if ("/request/message" == path):
-                del open_api["paths"]["/request/message"]["parameters"]
-                open_api["paths"]["/request/message"]["post"]["responses"]["202"]["content"]["application/json"]["schema"]["$ref"] = "#/components/schemas/Response"
-                open_api["paths"]["/request/message"]["description"] = "Submit Message Request"
-                open_api["paths"]["/request/message"]["summary"] = "Submit Message Request"
-            if ("/notify/message" == path):
-                del open_api["paths"]["/notify/message"]["parameters"]
-                open_api["paths"]["/notify/message"]["post"]["responses"]["202"]["content"]["application/json"]["schema"]["$ref"] = "#/components/schemas/Response"
-                open_api["paths"]["/notify/message"]["description"] = "Transmits Notifications"
-                open_api["paths"]["/notify/message"]["summary"] = "Transmits Notifications"
+            if ("/request/messages" == path):
+                del open_api["paths"]["/request/messages"]["parameters"]
+                open_api["paths"]["/request/messages"]["post"]["responses"]["202"]["content"]["application/json"]["schema"]["$ref"] = "#/components/schemas/Response"
+                open_api["paths"]["/request/messages"]["description"] = "Submit Message Request"
+                open_api["paths"]["/request/messages"]["summary"] = "Submit Message Request"
+            if ("/notify/messages" == path):
+                del open_api["paths"]["/notify/messages"]["parameters"]
+                open_api["paths"]["/notify/messages"]["post"]["responses"]["202"]["content"]["application/json"]["schema"]["$ref"] = "#/components/schemas/Response"
+                open_api["paths"]["/notify/messages"]["description"] = "Transmit a Notification"
+                open_api["paths"]["/notify/messages"]["summary"] = "Transmit a Notification"
         del open_api["components"]["schemas"]["AVP"]["properties"]["Value"]["type"]
+        del open_api["components"]["schemas"]["AVP"]["properties"]["AVP"]
         open_api["components"]["schemas"]["AVP"]["properties"]["Value"]["oneOf"] = [{"type" : "integer"} ,
                                                                                     {"type" : "string"},
                                                                                     {"type" : "boolean"},
                                                                                     {"type" : "number"},
                                                                                     {"type" : "array" ,
-                                                                                   "items" : {"$ref" : "#/components/schemas/AVP"}}]
+                                                                          "items" : {"$ref" : "#/components/schemas/AVP"}}]
 
     return open_api
 
