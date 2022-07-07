@@ -836,7 +836,7 @@ Free …</remarks>
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL72" populated="true" UUID="07605fb4-55f8-46ad-8ad9-97e4b20d0185" autoIncrement="false" autoIncrementSequenceName="API Provider _PoviderIcon_seq" defaultValue="" name="PoviderIcon" nullable="0" physicalName="PoviderIcon" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL72" populated="true" UUID="07605fb4-55f8-46ad-8ad9-97e4b20d0185" autoIncrement="false" autoIncrementSequenceName="API Provider _ProviderIcon_seq" defaultValue="" name="ProviderIcon" nullable="0" physicalName="ProviderIcon" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Collection Logo
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
