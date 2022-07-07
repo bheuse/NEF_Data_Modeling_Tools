@@ -579,7 +579,7 @@ class Architect:
             # if (relation["@pkCardinality"] == "3") :  link["Cardinalite"]     = "ZeroToOne"
             # if (relation["@pkCardinality"] == "7") :  link["Cardinalite"]     = "OneToMore"
             # if (relation["@pkCardinality"] == "6") :  link["Cardinalite"]     = "ZeroToMore"
-            if (relation["@pkCardinality"] == "2") :  link["Cardinalite"]     = "OneToOne"
+            # if (relation["@pkCardinality"] == "2") :  link["Cardinalite"]     = "OneToOne"
             link["Name"]            = Architect.cleanName(relation["@name"])
             link["Description"]     = "No Description"
             ignore = False
@@ -684,6 +684,8 @@ class Architect:
             if "required" not in obj_desc : obj_desc["required"] = list()
             obj_desc["required"].append(att_name)
             att_property["mandatory"] = "y"
+
+
 
         # defaultValue -> pattern
         att_property["pattern"] = att["@defaultValue"]
