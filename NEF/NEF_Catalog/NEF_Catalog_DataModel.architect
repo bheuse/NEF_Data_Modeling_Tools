@@ -392,8 +392,8 @@ Free …
    }
 ]</remarks>
     </column>
-    <column id="COL37" populated="true" UUID="6cae4ca1-bbc4-41ff-aa92-ed16a6080367" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Business Data Model. _seq" defaultValue="" name="description" nullable="0" physicalName="NEF Business Data Model. " precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
+    <column id="COL37" populated="true" UUID="6cae4ca1-bbc4-41ff-aa92-ed16a6080367" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Business Data Model._seq" defaultValue="" name="description" nullable="0" physicalName="NEF Business Data Model." precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>This is generated, modify source architect data model instead.
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
    &quot;key&quot;: false,
@@ -403,7 +403,7 @@ Free …
    &quot;format&quot;: &quot;noFormat&quot;,
    &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
    &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;This is generated, modify source architect data model instead.&quot;,
+   &quot;example&quot;: &quot;NEF Business Data Model.&quot;,
    &quot;validationScript&quot;: &quot;&quot;,
    &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
    &quot;minCardinality&quot;: 1,
@@ -1194,7 +1194,7 @@ Free …
  <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="0.840896415253714" viewportX="0" viewportY="107" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="0.840896415253714" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="532" y="608" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB13" x="215" y="353" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB20" x="569" y="86" bgColor="0xbfd6ff" fgColor="0x5a6986" rounded="false" dashed="false"/>
