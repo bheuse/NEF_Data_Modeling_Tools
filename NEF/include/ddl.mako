@@ -12,7 +12,7 @@ CREATE ROLE ${prefix}_role WITH sysproc, adhoc, defaultproc;
 \n
 CREATE TABLE ${prefix}_${ENTITY} (
     id VARCHAR(36) NOT NULL,
-    json_data VARCHAR(4096) NOT NULL,
+    json_data VARCHAR(1048576 BYTES) NOT NULL,
     PRIMARY KEY(id)
 );
 PARTITION TABLE ${prefix}_${ENTITY} ON COLUMN id;
