@@ -672,7 +672,7 @@ class Architect:
         att_property["Schema"] = desc_schema
 
         # physicalName -> example
-        if (att["@physicalName"] is None) or (att["@physicalName"] == att_property["name"]):
+        if (att["@physicalName"] is None) or (att["@physicalName"] != att_property["name"]):
             if (("example" in desc_schema) and (str(desc_schema["example"]).strip != "")):
                 att_property["example"] = desc_schema["example"]
             else:
@@ -1280,10 +1280,10 @@ class CodeGenerator:
         self.model_location = p_model_location.replace(".architect", "")
         Term.print_yellow("Model Location : " + str(self.templates_dir))
 
-        self.templates_dir = p_templates_dir if p_templates_dir else None # self.model_location + templates_dir_suffix
+        self.templates_dir = p_templates_dir if p_templates_dir else self.model_location + templates_dir_suffix
         Term.print_yellow("Templates Dir  : " + str(self.templates_dir))
 
-        self.includes_dir = p_includes_dir if p_includes_dir else None # default_include_dir
+        self.includes_dir = p_includes_dir if p_includes_dir else default_include_dir
         Term.print_yellow("Include Dir    : " + str(self.includes_dir))
 
         self.artifacts_dir = p_artifacts_dir if p_artifacts_dir else  self.model_location + artifacts_dir_suffix

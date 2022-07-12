@@ -10,4 +10,3 @@ expiringdict
 requests_file
 requests
 mako
-shutil
