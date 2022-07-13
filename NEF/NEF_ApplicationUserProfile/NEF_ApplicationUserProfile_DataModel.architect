@@ -174,8 +174,25 @@
     <column id="COL14" populated="true" UUID="2c8e40b4-8250-4ca9-85b6-24be9dc6885d" autoIncrement="false" autoIncrementSequenceName="AF API Consumers_Contact Details_seq" defaultValue="" name="Contact Details" nullable="0" physicalName="Contact_Details" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL15" populated="true" UUID="ffb9ee34-c8fd-4a41-b110-5965cb54ef83" autoIncrement="false" autoIncrementSequenceName="AF API Consumers_NEF Credentials _seq" defaultValue="" name="NEF Credentials " nullable="0" physicalName="NEF_Credentials_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks></remarks>
+    <column id="COL15" populated="true" UUID="ffb9ee34-c8fd-4a41-b110-5965cb54ef83" autoIncrement="false" autoIncrementSequenceName="AF API Consumers_NEF Credentials _seq" defaultValue="" name="NEF Credentials " nullable="0" physicalName="NEF_Credentials" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;NEF_Credentials&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
     </column>
     </folder>
     <folder id="FOLTAB123" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
@@ -220,7 +237,7 @@
     <column id="COL21" populated="true" UUID="8df44c95-be23-4cf3-a10a-fbee5dbd1394" autoIncrement="false" autoIncrementSequenceName="Service_Use Case_seq" defaultValue="" name="UseCase" nullable="0" physicalName="UseCase" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL22" populated="true" UUID="797e14c1-925f-4f5c-b860-1284e439ccb2" autoIncrement="false" autoIncrementSequenceName="Service_12, 50_seq" defaultValue="" name="VolumeOrg" nullable="1" physicalName="Column_1_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL22" populated="true" UUID="797e14c1-925f-4f5c-b860-1284e439ccb2" autoIncrement="false" autoIncrementSequenceName="Service_12, 50_seq" defaultValue="" name="VolumeOrg" nullable="1" physicalName="VolumeOrg" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     <column id="COL23" populated="true" UUID="8d9dc46a-74e1-4f0e-a411-a73998d0ed93" autoIncrement="false" autoIncrementSequenceName="Service_service_seq" defaultValue="" name="_PATH" nullable="0" physicalName="service" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -660,7 +677,25 @@ Free …</remarks>
    <remarks>OpenAPI Business Model. This is generated, modify source architect data model instead.</remarks>
    <folder id="FOLTAB681" populated="true" name="Columns" physicalName="Columns" type="1">
     <column id="COL69" populated="true" UUID="d4959877-4a9c-444a-bee8-847650ffb9c2" autoIncrement="false" autoIncrementSequenceName="OpenAPI_NEF Application User Profile Data Model_seq" defaultValue="" name="title" nullable="0" physicalName="NEF Application User Profile Data Model" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks></remarks>
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;NEF Application User Profile Data Model&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
     </column>
     <column id="COL70" populated="true" UUID="80708871-8b28-4d9f-ac81-e75be106b790" autoIncrement="false" autoIncrementSequenceName="OpenAPI_Remarks_seq" defaultValue="See Remarks - JSON Format" name="contact" nullable="0" physicalName="Remarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>{ 
@@ -733,7 +768,25 @@ Free …</remarks>
 ]</remarks>
     </column>
     <column id="COL75" populated="true" UUID="63c0a072-c548-46e9-9ff6-798f52a50e8d" autoIncrement="false" autoIncrementSequenceName="OpenAPI_1.0.0_seq" defaultValue="" name="version" nullable="0" physicalName="1.0.0" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks></remarks>
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;1.0.0&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
     </column>
     <column id="COL76" populated="true" UUID="c42f0436-5589-408b-a7a4-146d59d5bbda" autoIncrement="false" autoIncrementSequenceName="OpenAPI_security_seq" defaultValue="See Remarks - JSON Format" name="security" nullable="0" physicalName="security" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>[
@@ -744,8 +797,26 @@ Free …</remarks>
    }
 ]</remarks>
     </column>
-    <column id="COL77" populated="true" UUID="5f27ff50-8db4-4c44-bea3-baeb165308ca" autoIncrement="false" autoIncrementSequenceName="OpenAPI_NEF Business Data Model. _seq" defaultValue="" name="description" nullable="0" physicalName="NEF Business Data Model. " precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>This is generated, modify source architect data model instead.</remarks>
+    <column id="COL77" populated="true" UUID="5f27ff50-8db4-4c44-bea3-baeb165308ca" autoIncrement="false" autoIncrementSequenceName="OpenAPI_NEF Business Data Model._seq" defaultValue="" name="description" nullable="0" physicalName="NEF Business Data Model." precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>This is generated, modify source architect data model instead.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;key&quot;: false,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;NEF Business Data Model.&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
     </column>
     <column id="COL78" populated="true" UUID="04b35329-bc72-44a9-b723-06a1c9341003" autoIncrement="false" autoIncrementSequenceName="OpenAPI_context_seq" defaultValue="" name="context" nullable="0" physicalName="context" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>{
@@ -1143,7 +1214,7 @@ Free …</remarks>
  <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="0.840896415253714" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="0.840896415253714" viewportX="0" viewportY="56" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="437" y="273" bgColor="0xf6bcbc" fgColor="0xb36d00" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB12" x="178" y="778" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB17" x="385" y="589" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
