@@ -53,7 +53,7 @@
     <column id="COL7" populated="true" UUID="d563d44b-ca52-4c79-9f54-e0c69bcdedd8" autoIncrement="false" autoIncrementSequenceName="OpenAPI_servers_seq" defaultValue="See Remarks - JSON Format" name="servers" nullable="0" physicalName="servers" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>[
       {
-         &quot;url&quot;: &quot;{apiRoot}/nef-api-subsciption-service/22-03&quot;,
+         &quot;url&quot;: &quot;{apiRoot}/nef-api-subscription-service/22-03&quot;,
          &quot;description&quot;: &quot;Amdocs NEF Release 22-03&quot;,
          &quot;variables&quot;: {
             &quot;apiRoot&quot;: {
@@ -71,7 +71,7 @@
                &quot;description&quot;: &quot;The NEF URL&quot;
             },
             &quot;NEF_SERVICE&quot;: {
-               &quot;default&quot;: &quot;nef-api-subsciption-service&quot;,
+               &quot;default&quot;: &quot;nef-api-subscription-service&quot;,
                &quot;description&quot;: &quot;The NEF API Subscription Endpoint&quot;
             },
             &quot;VERSION&quot;: {
