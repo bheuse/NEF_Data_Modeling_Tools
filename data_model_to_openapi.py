@@ -920,28 +920,59 @@ class Path:
                 parameters = "\"parameters\" : [  " + parameters + " ] , "
 
         paths_template_list = """
-                "get": {
-                    "operationId": "get${TABLE}s",
-                    "summary": "List All ${TABLE}s",
-                    "description": "Gets a list of all `${TABLE}` entities.",
-                    """ + parameters + """
-                    "responses": {
-                        "200": {
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "type": "array",
-                                        "items": {
-                                            "$ref": "#/components/schemas/${TABLE}"
-                                        }
-                                    }
-                                }
+        
+          "get": {
+            "operationId": "get${TABLE}s",
+            "summary": "List All ${TABLE}s",
+            "description": "Gets a list of all `${TABLE}` entities.",
+            """ + parameters + """
+            
+            "responses": {
+              "200": {
+                "description": "Successful response - returns an array of `${TABLE}` entities.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer"
+                        },
+                        "list": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/${TABLE}"
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "offset": {
+                              "type": "integer"
                             },
-                            "description": "Successful response - returns an array of `${TABLE}` entities."
+                            "limit": {
+                              "type": "integer"
+                            },
+                            "total": {
+                              "type": "integer"
+                            },
+                            "next": {
+                              "type": "string"
+                            },
+                            "previous": {
+                              "type": "string"
+                            }
+                          }
                         }
+                      }
                     }
+                  }
                 }
-"""
+              }
+            }
+          }
+          
+        """
         return paths_template_list
 
     body_content = """
