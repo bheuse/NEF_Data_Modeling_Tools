@@ -127,8 +127,8 @@ public class ${managerName}Impl implements ${managerName} {
     @Override
     public Single<${list_response_class_name}> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx) {
         String procedureName = "${prefix}_getAll${ENTITY}";
-        Integer queryLimit = queryParams.getLimit() != null ? queryParams.getLimit() : Integer.MAX_VALUE;
-        Integer queryOffset = queryParams.getOffset() != null ? queryParams.getOffset() : 0;
+        int queryLimit = queryParams.getLimit() != null ? queryParams.getLimit() : Integer.MAX_VALUE;
+        int queryOffset = queryParams.getOffset() != null ? queryParams.getOffset() : 0;
 \n
         return executeProcedureRx(ctx, procedureName,
                 ${generateFilterParams(ENTITY_DATA)}
@@ -146,7 +146,7 @@ public class ${managerName}Impl implements ${managerName} {
                         entityList.add(entity);
                     }
 \n
-                    Integer total = (table.getRowCount() >0) ? (Integer) table.get(2, VoltType.INTEGER) : 0;
+                    int total = (table.getRowCount() >0) ? (Integer) table.get(2, VoltType.INTEGER) : 0;
                     InlineResponse200Pagination pageDetails = generatePaginationDetails(
                                                                 ${className}_QUERY_PATH,
                                                                 queryOffset,
