@@ -43,7 +43,8 @@ CREATE PROCEDURE ${prefix}_get${ENTITY}
 \n
 CREATE PROCEDURE ${prefix}_getAll${ENTITY}
     ALLOW ${prefix}_role
-    AS SELECT * FROM ${prefix}_${ENTITY}
+    AS SELECT *, count(*) OVER() AS total
+        FROM ${prefix}_${ENTITY}
         ${generateWhere(ENTITY_DATA)}
         ORDER BY id
         LIMIT ?

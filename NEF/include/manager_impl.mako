@@ -24,6 +24,7 @@ import io.vertx.core.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.voltdb.VoltTable;
+import org.voltdb.VoltType;
 import org.voltdb.client.ClientResponse;
 \n
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 \n
+import static com.openet.modules.nef.${servicePackageName}.api.Api.BASE_PATH;
 import static com.openet.modules.opc.common.enums.HttpStatus.INTERNAL_SERVER_ERROR;
 import static com.openet.modules.opc.common.enums.HttpStatus.NOT_FOUND;
 \n
@@ -49,8 +51,20 @@ public class ${managerName}Impl implements ${managerName} {
         voltClient = new VoltClientImpl(config.getVoltConfig());
     }
 \n
+
+<%
+    # For pagination of list responses the sba generator will generate entities in the format of
+    # 'InlineResponse[statusCode][counter]'. We need to increment the counter to reflect entities.
+    entity_counter = 0
+%>
+
 % for ENTITY, ENTITY_DATA in ENTITIES.items():
-<% className = ENTITY.replace('_', '') %>
+
+<%
+    className = ENTITY.replace('_', '')
+    list_response_class_name = "InlineResponse200" + (str(entity_counter) if entity_counter != 0 else '')
+%>
+
 % if 'PATH' in ENTITY_DATA:
 % if ENTITY_DATA['PATH_OPERATION'] != 'read-only':
     @Override
@@ -109,30 +123,41 @@ public class ${managerName}Impl implements ${managerName} {
                 });
     }
 \n
+    private static final String ${className}_QUERY_PATH = BASE_PATH + "${ENTITY_DATA['PATH_PREFIX']}/${ENTITY_DATA['PATH']}s?";
     @Override
-    public Single<List<${className}>> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx) {
+    public Single<${list_response_class_name}> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx) {
         String procedureName = "${prefix}_getAll${ENTITY}";
+        Integer queryLimit = queryParams.getLimit() != null ? queryParams.getLimit() : Integer.MAX_VALUE;
+        Integer queryOffset = queryParams.getOffset() != null ? queryParams.getOffset() : 0;
+\n
         return executeProcedureRx(ctx, procedureName,
                 ${generateFilterParams(ENTITY_DATA)}
-                queryParams.getLimit() != null ? queryParams.getLimit() : Integer.MAX_VALUE,
-                queryParams.getOffset() != null ? queryParams.getOffset() : 0)
+                queryLimit, queryOffset)
                 .doOnSuccess(response -> logResponse(procedureName, response, ctx))
                 .doOnSuccess(response -> checkResponseStatus(procedureName, response, ctx))
                 .map(response -> {
-                    List<${className}> entities = new ArrayList<>();
+                    List<${className}> entityList = new ArrayList<>();
 \n
                     VoltTable table = response.getResults()[0];
                     table.resetRowPosition();
                     while (table.advanceRow()) {
                         ${className} entity = Json.decodeValue(table.getString(1), ${className}.class);
                         entity.setId(table.getString(0));
-                        entities.add(entity);
+                        entityList.add(entity);
                     }
 \n
-                    return entities;
+                    Integer total = (table.getRowCount() >0) ? (Integer) table.get(2, VoltType.INTEGER) : 0;
+                    InlineResponse200Pagination pageDetails = generatePaginationDetails(
+                                                                ${className}_QUERY_PATH,
+                                                                queryOffset,
+                                                                queryLimit,
+                                                                total);
+\n
+                    return new ${list_response_class_name}(entityList.size(), entityList, pageDetails);
                 });
     }
 \n
+<% entity_counter += 1 %>
 % endif
 % endfor
 \n
@@ -193,6 +218,23 @@ public class ${managerName}Impl implements ${managerName} {
         logger.error(ctx.getMarker(), message);
         return new NefStageException(httpStatus, null, cause, message);
     }
+
+    private InlineResponse200Pagination generatePaginationDetails(String path, int offset, int limit, int total){
+        StringBuilder nextBuilder = new StringBuilder();
+        StringBuilder prevBuilder = new StringBuilder();
+        if (((offset + limit) < total )) {
+            nextBuilder.append(path)
+                    .append("limit=").append(limit)
+                    .append("&offset=").append(offset+limit);
+        }
+        if (offset > 0 && total > offset) {
+            prevBuilder.append(path)
+                    .append("limit=").append(limit)
+                    .append("&offset=").append(((offset-limit) >=0) ? (offset-limit) : "0");
+        }
+        return new InlineResponse200Pagination(offset, limit, total,
+                nextBuilder.toString(), prevBuilder.toString());
+    }
 }
 
 <%def name="generateFilterParams(entityData)">
@@ -213,3 +255,4 @@ public class ${managerName}Impl implements ${managerName} {
 </%def>
 
 </%def>
+

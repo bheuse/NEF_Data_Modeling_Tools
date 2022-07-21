@@ -59,8 +59,20 @@ public class ${serviceName}Impl implements ${serviceName} {
     public void modified(Map<String, Object> config) {
     }
 \n
+
+<%
+    # For pagination of list responses the sba generator will generate entities in the format of
+    # 'InlineResponse[statusCode][counter]'. We need to increment the counter to reflect entities.
+    entity_counter = 0
+%>
+
 % for ENTITY, ENTITY_DATA in ENTITIES.items():
-<% className = ENTITY.replace('_', '') %>
+
+<%
+    className = ENTITY.replace('_', '')
+    list_response_class_name = "InlineResponse200" + (str(entity_counter) if entity_counter != 0 else '')
+%>
+
 % if 'PATH' in ENTITY_DATA:
 
 % if ENTITY_DATA['PATH_OPERATION'] != 'read-only':
@@ -113,7 +125,7 @@ public class ${serviceName}Impl implements ${serviceName} {
     }
 \n
     @Override
-    public Single<ApiResponse<List<${className}>>> get${className}s(Get${className}sServiceData serviceData, FlowContext ctx) {
+    public Single<ApiResponse<${list_response_class_name}>> get${className}s(Get${className}sServiceData serviceData, FlowContext ctx) {
         logger.trace(ctx.getMarker(), "get${className}s()");
 \n
         return Single
@@ -123,6 +135,7 @@ public class ${serviceName}Impl implements ${serviceName} {
                 .onErrorResumeNext(error -> createErrorReply(error));
     }
 \n
+<% entity_counter += 1 %>
 % endif
 % endfor
     private Single<AuthStageOutput> authorize(FlowContext ctx, MultiMap requestHeaders,
