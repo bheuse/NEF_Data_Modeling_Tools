@@ -138,7 +138,11 @@ public class ${managerName}Impl implements ${managerName} {
                 .map(response -> {
                     List<${className}> entityList = new ArrayList<>();
 \n
+
                     VoltTable table = response.getResults()[0];
+                    response.getResults()[1].advanceRow();
+                    int total = (int) response.getResults()[1].get(0, VoltType.INTEGER);
+\n
                     table.resetRowPosition();
                     while (table.advanceRow()) {
                         ${className} entity = Json.decodeValue(table.getString(1), ${className}.class);
@@ -146,7 +150,6 @@ public class ${managerName}Impl implements ${managerName} {
                         entityList.add(entity);
                     }
 \n
-                    int total = (table.getRowCount() >0) ? (Integer) table.get(2, VoltType.INTEGER) : 0;
                     InlineResponse200Pagination pageDetails = generatePaginationDetails(
                                                                 ${className}_QUERY_PATH,
                                                                 queryOffset,
