@@ -79,7 +79,14 @@ Feature: ${readableString(serviceName)} operations
     When method get
     Then status 200
     And print response
-    And assert response.length == 2
+    And assert response.count == 2
+    And assert response.list.length == 2
+    And assert response.pagination.offset == 0
+    And assert response.pagination.total == 2
+    And assert response.pagination.limit == 2147483647
+    And assert response.pagination.next == ''
+    And assert response.pagination.previous == ''
+
 \n
     Given path '/datastore/${path}'
     And param limit = 1
@@ -87,15 +94,27 @@ Feature: ${readableString(serviceName)} operations
     When method get
     Then status 200
     And print response
-    And assert response.length == 1
+    And print response
+    And assert response.count == 1
+    And assert response.list.length == 1
+    And assert response.pagination.offset == 0
+    And assert response.pagination.total == 2
+    And assert response.pagination.limit == 1
+    And assert response.pagination.next != ''
+    And assert response.pagination.previous == ''
 \n
     Given path '/datastore/${path}'
     And param limit = 1
     And param offset = 1
     When method get
     Then status 200
-    And print response
-    And assert response.length == 1
+    And assert response.count == 1
+    And assert response.list.length == 1
+    And assert response.pagination.offset == 1
+    And assert response.pagination.total == 2
+    And assert response.pagination.limit == 1
+    And assert response.pagination.next == ''
+    And assert response.pagination.previous != ''
 \n
     Given path '/datastore/${path}'
     And param limit = 1
@@ -103,7 +122,14 @@ Feature: ${readableString(serviceName)} operations
     When method get
     Then status 200
     And print response
-    And assert response.length == 0
+    And assert response.list.length == 0
+    And assert response.count == 0
+    And assert response.list.length == 0
+    And assert response.pagination.offset == 2
+    And assert response.pagination.total == 2
+    And assert response.pagination.limit == 1
+    And assert response.pagination.next == ''
+    And assert response.pagination.previous == ''
 \n
   Scenario: Update ${ENTITY} by id
     Given path '/datastore/${path}'
