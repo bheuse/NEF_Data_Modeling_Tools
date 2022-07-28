@@ -17,7 +17,6 @@ def readableString(str):
 Feature: ${readableString(serviceName)} operations
 \n
   Background:
-    * callonce java.lang.Thread.sleep(250)
     * url apiBaseUrl
 <% deleteFromTablesQuery = '; '.join(['DELETE FROM NEF_' + shortServiceName + '_' + ENTITY for ENTITY, ENTITY_DATA in ENTITIES.items() if 'PATH' in ENTITY_DATA]) %>
     * configure afterScenario =
