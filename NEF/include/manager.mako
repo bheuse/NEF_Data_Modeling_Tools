@@ -14,8 +14,20 @@ import java.util.List;
 \n
 @ProviderEnabledApi
 public interface ${managerName} {
+
+<%
+    # For pagination of list responses the sba generator will generate entities in the format of
+    # 'InlineResponse[statusCode][counter]'. We need to increment the counter to reflect entities.
+    entity_counter = 0
+%>
+
 % for ENTITY, ENTITY_DATA in ENTITIES.items():
-<% className = ENTITY.replace('_', '') %>
+
+<%
+    className = ENTITY.replace('_', '')
+    list_response_class_name = "InlineResponse200" + (str(entity_counter) if entity_counter != 0 else '')
+%>
+
 % if 'PATH' in ENTITY_DATA:
 \n
 % if ENTITY_DATA['PATH_OPERATION'] != 'read-only':
@@ -24,7 +36,8 @@ public interface ${managerName} {
     Completable delete${className}(String id, FlowContext ctx);
 % endif
     Single<${className}> get${className}(String id, FlowContext ctx);
-    Single<List<${className}>> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx);
+    Single<${list_response_class_name}> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx);
+<% entity_counter += 1 %>
 % endif
 % endfor
 }
