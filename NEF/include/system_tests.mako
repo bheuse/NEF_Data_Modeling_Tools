@@ -100,7 +100,7 @@ Feature: ${readableString(serviceName)} operations
     And assert response.pagination.offset == 0
     And assert response.pagination.total == 2
     And assert response.pagination.limit == 1
-    And assert response.pagination.next != ''
+    And match response.pagination.next == '#regex.+limit=1&offset=1.*'
     And assert response.pagination.previous == ''
 \n
     Given path '/datastore/${path}'
@@ -114,7 +114,7 @@ Feature: ${readableString(serviceName)} operations
     And assert response.pagination.total == 2
     And assert response.pagination.limit == 1
     And assert response.pagination.next == ''
-    And assert response.pagination.previous != ''
+    And match response.pagination.previous == '#regex.+limit=1&offset=0'
 \n
     Given path '/datastore/${path}'
     And param limit = 1

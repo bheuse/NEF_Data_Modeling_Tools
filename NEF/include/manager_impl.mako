@@ -124,6 +124,7 @@ public class ${managerName}Impl implements ${managerName} {
     }
 \n
     private static final String ${className}_QUERY_PATH = BASE_PATH + "${ENTITY_DATA['PATH_PREFIX']}/${ENTITY_DATA['PATH']}s?";
+\n
     @Override
     public Single<${list_response_class_name}> getAll${className}(Get${className}sQueryParams queryParams, FlowContext ctx) {
         String procedureName = "${prefix}_getAll${ENTITY}";
@@ -214,14 +215,14 @@ public class ${managerName}Impl implements ${managerName} {
     private NefStageException notFoundError(String procedureName, FlowContext ctx) {
         return procedureError(NOT_FOUND, procedureName, "error", "No entity found", ctx);
     }
-
+\n
     private NefStageException procedureError(HttpStatus httpStatus, String procedureName, String cause, Object details,
                                              FlowContext ctx) {
         String message = String.format("Procedure '%s' execution failed with %s: %s", procedureName, cause, details);
         logger.error(ctx.getMarker(), message);
         return new NefStageException(httpStatus, null, cause, message);
     }
-
+\n
     private InlineResponse200Pagination generatePaginationDetails(String path, int offset, int limit, int total){
         StringBuilder nextBuilder = new StringBuilder();
         StringBuilder prevBuilder = new StringBuilder();
