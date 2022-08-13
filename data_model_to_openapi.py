@@ -322,7 +322,7 @@ class Util:
 
 The content of the Data Model in SQL Architect will be used as in ReadMe File.
 
-THe mapping as follow :
+The mapping as follow :
 
 
 DataModel                       Architect                              
@@ -333,7 +333,7 @@ Entity:
     entity["description"]       = table["remarks"] (stripped off <tags></tags>)
     entity["example"]           = table["@physicalName"]
     entity["NAME"]              = Logical Name
-    entity["TABLE"]             = table["@id"]                         N/A
+    entity["TABLE"]             = table["@id"]                         
     entity["RELATIONS"]         = {}
     entity["properties"]        = {}
     entity["PATH_PREFIX"]       = _PATH ["@defaultValue"]
@@ -411,9 +411,9 @@ class DataModel:
         if (not p_context) : return self.context
         if (isinstance(p_context, dict)) :
             self.context = {**self.context, **p_context}
-        if ((isinstance(p_context, str)) and (FileSystem.isFileExist(p_context))):
+        if ((isinstance(p_context, str)) and (FileSystem.isFileExist(p_context))): # JSON or YAML File
             self.context = {**self.context, **FileSystem.loadFileData(p_context)}
-        elif (isinstance(p_context, str)) :
+        elif (isinstance(p_context, str)) : # JSON or YAML String
             self.context = {**self.context, **FileSystem.loadDataContent(p_context)}
     ###
     ### Schema Methods
@@ -431,7 +431,7 @@ class DataModel:
         """ Decode for JSON Schema in <schema> </schema>
         - schema is the text to be decoded
         - prop is used to refer to the related property in error messages
-        - description will be used as default is not in schema
+        - description will be used as default if not in schema
         """
         desc_schema = dict()
         if (Util.findBetween(schema, "<" + key + ">", "</" + key + ">")):
@@ -521,9 +521,9 @@ class Architect:
 
     def __init__(self, architect_model_file : str = None):
         self.architect_file = None    # Architect Data Model File
-        self.architect = None         # Full SQL Architect Model
-        self.tables    = dict()       # Tables From SQL Architect
-        self.relations = dict()       # Links  From SQL Architect
+        self.architect = None         # Full Architect Model
+        self.tables    = dict()       # Tables From Architect Model
+        self.relations = dict()       # Links  From Architect Model
         self.dataModel = DataModel()  # Interim Data Model
         if (architect_model_file):
             self.setFile(architect_model_file)
@@ -1747,7 +1747,7 @@ class CodeGenerator:
                 if (rel_entity not in p_dataModel.findTableContainedNames(entity)): continue
                 # Entity contain relationship to this schema
                 if ("PATH" in entities_json[rel_entity]):
-                    # Entity is external - Create a Reference to its schema ($ref)
+                    # Entity is external - Create a Reference to its schema (-$ref)
                     card = p_dataModel.findTableCardinality(entity, rel_entity)
                     if (card and (card == "OneToOne" or card == "ZeroToOne")):
                         entities_json[entity]["properties"][rel_entity]["-$ref"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
@@ -1858,7 +1858,7 @@ class CodeGenerator:
         return generated_schemas
 
     def configure_ANME_DataStore(self, p_dataModel: DataModel):
-        """ Create Json Schema from Data Store _PATH Entity """
+        """ Configure ANME DataStore for Data Model """
 
         Term.print_yellow("> configure ANME DataStore")
         # Generate  DataStore Schema (for _PATH Entities)
@@ -2333,7 +2333,7 @@ Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> 
     cl_args["CONTEXT_FILE"]  = None
 
     try:
-        opts, args = getopt.getopt(argv, "hvgrydosm:t:a:i:c:", ["verbose", "datastore", "schema" , "openapi" , "yaml" , "render" , "config" , "include=", "model=", "templates=", "artifacts=", "context="])
+        opts, args = getopt.getopt(argv, "hvgrydosm:t:a:i:c:", ["verbose", "datastore", "anme", "schema" , "openapi" , "yaml" , "render" , "config" , "include=", "model=", "templates=", "artifacts=", "context="])
     except getopt.GetoptError as e:
         Term.print_yellow("GetoptError : " + str(e))
         print(usage)
@@ -2357,7 +2357,7 @@ Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> 
         elif opt.lower() in ("-s", "-schema"):
             cl_args["WHAT"] = cl_args["WHAT"] + "schema "
             continue
-        elif opt.lower() in ("-d", "-datastore"):
+        elif opt.lower() in ("-d", "-datastore", "-anme"):
             cl_args["WHAT"] = cl_args["WHAT"] + "anme "
             continue
         elif opt.lower() in ("-r", "-render"):
