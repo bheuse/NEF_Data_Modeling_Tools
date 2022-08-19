@@ -1173,7 +1173,7 @@ Free …
    </relationship>
    <relationship id="REL87" populated="true" UUID="ec938d49-c66c-4578-a311-a1a29e782065" deferrability="7" deleteRule="3" fk-table-ref="TAB39" fkCardinality="3" identifying="true" name="API_API_Details_fk" physicalName="API_API_Details_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL88" populated="true" UUID="c479652b-f661-4dd4-8e98-8e60208599da" deferrability="7" deleteRule="3" fk-table-ref="TAB54" fkCardinality="7" identifying="false" name="API_API_Category_fk" physicalName="API_API_Category_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+   <relationship id="REL88" populated="true" UUID="c479652b-f661-4dd4-8e98-8e60208599da" deferrability="7" deleteRule="3" fk-table-ref="TAB54" fkCardinality="6" identifying="false" name="API_API_Category_fk" physicalName="API_API_Category_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
    </relationship>
    <relationship id="REL89" populated="true" UUID="f2416890-ec09-46d3-a2d2-06d1ff9e766c" deferrability="7" deleteRule="3" fk-table-ref="TAB61" fkCardinality="7" identifying="false" name="API_API_Collection_fk" physicalName="API_API_Collection_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
    </relationship>
@@ -1210,7 +1210,7 @@ Free …
   <table-link relationship-ref="REL94" pkConnection="0.5454545454545454" fkConnection="0.4595744680851064" rLineColor="0x000000" pkLabelText="Offers" fkLabelText="" orientation="132"/>
   <table-link relationship-ref="REL86" pkConnection="0.4808510638297872" fkConnection="0.4954128440366973" rLineColor="0x80b1d3" pkLabelText="" fkLabelText="" orientation="132"/>
   <table-link relationship-ref="REL87" pkConnection="0.48633879781420764" fkConnection="0.5106382978723404" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL88" pkConnection="0.15846994535519127" fkConnection="0.5555555555555556" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL88" pkConnection="0.15846994535519127" fkConnection="0.5555555555555556" rLineColor="0x000000" pkLabelText="API belongs" fkLabelText="to category" orientation="33"/>
   <table-link relationship-ref="REL89" pkConnection="0.5076142131979695" fkConnection="0.4507042253521127" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL90" pkConnection="0.7872340425531915" fkConnection="0.2907488986784141" rLineColor="0x000000" pkLabelText="Provides" fkLabelText="" orientation="72"/>
   <table-link relationship-ref="REL91" pkConnection="0.8527918781725888" fkConnection="0.5492957746478874" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>

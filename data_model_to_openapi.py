@@ -402,10 +402,17 @@ class DataModel:
         return tables
     
     def findTableCardinality(self, table_containing, table_contained) -> Union[str, None]:
-        """ Return Contained Tables for a specified Containing Table """
+        """ Return Cardinality of Link between Tables and Containing Table """
         for relation in self.entities[table_containing]["RELATIONS"]:
             if (self.entities[table_containing]["RELATIONS"][relation]["TableContained"] == table_contained):
                 return self.entities[table_containing]["RELATIONS"][relation]["Cardinalite"]
+        return None
+
+    def findLinkProperty(self, table_containing, table_contained, property) -> Union[str, None]:
+        """ Return property of Link between Tables and Containing Table """
+        for relation in self.entities[table_containing]["RELATIONS"]:
+            if (self.entities[table_containing]["RELATIONS"][relation]["TableContained"] == table_contained):
+                return self.entities[table_containing]["RELATIONS"][relation][property]
         return None
 
     def addContext(self, p_context):
@@ -574,12 +581,14 @@ class Architect:
                 continue
             link["TableContaining"] = relation["@pk-table-ref"]
             link["TableContained"]  = relation["@fk-table-ref"]
+            # @fkCardinality = ZeroToOne / ZeroToMore / OneToMore
             if (relation["@fkCardinality"] == "3") :  link["Cardinalite"]     = "ZeroToOne"
-            if (relation["@fkCardinality"] == "7") :  link["Cardinalite"]     = "OneToMore"
-            if (relation["@fkCardinality"] == "6") :  link["Cardinalite"]     = "ZeroToMore"
+            if (relation["@fkCardinality"] == "7") :  link["Cardinalite"]     = "ZeroToMore"
+            if (relation["@fkCardinality"] == "6") :  link["Cardinalite"]     = "OneToMore"
+            # @pkCardinality = OneToOne ! ZeroToOne / ZeroToMore / OneToMore
             # if (relation["@pkCardinality"] == "3") :  link["Cardinalite"]     = "ZeroToOne"
-            # if (relation["@pkCardinality"] == "7") :  link["Cardinalite"]     = "OneToMore"
-            # if (relation["@pkCardinality"] == "6") :  link["Cardinalite"]     = "ZeroToMore"
+            # if (relation["@pkCardinality"] == "7") :  link["Cardinalite"]     = "ZeroToMore"
+            # if (relation["@pkCardinality"] == "6") :  link["Cardinalite"]     = "OneToMore"
             if (relation["@pkCardinality"] == "2") :  link["Cardinalite"]     = "OneToOne"
             link["Name"]            = Architect.cleanName(relation["@name"])
             link["Description"]     = "No Description"
@@ -1750,23 +1759,39 @@ class CodeGenerator:
                 if ("PATH" in entities_json[rel_entity]):
                     # Entity is external - Create a Reference to its schema (-$ref)
                     card = p_dataModel.findTableCardinality(entity, rel_entity)
+                    desc = p_dataModel.findLinkProperty(entity, rel_entity, "Description")
+                    name = p_dataModel.findLinkProperty(entity, rel_entity, "Name")
                     if (card and (card == "OneToOne" or card == "ZeroToOne")):
                         entities_json[entity]["properties"][rel_entity]["-$ref"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
                         entities_json[entity]["properties"][rel_entity]["type"] = "string"
+                        entities_json[entity]["properties"][rel_entity]["name"] = name
+                        entities_json[entity]["properties"][rel_entity]["description"] = desc
+                        entities_json[entity]["properties"][rel_entity]["cardinality"] = card
+                        entities_json[entity]["properties"][rel_entity]["mandatory"] = "y" if (card == "OneToOne") else "n"
                     if (card and (card == "OneToMore" or card == "ZeroToMore")):
                         entities_json[entity]["properties"][rel_entity]["type"]  = "array"
+                        # entities_json[entity]["properties"][rel_entity]["name"]  = name
+                        # entities_json[entity]["properties"][rel_entity]["description"] = "desc"
+                        # entities_json[entity]["properties"][rel_entity]["mandatory"] = "y" if (card == "OneToMore") else "n"
                         entities_json[entity]["properties"][rel_entity]["items"] = {}
                         entities_json[entity]["properties"][rel_entity]["items"]["-$ref"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
                         entities_json[entity]["properties"][rel_entity]["items"]["type"] = "string"
-                    pass
+                        entities_json[entity]["properties"][rel_entity]["items"]["name"] = name
+                        entities_json[entity]["properties"][rel_entity]["items"]["description"] = "desc"
+                        entities_json[entity]["properties"][rel_entity]["items"]["mandatory"] = "y" if (card == "OneToMore") else "n"
                 else:
                     # Entity is internal - Add Definition to internal schema ($defs)
                     card = p_dataModel.findTableCardinality(entity, rel_entity)
+                    desc = p_dataModel.findLinkProperty(entity, rel_entity, "Description")
+                    name = p_dataModel.findLinkProperty(entity, rel_entity, "Name")
                     if (card and (card == "OneToOne" or card == "ZeroToOne")):
                         entities_json[entity]["properties"][rel_entity]["$ref"] = "#/$defs/"+rel_entity
                         if ("$defs" not in entities_json[entity]):
                             entities_json[entity]["$defs"] = {}
                         entities_json[entity]["$defs"][rel_entity] = entities_json[rel_entity]
+                        entities_json[entity]["mandatory"] = "y" if (card == "OneToOne") else "n"
+                        entities_json[entity]["description"] = desc
+                        entities_json[entity]["name"] = name
                     if (card and (card == "OneToMore" or card == "ZeroToMore")):
                         entities_json[entity]["properties"][rel_entity]["type"]  = "array"
                         entities_json[entity]["properties"][rel_entity]["items"] = {}
@@ -1774,6 +1799,9 @@ class CodeGenerator:
                         if ("$defs" not in entities_json[entity]):
                             entities_json[entity]["$defs"] = {}
                         entities_json[entity]["$defs"][rel_entity] = entities_json[rel_entity]
+                        entities_json[entity]["$defs"][rel_entity] = entities_json[rel_entity]
+                        entities_json[entity]["properties"][rel_entity]["name"] = name
+                        entities_json[entity]["properties"][rel_entity]["description"] = desc
 
         Term.print_yellow("< generate Path Json Schema")
 
