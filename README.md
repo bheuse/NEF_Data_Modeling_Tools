@@ -3,7 +3,7 @@
 
 ![img.png](images/img_9.png)   ![img.png](images/img_8.png)
 
-[This tool](https://github.com/bheuse/SQL_Architect_to_OpenAPI) converts an SQL Architect project into an OpenAPI 3.0.2 Data Model & CRUD Operations.
+[This tool](https://github.com/bheuse/SQL_Architect_to_OpenAPI) converts an SQL Architect project into an OpenAPI 3.0.2 Data Model & CRUD Operations. Swagger is also supported.
 
 A JSON Schema can also be generated.
 
