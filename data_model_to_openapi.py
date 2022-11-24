@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/usr/bin/env python3
 
 import xmltodict
 import requests
@@ -21,6 +21,8 @@ from mako.lookup import TemplateLookup
 import mako.runtime
 import shutil
 from typing import Union
+from deepdiff import DeepDiff
+from pprint import pprint
 
 ### Logging
 timestamp = datetime.datetime.now().strftime("%y%m%d-%H%M%S")
@@ -310,10 +312,34 @@ class Util:
         return ""
 
     @staticmethod
-    def getParameters(text, prefix) -> Union[str, None] :
+    def getParameters(text, prefix, table : str = None) -> Union[str, None] :
+        if (not text) : return None
+        if (isinstance(text,dict)): return json.dumps(text)
+        if (isinstance(text,list)): return json.dumps(text)
         found = Util.findBetween(text.strip(), "<" + prefix + ">", "</" + prefix + ">")
-        if (found): return found
-        return None
+        if (not found): return None
+        if (table) :
+            found = found.replace("${TABLE}", table)
+        return found
+
+    @staticmethod
+    def getParametersList(text, prefix, table : str = None) -> Union[list] :
+        if (not text) : return []
+        if (isinstance(text,list)): return text
+        if (isinstance(text,dict)): return [ text ]
+        if (prefix) :
+            found = Util.findBetween(text.strip(), "<" + prefix + ">", "</" + prefix + ">")
+            if (not found): return []
+        else:
+            found = text
+        found.replace("\n"," ")
+        if (table) :
+            found = found.replace("${TABLE}", table)
+        found = json.loads(found)
+        if (not found): return []
+        if (isinstance(found,list)): return found
+        if (isinstance(found,dict)): return [ found ]
+        return found
 
 ###
 ### Data Model
@@ -373,9 +399,10 @@ class DataModel:
         # Objects of Interest
         self.entities          = {}
         self.links             = {}
-        self.openapi           = {}   # To OpenAPI Yaml
-        self.schema_parameters = {}   # To OpenAPI Objects
-        self.context           = {}   # Additional Global Context
+        self.openapi           = {}    # To OpenAPI Yaml
+        self.schema_parameters = {}    # To OpenAPI Objects
+        self.context           = {}    # Additional Global Context
+        self.isSwagger         = False # Swagger DataModel
 
     def findEntity(self, entity_name):
         """ Return Entity by Name """
@@ -385,7 +412,7 @@ class DataModel:
             if (("name" in self.entities[entity]) and (self.entities[entity]["name"] == entity_name)):
                 return self.entities[entity]
         return None
-    
+
     def findTableContainedLinks(self, table_containing) -> list:  # links
         """ Return Links for a specified Containing Table """
         lks = list()
@@ -393,19 +420,26 @@ class DataModel:
             if (self.links[link]["TableContaining"] == table_containing):
                 lks.append(self.links[link])
         return lks
-   
+
     def findTableContainedNames(self, table_containing) -> list:  # string
         """ Return Contained Tables for a specified Containing Table """
         tables = list()
         for link in self.findTableContainedLinks(table_containing) :
             tables.append(link["TableContained"])
         return tables
-    
+
     def findTableCardinality(self, table_containing, table_contained) -> Union[str, None]:
         """ Return Cardinality of Link between Tables and Containing Table """
         for relation in self.entities[table_containing]["RELATIONS"]:
             if (self.entities[table_containing]["RELATIONS"][relation]["TableContained"] == table_contained):
                 return self.entities[table_containing]["RELATIONS"][relation]["Cardinalite"]
+        return None
+
+    def findTableRelationShipName(self, table_containing, table_contained) -> Union[str, None]:
+        """ Return Cardinality of Link between Tables and Containing Table """
+        for relation in self.entities[table_containing]["RELATIONS"]:
+            if (self.entities[table_containing]["RELATIONS"][relation]["TableContained"] == table_contained):
+                return relation
         return None
 
     def findLinkProperty(self, table_containing, table_contained, property) -> Union[str, None]:
@@ -647,7 +681,7 @@ class Architect:
 
         # Handling _PATH for OpenApi Yaml Generation
         if (att_name == "_PATH"):
-            # https://amdocs.com<PATH_PREFIX>/<PATH>
+            # https://amdocs.com/<PATH_PREFIX>/<PATH>
             obj_desc["PATH"]           = att["@physicalName"]  # This is the route endpoint
             obj_desc["PATH_PREFIX"]    = att["@defaultValue"]  # This is the route path prefix
             obj_desc["PATH_OPERATION"] = "READ-WRITE"
@@ -656,7 +690,7 @@ class Architect:
                 if (parameters):
                     obj_desc["PATH_PARAMETERS"] = parameters
                     att["remarks"] = Util.removeBetween(att["remarks"], "<parameters>", "</parameters>")
-                obj_desc["PATH_OPERATION"]  = att["remarks"]
+                obj_desc["PATH_OPERATION"]  = att["remarks"].strip()
 
         # remarks -> description
         if (att["remarks"] is None):
@@ -689,11 +723,11 @@ class Architect:
                 att_property["example"] = "No example for " + att["@name"]
         else:
             att_property["example"] = att["@physicalName"]
-        
+
         # ID attributes are autogenerated on create. They should not be mandatory in POST.
         if(att["@physicalName"].lower() == 'id' and att_property["name"].lower() == "id" ):
             desc_schema["minCardinality"] = 0
-        
+
         # nullable -> not required
         if ((att["@nullable"] == "1") or (att_name == "_PATH") or (att_name == "_ROOT") or (desc_schema["minCardinality"] == 0)) :
             att_property["mandatory"] = "n"
@@ -707,9 +741,13 @@ class Architect:
 
         # type -> type + format
         att_property["type"]   = "INVALID"
-        att_property["format"] = ""
+        desc_schema
+        if "format"  in desc_schema : att_property["format"] = desc_schema["format"]
+        if (("format" not in att_property) or (att_property["format"]=="noFormat")): att_property["format"] = ""
         if (att["@type"] == "12"):   att_property["type"]   = "string"     # VARCHAR
         if ("@precision" in att):    att_property["precision"]  = att["@precision"]
+        if (att["@type"] == "8"):    att_property["type"]   = "number"     # FLOAT
+        if (att["@type"] == "6"):    att_property["type"]   = "number"     # FLOAT
         if (att["@type"] == "4"):    att_property["type"]   = "integer"    # INTEGER
         if (att["@type"] == "-2"):   att_property["type"]   = "binary"     # BINARY
         if (att["@type"] == "-5"):   att_property["type"]   = "integer"    # BIGINT
@@ -750,7 +788,22 @@ class Architect:
             if ("ignore" in data_type["example"]) :
                 Term.print_verbose("Table Ignored (ignore in example/physicalName) : " + Architect.cleanName(entity_name))
                 continue
-            for folder in table["folder"]:
+            if (isinstance(table["folder"],list)):
+                for folder in table["folder"]:
+                    if ("index" in folder):
+                        if ("index-column" not in folder["index"]): continue
+                        # for index_col in folder["index"]["index-column"]:
+                        if ("@physicalName" in folder["index"]["index-column"]):
+                            data_type["primary_key"] = folder["index"]["index-column"]["@physicalName"]
+                    if "column" not in folder: continue
+                    column = folder["column"]
+                    data_type["KEY"] = None
+                    if isinstance(column, list):
+                        for col in column:
+                            data_type, att_name = self.handleAttribute(data_type, col)
+                    else:
+                        data_type, att_name = self.handleAttribute(data_type, column)
+            if (isinstance(table["folder"],dict)):
                 if ("index" in folder):
                     if ("index-column" not in folder["index"]): continue
                     # for index_col in folder["index"]["index-column"]:
@@ -815,6 +868,19 @@ class Architect:
             tags = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["tags"]["description"])
             open_api_yaml["tags"] = tags
 
+        if ("swagger" in self.dataModel.entities["OpenAPI"]["properties"]):
+            swagger = self.dataModel.entities["OpenAPI"]["properties"]["swagger"]["example"]
+            open_api_yaml["swagger"] = swagger
+            self.dataModel.isSwagger = True
+
+        if ("host" in self.dataModel.entities["OpenAPI"]["properties"]):
+            host = self.dataModel.entities["OpenAPI"]["properties"]["host"]["example"]
+            open_api_yaml["host"] = host
+
+        if ("basePath" in self.dataModel.entities["OpenAPI"]["properties"]):
+            basePath = self.dataModel.entities["OpenAPI"]["properties"]["basePath"]["example"]
+            open_api_yaml["basePath"] = basePath
+
         if ("servers" in self.dataModel.entities["OpenAPI"]["properties"]):
             servers = Util.json_load(self.dataModel.entities["OpenAPI"]["properties"]["servers"]["description"])
             open_api_yaml["servers"] = servers
@@ -865,6 +931,10 @@ class Architect:
             self.relations = self.architect["architect-project"]["target-database"]["relationships"]["relationship"]
             self.dataModel.links = self.collectLinks()
 
+        # Collect OpenAPI Data
+        self.collectOpenAPI()
+
+        shemaPath = "#/definitions/" if (self.dataModel.isSwagger) else "#/components/schemas/"
         # Replacing Table IDs by Entity Names & Creating Sub-Relationships
         for entity in self.dataModel.entities:
             for rel in self.dataModel.findTableContainedLinks(self.dataModel.entities[entity]["TABLE"]):
@@ -883,18 +953,16 @@ class Architect:
                     if (foreign_key):
                         this_property["type"] = "string"
                     else:
-                        this_property["$ref"] = "#/components/schemas/" + rel["TableContained"]
+                        this_property["$ref"] = shemaPath + rel["TableContained"]
                 else:
                     this_property["type"] = "array"
                     this_property["items"] = {}
                     if (foreign_key):
                         this_property["items"]["type"] = "string"
                     else:
-                        this_property["items"]["$ref"] = "#/components/schemas/" + rel["TableContained"]
-                self.dataModel.entities[entity]["properties"][rel["TableContained"]] = this_property
-
-        # Collect OpenAPI Data
-        self.collectOpenAPI()
+                        this_property["items"]["$ref"] = shemaPath + rel["TableContained"]
+                self.dataModel.entities[entity]["properties"][rel["Name"]] = this_property
+                # self.dataModel.entities[entity]["properties"][rel["TableContained"]] = this_property
 
         # What did we get ?
         Term.print_verbose("tables    : " + str(self.tables))
@@ -915,7 +983,7 @@ class Architect:
 class Path:
 
     paths_template_list_create_prefix  = """
-"${PATH_PREFIX}/${PATH}s": {
+"${PATH_PREFIX}/${PATH}${PATH_SUFFIX}": {
             "summary": "Path used to manage the list of ${table}s.",
             "description": "The REST endpoint/path used to list and create zero or more `${TABLE}`.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively."
 """
@@ -936,14 +1004,24 @@ class Path:
         paths_template_list = """
         
           "get": {
-            "operationId": "get${TABLE}s",
-            "summary": "List All ${TABLE}s",
-            "description": "Gets a list of all `${TABLE}` entities.",
+            "operationId": "list${TABLE}s",
+            "summary": "List or find ${TABLE} objects",
+            "description": "This operation list or find ${TABLE} entities",
             """ + parameters + """
             
             "responses": {
               "200": {
                 "description": "Successful response - returns an array of `${TABLE}` entities.",
+                "headers": {
+                  "X-Result-Count": {
+                    "description": "Actual number of items returned in the response body",
+                    "type": "integer"
+                    },
+                  "X-Total-Count": {
+                    "description": "Total number of items matching criteria",
+                    "type": "integer"
+                    }
+                  },
                 "content": {
                   "application/json": {
                     "schema": {
@@ -955,7 +1033,7 @@ class Path:
                         "list": {
                           "type": "array",
                           "items": {
-                            "$ref": "#/components/schemas/${TABLE}"
+                            "$ref": "${SCHEMAPATH}/${TABLE}"
                           }
                         },
                         "pagination": {
@@ -993,7 +1071,7 @@ class Path:
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/${TABLE}"
+                                    "$ref": "${SCHEMAPATH}/${TABLE}"
                                 }
                             }
                         },
@@ -1018,7 +1096,7 @@ class Path:
                             "content": {
                                 "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/${TABLE}"
+                                            "$ref": "${SCHEMAPATH}/${TABLE}"
                                         }
                                 }
                             },
@@ -1030,7 +1108,7 @@ class Path:
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/${TABLE}"
+                                            "$ref": "${SCHEMAPATH}/${TABLE}"
                                         }
                                       }
                                 }
@@ -1040,10 +1118,10 @@ class Path:
         """
         return paths_template_create
 
-    # ${PATH_PREFIX}/${PATH}s/{${PATH}Id}"
-    # ${PATH_PREFIX}/${PATH}s/{id}"
+    # ${PATH_PREFIX}/${PATH}${PATH_SUFFIX}/{${PATH}Id}"
+    # ${PATH_PREFIX}/${PATH}${PATH_SUFFIX}/{id}"
     paths_template_read_write_prefix = """
-            "${PATH_PREFIX}/${PATH}s/{id}": {
+            "${PATH_PREFIX}/${PATH}${PATH_SUFFIX}/{id}": {
                 "summary": "Path used to manage a single ${TABLE}.",
                 "description": "The REST endpoint/path used to get, update, and delete single instances of an `${TABLE}`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively."
     """
@@ -1066,7 +1144,7 @@ class Path:
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/${TABLE}"
+                                            "$ref": "${SCHEMAPATH}/${TABLE}"
                                         }
                                     }
                                 },
@@ -1095,7 +1173,7 @@ class Path:
                             "content": {
                                 "application/json": {
                                     "schema": {
-                                        "$ref": "#/components/schemas/${TABLE}"
+                                        "$ref": "${SCHEMAPATH}/${TABLE}"
                                     }
                                 }
                             },
@@ -1107,7 +1185,7 @@ class Path:
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/${TABLE}"
+                                            "$ref": "${SCHEMAPATH}/${TABLE}"
                                         }
                                     }
                                 }
@@ -1119,7 +1197,7 @@ class Path:
 
     """
                                     "schema": {
-                                        "$ref": "#/components/schemas/${TABLE}"
+                                        "$ref": "${SCHEMAPATH}/${TABLE}"
                                     }
     """
 
@@ -1141,7 +1219,7 @@ class Path:
                             "content": {
                                 "application/json": {
                                     "schema": {
-                                        "$ref": "#/components/schemas/${TABLE}"
+                                        "$ref": "${SCHEMAPATH}/${TABLE}"
                                     }
                                 }
                             },
@@ -1153,7 +1231,7 @@ class Path:
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/${TABLE}"
+                                            "$ref": "${SCHEMAPATH}/${TABLE}"
                                          }
                                       }
                                 }
@@ -1203,11 +1281,20 @@ class Path:
         return paths_template_parameters
 
     @staticmethod
-    def paths_table(path : str, table: str, path_prefix: str = "", p_paths_template=""):
+    def paths_table(p_model : DataModel, path : str, table: str, path_prefix: str = "", p_paths_template=""):
         l_paths_template = p_paths_template.replace("${PATH_PREFIX}", path_prefix)
+        if (p_model.isSwagger):
+            l_paths_template = l_paths_template.replace("${PATH_SUFFIX}", "")
+        else:
+            l_paths_template = l_paths_template.replace("${PATH_SUFFIX}", "s")
         l_paths_template = l_paths_template.replace("${TABLE}", table)
         l_paths_template = l_paths_template.replace("${PATH}", path)
         l_paths_template = l_paths_template.replace("${table}", table.lower())
+        shemaPath = "#/definitions" if (p_model.isSwagger) else "#/components/schemas"
+        l_paths_template = l_paths_template.replace("${shemaPath}", shemaPath)
+        l_paths_template = l_paths_template.replace("${ShemaPath}", shemaPath)
+        l_paths_template = l_paths_template.replace("${shemapath}", shemaPath)
+        l_paths_template = l_paths_template.replace("${SCHEMAPATH}", shemaPath)
         return l_paths_template
 
     @staticmethod
@@ -1226,24 +1313,40 @@ class Path:
                 del_par    = None
                 schema_par = None
                 if ("PATH_PARAMETERS" in entities[entity]) :
-                    path_par   = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "path_parameters")
-                    list_par   = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "list_parameters")
-                    get_par    = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "get_parameters")
-                    create_par = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "post_parameters")
-                    patch_par  = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "patch_parameters")
-                    put_par    = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "put_parameters")
-                    del_par    = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "delete_parameters")
-                    schema_par = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "schema_parameters")
+                    path_par   = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "path_parameters", entity)
+                    schema_par = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "schema_parameters", entity)
+                    list_par   = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "list_parameters", entity)
+                    get_par    = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "get_parameters", entity)
+                    create_par = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "post_parameters", entity)
+                    put_par    = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "put_parameters", entity)
+                    patch_par  = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "patch_parameters", entity)
+                    del_par    = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "delete_parameters", entity)
+                    entities[entity]["SCHEMA_PARAMETERS"] = Util.getParametersList(entities[entity]["PATH_PARAMETERS"], "schema_parameters", entity)
+                    entities[entity]["LIST_PARAMETERS"]   = Util.getParametersList(entities[entity]["PATH_PARAMETERS"], "list_parameters", entity)
+                    entities[entity]["GET_PARAMETERS"]    = Util.getParametersList(entities[entity]["PATH_PARAMETERS"], "get_parameters", entity)
+                    entities[entity]["POST_PARAMETERS"]   = Util.getParametersList(entities[entity]["PATH_PARAMETERS"], "post_parameters", entity)
+                    entities[entity]["PUT_PARAMETERS"]    = Util.getParametersList(entities[entity]["PATH_PARAMETERS"], "put_parameters", entity)
+                    entities[entity]["DELETE_PARAMETERS"] = Util.getParametersList(entities[entity]["PATH_PARAMETERS"], "delete_parameters", entity)
+                    entities[entity]["PATCH_PARAMETERS"]  = Util.getParametersList(entities[entity]["PATH_PARAMETERS"], "patch_parameters", entity)
+                    entities[entity]["QPATH_PARAMETERS"]  = Util.getParametersList(entities[entity]["PATH_PARAMETERS"], "path_parameters", entity)
 
                 # Add Pagination Support
                 listParameters = []
                 if (list_par):
                     listParameters = json.loads(list_par)
-                listParameters.append({"in": "query", "name": "limit", "schema" : {"type": "integer"}, "description": "Pagination Limit"})
-                listParameters.append({"in": "query", "name": "offset", "schema" : {"type": "integer"}, "description": "Pagination Offset"})
+                    if (isinstance(listParameters,dict)) : listParameters = [ listParameters ]
+                if (p_model.isSwagger):
+                    listParameters.append({"in": "query", "name": "limit", "type": "integer" , "required": False , "description": "Requested number of resources to be provided in response"})
+                    listParameters.append({"in": "query", "name": "offset","type": "integer" , "required": False , "description": "Requested index for start of resources to be provided in response"})
+                else:
+                    listParameters.append({"in": "query", "name": "limit",  "schema" : {"type": "integer"}, "description": "Pagination Limit"})
+                    listParameters.append({"in": "query", "name": "offset", "schema" : {"type": "integer"}, "description": "Pagination Offset"})
 
                 # Add Schema Support
-                listParameters.append({"in": "query", "name": "schema", "schema" : {"type": "boolean"} , "allowEmptyValue": True, "description": "Return JSON Schema"})
+                if (p_model.isSwagger):
+                    listParameters.append({"in": "query", "name": "schema", "type": "boolean", "required": False ,"description": "Return JSON Schema"})
+                else:
+                    listParameters.append({"in": "query", "name": "schema", "schema" : {"type": "boolean"} , "allowEmptyValue": True, "description": "Return JSON Schema"})
 
                 # Add Filtering Support
                 for att in entities[entity]['properties'] :
@@ -1255,6 +1358,7 @@ class Path:
                                           "schema": {"type": entities[entity]['properties'][att]['type']},
                                           "description": "Filter for "+entities[entity]['properties'][att]['name']})
                 list_par = json.dumps(listParameters)
+                entities[entity]["LIST_PARAMETERS"] = listParameters
 
                 if (schema_par and schema_par.strip() != "") :
                     schema_params = Util.json_load(schema_par)
@@ -1266,19 +1370,70 @@ class Path:
                 else:
                     path_parameters = "\"parameters\": [" + Path.paths_template_parameters() + "," + path_par + "]"
                     path_par = " , \"parameters\": [" + path_par + "]"
+                entities[entity]["QPATH_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
 
                 if ("read-only" in entities[entity]["PATH_OPERATION"].lower()):
+                    entities[entity]["PATH_OPERATIONS"] = [ "get-list" ,"get" ]
+                    entities[entity]["GET_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["OPERATIONS"] =  \
+                        { "operation" : "get-list" , "parameters" : copy.deepcopy(entities[entity]["LIST_PARAMETERS"]) } , \
+                        { "operation" : "get"      , "parameters" : copy.deepcopy(entities[entity]["GET_PARAMETERS"]) }
                     l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + path_par + " } ,"
                     l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par)  + " }"
                 elif ("read-create" in entities[entity]["PATH_OPERATION"].lower()):
+                    entities[entity]["PATH_OPERATIONS"] = [ "get-list" ,"get" , "post" ]
+                    entities[entity]["GET_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["POST_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["OPERATIONS"] =  \
+                        { "operation" : "get-list" , "parameters" : copy.deepcopy(entities[entity]["LIST_PARAMETERS"]) } , \
+                        { "operation" : "get"      , "parameters" : copy.deepcopy(entities[entity]["GET_PARAMETERS"]) } , \
+                        { "operation" : "post"     , "parameters" : copy.deepcopy(entities[entity]["POST_PARAMETERS"]) }
                     l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + "," + Path.paths_template_create(create_par) + path_par + " } ,"
                     l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par) + " } "
                 elif ("create-only" in entities[entity]["PATH_OPERATION"].lower()):
+                    entities[entity]["PATH_OPERATIONS"] = [ "post" ]
+                    entities[entity]["POST_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["OPERATIONS"] =  \
+                        { "operation" : "post"     , "parameters" : copy.deepcopy(entities[entity]["POST_PARAMETERS"]) }
                     l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_create(create_par) + path_par + "," + path_parameters + " }"
                 elif ("read-create-patch" in entities[entity]["PATH_OPERATION"].lower()):
+                    entities[entity]["PATH_OPERATIONS"] = [ "get-list" ,"get" , "patch", "post" ]
+                    entities[entity]["GET_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["PATCH_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["POST_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["OPERATIONS"] =  \
+                        { "operation" : "get-list" , "parameters" : copy.deepcopy(entities[entity]["LIST_PARAMETERS"]) } , \
+                        { "operation" : "get"      , "parameters" : copy.deepcopy(entities[entity]["GET_PARAMETERS"]) } , \
+                        { "operation" : "patch"    , "parameters" : copy.deepcopy(entities[entity]["PATCH_PARAMETERS"]) } , \
+                        { "operation" : "post"     , "parameters" : copy.deepcopy(entities[entity]["POST_PARAMETERS"]) }
                     l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + "," + Path.paths_template_create(create_par)  + path_par + " } ,"
                     l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par) + "," + Path.paths_template_patch(patch_par) + " } "
+                elif ("read-write-patch" in entities[entity]["PATH_OPERATION"].lower()):
+                    entities[entity]["PATH_OPERATIONS"] = [ "get-list" ,"get" , "patch", "post", "delete" ]
+                    entities[entity]["GET_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["PATCH_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["POST_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["DELETE_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["OPERATIONS"] =  \
+                        { "operation" : "get-list" , "parameters" : copy.deepcopy(entities[entity]["LIST_PARAMETERS"]) } , \
+                        { "operation" : "get"      , "parameters" : copy.deepcopy(entities[entity]["GET_PARAMETERS"]) } , \
+                        { "operation" : "patch"    , "parameters" : copy.deepcopy(entities[entity]["PATCH_PARAMETERS"]) } , \
+                        { "operation" : "post"     , "parameters" : copy.deepcopy(entities[entity]["POST_PARAMETERS"]) } , \
+                        { "operation" : "delete"   , "parameters" : copy.deepcopy(entities[entity]["DELETE_PARAMETERS"]) }
+                    l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + "," + Path.paths_template_create(create_par) + path_par + " } ,"
+                    l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par) + "," + Path.paths_template_patch(put_par) + "," + Path.paths_template_delete(del_par) + " } "
                 else:  # "read-write"
+                    entities[entity]["PATH_OPERATIONS"] = [ "get-list" ,"get" , "put", "post", "delete" ]
+                    entities[entity]["GET_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["PUT_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None), entity)
+                    entities[entity]["POST_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["DELETE_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
+                    entities[entity]["OPERATIONS"] =  \
+                        { "operation" : "get-list" , "parameters" : copy.deepcopy(entities[entity]["LIST_PARAMETERS"]) } , \
+                        { "operation" : "get"      , "parameters" : copy.deepcopy(entities[entity]["GET_PARAMETERS"]) } , \
+                        { "operation" : "put"      , "parameters" : copy.deepcopy(entities[entity]["PUT_PARAMETERS"]) } , \
+                        { "operation" : "post"     , "parameters" : copy.deepcopy(entities[entity]["POST_PARAMETERS"]) } , \
+                        { "operation" : "delete"   , "parameters" : copy.deepcopy(entities[entity]["DELETE_PARAMETERS"]) }
                     l_paths_template = Path.paths_template_list_create_prefix + "," + Path.paths_template_list(list_par) + "," + Path.paths_template_create(create_par) + path_par + " } ,"
                     l_paths_template = l_paths_template + Path.paths_template_read_write_prefix + "," + path_parameters + "," + Path.paths_template_get(get_par) + "," + Path.paths_template_put(put_par) + "," + Path.paths_template_delete(del_par) + " } "
 
@@ -1287,7 +1442,7 @@ class Path:
                     prefix = p_model.context["PATH_PREFIX"]
                 else:
                     prefix = entities[entity]["PATH_PREFIX"]
-                f_paths_template = f_paths_template + sep + Path.paths_table(path, entity, path_prefix=prefix, p_paths_template=l_paths_template)
+                f_paths_template = f_paths_template + sep + Path.paths_table(p_model, path, entity, path_prefix=prefix, p_paths_template=l_paths_template)
                 sep = ", "
         Term.print_verbose(f_paths_template)
         return f_paths_template
@@ -1323,7 +1478,7 @@ class CodeGenerator:
 
     def configureDir(self, p_model_location : str, p_templates_dir : str, p_includes_dir : str, p_artifacts_dir : str, p_context_file : str):
         self.model_location = p_model_location.replace(".architect", "")
-        Term.print_yellow("Model Location : " + str(self.templates_dir))
+        Term.print_yellow("Model Location : " + str(self.model_location))
 
         self.templates_dir = p_templates_dir if p_templates_dir else self.model_location + templates_dir_suffix
         Term.print_yellow("Templates Dir  : " + str(self.templates_dir))
@@ -1458,22 +1613,34 @@ class CodeGenerator:
         # Clean-up Entities to comply to OpenApI Components
         entities_yaml = copy.deepcopy(p_dataModel.entities)
         for entity in entities_yaml:
-            if ("TABLE" in entities_yaml[entity])           : del entities_yaml[entity]["TABLE"]
-            if ("RELATIONS" in entities_yaml[entity])       : del entities_yaml[entity]["RELATIONS"]
-            if ("NAME" in entities_yaml[entity])            : del entities_yaml[entity]["NAME"]
-            if ("KEY" in entities_yaml[entity])             : del entities_yaml[entity]["KEY"]
-            if ("prepend" in entities_yaml[entity])         : del entities_yaml[entity]["prepend"]
-            if ("append" in entities_yaml[entity])          : del entities_yaml[entity]["append"]
-            if ("options" in entities_yaml[entity])         : del entities_yaml[entity]["options"]
-            if ("PATH_OPERATION" in entities_yaml[entity])  : del entities_yaml[entity]["PATH_OPERATION"]
-            if ("PATH_PARAMETERS" in entities_yaml[entity]) : del entities_yaml[entity]["PATH_PARAMETERS"]
-            if ("PATH_PREFIX" in entities_yaml[entity])     : del entities_yaml[entity]["PATH_PREFIX"]
-            if ("PATH"  in entities_yaml[entity])           : del entities_yaml[entity]["PATH"]
-            if ("_ROOT" in entities_yaml[entity])           : del entities_yaml[entity]["_ROOT"]
-            if ("name" in entities_yaml[entity])            : del entities_yaml[entity]["name"]
-            if ("mandatory" in entities_yaml[entity])       : del entities_yaml[entity]["mandatory"]
+            if ("TABLE" in entities_yaml[entity])            : del entities_yaml[entity]["TABLE"]
+            if ("RELATIONS" in entities_yaml[entity])        : del entities_yaml[entity]["RELATIONS"]
+            if ("NAME" in entities_yaml[entity])             : del entities_yaml[entity]["NAME"]
+            if ("KEY" in entities_yaml[entity])              : del entities_yaml[entity]["KEY"]
+            if ("prepend" in entities_yaml[entity])          : del entities_yaml[entity]["prepend"]
+            if ("append" in entities_yaml[entity])           : del entities_yaml[entity]["append"]
+            if ("options" in entities_yaml[entity])          : del entities_yaml[entity]["options"]
+            if ("PATH_OPERATION" in entities_yaml[entity])   : del entities_yaml[entity]["PATH_OPERATION"]
+            if ("PATH_PARAMETERS" in entities_yaml[entity])  : del entities_yaml[entity]["PATH_PARAMETERS"]
+            if ("SCHEMA_PARAMETERS" in entities_yaml[entity]): del entities_yaml[entity]["SCHEMA_PARAMETERS"]
+            if ("LIST_PARAMETERS" in entities_yaml[entity])  : del entities_yaml[entity]["LIST_PARAMETERS"]
+            if ("GET_PARAMETERS" in entities_yaml[entity])   : del entities_yaml[entity]["GET_PARAMETERS"]
+            if ("PATCH_PARAMETERS" in entities_yaml[entity]) : del entities_yaml[entity]["PATCH_PARAMETERS"]
+            if ("POST_PARAMETERS" in entities_yaml[entity])  : del entities_yaml[entity]["POST_PARAMETERS"]
+            if ("PUT_PARAMETERS" in entities_yaml[entity])   : del entities_yaml[entity]["PUT_PARAMETERS"]
+            if ("DELETE_PARAMETERS" in entities_yaml[entity]): del entities_yaml[entity]["DELETE_PARAMETERS"]
+            if ("PATH_OPERATIONS" in entities_yaml[entity])  : del entities_yaml[entity]["PATH_OPERATIONS"]
+            if ("OPERATIONS" in entities_yaml[entity])       : del entities_yaml[entity]["OPERATIONS"]
+            if ("QPATH_PARAMETERS" in entities_yaml[entity]) : del entities_yaml[entity]["QPATH_PARAMETERS"]
+            if ("PATH_PREFIX" in entities_yaml[entity])      : del entities_yaml[entity]["PATH_PREFIX"]
+            if ("PATH"  in entities_yaml[entity])            : del entities_yaml[entity]["PATH"]
+            if ("_ROOT" in entities_yaml[entity])            : del entities_yaml[entity]["_ROOT"]
+            if ("name" in entities_yaml[entity])             : del entities_yaml[entity]["name"]
+            if ("mandatory" in entities_yaml[entity])        : del entities_yaml[entity]["mandatory"]
+            if (("example" in entities_yaml[entity]) and (entities_yaml[entity]["example"] == entity)):
+                del entities_yaml[entity]["example"]
             if ("properties" in entities_yaml[entity]) :
-                if ("name" in entities_yaml[entity]["properties"])      : del entities_yaml[entity]["properties"]["name"]
+                # if ("name" in entities_yaml[entity]["properties"])      : del entities_yaml[entity]["properties"]["name"]
                 if ("mandatory" in entities_yaml[entity]["properties"]) : del entities_yaml[entity]["properties"]["mandatory"]
                 if ("_ROOT" in entities_yaml[entity]["properties"])     : del entities_yaml[entity]["properties"]["_ROOT"]
                 for prop in entities_yaml[entity]["properties"] :
@@ -1483,6 +1650,13 @@ class CodeGenerator:
                     if ("Schema" in entities_yaml[entity]["properties"][prop]):
                         DataModel.schema_parameters = DataModel.checkAsParameter(p_dataModel, entities_yaml[entity]["properties"][prop], entities_yaml[entity]["properties"][prop]["Schema"])
                     if ("Schema" in entities_yaml[entity]["properties"][prop])    : del entities_yaml[entity]["properties"][prop]["Schema"]
+                    if (p_dataModel.isSwagger) :
+                        if (("example" in entities_yaml[entity]["properties"][prop]) and (entities_yaml[entity]["properties"][prop]["example"]==prop)):
+                            del entities_yaml[entity]["properties"][prop]["example"]
+                        if (("pattern" in entities_yaml[entity]["properties"][prop]) and (entities_yaml[entity]["properties"][prop]["pattern"]=="")):
+                            del entities_yaml[entity]["properties"][prop]["pattern"]
+                        if (("format" in entities_yaml[entity]["properties"][prop]) and (entities_yaml[entity]["properties"][prop]["format"] == "")):
+                            del entities_yaml[entity]["properties"][prop]["format"]
             if ("Schema" in entities_yaml[entity]) : del entities_yaml[entity]["Schema"]
 
         # Create OpenAPI Specification
@@ -1506,13 +1680,33 @@ class CodeGenerator:
 
         # Re-Order
         open_api = dict()
-        if "openapi"      in open_api_yaml : open_api["openapi"]      = open_api_yaml["openapi"]
-        if "info"         in open_api_yaml : open_api["info"]         = open_api_yaml["info"]
-        if "externalDocs" in open_api_yaml : open_api["externalDocs"] = open_api_yaml["externalDocs"]
-        if "servers"      in open_api_yaml : open_api["servers"]      = open_api_yaml["servers"]
-        if "security"     in open_api_yaml : open_api["security"]     = open_api_yaml["security"]
-        if "paths"        in open_api_yaml : open_api["paths"]        = open_api_yaml["paths"]
-        if "components"   in open_api_yaml : open_api["components"]   = open_api_yaml["components"]
+        if "swagger" in open_api_yaml :
+            if "swagger"      in open_api_yaml : open_api["swagger"]      = open_api_yaml["swagger"]
+            if "info"         in open_api_yaml : open_api["info"]         = open_api_yaml["info"]
+            if "host"         in open_api_yaml : open_api["host"]         = open_api_yaml["host"]
+            if "basePath"     in open_api_yaml : open_api["basePath"]     = open_api_yaml["basePath"]
+            open_api["schemes"] = list()
+            open_api["schemes"].append("https")
+            open_api["consumes"] = list()
+            open_api["consumes"].append("application/json;charset=utf-8")
+            open_api["produces"] = list()
+            open_api["produces"].append("application/json;charset=utf-8")
+            if "tags"         in open_api_yaml : open_api["tags"]         = open_api_yaml["tags"]
+            if "paths"        in open_api_yaml : open_api["paths"]        = open_api_yaml["paths"]
+            if "components"   in open_api_yaml :
+                if ("securitySchemes" in open_api_yaml["components"]):
+                    del open_api_yaml["components"]["securitySchemes"]
+                if ("schemas" in open_api_yaml["components"]):
+                    open_api["definitions"]  = open_api_yaml["components"]["schemas"]
+        else :  # "openapi" in open_api_yaml
+            if "openapi"      in open_api_yaml : open_api["openapi"]      = open_api_yaml["openapi"]
+            if "info"         in open_api_yaml : open_api["info"]         = open_api_yaml["info"]
+            if "externalDocs" in open_api_yaml : open_api["externalDocs"] = open_api_yaml["externalDocs"]
+            if "servers"      in open_api_yaml : open_api["servers"]      = open_api_yaml["servers"]
+            if "tags"         in open_api_yaml : open_api["tags"]         = open_api_yaml["tags"]
+            if "security"     in open_api_yaml : open_api["security"]     = open_api_yaml["security"]
+            if "paths"        in open_api_yaml : open_api["paths"]        = open_api_yaml["paths"]
+            if "components"   in open_api_yaml : open_api["components"]   = open_api_yaml["components"]
 
         # Apply Custom for Specific Models
         open_api_yaml = customOpenApi(self.model_location, open_api)
@@ -1534,12 +1728,44 @@ class CodeGenerator:
         Term.print_yellow("> render Artifacts")
         self.checkDir(forRendering=True)
 
-        p_dataModel.addContext(self.context_file)
+        # Clean-up before generation
+        entities_json = copy.deepcopy(p_dataModel.entities)
+        if ("TABLE" in entities_json): del entities_json["TABLE"]
+        # if ("NAME" in entities_json):  del entities_json["NAME"]
+        for entity in entities_json:
+            if ("TABLE" in entities_json[entity])           : del entities_json[entity]["TABLE"]
+            # if ("RELATIONS" in entities_json[entity])       : del entities_json[entity]["RELATIONS"]
+            # if ("NAME" in entities_json[entity])            : del entities_json[entity]["NAME"]
+            # if ("KEY" in entities_json[entity])             : del entities_json[entity]["KEY"]
+            # if ("prepend" in entities_json[entity])         : del entities_json[entity]["prepend"]
+            # if ("append" in entities_json[entity])          : del entities_json[entity]["append"]
+            # if ("options" in entities_json[entity])         : del entities_json[entity]["options"]
+            # if ("PATH_OPERATION" in entities_json[entity])  : del entities_json[entity]["PATH_OPERATION"]
+            if ("PATH_PARAMETERS" in entities_json[entity]) : del entities_json[entity]["PATH_PARAMETERS"]
+            if ("QPATH_PARAMETERS" in entities_json[entity]): del entities_json[entity]["QPATH_PARAMETERS"]
+            # if ("PATH_PREFIX" in entities_json[entity])     : del entities_json[entity]["PATH_PREFIX"]
+            # if ("PATH"  in entities_json[entity])           : del entities_json[entity]["PATH"]
+            # if ("name" in entities_json[entity])          : del entities_json[entity]["name"]
+            # if ("mandatory" in entities_json[entity])     : del entities_json[entity]["mandatory"]
+            Term.print_verbose("> " + entity)
+            for prop in entities_json[entity]["properties"] :
+                Term.print_verbose(" - " + prop)
+                # if ("name" in entities_json[entity]["properties"][prop])      : del entities_json[entity]["properties"][prop]["name"]
+                # if ("mandatory" in entities_json[entity]["properties"][prop]) : del entities_json[entity]["properties"][prop]["mandatory"]
+                continue
 
+            # Add Required Relationship Sub Objects Schemas
+            for link in entities_json[entity]["RELATIONS"] :
+               if ("TableContenanteID" in entities_json[entity]["RELATIONS"][link]) : del entities_json[entity]["RELATIONS"][link]["TableContenanteID"]
+               if ("TableContenueID" in entities_json[entity]["RELATIONS"][link])   : del entities_json[entity]["RELATIONS"][link]["TableContenueID"]
+
+        p_dataModel.addContext(self.context_file)
         context = p_dataModel.context if p_dataModel.context else {}
         context["DATAMODEL"] = FileSystem.getBaseName(p_dataModel.name)
-        context["ENTITIES"]  = p_dataModel.entities
+        context["ENTITIES"]  = entities_json
         context["OPENAPI"]   = self.renderOpenAPI(p_dataModel)
+
+
 
         CodeGenerator.renderDir(self.templates_dir, self.includes_dir, self.artifacts_dir, context)
 
@@ -1559,6 +1785,8 @@ class CodeGenerator:
 
         # Clean-up before generation
         entities_json = copy.deepcopy(p_dataModel.entities)
+        # if ("TABLE" in entities_json): del entities_json["TABLE"]
+        # if ("NAME" in entities_json):  del entities_json["NAME"]
         for entity in entities_json:
             if ("TABLE" in entities_json[entity])           : del entities_json[entity]["TABLE"]
             if ("RELATIONS" in entities_json[entity])       : del entities_json[entity]["RELATIONS"]
@@ -1569,6 +1797,7 @@ class CodeGenerator:
             if ("options" in entities_json[entity])         : del entities_json[entity]["options"]
             if ("PATH_OPERATION" in entities_json[entity])  : del entities_json[entity]["PATH_OPERATION"]
             if ("PATH_PARAMETERS" in entities_json[entity]) : del entities_json[entity]["PATH_PARAMETERS"]
+            if ("QPATH_PARAMETERS" in entities_json[entity]): del entities_json[entity]["QPATH_PARAMETERS"]
             if ("PATH_PREFIX" in entities_json[entity])     : del entities_json[entity]["PATH_PREFIX"]
             if ("PATH"  in entities_json[entity])           : del entities_json[entity]["PATH"]
             # if ("name" in entities_json[entity])          : del entities_json[entity]["name"]
@@ -1594,7 +1823,7 @@ class CodeGenerator:
 
             #  Object Details
             json_schema["$schema"]     = "http://json-schema.org/draft-07/schema"
-            json_schema["$id"]         = json_schema_baseURI+entity+".json"
+            json_schema["$id#"]        = json_schema_baseURI+entity+".json"
             json_schema["type"]        = "object"
             json_schema["title"]       = "Schema for " + entity
             json_schema["description"] = object_desc["description"]
@@ -1611,10 +1840,11 @@ class CodeGenerator:
                 property_desc = object_desc["properties"][new_property]
                 Term.print_verbose(" #>> " + str(property_desc))
                 prop_schema = {}
+                shemaPath = "#/definitions/" if (p_dataModel.isSwagger) else "#/components/schemas/"
                 if ("$ref" in property_desc):
                     # Sub-object
                     Term.print_verbose("   #>> object        : " + str(property_desc["$ref"]))
-                    item = re.sub("#/components/schemas/" , ""   , str(property_desc["$ref"]))
+                    item = re.sub(shemaPath , ""   , str(property_desc["$ref"]))
                     # prop_schema["$ref"]  = os.path.basename(p_dataModel.name) + "_" + item + "_schema.json"
                     prop_schema["$ref"]  = "#/$defs/" + item + ""
                     json_schema["properties"][item] = prop_schema
@@ -1623,7 +1853,7 @@ class CodeGenerator:
                     if ("$ref" in property_desc["items"]):
                         # Array of Sub-objects
                         Term.print_verbose("   #>> Array objects : " + str(property_desc["items"]["$ref"]))
-                        item = re.sub("#/components/schemas/", "", str(property_desc["items"]["$ref"]))
+                        item = re.sub(shemaPath, "", str(property_desc["items"]["$ref"]))
                         prop_schema["type"] = "array"
                         # prop_schema["items"] = {"$ref" : "" + os.path.basename(data_model) + "_" + item + "_schema.json"}
                         prop_schema["items"] = {"$ref" : "#/$defs/" + item + ""}
@@ -1676,7 +1906,6 @@ class CodeGenerator:
                     Term.print_verbose("   #>> format      : " + str(property_desc["format"]))
                     Term.print_verbose("   #>> example     : " + str(property_desc["example"]))
                     Term.print_verbose("   #>> pattern     : " + str(property_desc["pattern"]))
-                    Term.print_verbose("   #>> format      : " + str(property_desc["format"]))
                     Term.print_verbose("   #>> mandatory   : " + str(property_desc["mandatory"]))
                     if (property_desc["mandatory"] and property_desc["mandatory"] == "y"):
                         json_schema["required"].append(property_desc["name"])
@@ -1693,6 +1922,8 @@ class CodeGenerator:
                 TableContenante = p_dataModel.links[link]["TableContaining"]
                 Term.print_verbose(TableContenante + " Contains [" + cardinality + "] " + TableContenue)
                 if (entity == TableContenante) and (str(cardinality)  in ["1", "3", "OneToMore" , "OneToOne"]):
+                    if ("TableContenanteID" in TableContenue) : del TableContenue["TableContenanteID"]
+                    if ("TableContenueID" in TableContenue) :   del TableContenue["TableContenueID"]
                     json_schema["required"].append(TableContenue)
 
         Term.print_verbose("json_schemas   : \n" + json.dumps(json_schemas,   indent=3))
@@ -1703,7 +1934,7 @@ class CodeGenerator:
         return json_schemas
 
     def generatePathJsonSchema(self, p_dataModel: DataModel,  with_saving : bool = True):
-        """ Create Json Schema for PATH Entity (used for API Validation) """
+        """ Create Json _Schema for PATH Entity (used for API Validation) """
 
         # Create a Schema for each PATH Entity, and only for PATH Entities
         # Create References for Relationships to external Entities (which have a PATH)
@@ -1717,10 +1948,12 @@ class CodeGenerator:
         entities_json = copy.deepcopy(p_dataModel.entities)
 
         # Clean-up Entities before schema generation
+        if ("TABLE" in entities_json): del entities_json["TABLE"]
+        if ("NAME" in entities_json):  del entities_json["NAME"]
         for entity in entities_json:
             if ("TABLE" in entities_json[entity])     : del entities_json[entity]["TABLE"]
             if ("RELATIONS" in entities_json[entity]) : del entities_json[entity]["RELATIONS"]
-            # if ("NAME" in entities_json[entity])      : del entities_json[entity]["NAME"]
+            if ("NAME" in entities_json[entity])      : del entities_json[entity]["NAME"]  # was commented
             if ("KEY" in entities_json[entity])       : del entities_json[entity]["KEY"]
             if ("prepend" in entities_json[entity])   : del entities_json[entity]["prepend"]
             if ("append" in entities_json[entity])    : del entities_json[entity]["append"]
@@ -1747,7 +1980,7 @@ class CodeGenerator:
             if ("PATH" not in entity_desc) : continue
 
             entities_json[entity]["$schema"]     = "http://json-schema.org/draft-07/schema"
-            entities_json[entity]["$id"]         = json_schema_baseURI+entity+".json"
+            entities_json[entity]["$id#"]        = json_schema_baseURI+entity+".json"
             entities_json[entity]["type"]        = "object"
             entities_json[entity]["title"]       = "Schema for " + entity
 
@@ -1758,50 +1991,49 @@ class CodeGenerator:
                 # Entity contain relationship to this schema
                 if ("PATH" in entities_json[rel_entity]):
                     # Entity is external - Create a Reference to its schema (-$ref)
+                    relation_name = p_dataModel.findTableRelationShipName(entity, rel_entity)
                     card = p_dataModel.findTableCardinality(entity, rel_entity)
                     desc = p_dataModel.findLinkProperty(entity, rel_entity, "Description")
                     name = p_dataModel.findLinkProperty(entity, rel_entity, "Name")
                     if (card and (card == "OneToOne" or card == "ZeroToOne")):
-                        entities_json[entity]["properties"][rel_entity]["-$ref"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
-                        entities_json[entity]["properties"][rel_entity]["type"] = "string"
-                        entities_json[entity]["properties"][rel_entity]["name"] = name
-                        entities_json[entity]["properties"][rel_entity]["description"] = desc
-                        entities_json[entity]["properties"][rel_entity]["cardinality"] = card
-                        entities_json[entity]["properties"][rel_entity]["mandatory"] = "y" if (card == "OneToOne") else "n"
+                        entities_json[entity]["properties"][relation_name]["$ref#"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
+                        entities_json[entity]["properties"][relation_name]["type"] = "string"
+                        entities_json[entity]["properties"][relation_name]["name"] = name
+                        entities_json[entity]["properties"][relation_name]["description"] = desc
+                        entities_json[entity]["properties"][relation_name]["cardinality"] = card
+                        entities_json[entity]["properties"][relation_name]["mandatory"] = "y" if (card == "OneToOne") else "n"
                     if (card and (card == "OneToMore" or card == "ZeroToMore")):
-                        entities_json[entity]["properties"][rel_entity]["type"]  = "array"
-                        # entities_json[entity]["properties"][rel_entity]["name"]  = name
-                        # entities_json[entity]["properties"][rel_entity]["description"] = "desc"
-                        # entities_json[entity]["properties"][rel_entity]["mandatory"] = "y" if (card == "OneToMore") else "n"
-                        entities_json[entity]["properties"][rel_entity]["items"] = {}
-                        entities_json[entity]["properties"][rel_entity]["items"]["-$ref"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
-                        entities_json[entity]["properties"][rel_entity]["items"]["type"] = "string"
-                        entities_json[entity]["properties"][rel_entity]["items"]["name"] = name
-                        entities_json[entity]["properties"][rel_entity]["items"]["description"] = "desc"
-                        entities_json[entity]["properties"][rel_entity]["items"]["mandatory"] = "y" if (card == "OneToMore") else "n"
+                        entities_json[entity]["properties"][relation_name]["type"]  = "array"
+                        # entities_json[entity]["properties"][relation_name]["name"]  = name
+                        # entities_json[entity]["properties"][relation_name]["description"] = "desc"
+                        # entities_json[entity]["properties"][relation_name]["mandatory"] = "y" if (card == "OneToMore") else "n"
+                        entities_json[entity]["properties"][relation_name]["items"] = {}
+                        entities_json[entity]["properties"][relation_name]["items"]["$ref#"] = p_dataModel.name + "_" + rel_entity + schema_json_suffix
+                        entities_json[entity]["properties"][relation_name]["items"]["type"]  = "string"
+                        entities_json[entity]["properties"][relation_name]["items"]["name"]  = name
+                        entities_json[entity]["properties"][relation_name]["items"]["description"] = "desc"
+                        entities_json[entity]["properties"][relation_name]["items"]["mandatory"] = "y" if (card == "OneToMore") else "n"
                 else:
                     # Entity is internal - Add Definition to internal schema ($defs)
+                    relation_name = p_dataModel.findTableRelationShipName(entity, rel_entity)
                     card = p_dataModel.findTableCardinality(entity, rel_entity)
                     desc = p_dataModel.findLinkProperty(entity, rel_entity, "Description")
                     name = p_dataModel.findLinkProperty(entity, rel_entity, "Name")
                     if (card and (card == "OneToOne" or card == "ZeroToOne")):
-                        entities_json[entity]["properties"][rel_entity]["$ref"] = "#/$defs/"+rel_entity
-                        if ("$defs" not in entities_json[entity]):
-                            entities_json[entity]["$defs"] = {}
+                        entities_json[entity]["properties"][relation_name]["$ref"] = "#/$defs/"+rel_entity
+                        if ("$defs" not in entities_json[entity]): entities_json[entity]["$defs"] = {}
                         entities_json[entity]["$defs"][rel_entity] = entities_json[rel_entity]
-                        entities_json[entity]["mandatory"] = "y" if (card == "OneToOne") else "n"
-                        entities_json[entity]["description"] = desc
-                        entities_json[entity]["name"] = name
+                        entities_json[entity]["properties"][relation_name]["mandatory"] = "y" if (card == "OneToOne") else "n"
+                        entities_json[entity]["properties"][relation_name]["description"] = desc
+                        entities_json[entity]["properties"][relation_name]["name"] = name
                     if (card and (card == "OneToMore" or card == "ZeroToMore")):
-                        entities_json[entity]["properties"][rel_entity]["type"]  = "array"
-                        entities_json[entity]["properties"][rel_entity]["items"] = {}
-                        entities_json[entity]["properties"][rel_entity]["items"]["$ref"] = "#/$defs/"+rel_entity
-                        if ("$defs" not in entities_json[entity]):
-                            entities_json[entity]["$defs"] = {}
+                        entities_json[entity]["properties"][relation_name]["type"]  = "array"
+                        entities_json[entity]["properties"][relation_name]["items"] = {}
+                        entities_json[entity]["properties"][relation_name]["items"]["$ref"] = "#/$defs/"+rel_entity
+                        if ("$defs" not in entities_json[entity]): entities_json[entity]["$defs"] = {}
                         entities_json[entity]["$defs"][rel_entity] = entities_json[rel_entity]
-                        entities_json[entity]["$defs"][rel_entity] = entities_json[rel_entity]
-                        entities_json[entity]["properties"][rel_entity]["name"] = name
-                        entities_json[entity]["properties"][rel_entity]["description"] = desc
+                        entities_json[entity]["properties"][relation_name]["name"] = name
+                        entities_json[entity]["properties"][relation_name]["description"] = desc
 
         Term.print_yellow("< generate Path Json Schema")
 
@@ -1905,9 +2137,15 @@ class CodeGenerator:
             if ("PATH" in entities_json[entity]): del entities_json[entity]["PATH"]
             schema_file = schema_dir + os.sep + p_dataModel.name + "_" + entity + schema_json_suffix
             schema_list[entity] = entities_json[entity]
-            curl = 'curl -X POST -H "Content-Type: application/json" -d @'+schema_file+' https://127.0.0.1:5000/datastore/'+api_target+'?create'
+            anme_server = "https://anme.pagekite.me"
+            anme_server = "https://192.168.1.24:5000"
+            anme_server = "https://127.0.0.1:5000"
+            storetype   = "/datastore/"
+            storetype   = "/filestore/"
+            curl = 'curl -X POST -H "Content-Type: application/json" -d @'+schema_file+' '+anme_server+storetype+api_target+'?create'
             Term.print_yellow(curl)
-            req = "https://127.0.0.1:5000"+"/datastore/"+api_target+"s"+"?create"
+            req = anme_server+storetype+api_target+"s"+"?create"
+            Term.print_yellow(str(req))
             res = requests.post(req, json=FileSystem.loadFileData(schema_file), verify=False)
             Term.print_yellow(str(res))
 
@@ -2110,9 +2348,9 @@ class TestCodeGen(unittest.TestCase):
 
         # Check Schema Generation
         Term.gen_assert(schemas)
-        self.assertEqual(flat["API/required/3"], "API_Name")
+        self.assertEqual(flat["API/required/3"], "API_Description")
         self.assertEqual(flat["API/properties/API_Category/description"], "API_API_Category")
-        self.assertEqual(flat["API_Bundle/properties/id/mandatory"], "y")
+        self.assertEqual(flat["API_Bundle/properties/id/mandatory"], "n")
 
 
 class TestArchitectModels(unittest.TestCase):
@@ -2130,24 +2368,30 @@ class TestArchitectModels(unittest.TestCase):
     def testGenerate_NEF_MarketPlace_DataService(self):
         Term.print_green("> testGenerate_NEF_MarketPlace_DataService")
         data_model_location = "NEF"+os.sep+"NEF_MarketPlace"+os.sep+"NEF_MarketPlace_DataModel"
-        generate({"WHAT" : "schema openapi render", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
+        generate({"WHAT" : "schema openapi render anme", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
 
     def testGenerate_NEF_Catalog_DataService(self):
         Term.print_green("> testGenerate_NEF_Catalog_DataService")
         data_model_location = "NEF"+os.sep+"NEF_Catalog"+os.sep+"NEF_Catalog_DataModel"
-        generate({"WHAT" : "schema openapi render", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
+        generate({"WHAT" : "schema openapi render  a#nme", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
 
     def testGenerate_NEF_ApplicationUserProfile_DataService(self):
         Term.print_green("> testGenerate_NEF_ApplicationUserProfile_DataService")
         data_model_location = "NEF"+os.sep+"NEF_ApplicationUserProfile"+os.sep+"NEF_ApplicationUserProfile_DataModel"
-        generate({"WHAT" : "schema openapi render", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
+        generate({"WHAT" : "schema openapi render  anme", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
+
+    def testGenerate_TMF_Catalog_DataService(self):
+        # Term.setVerbose(True)
+        Term.print_green("> testGenerate_TMF_Catalog_DataService")
+        data_model_location = "NEF"+os.sep+"TMF_Catalog"+os.sep+"TMF_Catalog_DataModel"
+        generate({"WHAT" : "schema openapi render  anme", "DATA_MODEL" : data_model_location}, clean_artifacts=True)
 
     def testGenerate_NEF_API_Subscription_DataService(self):
         Term.print_green("> testGenerate_NEF_API_Subscription_DataService")
         data_model_location = "NEF" + os.sep + "NEF_API_Subscription" + os.sep + "NEF_API_Subscription_Procedure"
         context_file        = data_model_location + "_context.yaml"
         includes_dir        = default_include_dir
-        generate({"WHAT" : "schema openapi", "DATA_MODEL" : data_model_location, "CONTEXT_FILE" : context_file, "INCLUDES_DIR" : includes_dir}, clean_artifacts=True)
+        generate({"WHAT" : "schema openapi  anme", "DATA_MODEL" : data_model_location, "CONTEXT_FILE" : context_file, "INCLUDES_DIR" : includes_dir}, clean_artifacts=True)
 
     def testGenerate_SCEF_Service(self):
         Term.print_green("> testGenerate_SCEF_Service")
@@ -2278,7 +2522,6 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
     if (("anme" in what.lower()) or ("datastore" in what.lower())):
         codeGen.configure_ANME_DataStore(dataModel)
 
-
 # This method to alter/customize Generated OpenAPI, when needed.
 def customOpenApi(p_model : str, open_api : dict) -> dict:
 
@@ -2325,6 +2568,195 @@ def customOpenApi(p_model : str, open_api : dict) -> dict:
                                                                                     {"type" : "number"},
                                                                                     {"type" : "array" ,
                                                                           "items" : {"$ref" : "#/components/schemas/AVP"}}]
+
+    # Some Custom for NEF_Configuration_Service
+    if ("TMF_Catalog" in p_model) :
+        Term.print_yellow("> Customs for TMF_Catalog")
+        Term.print_blue("> Loading TMFf620 :")
+        tmf620 = FileSystem.loadFileData("NEF" + os.sep + "TMF_Catalog" + os.sep + "TMF620_CatalogManagement_4_1_0.yaml")
+        Term.print_blue("> Fixing OpenAPI to Swagger")
+        if ('contact' in open_api['info']) : del open_api['info']['contact']
+        if ('license' in open_api['info']) : del open_api['info']['license']
+        # if ('required' in open_api['definitions']['CategoryRef']) :        del open_api['definitions']['CategoryRef']['required']
+        # if ('required' in open_api['definitions']['ProductOfferingRef']) : del open_api['definitions']['ProductOfferingRef']['required']
+        # if ('required' in open_api['definitions']['RelatedParty']) :       del open_api['definitions']['RelatedParty']['required']
+
+        # Fix Descriptions
+        open_api['info']['description']                     = tmf620 ['info']['description']
+        open_api['definitions']['Category']['description']  = tmf620 ['definitions']['Category']['description']
+        open_api['definitions']['Catalog']['description']   = tmf620 ['definitions']['Catalog']['description']
+        open_api['definitions']['ProductOfferingRef']['description']                    = tmf620 ['definitions']['ProductOfferingRef']['description']
+        open_api['definitions']['ProductSpecificationCharacteristic']['description']    = tmf620 ['definitions']['ProductSpecificationCharacteristic']['description']
+        open_api['definitions']['ResourceSpecificationRef']['description']              = tmf620 ['definitions']['ResourceSpecificationRef']['description']
+        open_api['definitions']['BundledProductSpecification']['description']           = tmf620 ['definitions']['BundledProductSpecification']['description']
+        open_api['definitions']['Catalog']['properties']['relatedParty']['description'] = tmf620 ['definitions']['Catalog']['properties']['relatedParty']['description']
+        open_api['definitions']['Catalog']['properties']['validFor']['description']     = tmf620 ['definitions']['Catalog']['properties']['validFor']['description']
+        open_api['definitions']['Category']['properties']['validFor']['description']    = tmf620 ['definitions']['Category']['properties']['validFor']['description']
+        open_api['definitions']['Category']['properties']['subCategory']['description'] = tmf620 ['definitions']['Category']['properties']['subCategory']['description']
+        open_api['definitions']['ProductSpecification']['properties']['productSpecCharacteristic']['description']                       = tmf620 ['definitions']['ProductSpecification']['properties']['productSpecCharacteristic']['description']
+        open_api['definitions']['ProductSpecificationCharacteristic']['properties']['productSpecCharacteristicValue']['description']    = tmf620 ['definitions']['ProductSpecificationCharacteristic']['properties']['productSpecCharacteristicValue']['description']
+        open_api['definitions']['ProductSpecificationCharacteristic']['properties']['id']['description']                                = tmf620 ['definitions']['ProductSpecificationCharacteristic']['properties']['id']['description']
+        open_api['definitions']['ProductSpecificationCharacteristic']['properties']['extensible']['description']                        = tmf620 ['definitions']['ProductSpecificationCharacteristic']['properties']['extensible']['description']
+        open_api['definitions']['ProductSpecification']['properties']['validFor']['description']                                        = tmf620 ['definitions']['ProductSpecification']['properties']['validFor']['description']
+        open_api['definitions']['ProductSpecification']['properties']['relatedParty']['description']                                    = tmf620 ['definitions']['ProductSpecification']['properties']['relatedParty']['description']
+        open_api['definitions']['ProductSpecificationCharacteristic']['properties']['validFor']['description']                          = tmf620 ['definitions']['ProductSpecificationCharacteristic']['properties']['validFor']['description']
+        open_api['definitions']['CharacteristicSpecificationBase']['properties']['extensible']['description']                           = tmf620 ['definitions']['CharacteristicSpecificationBase']['properties']['extensible']['description']
+        open_api['definitions']['ProductSpecificationRef']['properties']['targetProductSchema']['description']                          = tmf620 ['definitions']['ProductSpecificationRef']['properties']['targetProductSchema']['description']
+        open_api['definitions']['ProductSpecification']['properties']['bundledProductSpecification']['description']                     = tmf620 ['definitions']['ProductSpecification']['properties']['bundledProductSpecification']['description']
+        open_api['definitions']['ProductOffering']['properties']['prodSpecCharValueUse']['description']                                 = tmf620 ['definitions']['ProductOffering']['properties']['prodSpecCharValueUse']['description']
+        open_api['definitions']['ProductSpecificationCharacteristicRelationship']['properties']['charSpecSeq']['description']           = tmf620 ['definitions']['ProductSpecificationCharacteristicRelationship']['properties']['charSpecSeq']['description']
+
+        # Fix Ids & Defaults
+        open_api['definitions']['RelatedParty']['required'].append("id")
+        open_api['definitions']['CategoryRef']['required'] = list()
+        open_api['definitions']['CategoryRef']['required'].append("id")
+        open_api['definitions']['ProductOfferingRef']['required'] = list()
+        open_api['definitions']['ProductOfferingRef']['required'].append("id")
+        open_api['definitions']['ResourceSpecificationRef']['required'] = list()
+        open_api['definitions']['ResourceSpecificationRef']['required'].append("id")
+        open_api['definitions']['ServiceSpecificationRef']['required'] = list()
+        open_api['definitions']['ServiceSpecificationRef']['required'].append("id")
+        open_api['definitions']['ProductSpecificationRef']['required'] = list()
+        open_api['definitions']['ProductSpecificationRef']['required'].append("id")
+        open_api['definitions']['Quantity']['properties']['amount']['default'] = 1
+        exclude_paths = list()
+
+        # Special Case for Any Value
+        exclude_paths.append("root['definitions']['CharacteristicValueSpecification']['properties']['value']")
+        exclude_paths.append("root['definitions']['Any']")
+
+
+        # exclude_paths.append("root['definitions']['CharacteristicSpecificationBase']")
+        # exclude_paths.append("root['definitions']['ProductOffering']")
+        # exclude_paths.append("root['definitions']['ResourceSpecificationRef']")
+        # exclude_paths.append("root['definitions']['ServiceSpecificationRef']")
+        # exclude_paths.append("root['definitions']['ProductSpecificationRef']")
+        # exclude_paths.append("root['definitions']['TargetProductSchema']")
+        # exclude_paths.append("root['definitions']['Quantity']")
+        # exclude_paths.append("root['definitions']['ProductSpecificationCharacteristicRelationship']")
+        # exclude_paths.append("root['definitions']['ProductSpecificationRelationship']")
+        # exclude_paths.append("root['definitions']['Error']")
+        exclude_paths.append("root['definitions']['ResourceCandidateRef']")
+        exclude_paths.append("root['definitions']['ServiceCandidateRef']")
+        exclude_paths.append("root['definitions']['AttachmentRef']")
+        exclude_paths.append("root['definitions']['Attachment']")
+        exclude_paths.append("root['definitions']['ProductSpecificationCharacteristicValueUse']")
+
+        # Not handling Path for now
+        exclude_paths.append("root['paths']")
+
+        # Links to Entities not supported
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['productOfferingRelationship']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['bundledProductOffering']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['productOfferingPrice']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['serviceLevelAgreement']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['productOfferingTerm']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['marketSegment']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['place']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['resourceCandidate']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['serviceCandidate']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['channel']")
+        exclude_paths.append("root['definitions']['ProductOffering']['properties']['agreement']")
+
+        # Entities not supported
+        exclude_paths.append("root['definitions']['BundledProductOffering']")
+        # exclude_paths.append("root['definitions']['BundledProductSpecification']")
+        exclude_paths.append("root['definitions']['BundledProductOfferingOption']")
+        exclude_paths.append("root['definitions']['BundledProductOfferingPriceRelationship']")
+
+        exclude_paths.append("root['definitions']['Addressable']")
+        exclude_paths.append("root['definitions']['AgreementRef']")
+        exclude_paths.append("root['definitions']['ChannelRef']")
+        exclude_paths.append("root['definitions']['PlaceRef']")
+        exclude_paths.append("root['definitions']['MarketSegmentRef']")
+        exclude_paths.append("root['definitions']['ConstraintRef']")
+        exclude_paths.append("root['definitions']['SLARef']")
+        exclude_paths.append("root['definitions']['Category_Create']")
+        exclude_paths.append("root['definitions']['Category_Update']")
+        exclude_paths.append("root['definitions']['Catalog_Create']")
+        exclude_paths.append("root['definitions']['Catalog_Update']")
+        exclude_paths.append("root['definitions']['Duration']")
+        exclude_paths.append("root['definitions']['Entity']")
+        exclude_paths.append("root['definitions']['EntityRef']")
+        exclude_paths.append("root['definitions']['ExportJob']")
+        exclude_paths.append("root['definitions']['ExportJob_Create']")
+        exclude_paths.append("root['definitions']['Extensible']")
+        exclude_paths.append("root['definitions']['ImportJob']")
+        exclude_paths.append("root['definitions']['ImportJob_Create']")
+        exclude_paths.append("root['definitions']['JobStateType']")
+        exclude_paths.append("root['definitions']['Money']")
+        exclude_paths.append("root['definitions']['POPAlteration']")
+        exclude_paths.append("root['definitions']['POPCharge']")
+        exclude_paths.append("root['definitions']['PricingLogicAlgorithm']")
+        exclude_paths.append("root['definitions']['ProductOffering_Create']")
+        exclude_paths.append("root['definitions']['ProductOffering_Update']")
+        exclude_paths.append("root['definitions']['ProductOfferingPrice']")
+        exclude_paths.append("root['definitions']['ProductOfferingPrice_Create']")
+        exclude_paths.append("root['definitions']['ProductOfferingPrice_Update']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceRef']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceRefOrValue']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceRelationship']")
+        exclude_paths.append("root['definitions']['ProductOfferingRelationship']")
+        exclude_paths.append("root['definitions']['ProductOfferingTerm']")
+        exclude_paths.append("root['definitions']['ProductPriceValue']")
+        exclude_paths.append("root['definitions']['ProductSpecification_Create']")
+        exclude_paths.append("root['definitions']['ProductSpecification_Update']")
+        exclude_paths.append("root['definitions']['TaxItem']")
+
+        # Excluding Events
+        exclude_paths.append("root['definitions']['EventSubscription']")
+        exclude_paths.append("root['definitions']['EventSubscriptionInput']")
+        exclude_paths.append("root['definitions']['CatalogCreateEvent']")
+        exclude_paths.append("root['definitions']['CatalogCreateEventPayload']")
+        exclude_paths.append("root['definitions']['CatalogAttributeValueChangeEvent']")
+        exclude_paths.append("root['definitions']['CatalogAttributeValueChangeEventPayload']")
+        exclude_paths.append("root['definitions']['CatalogStateChangeEvent']")
+        exclude_paths.append("root['definitions']['CatalogStateChangeEventPayload']")
+        exclude_paths.append("root['definitions']['CatalogDeleteEvent']")
+        exclude_paths.append("root['definitions']['CatalogDeleteEventPayload']")
+        exclude_paths.append("root['definitions']['CatalogBatchEvent']")
+        exclude_paths.append("root['definitions']['CatalogBatchEventPayload']")
+        exclude_paths.append("root['definitions']['CategoryCreateEvent']")
+        exclude_paths.append("root['definitions']['CategoryCreateEventPayload']")
+        exclude_paths.append("root['definitions']['CategoryAttributeValueChangeEvent']")
+        exclude_paths.append("root['definitions']['CategoryAttributeValueChangeEventPayload']")
+        exclude_paths.append("root['definitions']['CategoryStateChangeEvent']")
+        exclude_paths.append("root['definitions']['CategoryStateChangeEventPayload']")
+        exclude_paths.append("root['definitions']['CategoryDeleteEvent']")
+        exclude_paths.append("root['definitions']['CategoryDeleteEventPayload']")
+        exclude_paths.append("root['definitions']['ProductOfferingCreateEvent']")
+        exclude_paths.append("root['definitions']['ProductOfferingCreateEventPayload']")
+        exclude_paths.append("root['definitions']['ProductOfferingAttributeValueChangeEvent']")
+        exclude_paths.append("root['definitions']['ProductOfferingAttributeValueChangeEventPayload']")
+        exclude_paths.append("root['definitions']['ProductOfferingStateChangeEvent']")
+        exclude_paths.append("root['definitions']['ProductOfferingStateChangeEventPayload']")
+        exclude_paths.append("root['definitions']['ProductOfferingDeleteEvent']")
+        exclude_paths.append("root['definitions']['ProductOfferingDeleteEventPayload']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceCreateEvent']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceCreateEventPayload']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceAttributeValueChangeEvent']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceAttributeValueChangeEventPayload']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceStateChangeEvent']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceStateChangeEventPayload']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceDeleteEvent']")
+        exclude_paths.append("root['definitions']['ProductOfferingPriceDeleteEventPayload']")
+        exclude_paths.append("root['definitions']['ProductSpecificationCreateEvent']")
+        exclude_paths.append("root['definitions']['ProductSpecificationCreateEventPayload']")
+        exclude_paths.append("root['definitions']['ProductSpecificationAttributeValueChangeEvent']")
+        exclude_paths.append("root['definitions']['ProductSpecificationAttributeValueChangeEventPayload']")
+        exclude_paths.append("root['definitions']['ProductSpecificationStateChangeEvent']")
+        exclude_paths.append("root['definitions']['ProductSpecificationStateChangeEventPayload']")
+        exclude_paths.append("root['definitions']['ProductSpecificationDeleteEvent']")
+        exclude_paths.append("root['definitions']['ProductSpecificationDeleteEventPayload']")
+
+        Term.print_blue("> Comparing TMF & Swagger :")
+        ddiff = DeepDiff(tmf620,open_api, ignore_order=True, exclude_paths=exclude_paths)
+        Term.print_blue("> DeepDiff :")
+        jdiff = json.dumps(json.loads(ddiff.to_json()), indent=3)
+        # Term.print_blue("> DeepDiff :"+ yaml.safe_dump(convert(ddiff), indent=3)
+        FileSystem.saveFileContent(jdiff, "DeepDiff.json")
+        # FileSystem.saveFileContent(json.dumps(dd, indent=3), "DeepDiff2.json")
+        print(jdiff)
 
     return open_api
 
