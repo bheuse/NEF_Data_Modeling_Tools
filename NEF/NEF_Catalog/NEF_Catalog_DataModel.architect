@@ -10,10 +10,283 @@
  <source-databases>
  </source-databases>
  <target-database id="ppdb" dbcs-ref="DS0">
-  <table id="TAB1" populated="true" UUID="2e6fd44d-d7de-4e57-b0ed-77bde5ee522b" name="API" objectType="TABLE" physicalName="API" >
-   <remarks>API : A Set of related API Methods (YAML)</remarks>
+  <table id="TAB1" populated="true" UUID="6d3544a6-c30d-43dc-a2da-818d10eb583e" name="API Details" objectType="TABLE" physicalName="API Details" >
+   <remarks></remarks>
    <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL2" populated="true" UUID="37d7b781-1271-4f7a-ab50-3f9384bc5285" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL2" populated="true" UUID="5db37d7b-e7f3-4492-8697-bd66a336b8ea" autoIncrement="false" autoIncrementSequenceName="API Details_PublicAPI_seq" defaultValue="" name="PublicAPI" nullable="0" physicalName="PublicAPI" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Public API or Private API is False.
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL3" populated="true" UUID="476f644b-1c04-4cd8-9bf9-6c045943f317" autoIncrement="false" autoIncrementSequenceName="API Details_Verified_seq" defaultValue="" name="Verified" nullable="0" physicalName="Verified" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL4" populated="true" UUID="41f1eb13-10e9-45b4-b29e-ac098b853ee6" autoIncrement="false" autoIncrementSequenceName="API Details_Official_seq" defaultValue="" name="Official" nullable="0" physicalName="Official" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL5" populated="true" UUID="3ce93396-5487-4732-9288-3d1ff09ca91a" autoIncrement="false" autoIncrementSequenceName="API Details_Popularity_seq" defaultValue="" name="Popularity" nullable="0" physicalName="Popularity" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL6" populated="true" UUID="a9da7eba-682e-41ce-ac4b-695529db044a" autoIncrement="false" autoIncrementSequenceName="API Details_Latency_seq" defaultValue="" name="Latency" nullable="0" physicalName="Latency" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL7" populated="true" UUID="0f47b1e8-faaa-483a-b905-a7b71db58992" autoIncrement="false" autoIncrementSequenceName="API Details_ServiceLevel_seq" defaultValue="" name="ServiceLevel" nullable="0" physicalName="ServiceLevel" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL8" populated="true" UUID="3556d9c7-11ed-41ad-bd05-20b5011c3782" autoIncrement="false" autoIncrementSequenceName="API Details_LastUpdate_seq" defaultValue="" name="LastUpdate" nullable="0" physicalName="LastUpdate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL9" populated="true" UUID="139545c1-ed16-47b6-96dd-71cce67de3ed" autoIncrement="false" autoIncrementSequenceName="API Details_Free_seq" defaultValue="" name="Free" nullable="0" physicalName="Free" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
+     <remarks>Free / Paid
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL10" populated="true" UUID="74dba227-7260-4882-a7d7-0da576d2a9f6" autoIncrement="false" autoIncrementSequenceName="API Details_ReadMe_seq" defaultValue="" name="ReadMe " nullable="0" physicalName="ReadMe" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL11" populated="true" UUID="85ae0c97-7557-4c30-a8dc-4d39a9a6632f" autoIncrement="false" autoIncrementSequenceName="API Details_Logo_seq" defaultValue="" name="Logo" nullable="0" physicalName="Logo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL12" populated="true" UUID="6530d529-be7d-487d-8703-8086f0645c8a" autoIncrement="false" autoIncrementSequenceName="API Details_Summary_seq" defaultValue="" name="Summary" nullable="0" physicalName="Summary" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL13" populated="true" UUID="fadc71ed-95b7-4ef7-aae2-c8bad4e5c2f3" autoIncrement="false" autoIncrementSequenceName="API Details_OverviewPage_seq" defaultValue="" name="OverviewPage" nullable="0" physicalName="OverviewPage" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    <column id="COL14" populated="true" UUID="c5454aa4-dde3-44f8-9443-3e788f89bc3f" autoIncrement="false" autoIncrementSequenceName="API Details_FeaturesPage_seq" defaultValue="" name="FeaturesPage" nullable="0" physicalName="FeaturesPage" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Enter Description Here
+&lt;schema&gt; {
+   &quot;name&quot;: &quot;noName&quot;,
+   &quot;description&quot;: &quot;noDescription&quot;,
+   &quot;tooltip&quot;: &quot;noTooltip&quot;,
+   &quot;type&quot;: &quot;string&quot;,
+   &quot;format&quot;: &quot;noFormat&quot;,
+   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
+   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
+   &quot;example&quot;: &quot;noExampleValue&quot;,
+   &quot;validationScript&quot;: &quot;&quot;,
+   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
+   &quot;minCardinality&quot;: 1,
+   &quot;maxCardinality&quot;: 1,
+   &quot;validFor&quot;: &quot;novalidFor&quot;,
+   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
+   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
+} &lt;/schema&gt;</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX15" populated="true" UUID="953f63c4-d91c-4a31-82e4-e69ca98df476" clustered="false" name="API Details_pk" physicalName="API Details_pk" primaryKeyIndex="true" unique="false" >
+    </index>
+   </folder>
+  </table>
+  <table id="TAB16" populated="true" UUID="2e6fd44d-d7de-4e57-b0ed-77bde5ee522b" name="API" objectType="TABLE" physicalName="API" >
+   <remarks>API : A Set of related API Methods (YAML)</remarks>
+   <folder id="FOLTAB161" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL17" populated="true" UUID="37d7b781-1271-4f7a-ab50-3f9384bc5285" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -34,7 +307,7 @@
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL3" populated="true" UUID="a1398d40-e6fc-4605-8bb7-8f0e267f8871" autoIncrement="false" autoIncrementSequenceName="API_API_Provider_Name_seq" defaultValue="" name="API_Provider_Name" nullable="0" physicalName="API_Provider_Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL18" populated="true" UUID="a1398d40-e6fc-4605-8bb7-8f0e267f8871" autoIncrement="false" autoIncrementSequenceName="API_API_Provider_Name_seq" defaultValue="" name="API_Provider_Name" nullable="0" physicalName="API_Provider_Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -56,10 +329,10 @@
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL4" populated="true" UUID="5c06d09b-01c9-4945-95bd-902576f8a892" autoIncrement="false" autoIncrementSequenceName="API_YAML_seq" defaultValue="" name="YAML" nullable="0" physicalName="YAML" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL19" populated="true" UUID="5c06d09b-01c9-4945-95bd-902576f8a892" autoIncrement="false" autoIncrementSequenceName="API_YAML_seq" defaultValue="" name="YAML" nullable="0" physicalName="YAML" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>API YAML - EndPoints</remarks>
     </column>
-    <column id="COL5" populated="true" UUID="50514de3-6d02-49a0-bbe0-5d66598b904e" autoIncrement="false" autoIncrementSequenceName="API_API_Name_seq" defaultValue="" name="API_Name" nullable="0" physicalName="API_Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL20" populated="true" UUID="50514de3-6d02-49a0-bbe0-5d66598b904e" autoIncrement="false" autoIncrementSequenceName="API_API_Name_seq" defaultValue="" name="API_Name" nullable="0" physicalName="API_Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -80,7 +353,7 @@
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL6" populated="true" UUID="6fb3abac-7767-4f0f-adca-3acc8c24805e" autoIncrement="false" autoIncrementSequenceName="API_API Description_seq" defaultValue="" name="API Description" nullable="0" physicalName="API Description" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL21" populated="true" UUID="6fb3abac-7767-4f0f-adca-3acc8c24805e" autoIncrement="false" autoIncrementSequenceName="API_API Description_seq" defaultValue="" name="API Description" nullable="0" physicalName="API Description" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>No Description for API Description
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -101,7 +374,7 @@
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL7" populated="true" UUID="2360dd42-aacc-4804-aeb3-3e9f1d965d53" autoIncrement="false" autoIncrementSequenceName="API_Charging Policies _seq" defaultValue="" name="Charging Policies " nullable="0" physicalName="Charging_Policies_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL22" populated="true" UUID="2360dd42-aacc-4804-aeb3-3e9f1d965d53" autoIncrement="false" autoIncrementSequenceName="API_Charging Policies _seq" defaultValue="" name="Charging Policies " nullable="0" physicalName="Charging_Policies_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Charging Policies that can be applied on this API.API : Charging Policy Profile – Charge access to APIs for API Consumers:
 Monthly fee
 Pay per use
@@ -124,7 +397,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL8" populated="true" UUID="58257fce-5631-4963-b813-54bea87993ca" autoIncrement="false" autoIncrementSequenceName="API_API Documentation _seq" defaultValue="" name="API Documentation " nullable="0" physicalName="API_Documentation_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL23" populated="true" UUID="58257fce-5631-4963-b813-54bea87993ca" autoIncrement="false" autoIncrementSequenceName="API_API Documentation _seq" defaultValue="" name="API Documentation " nullable="0" physicalName="API_Documentation_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>&lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
    &quot;description&quot;: &quot;noDescription&quot;,
@@ -143,7 +416,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL9" populated="true" UUID="3dd7edfa-45aa-46b5-9373-94aba2e76ebc" autoIncrement="false" autoIncrementSequenceName="API_API Use Cases _seq" defaultValue="" name="API Use Cases " nullable="0" physicalName="API_Use_Cases_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL24" populated="true" UUID="3dd7edfa-45aa-46b5-9373-94aba2e76ebc" autoIncrement="false" autoIncrementSequenceName="API_API Use Cases _seq" defaultValue="" name="API Use Cases " nullable="0" physicalName="API_Use_Cases_" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>&lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
    &quot;description&quot;: &quot;noDescription&quot;,
@@ -162,10 +435,10 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL10" populated="true" UUID="30aa95b4-f689-4601-b7c1-23765dfa3aa3" autoIncrement="false" autoIncrementSequenceName="API_Version_seq" defaultValue="" name="Version" nullable="0" physicalName="Version" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL25" populated="true" UUID="30aa95b4-f689-4601-b7c1-23765dfa3aa3" autoIncrement="false" autoIncrementSequenceName="API_Version_seq" defaultValue="" name="Version" nullable="0" physicalName="Version" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL11" populated="true" UUID="f1748e44-cd65-43a6-a726-ce4095959bfc" autoIncrement="false" autoIncrementSequenceName="API_API_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="API" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL26" populated="true" UUID="f1748e44-cd65-43a6-a726-ce4095959bfc" autoIncrement="false" autoIncrementSequenceName="API_API_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="API" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>&lt;parameters&gt;
 &lt;list_parameters&gt;
 [
@@ -175,19 +448,19 @@ Free …
 &lt;/parameters&gt;</remarks>
     </column>
     </folder>
-    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    <folder id="FOLTAB163" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
     </folder>
-    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    <folder id="FOLTAB162" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
-    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX12" populated="true" UUID="b5cfd4d4-0ef5-47db-9db6-cd3ca9fc6210" clustered="false" name="API_pk" physicalName="API_pk" primaryKeyIndex="true" unique="false" >
+    <folder id="FOLTAB164" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX27" populated="true" UUID="b5cfd4d4-0ef5-47db-9db6-cd3ca9fc6210" clustered="false" name="API_pk" physicalName="API_pk" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB13" populated="true" UUID="abe3ca86-88e7-47c6-8d1b-7190c111f2ab" name="API Bundle" objectType="TABLE" physicalName="API Bundle" >
+  <table id="TAB28" populated="true" UUID="abe3ca86-88e7-47c6-8d1b-7190c111f2ab" name="API Bundle" objectType="TABLE" physicalName="API Bundle" >
    <remarks>Set of Related APIs, defined in the Catalog, for industry specific usage\u000b(HealthCare, Telecom, Manufacturing, Finance, …)</remarks>
-   <folder id="FOLTAB131" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL14" populated="true" UUID="981397c5-b952-4b94-a16b-8bef66d7c6e4" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" source-column-ref="COL2" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+   <folder id="FOLTAB281" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL29" populated="true" UUID="981397c5-b952-4b94-a16b-8bef66d7c6e4" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" source-column-ref="COL17" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -208,48 +481,48 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL15" populated="true" UUID="8b739c19-cd68-4279-a9dd-adb0321c7dec" autoIncrement="false" autoIncrementSequenceName="API Bundle_Name_seq" defaultValue="" name="Name" nullable="0" physicalName="Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL30" populated="true" UUID="8b739c19-cd68-4279-a9dd-adb0321c7dec" autoIncrement="false" autoIncrementSequenceName="API Bundle_Name_seq" defaultValue="" name="Name" nullable="0" physicalName="Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL16" populated="true" UUID="3272fa41-235e-4387-a8de-c772b10df4fd" autoIncrement="false" autoIncrementSequenceName="API Bundle_Industry_seq" defaultValue="" name="Industry" nullable="0" physicalName="Industry" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL31" populated="true" UUID="3272fa41-235e-4387-a8de-c772b10df4fd" autoIncrement="false" autoIncrementSequenceName="API Bundle_Industry_seq" defaultValue="" name="Industry" nullable="0" physicalName="Industry" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL17" populated="true" UUID="20223a42-d61b-44c2-80ba-252f2242968d" autoIncrement="false" autoIncrementSequenceName="API_Bundle_Use Case_seq" defaultValue="" name="Use Case" nullable="0" physicalName="Use_Case" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL32" populated="true" UUID="20223a42-d61b-44c2-80ba-252f2242968d" autoIncrement="false" autoIncrementSequenceName="API_Bundle_Use Case_seq" defaultValue="" name="Use Case" nullable="0" physicalName="Use_Case" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL18" populated="true" UUID="527a67bb-1d73-4477-a206-1a314d1e92ce" autoIncrement="false" autoIncrementSequenceName="API Bundle_API_Bundle_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="API_Bundle" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL33" populated="true" UUID="527a67bb-1d73-4477-a206-1a314d1e92ce" autoIncrement="false" autoIncrementSequenceName="API Bundle_API_Bundle_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="API_Bundle" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>read-only</remarks>
     </column>
     </folder>
-    <folder id="FOLTAB133" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    <folder id="FOLTAB283" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
     </folder>
-    <folder id="FOLTAB132" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    <folder id="FOLTAB282" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
-    <folder id="FOLTAB134" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX19" populated="true" UUID="4c794cbe-26bf-45da-a030-65c5f227dedd" clustered="false" name="API Bundle_pk" physicalName="API_Bundle_pk" primaryKeyIndex="true" unique="false" >
+    <folder id="FOLTAB284" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX34" populated="true" UUID="4c794cbe-26bf-45da-a030-65c5f227dedd" clustered="false" name="API Bundle_pk" physicalName="API_Bundle_pk" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB20" populated="true" UUID="10ec1abc-7a22-45f6-b561-21b5ef288e1d" name="API Catalogue" objectType="TABLE" physicalName="ignore_API_Catalogue" >
+  <table id="TAB35" populated="true" UUID="10ec1abc-7a22-45f6-b561-21b5ef288e1d" name="API Catalogue" objectType="TABLE" physicalName="ignore_API_Catalogue" >
    <remarks></remarks>
-   <folder id="FOLTAB201" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL21" populated="true" UUID="ba4c38b6-eaa3-44e7-8fab-2dca1ba4354a" autoIncrement="false" autoIncrementSequenceName="ignore_API_Catalogue_Name_seq" defaultValue="" name="Name" nullable="0" physicalName="Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+   <folder id="FOLTAB351" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL36" populated="true" UUID="ba4c38b6-eaa3-44e7-8fab-2dca1ba4354a" autoIncrement="false" autoIncrementSequenceName="ignore_API_Catalogue_Name_seq" defaultValue="" name="Name" nullable="0" physicalName="Name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     </folder>
-    <folder id="FOLTAB203" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    <folder id="FOLTAB353" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
     </folder>
-    <folder id="FOLTAB202" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    <folder id="FOLTAB352" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
-    <folder id="FOLTAB204" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX22" populated="true" UUID="80e1317e-4edc-4db9-aa64-0ccde7540afe" clustered="false" name="ignore_API_Catalogue_pk" physicalName="API_Catalogue_pk" primaryKeyIndex="true" unique="false" >
+    <folder id="FOLTAB354" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX37" populated="true" UUID="80e1317e-4edc-4db9-aa64-0ccde7540afe" clustered="false" name="ignore_API_Catalogue_pk" physicalName="API_Catalogue_pk" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB23" populated="true" UUID="36f2aa51-d99e-4653-836e-867b024efebe" name="UsagePolicy" objectType="TABLE" physicalName="UsagePolicy" >
+  <table id="TAB38" populated="true" UUID="36f2aa51-d99e-4653-836e-867b024efebe" name="UsagePolicy" objectType="TABLE" physicalName="UsagePolicy" >
    <remarks></remarks>
-   <folder id="FOLTAB231" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL24" populated="true" UUID="24d4f6e1-047b-45e5-82a5-73df0d7fb311" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_PolicyName_seq" defaultValue="" name="PolicyName" nullable="0" physicalName="PolicyName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+   <folder id="FOLTAB381" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL39" populated="true" UUID="24d4f6e1-047b-45e5-82a5-73df0d7fb311" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_PolicyName_seq" defaultValue="" name="PolicyName" nullable="0" physicalName="PolicyName" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -270,7 +543,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL25" populated="true" UUID="2327a998-2092-40ec-be58-90aad5d99650" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_RequestCount_seq" defaultValue="" name="RequestCount" nullable="0" physicalName="RequestCount" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL40" populated="true" UUID="2327a998-2092-40ec-be58-90aad5d99650" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_RequestCount_seq" defaultValue="" name="RequestCount" nullable="0" physicalName="RequestCount" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -292,7 +565,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL26" populated="true" UUID="e08e8447-6d5c-43de-bd75-2982516ea98a" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_DataVolumeValue_seq" defaultValue="" name="DataVolumeValue" nullable="0" physicalName="DataVolumeValue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL41" populated="true" UUID="e08e8447-6d5c-43de-bd75-2982516ea98a" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_DataVolumeValue_seq" defaultValue="" name="DataVolumeValue" nullable="0" physicalName="DataVolumeValue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -314,7 +587,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL27" populated="true" UUID="af2ccc06-2dfa-423b-8d96-af14f4abec8e" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_DataVolumeUnit_seq" defaultValue="" name="DataVolumeUnit" nullable="0" physicalName="DataVolumeUnit" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL42" populated="true" UUID="af2ccc06-2dfa-423b-8d96-af14f4abec8e" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_DataVolumeUnit_seq" defaultValue="" name="DataVolumeUnit" nullable="0" physicalName="DataVolumeUnit" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -336,7 +609,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL28" populated="true" UUID="fd8d3604-fad0-4269-a8be-295a603b5d4e" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_Description_seq" defaultValue="" name="Description" nullable="0" physicalName="Description" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL43" populated="true" UUID="fd8d3604-fad0-4269-a8be-295a603b5d4e" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_Description_seq" defaultValue="" name="Description" nullable="0" physicalName="Description" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -357,7 +630,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL29" populated="true" UUID="1098a2de-bf41-484e-a972-a46e6499459c" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_UnitTimeValue_seq" defaultValue="" name="UnitTimeValue" nullable="0" physicalName="UnitTimeValue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL44" populated="true" UUID="1098a2de-bf41-484e-a972-a46e6499459c" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_UnitTimeValue_seq" defaultValue="" name="UnitTimeValue" nullable="0" physicalName="UnitTimeValue" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -379,7 +652,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL30" populated="true" UUID="ab085526-b4ee-4077-ac63-4305ca0cbed8" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_UnitTimePeriod_seq" defaultValue="" name="UnitTimePeriod" nullable="0" physicalName="UnitTimePeriod" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL45" populated="true" UUID="ab085526-b4ee-4077-ac63-4305ca0cbed8" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_UnitTimePeriod_seq" defaultValue="" name="UnitTimePeriod" nullable="0" physicalName="UnitTimePeriod" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -401,7 +674,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL31" populated="true" UUID="1028942c-4200-4096-b8c2-402a3e3dce47" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_PolicyType_seq" defaultValue="" name="PolicyType" nullable="0" physicalName="PolicyType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL46" populated="true" UUID="1028942c-4200-4096-b8c2-402a3e3dce47" autoIncrement="false" autoIncrementSequenceName="UsagePolicy_PolicyType_seq" defaultValue="" name="PolicyType" nullable="0" physicalName="PolicyType" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -422,7 +695,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL32" populated="true" UUID="e45ee565-b5b0-4094-a7d9-77259481b574" autoIncrement="false" autoIncrementSequenceName="API_API_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="usagepolicy" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL47" populated="true" UUID="e45ee565-b5b0-4094-a7d9-77259481b574" autoIncrement="false" autoIncrementSequenceName="API_API_seq" defaultValue="/datastore" name="_PATH" nullable="0" physicalName="usagepolicy" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>&lt;parameters&gt;
 &lt;list_parameters&gt;
 [
@@ -432,19 +705,19 @@ Free …
 &lt;/parameters&gt;</remarks>
     </column>
     </folder>
-    <folder id="FOLTAB233" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    <folder id="FOLTAB383" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
     </folder>
-    <folder id="FOLTAB232" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    <folder id="FOLTAB382" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
-    <folder id="FOLTAB234" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX33" populated="true" UUID="d50df16c-f320-4e98-9ecb-2de182b12191" clustered="false" name="UsagePolicy_pk" physicalName="UsagePolicy_pk" primaryKeyIndex="true" unique="false" >
+    <folder id="FOLTAB384" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX48" populated="true" UUID="d50df16c-f320-4e98-9ecb-2de182b12191" clustered="false" name="UsagePolicy_pk" physicalName="UsagePolicy_pk" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
-  <table id="TAB34" populated="true" UUID="9771f4f7-36f2-4cb8-bd7c-8449f4bc461b" name="OpenAPI" objectType="TABLE" physicalName="NEF Business Model" >
+  <table id="TAB49" populated="true" UUID="9771f4f7-36f2-4cb8-bd7c-8449f4bc461b" name="OpenAPI" objectType="TABLE" physicalName="NEF Business Model" >
    <remarks>OpenAPI Business Model. This is generated, modify source architect data model instead.</remarks>
-   <folder id="FOLTAB341" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL35" populated="true" UUID="4c9fde27-4a4c-4b1c-9a58-d5c5bbdbe555" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Business Data Model_seq" defaultValue="" name="title" nullable="0" physicalName="NEF Business Data Model" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+   <folder id="FOLTAB491" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL50" populated="true" UUID="4c9fde27-4a4c-4b1c-9a58-d5c5bbdbe555" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Business Data Model_seq" defaultValue="" name="title" nullable="0" physicalName="NEF Business Data Model" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -465,20 +738,20 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL36" populated="true" UUID="dee4523d-45fe-4343-a5f0-4fff4d65d1dc" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_Remarks_seq" defaultValue="See Remarks - JSON Format" name="contact" nullable="0" physicalName="Remarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL51" populated="true" UUID="dee4523d-45fe-4343-a5f0-4fff4d65d1dc" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_Remarks_seq" defaultValue="See Remarks - JSON Format" name="contact" nullable="0" physicalName="Remarks" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>{ 
   &quot;name&quot;: &quot;Bernard Heuse&quot;,
   &quot;url&quot;: &quot;https://www.amdocs.com/&quot;,
   &quot;email&quot;: &quot;bheuse@amdocs.com&quot; 
 }</remarks>
     </column>
-    <column id="COL37" populated="true" UUID="bae3da96-c05c-490e-b136-24036544f8db" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_license_seq" defaultValue="See Remarks - JSON Format" name="license" nullable="0" physicalName="license" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL52" populated="true" UUID="bae3da96-c05c-490e-b136-24036544f8db" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_license_seq" defaultValue="See Remarks - JSON Format" name="license" nullable="0" physicalName="license" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>{
  &quot;name&quot;: &quot;Apache 2.0&quot;,
 &quot;url&quot;: &quot;https://www.apache.org/licenses/LICENSE-2.0&quot;
 }</remarks>
     </column>
-    <column id="COL38" populated="true" UUID="7a121174-d3d8-4d8e-b24d-0a32215204c6" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_tags_seq" defaultValue="See Remarks - JSON Format" name="tags" nullable="0" physicalName="tags" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL53" populated="true" UUID="7a121174-d3d8-4d8e-b24d-0a32215204c6" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_tags_seq" defaultValue="See Remarks - JSON Format" name="tags" nullable="0" physicalName="tags" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>[
    {
       &quot;name&quot;: &quot;NEF&quot;,
@@ -486,7 +759,7 @@ Free …
    }
 ]</remarks>
     </column>
-    <column id="COL39" populated="true" UUID="50210ae6-4921-4e12-8ab2-31e00731b4e7" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_securitySchemes_seq" defaultValue="" name="securitySchemes" nullable="0" physicalName="securitySchemes" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL54" populated="true" UUID="50210ae6-4921-4e12-8ab2-31e00731b4e7" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_securitySchemes_seq" defaultValue="" name="securitySchemes" nullable="0" physicalName="securitySchemes" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>{
     &quot;oAuth2ClientCredentials&quot;: {
         &quot;type&quot;: &quot;oauth2&quot;,
@@ -499,7 +772,7 @@ Free …
     }
 }</remarks>
     </column>
-    <column id="COL40" populated="true" UUID="f1af196f-8ed1-44b2-a3ce-1e8d3eff5846" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_servers_seq" defaultValue="See Remarks - JSON Format" name="servers" nullable="0" physicalName="servers" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL55" populated="true" UUID="f1af196f-8ed1-44b2-a3ce-1e8d3eff5846" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_servers_seq" defaultValue="See Remarks - JSON Format" name="servers" nullable="0" physicalName="servers" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>[
       {
          &quot;url&quot;: &quot;{apiRoot}/nef-services-catalog-service/22-03&quot;,
@@ -535,7 +808,7 @@ Free …
       }
 ]</remarks>
     </column>
-    <column id="COL41" populated="true" UUID="a00bb132-1896-46cb-ad85-1aef8b97dfd7" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_1.0.0_seq" defaultValue="" name="version" nullable="0" physicalName="1.0.0" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL56" populated="true" UUID="a00bb132-1896-46cb-ad85-1aef8b97dfd7" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_1.0.0_seq" defaultValue="" name="version" nullable="0" physicalName="1.0.0" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -556,7 +829,7 @@ Free …
    &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
 } &lt;/schema&gt;</remarks>
     </column>
-    <column id="COL42" populated="true" UUID="5736254d-6621-4d91-bbe0-492e69d40531" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_security_seq" defaultValue="See Remarks - JSON Format" name="security" nullable="0" physicalName="security" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL57" populated="true" UUID="5736254d-6621-4d91-bbe0-492e69d40531" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_security_seq" defaultValue="See Remarks - JSON Format" name="security" nullable="0" physicalName="security" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>[
   {
   },
@@ -565,7 +838,7 @@ Free …
    }
 ]</remarks>
     </column>
-    <column id="COL43" populated="true" UUID="6cae4ca1-bbc4-41ff-aa92-ed16a6080367" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Business Data Model._seq" defaultValue="" name="description" nullable="0" physicalName="NEF Business Data Model." precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL58" populated="true" UUID="6cae4ca1-bbc4-41ff-aa92-ed16a6080367" autoIncrement="false" autoIncrementSequenceName="NEF Business Model_NEF Business Data Model._seq" defaultValue="" name="description" nullable="0" physicalName="NEF Business Data Model." precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>This is generated, modify source architect data model instead.
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -587,285 +860,12 @@ Free …
 } &lt;/schema&gt;</remarks>
     </column>
     </folder>
-    <folder id="FOLTAB343" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    <folder id="FOLTAB493" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
     </folder>
-    <folder id="FOLTAB342" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    <folder id="FOLTAB492" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
-    <folder id="FOLTAB344" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX44" populated="true" UUID="b1027083-5287-4d7d-83e3-06a7157f51fd" clustered="false" name="NEF Business Model_pk" physicalName="NEF Business Model_pk" primaryKeyIndex="true" unique="false" >
-    </index>
-   </folder>
-  </table>
-  <table id="TAB45" populated="true" UUID="6d3544a6-c30d-43dc-a2da-818d10eb583e" name="API Details" objectType="TABLE" physicalName="API Details" >
-   <remarks></remarks>
-   <folder id="FOLTAB451" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL46" populated="true" UUID="5db37d7b-e7f3-4492-8697-bd66a336b8ea" autoIncrement="false" autoIncrementSequenceName="API Details_PublicAPI_seq" defaultValue="" name="PublicAPI" nullable="0" physicalName="PublicAPI" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
-     <remarks>Public API or Private API is False.
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL47" populated="true" UUID="476f644b-1c04-4cd8-9bf9-6c045943f317" autoIncrement="false" autoIncrementSequenceName="API Details_Verified_seq" defaultValue="" name="Verified" nullable="0" physicalName="Verified" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL48" populated="true" UUID="41f1eb13-10e9-45b4-b29e-ac098b853ee6" autoIncrement="false" autoIncrementSequenceName="API Details_Official_seq" defaultValue="" name="Official" nullable="0" physicalName="Official" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL49" populated="true" UUID="3ce93396-5487-4732-9288-3d1ff09ca91a" autoIncrement="false" autoIncrementSequenceName="API Details_Popularity_seq" defaultValue="" name="Popularity" nullable="0" physicalName="Popularity" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL50" populated="true" UUID="a9da7eba-682e-41ce-ac4b-695529db044a" autoIncrement="false" autoIncrementSequenceName="API Details_Latency_seq" defaultValue="" name="Latency" nullable="0" physicalName="Latency" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL51" populated="true" UUID="0f47b1e8-faaa-483a-b905-a7b71db58992" autoIncrement="false" autoIncrementSequenceName="API Details_ServiceLevel_seq" defaultValue="" name="ServiceLevel" nullable="0" physicalName="ServiceLevel" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL52" populated="true" UUID="3556d9c7-11ed-41ad-bd05-20b5011c3782" autoIncrement="false" autoIncrementSequenceName="API Details_LastUpdate_seq" defaultValue="" name="LastUpdate" nullable="0" physicalName="LastUpdate" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL53" populated="true" UUID="139545c1-ed16-47b6-96dd-71cce67de3ed" autoIncrement="false" autoIncrementSequenceName="API Details_Free_seq" defaultValue="" name="Free" nullable="0" physicalName="Free" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="16" userDefinedTypeUUID="a26374aa-3026-4bb8-b564-eb2e186dfa5d" >
-     <remarks>Free / Paid
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL54" populated="true" UUID="74dba227-7260-4882-a7d7-0da576d2a9f6" autoIncrement="false" autoIncrementSequenceName="API Details_ReadMe_seq" defaultValue="" name="ReadMe " nullable="0" physicalName="ReadMe" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL55" populated="true" UUID="85ae0c97-7557-4c30-a8dc-4d39a9a6632f" autoIncrement="false" autoIncrementSequenceName="API Details_Logo_seq" defaultValue="" name="Logo" nullable="0" physicalName="Logo" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL56" populated="true" UUID="6530d529-be7d-487d-8703-8086f0645c8a" autoIncrement="false" autoIncrementSequenceName="API Details_Summary_seq" defaultValue="" name="Summary" nullable="0" physicalName="Summary" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL57" populated="true" UUID="fadc71ed-95b7-4ef7-aae2-c8bad4e5c2f3" autoIncrement="false" autoIncrementSequenceName="API Details_OverviewPage_seq" defaultValue="" name="OverviewPage" nullable="0" physicalName="OverviewPage" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    <column id="COL58" populated="true" UUID="c5454aa4-dde3-44f8-9443-3e788f89bc3f" autoIncrement="false" autoIncrementSequenceName="API Details_FeaturesPage_seq" defaultValue="" name="FeaturesPage" nullable="0" physicalName="FeaturesPage" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Enter Description Here
-&lt;schema&gt; {
-   &quot;name&quot;: &quot;noName&quot;,
-   &quot;description&quot;: &quot;noDescription&quot;,
-   &quot;tooltip&quot;: &quot;noTooltip&quot;,
-   &quot;type&quot;: &quot;string&quot;,
-   &quot;format&quot;: &quot;noFormat&quot;,
-   &quot;possibleValues&quot;: [ &quot;noExampleValue&quot;, &quot;noDefaultalue&quot; ] ,
-   &quot;defaultValue&quot;: &quot;noDefaultalue&quot;,
-   &quot;example&quot;: &quot;noExampleValue&quot;,
-   &quot;validationScript&quot;: &quot;&quot;,
-   &quot;applicableTo&quot;: &quot;noApplicableTo&quot;,
-   &quot;minCardinality&quot;: 1,
-   &quot;maxCardinality&quot;: 1,
-   &quot;validFor&quot;: &quot;novalidFor&quot;,
-   &quot;markdownDescription&quot;: &quot;noMarkdownDescription&quot;,
-   &quot;valueSpecification&quot;: &quot;noValueSpecification&quot;
-} &lt;/schema&gt;</remarks>
-    </column>
-    </folder>
-    <folder id="FOLTAB453" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
-    </folder>
-    <folder id="FOLTAB452" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
-    </folder>
-    <folder id="FOLTAB454" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX59" populated="true" UUID="953f63c4-d91c-4a31-82e4-e69ca98df476" clustered="false" name="API Details_pk" physicalName="API Details_pk" primaryKeyIndex="true" unique="false" >
+    <folder id="FOLTAB494" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX59" populated="true" UUID="b1027083-5287-4d7d-83e3-06a7157f51fd" clustered="false" name="NEF Business Model_pk" physicalName="NEF Business Model_pk" primaryKeyIndex="true" unique="false" >
     </index>
    </folder>
   </table>
@@ -970,7 +970,7 @@ Free …
   <table id="TAB67" populated="true" UUID="3285cd28-72cf-4a72-8daa-fbc06c26fb8f" name="API Collection" objectType="TABLE" physicalName="API Collection" >
    <remarks></remarks>
    <folder id="FOLTAB671" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL68" populated="true" UUID="e0d9b7c2-88c4-4398-b5c9-1a264009291a" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" source-column-ref="COL2" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL68" populated="true" UUID="e0d9b7c2-88c4-4398-b5c9-1a264009291a" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" source-column-ref="COL17" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -1068,7 +1068,7 @@ Free …
   <table id="TAB74" populated="true" UUID="497c0ac2-fdd7-45a3-8753-0eac7de8b3a4" name="API Provider " objectType="TABLE" physicalName="API Provider " >
    <remarks></remarks>
    <folder id="FOLTAB741" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL75" populated="true" UUID="bf9c0ab7-8446-467d-8565-996bf28d1b38" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" source-column-ref="COL2" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL75" populated="true" UUID="bf9c0ab7-8446-467d-8565-996bf28d1b38" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" source-column-ref="COL17" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -1226,7 +1226,7 @@ Free …
   <table id="TAB84" populated="true" UUID="ab5f922a-a47b-46d5-a59f-37556f6fb2d6" name="API Article" objectType="TABLE" physicalName="API Article" >
    <remarks></remarks>
    <folder id="FOLTAB841" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL85" populated="true" UUID="fdcb715c-150a-4515-bb74-8c2775c3c4a1" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" source-column-ref="COL2" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL85" populated="true" UUID="fdcb715c-150a-4515-bb74-8c2775c3c4a1" autoIncrement="false" autoIncrementSequenceName="API_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" referenceCount="1" scale="0" source-column-ref="COL17" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Enter Description Here
 &lt;schema&gt; {
    &quot;name&quot;: &quot;noName&quot;,
@@ -1342,25 +1342,25 @@ Free …
    </folder>
   </table>
   <relationships>
-   <relationship id="REL92" populated="true" UUID="2aac0c83-178f-487b-b694-70a8d0ae89d3" deferrability="7" deleteRule="3" fk-table-ref="TAB23" fkCardinality="7" identifying="false" name="include_API_UsagePolicy_fk" physicalName="include_API_UsagePolicy_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL92" populated="true" UUID="2aac0c83-178f-487b-b694-70a8d0ae89d3" deferrability="7" deleteRule="3" fk-table-ref="TAB38" fkCardinality="7" identifying="false" name="API_UsagePolicy_fk" physicalName="API_UsagePolicy_fk" pk-table-ref="TAB16" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL93" populated="true" UUID="ec938d49-c66c-4578-a311-a1a29e782065" deferrability="7" deleteRule="3" fk-table-ref="TAB45" fkCardinality="3" identifying="true" name="API_API_Details_fk" physicalName="API_API_Details_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL93" populated="true" UUID="ec938d49-c66c-4578-a311-a1a29e782065" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="3" identifying="true" name="API_API_Details_fk" physicalName="API_API_Details_fk" pk-table-ref="TAB16" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL94" populated="true" UUID="c479652b-f661-4dd4-8e98-8e60208599da" deferrability="7" deleteRule="3" fk-table-ref="TAB60" fkCardinality="6" identifying="false" name="API_API_Category_fk" physicalName="API_API_Category_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+   <relationship id="REL94" populated="true" UUID="c479652b-f661-4dd4-8e98-8e60208599da" deferrability="7" deleteRule="3" fk-table-ref="TAB60" fkCardinality="6" identifying="false" name="API_API_Category_fk" physicalName="API_API_Category_fk" pk-table-ref="TAB16" pkCardinality="7" updateRule="3" >
    </relationship>
-   <relationship id="REL95" populated="true" UUID="f2416890-ec09-46d3-a2d2-06d1ff9e766c" deferrability="7" deleteRule="3" fk-table-ref="TAB67" fkCardinality="7" identifying="false" name="API_API_Collection_fk" physicalName="API_API_Collection_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+   <relationship id="REL95" populated="true" UUID="f2416890-ec09-46d3-a2d2-06d1ff9e766c" deferrability="7" deleteRule="3" fk-table-ref="TAB67" fkCardinality="7" identifying="false" name="API_API_Collection_fk" physicalName="API_API_Collection_fk" pk-table-ref="TAB16" pkCardinality="7" updateRule="3" >
    </relationship>
-   <relationship id="REL96" populated="true" UUID="9428b6ad-84e4-48fc-822c-db2165badf99" deferrability="7" deleteRule="3" fk-table-ref="TAB74" fkCardinality="7" identifying="false" name="API_API_ Provider _fk" physicalName="API_API_ Provider _fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL96" populated="true" UUID="9428b6ad-84e4-48fc-822c-db2165badf99" deferrability="7" deleteRule="3" fk-table-ref="TAB74" fkCardinality="7" identifying="false" name="API_API_Provider_fk" physicalName="API_API_Provider_fk" pk-table-ref="TAB16" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL97" populated="true" UUID="5f2019e0-ec8a-44b1-9cfb-84cb66bc0645" deferrability="7" deleteRule="3" fk-table-ref="TAB84" fkCardinality="7" identifying="false" name="API_API_Article_fk" physicalName="API_API_Article_fk" pk-table-ref="TAB1" pkCardinality="7" updateRule="3" >
+   <relationship id="REL97" populated="true" UUID="5f2019e0-ec8a-44b1-9cfb-84cb66bc0645" deferrability="7" deleteRule="3" fk-table-ref="TAB84" fkCardinality="7" identifying="false" name="API_API_Article_fk" physicalName="API_API_Article_fk" pk-table-ref="TAB16" pkCardinality="7" updateRule="3" >
    </relationship>
-   <relationship id="REL98" populated="true" UUID="b11b9deb-7db3-413a-9315-23474ba123dd" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="include_API_Bundle_API_fk" physicalName="include_API_Bundle_API_fk" pk-table-ref="TAB13" pkCardinality="2" updateRule="3" >
+   <relationship id="REL98" populated="true" UUID="b11b9deb-7db3-413a-9315-23474ba123dd" deferrability="7" deleteRule="3" fk-table-ref="TAB16" fkCardinality="7" identifying="false" name="include_API_Bundle_API_fk" physicalName="include_API_Bundle_API_fk" pk-table-ref="TAB28" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL99" populated="true" UUID="9b1b2df7-c7e2-4ddd-9a29-9813d904c7f1" deferrability="7" deleteRule="3" fk-table-ref="TAB13" fkCardinality="7" identifying="false" name="API Catalogue_API_Bundle_fk" physicalName="API Catalogue_API_Bundle_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
+   <relationship id="REL99" populated="true" UUID="9b1b2df7-c7e2-4ddd-9a29-9813d904c7f1" deferrability="7" deleteRule="3" fk-table-ref="TAB28" fkCardinality="7" identifying="false" name="API Catalogue_API_Bundle_fk" physicalName="API Catalogue_API_Bundle_fk" pk-table-ref="TAB35" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL100" populated="true" UUID="996716da-a5f7-476e-aeca-8d9257fa7d08" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="API Catalogue_API_fk" physicalName="API Catalogue_API_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
+   <relationship id="REL100" populated="true" UUID="996716da-a5f7-476e-aeca-8d9257fa7d08" deferrability="7" deleteRule="3" fk-table-ref="TAB16" fkCardinality="7" identifying="false" name="API Catalogue_API_fk" physicalName="API Catalogue_API_fk" pk-table-ref="TAB35" pkCardinality="2" updateRule="3" >
    </relationship>
-   <relationship id="REL101" populated="true" UUID="dbc56581-9b6d-461c-98b1-82b8e761fe95" deferrability="7" deleteRule="3" fk-table-ref="TAB74" fkCardinality="7" identifying="false" name="API_Catalogue_API_ Provider _fk" physicalName="API_Catalogue_API_ Provider _fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
+   <relationship id="REL101" populated="true" UUID="dbc56581-9b6d-461c-98b1-82b8e761fe95" deferrability="7" deleteRule="3" fk-table-ref="TAB74" fkCardinality="7" identifying="false" name="API_Catalogue_API_ Provider _fk" physicalName="API_Catalogue_API_ Provider _fk" pk-table-ref="TAB35" pkCardinality="2" updateRule="3" >
    </relationship>
   </relationships>
  </target-database>
@@ -1368,24 +1368,24 @@ Free …
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="0.840896415253714" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
-  <table-pane table-ref="TAB1" x="532" y="608" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB13" x="215" y="353" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB20" x="569" y="86" bgColor="0xbfd6ff" fgColor="0x5a6986" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB23" x="536" y="872" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB34" x="92" y="49" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB45" x="159" y="583" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB16" x="532" y="608" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB28" x="215" y="353" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB35" x="569" y="86" bgColor="0xbfd6ff" fgColor="0x5a6986" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB38" x="613" y="864" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB49" x="92" y="49" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB1" x="159" y="583" bgColor="0xbfd6ff" fgColor="0x0000cc" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB60" x="966" y="528" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB67" x="972" y="652" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB74" x="756" y="349" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB74" x="757" y="348" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB84" x="973" y="778" bgColor="0xc8dccc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-link relationship-ref="REL98" pkConnection="0.6993006993006993" fkConnection="0.2937062937062937" rLineColor="0x377eb8" pkLabelText="Includes" fkLabelText="" orientation="132"/>
   <table-link relationship-ref="REL99" pkConnection="0.14743589743589744" fkConnection="0.6588235294117647" rLineColor="0x000000" pkLabelText="Proposes" fkLabelText="Bundles" orientation="20"/>
   <table-link relationship-ref="REL100" pkConnection="0.5454545454545454" fkConnection="0.4595744680851064" rLineColor="0x000000" pkLabelText="Offers" fkLabelText="" orientation="132"/>
-  <table-link relationship-ref="REL92" pkConnection="0.4808510638297872" fkConnection="0.4954128440366973" rLineColor="0x80b1d3" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL92" pkConnection="0.49056603773584906" fkConnection="0.4954128440366973" rLineColor="0x80b1d3" pkLabelText="includes" fkLabelText="policy" orientation="132"/>
   <table-link relationship-ref="REL93" pkConnection="0.48633879781420764" fkConnection="0.5106382978723404" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
   <table-link relationship-ref="REL94" pkConnection="0.15846994535519127" fkConnection="0.5555555555555556" rLineColor="0x000000" pkLabelText="API belongs" fkLabelText="to category" orientation="33"/>
   <table-link relationship-ref="REL95" pkConnection="0.5076142131979695" fkConnection="0.4507042253521127" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL96" pkConnection="0.7872340425531915" fkConnection="0.2907488986784141" rLineColor="0x000000" pkLabelText="Provides" fkLabelText="" orientation="72"/>
+  <table-link relationship-ref="REL96" pkConnection="0.7924528301886793" fkConnection="0.2907488986784141" rLineColor="0x000000" pkLabelText="Provides" fkLabelText="" orientation="72"/>
   <table-link relationship-ref="REL97" pkConnection="0.8527918781725888" fkConnection="0.5492957746478874" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL101" pkConnection="0.7592592592592593" fkConnection="0.3524229074889868" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
  </play-pen>

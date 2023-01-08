@@ -952,15 +952,19 @@ class Architect:
                 if (rel["Cardinalite"] == "OneToOne") or (rel["Cardinalite"] == "ZeroToOne") :
                     if (foreign_key):
                         this_property["type"] = "string"
+                        this_property["location"] = "external"
                     else:
                         this_property["$ref"] = shemaPath + rel["TableContained"]
+                        this_property["location"] = "embedded"
                 else:
                     this_property["type"] = "array"
                     this_property["items"] = {}
                     if (foreign_key):
                         this_property["items"]["type"] = "string"
+                        this_property["items"]["location"] = "external"
                     else:
                         this_property["items"]["$ref"] = shemaPath + rel["TableContained"]
+                        this_property["items"]["location"] = "embedded"
                 self.dataModel.entities[entity]["properties"][rel["Name"]] = this_property
                 # self.dataModel.entities[entity]["properties"][rel["TableContained"]] = this_property
 
@@ -1312,6 +1316,14 @@ class Path:
                 put_par    = None
                 del_par    = None
                 schema_par = None
+                entities[entity]["SCHEMA_PARAMETERS"] = list()
+                entities[entity]["LIST_PARAMETERS"]   = list()
+                entities[entity]["GET_PARAMETERS"]    = list()
+                entities[entity]["POST_PARAMETERS"]   = list()
+                entities[entity]["PUT_PARAMETERS"]    = list()
+                entities[entity]["DELETE_PARAMETERS"] = list()
+                entities[entity]["PATCH_PARAMETERS"]  = list()
+                entities[entity]["QPATH_PARAMETERS"]  = list()
                 if ("PATH_PARAMETERS" in entities[entity]) :
                     path_par   = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "path_parameters", entity)
                     schema_par = Util.getParameters(entities[entity]["PATH_PARAMETERS"], "schema_parameters", entity)
@@ -1425,7 +1437,7 @@ class Path:
                 else:  # "read-write"
                     entities[entity]["PATH_OPERATIONS"] = [ "get-list" ,"get" , "put", "post", "delete" ]
                     entities[entity]["GET_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
-                    entities[entity]["PUT_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None), entity)
+                    entities[entity]["PUT_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
                     entities[entity]["POST_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
                     entities[entity]["DELETE_PARAMETERS"].extend(Util.getParametersList(Path.paths_template_parameters(), None, entity))
                     entities[entity]["OPERATIONS"] =  \
@@ -1761,12 +1773,10 @@ class CodeGenerator:
 
         p_dataModel.addContext(self.context_file)
         context = p_dataModel.context if p_dataModel.context else {}
-        context["DATAMODEL"] = FileSystem.getBaseName(p_dataModel.name)
-        context["ENTITIES"]  = entities_json
-        context["OPENAPI"]   = self.renderOpenAPI(p_dataModel)
-
-
-
+        context["DATAMODEL"]    = FileSystem.getBaseName(p_dataModel.name)
+        context["ENTITIES"]     = entities_json
+        context["OPENAPI"]      = self.renderOpenAPI(p_dataModel)
+        context["JSON_SCHEMAS"] = self.generatePathJsonSchema(p_dataModel,with_saving = False)
         CodeGenerator.renderDir(self.templates_dir, self.includes_dir, self.artifacts_dir, context)
 
         Term.print_yellow("< render Artifacts")
@@ -2118,7 +2128,7 @@ class CodeGenerator:
 
         return generated_schemas
 
-    def configure_ANME_DataStore(self, p_dataModel: DataModel):
+    def configure_ANME_DataStore(self, p_dataModel: DataModel, p_serverURI : str = "http://127.0.0.1:5001"):
         """ Configure ANME DataStore for Data Model """
 
         Term.print_yellow("> configure ANME DataStore")
@@ -2140,7 +2150,8 @@ class CodeGenerator:
             anme_server = "https://anme.pagekite.me"
             anme_server = "https://192.168.1.24:5000"
             anme_server = "https://127.0.0.1:5000"
-            storetype   = "/datastore/"
+            anme_server = "http://127.0.0.1:5001"
+            anme_server = p_serverURI
             storetype   = "/filestore/"
             curl = 'curl -X POST -H "Content-Type: application/json" -d @'+schema_file+' '+anme_server+storetype+api_target+'?create'
             Term.print_yellow(curl)
@@ -2341,7 +2352,7 @@ class TestCodeGen(unittest.TestCase):
         FileSystem.rmDir("NEF" + os.sep + "API_Data_Model_Sample" + os.sep + "API_Data_Model_Sample_artifacts")
         dataModel = Architect(default_data_model).readArchitect()
         codeGen   = CodeGenerator(default_data_model)
-        schemas   = codeGen.configure_ANME_DataStore(dataModel)
+        schemas   = codeGen.configure_ANME_DataStore(dataModel, p_serverURI = "http://127.0.0.1:5001")
 
         flat = Util.flatten(schemas)
         Term.print_verbose(json.dumps(flat, indent=3))
@@ -2438,6 +2449,7 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
     data_model_location = cl_args["DATA_MODEL"] if ("DATA_MODEL"    in cl_args) else None
     templates_dir = cl_args["TEMPLATES_DIR"]    if ("TEMPLATES_DIR" in cl_args) else None
     includes_dir  = cl_args["INCLUDES_DIR"]     if ("INCLUDES_DIR"  in cl_args) else None
+    anme_uri      = cl_args["ANME_URI"]         if ("ANME_URI"      in cl_args) else None
     artifacts_dir = cl_args["ARTIFACTS_DIR"]    if ("ARTIFACTS_DIR" in cl_args) else None
     context_file  = cl_args["CONTEXT_FILE"]     if ("CONTEXT_FILE"  in cl_args) else None
 
@@ -2520,7 +2532,7 @@ def generate(cl_args : dict, clean_artifacts : bool = False):
     if (("render" in what.lower()) or ("artifacts" in what.lower())):
         codeGen.renderArtifacts(dataModel)
     if (("anme" in what.lower()) or ("datastore" in what.lower())):
-        codeGen.configure_ANME_DataStore(dataModel)
+        codeGen.configure_ANME_DataStore(dataModel, p_serverURI = anme_uri)
 
 # This method to alter/customize Generated OpenAPI, when needed.
 def customOpenApi(p_model : str, open_api : dict) -> dict:
@@ -2767,6 +2779,8 @@ def read_command_line_args(argv, p_usage : bool = False) -> Union[str, dict, Non
 
     usage = """
 Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> -i <includes_dir> -c <context_file>  
+       -h --help        : Usage help 
+       -v --verbose     : Verbose     
        -m --model    <file> : Generate for model <model_file>.architect                 
        -t --templates <dir> : Use <dir> as templates dir                      
        -i --include   <dir> : Use <dir> as include template dir                      
@@ -2777,9 +2791,7 @@ Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> 
        -o --openapi     : Generate OpenAPI Yaml <model_file>_artifacts dir
        -s --schema      : Generate PATH JSON Schema <model_file>_artifacts/_Schemas dir
        -g --config      : Generate ROOT JSON Schema <model_file>_artifacts/_Schemas dir
-       -d --datastore   : Generate and provision ANME Datastore               
-       -v --verbose     : Verbose     
-       -h --help        : Usage help 
+       -d --datastore <uri>  : Generate and provision ANME Datastore               
 """
 
     if (p_usage) :
@@ -2791,6 +2803,7 @@ Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> 
     cl_args["TEMPLATES_DIR"] = None
     cl_args["INCLUDES_DIR"]  = None
     cl_args["ARTIFACTS_DIR"] = None
+    cl_args["ANME_URI"]      = None
     cl_args["CONTEXT_FILE"]  = None
 
     try:
@@ -2819,6 +2832,7 @@ Usage: -h -v -r -y -o -g -s -d -m <model> -t <templates_dir> -a <artifacts_dir> 
             cl_args["WHAT"] = cl_args["WHAT"] + "schema "
             continue
         elif opt.lower() in ("-d", "-datastore", "-anme"):
+            cl_args["ANME_URI"] = arg
             cl_args["WHAT"] = cl_args["WHAT"] + "anme "
             continue
         elif opt.lower() in ("-r", "-render"):

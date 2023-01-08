@@ -11,3 +11,6 @@ requests_file
 requests
 mako
 deepdiff
+uvicorn
+fastapi
+
